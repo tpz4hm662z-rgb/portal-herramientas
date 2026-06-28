@@ -2,4 +2,4 @@ User-agent: *
 
 Allow: /
 
-Sitemap: https://tpz4hm662z-rgb.github.io/sitemap.xml
+Sitemap: https://tpz4hm662z-rgb.github.io/portal-herramientas/sitemap.xml
