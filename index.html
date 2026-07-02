@@ -5,129 +5,197 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calculadoras Gratuitas para Finanzas y Trabajo</title>
     <meta name="description" content="Calculadoras gratuitas para ahorro, hipotecas, jubilación, sueldo neto, finiquito, indemnización, FIRE, inflación e inversiones en España.">
+
     <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/png" href="img/favicon.png">
 </head>
+
 <body>
 
-    <header class="hero">
-        <div class="contenedor">
-            <span class="etiqueta">Herramientas gratuitas para España</span>
+<header class="hero">
 
-            <h1>Calculadoras Gratuitas para Finanzas y Trabajo</h1>
+    <h1>Herramientas360</h1>
 
-            <p class="subtitulo">
-                Herramientas online sencillas para calcular ahorro, hipotecas, jubilación, sueldo neto, finiquitos, indemnizaciones e inversiones.
-            </p>
+    <h2>Calculadoras gratuitas para finanzas, trabajo y vivienda</h2>
 
-            <div class="contador">
-                <strong>10</strong>
-                <span>herramientas gratuitas disponibles</span>
-            </div>
+    <p>
+        Herramientas sencillas, rápidas y gratuitas para ayudarte a tomar mejores decisiones en tu día a día.
+    </p>
+
+    <div class="contador">
+        <strong>10</strong>
+        <span>herramientas gratuitas disponibles</span>
+    </div>
+
+    <section class="buscador">
+        <input
+            type="text"
+            id="buscador"
+            placeholder="🔍 Buscar una calculadora..."
+            onkeyup="buscarHerramientas()">
+    </section>
+
+</header>
+
+<section class="presentacion">
+
+    <div class="presentacion-box">
+
+        <h2>Más de 10 herramientas gratuitas para ayudarte</h2>
+
+        <p>
+            En Herramientas360 encontrarás calculadoras gratuitas para finanzas, trabajo y vivienda. Nuestro objetivo es ofrecer herramientas rápidas, sencillas y accesibles para ayudarte a tomar mejores decisiones en tu día a día.
+        </p>
+
+    </div>
+
+</section>
+
+<section class="estadisticas">
+
+    <div class="estadistica">
+        <h3>10+</h3>
+        <p>Calculadoras gratuitas</p>
+    </div>
+
+    <div class="estadistica">
+        <h3>100%</h3>
+        <p>Acceso gratuito</p>
+    </div>
+
+    <div class="estadistica">
+        <h3>Siempre</h3>
+        <p>Acceso desde cualquier dispositivo</p>
+    </div>
+
+</section>
+
+<main class="contenedor">
+
+    <section class="info-box">
+        <h2>¿Por qué usar estas herramientas?</h2>
+
+        <div class="beneficios">
+            <p>✓ Gratuitas y sin registro.</p>
+            <p>✓ Pensadas para trabajadores y familias en España.</p>
+            <p>✓ Resultados rápidos, claros y orientativos.</p>
+            <p>✓ Funcionan desde móvil, tablet y ordenador.</p>
         </div>
-    </header>
+    </section>
 
-    <main class="contenedor">
+    <section class="categoria">
 
-        <section class="info-box">
-            <h2>¿Por qué usar estas herramientas?</h2>
-            <div class="beneficios">
-                <p>✓ Gratuitas y sin registro.</p>
-                <p>✓ Pensadas para trabajadores y familias en España.</p>
-                <p>✓ Resultados rápidos, claros y orientativos.</p>
-                <p>✓ Funcionan desde móvil, tablet y ordenador.</p>
-            </div>
-        </section>
+        <h2>Finanzas personales</h2>
 
+        <div class="grid">
+
+            <a href="https://tpz4hm662z-rgb.github.io/calculadora-ahorro/" target="_blank" class="tarjeta">
+                <span class="icono">💰</span>
+                <h3>Calculadora de Ahorro</h3>
+                <p>Calcula cuánto puedes ahorrar con aportaciones mensuales.</p>
+            </a>
+
+            <a href="https://tpz4hm662z-rgb.github.io/calculadora-interes-compuesto-avanzada/" target="_blank" class="tarjeta">
+                <span class="icono">📈</span>
+                <h3>Interés Compuesto</h3>
+                <p>Estima el crecimiento de tu dinero a largo plazo.</p>
+            </a>
+
+            <a href="https://tpz4hm662z-rgb.github.io/calculadora-rentabilidad-inversiones/" target="_blank" class="tarjeta">
+                <span class="icono">📊</span>
+                <h3>Rentabilidad de Inversiones</h3>
+                <p>Analiza el beneficio o pérdida de una inversión.</p>
+            </a>
+
+            <a href="https://tpz4hm662z-rgb.github.io/calculadora-fire/" target="_blank" class="tarjeta">
+                <span class="icono">🔥</span>
+                <h3>Calculadora FIRE</h3>
+                <p>Calcula cuánto necesitas para alcanzar la libertad financiera.</p>
+            </a>
+
+            <a href="https://tpz4hm662z-rgb.github.io/calculadora-inflacion/" target="_blank" class="tarjeta">
+                <span class="icono">📉</span>
+                <h3>Calculadora de Inflación</h3>
+                <p>Comprueba cómo pierde valor el dinero con el tiempo.</p>
+            </a>
+
+        </div>
+
+    </section>
         <section class="categoria">
-            <h2>Finanzas personales</h2>
 
-            <div class="grid">
-                <a href="https://tpz4hm662z-rgb.github.io/calculadora-ahorro/" target="_blank" class="tarjeta">
-                    <span class="icono">💰</span>
-                    <h3>Calculadora de Ahorro</h3>
-                    <p>Calcula cuánto puedes ahorrar con aportaciones mensuales.</p>
-                </a>
+        <h2>Trabajo y salario</h2>
 
-                <a href="https://tpz4hm662z-rgb.github.io/calculadora-interes-compuesto-avanzada/" target="_blank" class="tarjeta">
-                    <span class="icono">📈</span>
-                    <h3>Interés Compuesto</h3>
-                    <p>Estima el crecimiento de tu dinero a largo plazo.</p>
-                </a>
+        <div class="grid">
 
-                <a href="https://tpz4hm662z-rgb.github.io/calculadora-rentabilidad-inversiones/" target="_blank" class="tarjeta">
-                    <span class="icono">📊</span>
-                    <h3>Rentabilidad de Inversiones</h3>
-                    <p>Analiza el beneficio o pérdida de una inversión.</p>
-                </a>
+            <a href="https://tpz4hm662z-rgb.github.io/calculadora-indemnizacion/" target="_blank" class="tarjeta">
+                <span class="icono">⚖️</span>
+                <h3>Indemnización</h3>
+                <p>Calcula una indemnización orientativa por despido.</p>
+            </a>
 
-                <a href="https://tpz4hm662z-rgb.github.io/calculadora-fire/" target="_blank" class="tarjeta">
-                    <span class="icono">🔥</span>
-                    <h3>Calculadora FIRE</h3>
-                    <p>Calcula cuánto necesitas para alcanzar libertad financiera.</p>
-                </a>
+            <a href="https://tpz4hm662z-rgb.github.io/calculadora-finiquito/" target="_blank" class="tarjeta">
+                <span class="icono">🧾</span>
+                <h3>Finiquito</h3>
+                <p>Estima cantidades pendientes al finalizar un contrato.</p>
+            </a>
 
-                <a href="https://tpz4hm662z-rgb.github.io/calculadora-inflacion/" target="_blank" class="tarjeta">
-                    <span class="icono">📉</span>
-                    <h3>Calculadora de Inflación</h3>
-                    <p>Comprueba cómo pierde valor el dinero con el tiempo.</p>
-                </a>
-            </div>
-        </section>
+            <a href="https://tpz4hm662z-rgb.github.io/calculadora-sueldo-neto/" target="_blank" class="tarjeta">
+                <span class="icono">💼</span>
+                <h3>Sueldo Neto</h3>
+                <p>Calcula el salario neto aproximado a partir del bruto.</p>
+            </a>
 
-        <section class="categoria">
-            <h2>Trabajo y salario</h2>
+            <a href="https://tpz4hm662z-rgb.github.io/calculadora-jubilacion/" target="_blank" class="tarjeta">
+                <span class="icono">👴</span>
+                <h3>Jubilación</h3>
+                <p>Haz una estimación orientativa para tu jubilación.</p>
+            </a>
 
-            <div class="grid">
-                <a href="https://tpz4hm662z-rgb.github.io/calculadora-indemnizacion/" target="_blank" class="tarjeta">
-                    <span class="icono">⚖️</span>
-                    <h3>Indemnización</h3>
-                    <p>Calcula una indemnización orientativa por despido.</p>
-                </a>
+        </div>
 
-                <a href="https://tpz4hm662z-rgb.github.io/calculadora-finiquito/" target="_blank" class="tarjeta">
-                    <span class="icono">🧾</span>
-                    <h3>Finiquito</h3>
-                    <p>Estima cantidades pendientes al finalizar un contrato.</p>
-                </a>
+    </section>
 
-                <a href="https://tpz4hm662z-rgb.github.io/calculadora-sueldo-neto/" target="_blank" class="tarjeta">
-                    <span class="icono">💼</span>
-                    <h3>Sueldo Neto</h3>
-                    <p>Calcula el salario neto aproximado a partir del bruto.</p>
-                </a>
+    <section class="categoria">
 
-                <a href="https://tpz4hm662z-rgb.github.io/calculadora-jubilacion/" target="_blank" class="tarjeta">
-                    <span class="icono">👴</span>
-                    <h3>Jubilación</h3>
-                    <p>Haz una estimación orientativa para tu jubilación.</p>
-                </a>
-            </div>
-        </section>
+        <h2>Vivienda</h2>
 
-        <section class="categoria">
-            <h2>Vivienda</h2>
+        <div class="grid">
 
-            <div class="grid">
-                <a href="https://tpz4hm662z-rgb.github.io/calculadora-hipotecas/" target="_blank" class="tarjeta">
-                    <span class="icono">🏠</span>
-                    <h3>Calculadora de Hipotecas</h3>
-                    <p>Calcula cuota mensual, intereses y capital financiado.</p>
-                </a>
-            </div>
-        </section>
+            <a href="https://tpz4hm662z-rgb.github.io/calculadora-hipotecas/" target="_blank" class="tarjeta">
+                <span class="icono">🏠</span>
+                <h3>Calculadora de Hipotecas</h3>
+                <p>Calcula cuota mensual, intereses y capital financiado.</p>
+            </a>
 
-        <section class="aviso">
-            <p>
-                Estas herramientas ofrecen resultados orientativos. No sustituyen el asesoramiento profesional financiero, laboral o legal.
-            </p>
-        </section>
+        </div>
 
-    </main>
+    </section>
 
-    <footer class="footer">
-        <p>© 2026 Centro de Herramientas Financieras y Laborales</p>
-        <p>Herramientas gratuitas y orientativas para España.</p>
-    </footer>
+    <section class="aviso">
+        <p>
+            Estas herramientas ofrecen resultados orientativos. No sustituyen el asesoramiento profesional financiero, laboral o legal.
+        </p>
+    </section>
+
+</main>
+
+<footer class="footer">
+
+    <p><strong>© 2026 Herramientas360</strong></p>
+
+    <p>Calculadoras gratuitas para finanzas, trabajo y vivienda.</p>
+
+    <p class="footer-links">
+        <a href="sobre-nosotros.html">Sobre nosotros</a> |
+        <a href="aviso-legal.html">Aviso Legal</a> |
+        <a href="politica-privacidad.html">Política de Privacidad</a> |
+        <a href="politica-cookies.html">Política de Cookies</a>
+    </p>
+
+</footer>
+
+<script src="script.js"></script>
 
 </body>
 </html>

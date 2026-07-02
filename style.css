@@ -198,3 +198,124 @@ h1 {
         padding: 22px;
     }
 }
+/* ==========================
+   FOOTER
+========================== */
+
+.footer{
+    text-align:center;
+    margin-top:50px;
+    padding:25px;
+    border-top:1px solid #ddd;
+    color:#666;
+    font-size:15px;
+}
+
+.footer-links{
+    margin-top:15px;
+}
+
+.footer-links a{
+    color:#0d6efd;
+    text-decoration:none;
+    margin:0 8px;
+    font-weight:600;
+    transition:.3s;
+}
+
+.footer-links a:hover{
+    text-decoration:underline;
+    color:#084298;
+}
+/* ==========================
+   BUSCADOR
+========================== */
+
+.buscador{
+    margin-top:25px;
+}
+
+#buscador{
+    width:100%;
+    max-width:420px;
+    padding:14px 18px;
+    border:none;
+    border-radius:30px;
+    font-size:16px;
+    outline:none;
+    box-shadow:0 8px 20px rgba(0,0,0,.15);
+}
+
+#buscador:focus{
+    box-shadow:0 10px 25px rgba(37,99,235,.35);
+}
+/* ==========================
+   PRESENTACIÓN
+========================== */
+
+.presentacion{
+    background:#f8fafc;
+    padding:45px 20px 20px;
+}
+
+.presentacion-box{
+    max-width:900px;
+    margin:0 auto;
+    background:white;
+    padding:35px;
+    border-radius:18px;
+    text-align:center;
+    box-shadow:0 8px 20px rgba(0,0,0,.06);
+}
+
+.presentacion-box h2{
+    color:#1f3c88;
+    margin-top:0;
+    margin-bottom:15px;
+}
+
+.presentacion-box p{
+    color:#4b5563;
+    line-height:1.8;
+    font-size:17px;
+    margin:0;
+}
+/* ==========================
+   ESTADÍSTICAS
+========================== */
+
+.estadisticas{
+    max-width:900px;
+    margin:35px auto;
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:20px;
+}
+
+.estadistica{
+    background:white;
+    border-radius:18px;
+    padding:30px;
+    text-align:center;
+    box-shadow:0 8px 20px rgba(0,0,0,.06);
+}
+
+.estadistica h3{
+    margin:0;
+    color:#2563eb;
+    font-size:34px;
+}
+
+.estadistica p{
+    margin-top:12px;
+    color:#6b7280;
+    font-size:16px;
+}
+
+@media (max-width:700px){
+
+    .estadisticas{
+        grid-template-columns:1fr;
+    }
+
+}
