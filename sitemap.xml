@@ -1,65 +1,88 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
-<url>
-<loc>https://tpz4hm662z-rgb.github.io/portal-herramientas/</loc>
-<priority>1.0</priority>
-</url>
+  <url>
+    <loc>https://tpz4hm662z-rgb.github.io/portal-herramientas/</loc>
+    <lastmod>2026-07-06</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
 
-<url>
-<loc>https://tpz4hm662z-rgb.github.io/calculadora-ahorro/</loc>
-<priority>0.9</priority>
-</url>
+  <url>
+    <loc>https://tpz4hm662z-rgb.github.io/calculadora-ahorro/</loc>
+    <lastmod>2026-07-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
 
-<url>
-<loc>https://tpz4hm662z-rgb.github.io/calculadora-indemnizacion/</loc>
-<priority>0.9</priority>
-</url>
+  <url>
+    <loc>https://tpz4hm662z-rgb.github.io/calculadora-indemnizacion/</loc>
+    <lastmod>2026-07-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
 
-<url>
-<loc>https://tpz4hm662z-rgb.github.io/calculadora-finiquito/</loc>
-<priority>0.9</priority>
-</url>
+  <url>
+    <loc>https://tpz4hm662z-rgb.github.io/calculadora-finiquito/</loc>
+    <lastmod>2026-07-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
 
-<url>
-<loc>https://tpz4hm662z-rgb.github.io/calculadora-hipotecas/</loc>
-<priority>0.9</priority>
-</url>
+  <url>
+    <loc>https://tpz4hm662z-rgb.github.io/calculadora-hipotecas/</loc>
+    <lastmod>2026-07-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
 
-<url>
-<loc>https://tpz4hm662z-rgb.github.io/calculadora-sueldo-neto/</loc>
-<priority>0.9</priority>
-</url>
+  <url>
+    <loc>https://tpz4hm662z-rgb.github.io/calculadora-sueldo-neto/</loc>
+    <lastmod>2026-07-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
 
-<url>
-<loc>https://tpz4hm662z-rgb.github.io/calculadora-jubilacion/</loc>
-<priority>0.9</priority>
-</url>
+  <url>
+    <loc>https://tpz4hm662z-rgb.github.io/calculadora-jubilacion/</loc>
+    <lastmod>2026-07-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
 
-<url>
-<loc>https://tpz4hm662z-rgb.github.io/calculadora-interes-compuesto-avanzada/</loc>
-<priority>0.9</priority>
-</url>
+  <url>
+    <loc>https://tpz4hm662z-rgb.github.io/calculadora-interes-compuesto-avanzada/</loc>
+    <lastmod>2026-07-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
 
-<url>
-<loc>https://tpz4hm662z-rgb.github.io/calculadora-rentabilidad-inversiones/</loc>
-<priority>0.9</priority>
-</url>
+  <url>
+    <loc>https://tpz4hm662z-rgb.github.io/calculadora-rentabilidad-inversiones/</loc>
+    <lastmod>2026-07-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
 
-<url>
-<loc>https://tpz4hm662z-rgb.github.io/calculadora-fire/</loc>
-<priority>0.9</priority>
-</url>
+  <url>
+    <loc>https://tpz4hm662z-rgb.github.io/calculadora-fire/</loc>
+    <lastmod>2026-07-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
 
-<url>
-<loc>https://tpz4hm662z-rgb.github.io/calculadora-inflacion/</loc>
-<priority>0.9</priority>
-</url>
+  <url>
+    <loc>https://tpz4hm662z-rgb.github.io/calculadora-inflacion/</loc>
+    <lastmod>2026-07-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
 
-<url>
-<loc>https://tpz4hm662z-rgb.github.io/calculadora-imc/</loc>
-<priority>0.9</priority>
-</url>
+  <url>
+    <loc>https://tpz4hm662z-rgb.github.io/calculadora-imc/</loc>
+    <lastmod>2026-07-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
 
 </urlset>
