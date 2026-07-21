@@ -2,12 +2,16 @@
 
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
+    <!-- Portal principal -->
+
     <url>
         <loc>https://tpz4hm662z-rgb.github.io/portal-herramientas/</loc>
         <lastmod>2026-07-21</lastmod>
         <changefreq>weekly</changefreq>
         <priority>1.0</priority>
     </url>
+
+    <!-- Páginas legales -->
 
     <url>
         <loc>https://tpz4hm662z-rgb.github.io/portal-herramientas/sobre-nosotros.html</loc>
@@ -35,6 +39,122 @@
         <lastmod>2026-07-21</lastmod>
         <changefreq>yearly</changefreq>
         <priority>0.3</priority>
+    </url>
+
+    <!-- Calculadoras de Finanzas -->
+
+    <url>
+        <loc>https://tpz4hm662z-rgb.github.io/calculadora-ahorro/</loc>
+        <lastmod>2026-07-21</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <url>
+        <loc>https://tpz4hm662z-rgb.github.io/calculadora-indemnizacion/</loc>
+        <lastmod>2026-07-21</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <url>
+        <loc>https://tpz4hm662z-rgb.github.io/calculadora-finiquito/</loc>
+        <lastmod>2026-07-21</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <url>
+        <loc>https://tpz4hm662z-rgb.github.io/calculadora-hipoteca/</loc>
+        <lastmod>2026-07-21</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <url>
+        <loc>https://tpz4hm662z-rgb.github.io/calculadora-sueldo-neto/</loc>
+        <lastmod>2026-07-21</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <url>
+        <loc>https://tpz4hm662z-rgb.github.io/calculadora-jubilacion/</loc>
+        <lastmod>2026-07-21</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <url>
+        <loc>https://tpz4hm662z-rgb.github.io/calculadora-interes-compuesto/</loc>
+        <lastmod>2026-07-21</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <url>
+        <loc>https://tpz4hm662z-rgb.github.io/calculadora-rentabilidad/</loc>
+        <lastmod>2026-07-21</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <url>
+        <loc>https://tpz4hm662z-rgb.github.io/calculadora-fire/</loc>
+        <lastmod>2026-07-21</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <url>
+        <loc>https://tpz4hm662z-rgb.github.io/calculadora-inflacion/</loc>
+        <lastmod>2026-07-21</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <!-- Calculadoras de Salud -->
+
+    <url>
+        <loc>https://tpz4hm662z-rgb.github.io/calculadora-imc/</loc>
+        <lastmod>2026-07-21</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <url>
+        <loc>https://tpz4hm662z-rgb.github.io/calculadora-agua-diaria/</loc>
+        <lastmod>2026-07-21</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <url>
+        <loc>https://tpz4hm662z-rgb.github.io/calculadora-tmb/</loc>
+        <lastmod>2026-07-21</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <url>
+        <loc>https://tpz4hm662z-rgb.github.io/calculadora-calorias/</loc>
+        <lastmod>2026-07-21</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <url>
+        <loc>https://tpz4hm662z-rgb.github.io/calculadora-proteinas/</loc>
+        <lastmod>2026-07-21</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <url>
+        <loc>https://tpz4hm662z-rgb.github.io/calculadora-macros/</loc>
+        <lastmod>2026-07-21</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
     </url>
 
 </urlset>
