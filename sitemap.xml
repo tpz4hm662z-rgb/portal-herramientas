@@ -1,123 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
-  <url>
-    <loc>https://tpz4hm662z-rgb.github.io/portal-herramientas/</loc>
-    <lastmod>2026-07-20</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>1.0</priority>
-</url>
-
-  <url>
-    <loc>https://tpz4hm662z-rgb.github.io/calculadora-ahorro/</loc>
-    <lastmod>2026-07-06</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
-
-  <url>
-    <loc>https://tpz4hm662z-rgb.github.io/calculadora-indemnizacion/</loc>
-    <lastmod>2026-07-06</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
-
-  <url>
-    <loc>https://tpz4hm662z-rgb.github.io/calculadora-finiquito/</loc>
-    <lastmod>2026-07-06</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
-
-  <url>
-    <loc>https://tpz4hm662z-rgb.github.io/calculadora-hipotecas/</loc>
-    <lastmod>2026-07-06</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
-
-  <url>
-    <loc>https://tpz4hm662z-rgb.github.io/calculadora-sueldo-neto/</loc>
-    <lastmod>2026-07-06</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
-
-  <url>
-    <loc>https://tpz4hm662z-rgb.github.io/calculadora-jubilacion/</loc>
-    <lastmod>2026-07-06</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
-
-  <url>
-    <loc>https://tpz4hm662z-rgb.github.io/calculadora-interes-compuesto-avanzada/</loc>
-    <lastmod>2026-07-06</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
-
-  <url>
-    <loc>https://tpz4hm662z-rgb.github.io/calculadora-rentabilidad-inversiones/</loc>
-    <lastmod>2026-07-06</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
-
-  <url>
-    <loc>https://tpz4hm662z-rgb.github.io/calculadora-fire/</loc>
-    <lastmod>2026-07-06</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
-
-  <url>
-    <loc>https://tpz4hm662z-rgb.github.io/calculadora-inflacion/</loc>
-    <lastmod>2026-07-06</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
-
-  <url>
-    <loc>https://tpz4hm662z-rgb.github.io/calculadora-imc/</loc>
-    <lastmod>2026-07-06</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
+    <url>
+        <loc>https://tpz4hm662z-rgb.github.io/portal-herramientas/</loc>
+        <lastmod>2026-07-21</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>1.0</priority>
+    </url>
 
     <url>
-    <loc>https://tpz4hm662z-rgb.github.io/calculadora-agua-diaria/</loc>
-    <lastmod>2026-07-11</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
+        <loc>https://tpz4hm662z-rgb.github.io/portal-herramientas/sobre-nosotros.html</loc>
+        <lastmod>2026-07-21</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
 
-  <url>
-    <loc>https://tpz4hm662z-rgb.github.io/calculadora-tmb/</loc>
-    <lastmod>2026-07-11</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  
     <url>
-    <loc>https://tpz4hm662z-rgb.github.io/calculadora-calorias/</loc>
-    <lastmod>2026-07-18</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
+        <loc>https://tpz4hm662z-rgb.github.io/portal-herramientas/aviso-legal.html</loc>
+        <lastmod>2026-07-21</lastmod>
+        <changefreq>yearly</changefreq>
+        <priority>0.3</priority>
+    </url>
 
-  <url>
-    <loc>https://tpz4hm662z-rgb.github.io/calculadora-proteinas/</loc>
-    <lastmod>2026-07-19</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-</url>
+    <url>
+        <loc>https://tpz4hm662z-rgb.github.io/portal-herramientas/politica-privacidad.html</loc>
+        <lastmod>2026-07-21</lastmod>
+        <changefreq>yearly</changefreq>
+        <priority>0.3</priority>
+    </url>
 
-<url>
-    <loc>https://tpz4hm662z-rgb.github.io/calculadora-macros/</loc>
-    <lastmod>2026-07-21</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-</url>
+    <url>
+        <loc>https://tpz4hm662z-rgb.github.io/portal-herramientas/politica-cookies.html</loc>
+        <lastmod>2026-07-21</lastmod>
+        <changefreq>yearly</changefreq>
+        <priority>0.3</priority>
+    </url>
 
 </urlset>
