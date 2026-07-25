@@ -6,7 +6,7 @@
 
     <url>
         <loc>https://tpz4hm662z-rgb.github.io/portal-herramientas/</loc>
-        <lastmod>2026-07-24</lastmod>
+        <lastmod>2026-07-25</lastmod>
         <changefreq>weekly</changefreq>
         <priority>1.0</priority>
     </url>
@@ -65,7 +65,7 @@
     </url>
 
     <url>
-        <loc>https://tpz4hm662z-rgb.github.io/calculadora-hipoteca/</loc>
+        <loc>https://tpz4hm662z-rgb.github.io/calculadora-hipotecas/</loc>
         <lastmod>2026-07-21</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
@@ -86,14 +86,14 @@
     </url>
 
     <url>
-        <loc>https://tpz4hm662z-rgb.github.io/calculadora-interes-compuesto/</loc>
+        <loc>https://tpz4hm662z-rgb.github.io/calculadora-interes-compuesto-avanzada/</loc>
         <lastmod>2026-07-21</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
 
     <url>
-        <loc>https://tpz4hm662z-rgb.github.io/calculadora-rentabilidad/</loc>
+        <loc>https://tpz4hm662z-rgb.github.io/calculadora-rentabilidad-inversiones/</loc>
         <lastmod>2026-07-21</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
@@ -158,10 +158,17 @@
     </url>
 
     <url>
-    <loc>https://tpz4hm662z-rgb.github.io/calculadora-grasa-corporal/</loc>
-    <lastmod>2026-07-24</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-</url>
+        <loc>https://tpz4hm662z-rgb.github.io/calculadora-grasa-corporal/</loc>
+        <lastmod>2026-07-24</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <url>
+        <loc>https://tpz4hm662z-rgb.github.io/calculadora-peso-ideal/</loc>
+        <lastmod>2026-07-25</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
 
 </urlset>
