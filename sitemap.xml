@@ -6,7 +6,7 @@
 
     <url>
         <loc>https://tpz4hm662z-rgb.github.io/portal-herramientas/</loc>
-        <lastmod>2026-07-25</lastmod>
+        <lastmod>2026-07-30</lastmod>
         <changefreq>weekly</changefreq>
         <priority>1.0</priority>
     </url>
@@ -181,6 +181,15 @@
     <url>
         <loc>https://tpz4hm662z-rgb.github.io/calculadora-porcentaje-masa-muscular/</loc>
         <lastmod>2026-07-29</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <!-- Calculadoras de Embarazo y Bebés -->
+
+    <url>
+        <loc>https://tpz4hm662z-rgb.github.io/calculadora-fecha-de-parto/</loc>
+        <lastmod>2026-07-30</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
