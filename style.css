@@ -20,7 +20,7 @@ body {
     background: linear-gradient(135deg, #1f3c88, #2563eb);
     color: white;
     text-align: center;
-    padding: 50px 0 40px;
+    padding: 50px 20px 40px;
 }
 
 .etiqueta {
@@ -36,6 +36,18 @@ body {
 h1 {
     font-size: 42px;
     margin: 0 0 18px;
+}
+
+.hero h2 {
+    max-width: 760px;
+    margin: 0 auto 12px;
+    line-height: 1.4;
+}
+
+.hero > p {
+    max-width: 680px;
+    margin: 0 auto 24px;
+    line-height: 1.5;
 }
 
 .subtitulo {
@@ -188,7 +200,7 @@ h1 {
 
 @media (max-width: 600px) {
     .hero {
-        padding: 35px 0 30px;
+        padding: 35px 20px 30px;
     }
 
     h1 {
@@ -250,7 +262,7 @@ h1 {
 
 #buscador{
     width:100%;
-    max-width:420px;
+    max-width:460px;
     padding:14px 18px;
     border:none;
     border-radius:30px;
@@ -332,7 +344,7 @@ h1 {
 }
 
 .estadistica p{
-    margin-top:12px;
+    margin:12px 0 0;
     color:#6b7280;
     font-size:16px;
 }
@@ -341,6 +353,7 @@ h1 {
 
     .estadisticas{
         grid-template-columns:1fr;
+        margin:30px 20px;
     }
 
 }
