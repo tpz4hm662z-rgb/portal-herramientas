@@ -6,7 +6,7 @@
 
     <url>
         <loc>https://tpz4hm662z-rgb.github.io/portal-herramientas/</loc>
-        <lastmod>2026-08-01</lastmod>
+        <lastmod>2026-08-02</lastmod>
         <changefreq>weekly</changefreq>
         <priority>1.0</priority>
     </url>
@@ -225,6 +225,13 @@
     <url>
         <loc>https://tpz4hm662z-rgb.github.io/calculadora-de-edad-corregida-para-bebes-prematuros/</loc>
         <lastmod>2026-08-01</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <url>
+        <loc>https://tpz4hm662z-rgb.github.io/Calculadora-de-alimentacion-para-bebes-prematuros/</loc>
+        <lastmod>2026-08-02</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
