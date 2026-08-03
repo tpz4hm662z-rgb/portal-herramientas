@@ -61,22 +61,37 @@ h1 {
 .contador {
     background-color: white;
     color: #1f3c88;
-    max-width: 300px;
+    width: 100%;
+    max-width: 340px;
     margin: 0 auto;
     border-radius: 16px;
-    padding: 20px;
+    padding: 24px;
+    box-sizing: border-box;
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
 }
 
 .contador strong {
     display: block;
-    font-size: 42px;
-    margin-bottom: 5px;
+    font-size: 52px;
+    line-height: 1;
+    margin-bottom: 8px;
 }
 
 .contador span {
-    font-size: 15px;
-    font-weight: bold;
+    display: block;
+    font-size: 14px;
+    line-height: 1.4;
+    margin-top: 6px;
+}
+
+.contador span:first-of-type {
+    font-size: 17px;
+    font-weight: 600;
+    margin: 0 0 14px;
+}
+
+.contador br {
+    display: none;
 }
 
 .info-box {
