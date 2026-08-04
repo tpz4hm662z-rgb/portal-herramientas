@@ -6,7 +6,7 @@
 
     <url>
         <loc>https://tpz4hm662z-rgb.github.io/portal-herramientas/</loc>
-        <lastmod>2026-08-02</lastmod>
+        <lastmod>2026-08-04</lastmod>
         <changefreq>weekly</changefreq>
         <priority>1.0</priority>
     </url>
@@ -22,21 +22,21 @@
 
     <url>
         <loc>https://tpz4hm662z-rgb.github.io/portal-herramientas/aviso-legal.html</loc>
-        <lastmod>2026-07-21</lastmod>
+        <lastmod>2026-08-04</lastmod>
         <changefreq>yearly</changefreq>
         <priority>0.3</priority>
     </url>
 
     <url>
         <loc>https://tpz4hm662z-rgb.github.io/portal-herramientas/politica-privacidad.html</loc>
-        <lastmod>2026-07-21</lastmod>
+        <lastmod>2026-08-04</lastmod>
         <changefreq>yearly</changefreq>
         <priority>0.3</priority>
     </url>
 
     <url>
         <loc>https://tpz4hm662z-rgb.github.io/portal-herramientas/politica-cookies.html</loc>
-        <lastmod>2026-07-21</lastmod>
+        <lastmod>2026-08-04</lastmod>
         <changefreq>yearly</changefreq>
         <priority>0.3</priority>
     </url>
@@ -267,6 +267,13 @@
     <url>
         <loc>https://tpz4hm662z-rgb.github.io/contador-de-movimientos-fetales/</loc>
         <lastmod>2026-08-03</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <url>
+        <loc>https://tpz4hm662z-rgb.github.io/asistente-de-recuperacion-posparto/</loc>
+        <lastmod>2026-08-04</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
