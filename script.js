@@ -3,8 +3,7 @@ function normalizarTexto(texto) {
 }
 
 function buscarHerramientas() {
-    const buscador = document.getElementById("buscador");
-    const texto = normalizarTexto(buscador.value.trim());
+    const texto = normalizarTexto(document.getElementById("buscador").value.trim());
     const tarjetas = document.querySelectorAll(".tarjeta");
     let resultados = 0;
 

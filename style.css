@@ -23,16 +23,6 @@ body {
     padding: 50px 20px 40px;
 }
 
-.etiqueta {
-    display: inline-block;
-    background: rgba(255, 255, 255, 0.18);
-    padding: 8px 16px;
-    border-radius: 999px;
-    font-size: 14px;
-    font-weight: bold;
-    margin-bottom: 18px;
-}
-
 h1 {
     font-size: 42px;
     margin: 0 0 18px;
@@ -48,14 +38,6 @@ h1 {
     max-width: 680px;
     margin: 0 auto 24px;
     line-height: 1.5;
-}
-
-.subtitulo {
-    max-width: 750px;
-    margin: 0 auto 30px;
-    font-size: 18px;
-    line-height: 1.6;
-    color: #e5e7eb;
 }
 
 .contador {
@@ -195,8 +177,10 @@ h1 {
     background: #111827;
     color: #d1d5db;
     text-align: center;
-    padding: 25px 15px;
-    font-size: 14px;
+    margin-top: 50px;
+    padding: 25px;
+    border-top: 1px solid #ddd;
+    font-size: 15px;
 }
 
 .footer p {
@@ -222,10 +206,6 @@ h1 {
         font-size: 28px;
     }
 
-    .subtitulo {
-        font-size: 16px;
-    }
-
     .beneficios {
         grid-template-columns: 1fr;
     }
@@ -238,34 +218,26 @@ h1 {
         padding: 22px;
     }
 }
-/* ==========================
-   FOOTER
-========================== */
-
-.footer{
-    text-align:center;
-    margin-top:50px;
-    padding:25px;
-    border-top:1px solid #ddd;
-    color:#666;
-    font-size:15px;
+.footer-links {
+    margin-top: 15px;
 }
 
-.footer-links{
-    margin-top:15px;
+.footer-links a {
+    color: #60a5fa;
+    text-decoration: none;
+    margin: 0 8px;
+    font-weight: 600;
+    transition: 0.3s;
 }
 
-.footer-links a{
-    color:#0d6efd;
-    text-decoration:none;
-    margin:0 8px;
-    font-weight:600;
-    transition:.3s;
+.footer-links a:hover {
+    text-decoration: underline;
+    color: #93c5fd;
 }
 
-.footer-links a:hover{
-    text-decoration:underline;
-    color:#084298;
+.footer-links a:focus-visible {
+    outline: 3px solid #fbbf24;
+    outline-offset: 4px;
 }
 /* ==========================
    BUSCADOR
