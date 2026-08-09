@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Calculadora de IMC Gratis | Imoancy</title>
+
+    <meta name="description"
+        content="Calcula gratis tu Índice de Masa Corporal (IMC) y descubre si tu peso está dentro del rango recomendado según la OMS.">
+    <meta name="keywords" content="calculadora imc, índice de masa corporal, imc online, calcular imc, herramientas360">
+    <meta name="author" content="Imoancy">
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="canonical" href="https://imoancy.com/herramientas/calculadora-imc/">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="es_ES">
+    <meta property="og:site_name" content="Imoancy">
+    <meta property="og:title" content="Calculadora de IMC Gratis | Imoancy">
+    <meta property="og:description" content="Calcula gratis tu Índice de Masa Corporal (IMC) y descubre si tu peso está dentro del rango recomendado según la OMS.">
+    <meta property="og:url" content="https://imoancy.com/herramientas/calculadora-imc/">
+    <meta property="og:image" content="https://avatars.githubusercontent.com/tpz4hm662z-rgb">
+    <meta property="og:image:alt" content="Calculadora de IMC">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Calculadora de IMC Gratis | Imoancy">
+    <meta name="twitter:description" content="Calcula gratis tu Índice de Masa Corporal (IMC) y descubre si tu peso está dentro del rango recomendado según la OMS.">
+    <meta name="twitter:image" content="https://avatars.githubusercontent.com/tpz4hm662z-rgb">
+    <meta name="twitter:url" content="https://imoancy.com/herramientas/calculadora-imc/">
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": "https://imoancy.com/herramientas/calculadora-imc/",
+      "url": "https://imoancy.com/herramientas/calculadora-imc/",
+      "mainEntityOfPage": "https://imoancy.com/herramientas/calculadora-imc/",
+      "name": "Calculadora de IMC Gratis | Imoancy",
+      "description": "Calcula gratis tu Índice de Masa Corporal (IMC) y descubre si tu peso está dentro del rango recomendado según la OMS."
+    },
+    {
+      "@type": "SoftwareApplication",
+      "@id": "https://imoancy.com/herramientas/calculadora-imc/",
+      "url": "https://imoancy.com/herramientas/calculadora-imc/",
+      "mainEntityOfPage": "https://imoancy.com/herramientas/calculadora-imc/",
+      "name": "Calculadora de IMC",
+      "description": "Calcula gratis tu Índice de Masa Corporal (IMC) y descubre si tu peso está dentro del rango recomendado según la OMS.",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "Any",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "EUR"
+      },
+      "author": {
+        "@type": "Organization",
+        "name": "Imoancy"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://imoancy.com/herramientas/calculadora-imc/",
+      "url": "https://imoancy.com/herramientas/calculadora-imc/",
+      "mainEntityOfPage": "https://imoancy.com/herramientas/calculadora-imc/",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Calculadora de IMC",
+          "item": "https://imoancy.com/herramientas/calculadora-imc/"
+        }
+      ]
+    }
+  ]
+}
+    </script>
+    <link rel="icon" type="image/svg+xml" href="icons/favicon.svg">
+
+    <!-- Google Analytics · configuración estándar de Imoancy -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-QH8MJ6LVHN"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag("js", new Date());
+      gtag("config","G-QH8MJ6LVHN");
+    </script>
+</head>
+
+<body>
+
+    <main class="contenedor">
+        <header class="hero">
+
+
+            <h1>Calculadora de IMC</h1>
+
+            <p class="subtitulo">
+                Calcula tu Índice de Masa Corporal (IMC) en segundos y descubre si tu peso está dentro del rango
+                saludable según la Organización Mundial de la Salud.
+            </p>
+
+        </header>
+        <section class="calculadora"></section>
+
+        <form id="calculadoraForm">
+
+            <div class="campo">
+
+                <label for="peso">Peso (kg)</label>
+
+                <input type="number" id="peso" placeholder="Ejemplo: 75" step="0.1" required>
+
+            </div>
+
+            <div class="campo">
+
+                <label for="altura">Altura (cm)</label>
+
+                <input type="number" id="altura" placeholder="Ejemplo: 175" required>
+
+            </div>
+
+            <button type="submit">
+
+                Calcular
+
+            </button>
+
+        </form>
+
+        </section>
+        <section class="resultado">
+            <!-- PLAN PERSONALIZADO -->
+
+            <div id="planPersonalizado" class="plan-personalizado" style="display:none;">
+
+                <h2>📋 Tu plan personalizado</h2>
+
+                <div id="contenidoPlan"></div>
+                <div id="riesgoSalud" class="riesgo-salud"></div>
+
+            </div>
+            <section class="informacion">
+
+                <h2>¿Qué es el IMC?</h2>
+
+                <p>
+                    El Índice de Masa Corporal (IMC) es una medida utilizada para estimar si una persona tiene un peso
+                    adecuado en relación con su altura. Es uno de los indicadores más utilizados por profesionales
+                    sanitarios y por la Organización Mundial de la Salud (OMS).
+                </p>
+
+                <p>
+                    Aunque el IMC no distingue entre masa muscular y grasa corporal, es una herramienta muy útil para
+                    obtener una primera orientación sobre el estado de peso.
+                </p>
+
+            </section>
+            <section class="tabla-imc">
+
+                <h2>Clasificación del IMC</h2>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>IMC</th>
+                            <th>Clasificación</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                            <td>Menos de 18.5</td>
+                            <td>🔵 Bajo peso</td>
+                        </tr>
+
+                        <tr>
+                            <td>18.5 - 24.9</td>
+                            <td>🟢 Peso normal</td>
+                        </tr>
+
+                        <tr>
+                            <td>25.0 - 29.9</td>
+                            <td>🟠 Sobrepeso</td>
+                        </tr>
+
+                        <tr>
+                            <td>30 o más</td>
+                            <td>🔴 Obesidad</td>
+                        </tr>
+                    </tbody>
+
+                </table>
+
+            </section>
+            <section class="interpretacion">
+
+                <h2>¿Cómo interpretar tu resultado?</h2>
+
+                <h3>🔵 Bajo peso (IMC inferior a 18,5)</h3>
+                <p>
+                    Un IMC inferior a 18,5 puede indicar que el peso es inferior al recomendado para la altura. En
+                    algunos casos puede deberse a una alimentación insuficiente o a otros factores de salud.
+                </p>
+
+                <h3>🟢 Peso normal (IMC entre 18,5 y 24,9)</h3>
+                <p>
+                    Este rango se considera saludable para la mayoría de los adultos. Mantener hábitos saludables, una
+                    alimentación equilibrada y actividad física regular ayuda a conservar este estado.
+                </p>
+
+                <h3>🟠 Sobrepeso (IMC entre 25 y 29,9)</h3>
+                <p>
+                    Un IMC en este rango puede indicar un exceso de peso. Adoptar hábitos saludables y consultar con un
+                    profesional sanitario puede ser útil para reducir riesgos futuros.
+                </p>
+
+                <h3>🔴 Obesidad (IMC igual o superior a 30)</h3>
+                <p>
+                    La obesidad se asocia con un mayor riesgo de desarrollar diversas enfermedades. Es recomendable
+                    consultar con un profesional sanitario para recibir una valoración personalizada.
+                </p>
+
+            </section>
+            <section class="faq">
+
+                <h2>Preguntas frecuentes</h2>
+
+                <h3>¿Qué es el IMC?</h3>
+                <p>
+                    El Índice de Masa Corporal (IMC) es una fórmula que relaciona el peso y la altura para estimar si
+                    una persona se encuentra dentro de un rango de peso saludable.
+                </p>
+
+                <h3>¿Cuál es un IMC normal?</h3>
+                <p>
+                    Según la Organización Mundial de la Salud, un IMC entre 18,5 y 24,9 se considera un peso normal en
+                    adultos.
+                </p>
+
+                <h3>¿El IMC es fiable?</h3>
+                <p>
+                    El IMC es una herramienta útil como orientación, aunque no tiene en cuenta factores como la masa
+                    muscular, la edad o la composición corporal.
+                </p>
+
+                <h3>¿El IMC sirve para deportistas?</h3>
+                <p>
+                    En personas con mucha masa muscular el IMC puede ser superior al normal sin que exista un exceso de
+                    grasa corporal.
+                </p>
+
+            </section>
+            <section class="relacionadas">
+
+                <h2>Otras herramientas que pueden interesarte</h2>
+
+                <div class="herramientas-grid">
+
+                    <a href="#" class="herramienta-card">
+                        <h3>💧 Calculadora de Agua Diaria</h3>
+                        <p>Descubre cuánta agua deberías beber cada día.</p>
+                    </a>
+
+                    <a href="#" class="herramienta-card">
+                        <h3>🔥 Calculadora de Calorías</h3>
+                        <p>Calcula las calorías que necesitas diariamente.</p>
+                    </a>
+
+                    <a href="#" class="herramienta-card">
+                        <h3>⚖️ Calculadora de Peso Ideal</h3>
+                        <p>Conoce tu peso ideal según diferentes fórmulas.</p>
+                    </a>
+
+                </div>
+
+            </section>
+
+            <h2>Resultado</h2>
+
+            <div id="resultado">
+
+                Aquí aparecerá el resultado.
+
+                <div class="info-extra">
+                    <h3>Peso saludable para tu altura</h3>
+
+                    <p>
+                        <strong>Peso mínimo recomendado:</strong>
+                        <span id="pesoMinimo">-</span> kg
+                    </p>
+
+                    <p>
+                        <strong>Peso máximo recomendado:</strong>
+                        <span id="pesoMaximo">-</span> kg
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+    </main>
+
+    <script src="js/config.js"></script>
+    <script src="js/script.js"></script>
+
+</body>
+
+</html>

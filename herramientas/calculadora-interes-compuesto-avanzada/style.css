@@ -1,0 +1,92 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f2f4f8;
+    margin: 0;
+    padding: 0;
+}
+
+.contenedor {
+    max-width: 520px;
+    margin: 50px auto;
+    background-color: white;
+    padding: 30px;
+    border-radius: 16px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+h1 {
+    color: #1f3c88;
+    margin-bottom: 10px;
+}
+
+.subtitulo {
+    color: #555;
+    font-size: 15px;
+    margin-bottom: 25px;
+}
+
+label {
+    display: block;
+    text-align: left;
+    margin-top: 15px;
+    font-weight: bold;
+    color: #333;
+}
+
+input {
+    width: 100%;
+    padding: 12px;
+    margin-top: 6px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-sizing: border-box;
+}
+
+button {
+    width: 100%;
+    padding: 14px;
+    margin-top: 20px;
+    background-color: #1f3c88;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 17px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #162d66;
+}
+
+.boton-secundario {
+    background-color: #777;
+    margin-top: 10px;
+}
+
+.boton-secundario:hover {
+    background-color: #555;
+}
+
+.resultado {
+    margin-top: 25px;
+    text-align: left;
+    font-size: 16px;
+}
+
+.tarjeta {
+    background-color: #f8f9fc;
+    padding: 15px;
+    border-radius: 12px;
+    margin-top: 12px;
+    border-left: 5px solid #1f3c88;
+}
+
+.tarjeta strong {
+    color: #1f3c88;
+}
+canvas {
+    margin-top: 25px;
+    max-width: 100%;
+}

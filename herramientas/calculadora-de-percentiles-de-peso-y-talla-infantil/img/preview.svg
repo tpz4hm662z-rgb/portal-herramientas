@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">Calculadora de percentiles infantiles</title>
+  <desc id="desc">Vista previa azul de la herramienta Imoancy</desc>
+  <rect width="1200" height="630" fill="#f8fafc"/>
+  <rect x="72" y="72" width="1056" height="486" rx="42" fill="#fff" stroke="#dbeafe" stroke-width="4"/>
+  <circle cx="218" cy="237" r="88" fill="#dbeafe"/>
+  <text x="218" y="272" text-anchor="middle" font-size="92">👶</text>
+  <text x="348" y="195" fill="#2563eb" font-family="Arial, sans-serif" font-size="34" font-weight="700">Imoancy</text>
+  <text x="348" y="270" fill="#1f2937" font-family="Arial, sans-serif" font-size="54" font-weight="800">Percentiles infantiles</text>
+  <text x="348" y="330" fill="#475569" font-family="Arial, sans-serif" font-size="29">Peso y talla de 0 a 60 meses</text>
+  <rect x="348" y="382" width="420" height="68" rx="34" fill="#2563eb"/>
+  <text x="558" y="426" text-anchor="middle" fill="#fff" font-family="Arial, sans-serif" font-size="26" font-weight="700">Referencias oficiales OMS</text>
+</svg>

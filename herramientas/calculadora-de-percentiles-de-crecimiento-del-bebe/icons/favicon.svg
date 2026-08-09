@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Percentiles del bebé">
+  <rect width="64" height="64" rx="14" fill="#2563eb"/>
+  <circle cx="32" cy="27" r="17" fill="#fef3c7"/>
+  <path d="M24 25c2-4 5-6 8-6s6 2 8 6" fill="none" stroke="#78350f" stroke-width="2.5" stroke-linecap="round"/>
+  <circle cx="26" cy="29" r="2" fill="#1f2937"/>
+  <circle cx="38" cy="29" r="2" fill="#1f2937"/>
+  <path d="M27 36c3 3 7 3 10 0" fill="none" stroke="#1f2937" stroke-width="2.5" stroke-linecap="round"/>
+  <path d="M18 52c3-8 8-12 14-12s11 4 14 12" fill="#dbeafe"/>
+</svg>

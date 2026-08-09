@@ -1,0 +1,1753 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <!-- =====================================================
+         HERRAMIENTAS360
+         Calculadora de Calorías PRO
+         Versión 1.0
+         © 2026 Imoancy · Todos los derechos reservados.
+    ====================================================== -->
+
+    <!-- Google Analytics -->
+
+    <!-- Metadatos básicos -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Calculadora de Calorías Diarias Gratis | Imoancy</title>
+
+    <meta name="description"
+        content="Calcula gratis cuántas calorías necesitas al día para perder grasa, mantener tu peso o ganar masa muscular según tu edad, sexo, peso, altura y actividad física.">
+
+    <meta name="keywords"
+        content="calculadora calorías, calorías diarias, calorías mantenimiento, calorías para adelgazar, calorías para ganar músculo, TDEE, gasto energético diario">
+
+    <meta name="author" content="Imoancy">
+    <meta name="robots" content="index, follow">
+    <meta name="theme-color" content="#2563eb">
+    <meta name="color-scheme" content="light">
+
+    <!-- URL canónica -->
+    <link rel="canonical" href="https://imoancy.com/herramientas/calculadora-calorias/">
+
+    <!-- Recursos -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" type="image/svg+xml" href="icons/favicon.svg">
+
+    <!-- Open Graph -->
+    <meta property="og:locale" content="es_ES">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Imoancy">
+    <meta property="og:title" content="Calculadora de Calorías Diarias Gratis | Imoancy">
+    <meta property="og:description"
+        content="Calcula gratis cuántas calorías necesitas al día para perder grasa, mantener tu peso o ganar masa muscular según tu edad, sexo, peso, altura y actividad física.">
+    <meta property="og:url" content="https://imoancy.com/herramientas/calculadora-calorias/">
+    <meta property="og:image"
+        content="https://avatars.githubusercontent.com/tpz4hm662z-rgb">
+    <meta property="og:image:alt" content="Calculadora de Calorías Diarias">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Calculadora de Calorías Diarias Gratis | Imoancy">
+    <meta name="twitter:description"
+        content="Calcula gratis cuántas calorías necesitas al día para perder grasa, mantener tu peso o ganar masa muscular según tu edad, sexo, peso, altura y actividad física.">
+    <meta name="twitter:image"
+        content="https://avatars.githubusercontent.com/tpz4hm662z-rgb">
+
+    <!-- Datos estructurados: página web -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        "@id": "https://imoancy.com/herramientas/calculadora-calorias/",
+        "url": "https://imoancy.com/herramientas/calculadora-calorias/",
+        "mainEntityOfPage": "https://imoancy.com/herramientas/calculadora-calorias/",
+        "name": "Calculadora de Calorías Diarias Gratis | Imoancy",
+        "description": "Calcula gratis cuántas calorías necesitas al día para perder grasa, mantener tu peso o ganar masa muscular según tu edad, sexo, peso, altura y actividad física.",
+        "inLanguage": "es"
+    }
+    </script>
+
+    <!-- Datos estructurados: aplicación -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "@id": "https://imoancy.com/herramientas/calculadora-calorias/",
+        "name": "Calculadora de Calorías Diarias",
+        "alternateName": "Calculadora de calorías de Imoancy",
+        "url": "https://imoancy.com/herramientas/calculadora-calorias/",
+        "mainEntityOfPage": "https://imoancy.com/herramientas/calculadora-calorias/",
+        "description": "Calculadora gratuita que estima las calorías diarias necesarias para perder grasa, mantener el peso o ganar masa muscular.",
+        "applicationCategory": "HealthApplication",
+        "operatingSystem": "Web",
+        "browserRequirements": "Requiere JavaScript",
+        "inLanguage": "es",
+        "isAccessibleForFree": true,
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "EUR"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "Imoancy",
+            "url": "https://imoancy.com/"
+        }
+    }
+    </script>
+
+    <!-- Datos estructurados: migas de pan -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "@id": "https://imoancy.com/herramientas/calculadora-calorias/",
+        "url": "https://imoancy.com/herramientas/calculadora-calorias/",
+        "mainEntityOfPage": "https://imoancy.com/herramientas/calculadora-calorias/",
+        "itemListElement": [
+            {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Imoancy",
+                "item": "https://imoancy.com/"
+            },
+            {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Salud",
+                "item": "https://imoancy.com/#salud"
+            },
+            {
+                "@type": "ListItem",
+                "position": 3,
+                "name": "Calculadora de Calorías",
+                "item": "https://imoancy.com/herramientas/calculadora-calorias/"
+            }
+        ]
+    }
+    </script>
+
+    <!-- Datos estructurados: preguntas frecuentes -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {
+                "@type": "Question",
+                "name": "¿Cuántas calorías debo consumir al día?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Depende de factores como el sexo, la edad, el peso, la altura y el nivel de actividad física. Esta calculadora estima primero la tasa metabólica basal y después el gasto energético diario."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "¿Qué diferencia hay entre TMB y TDEE?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "La TMB estima la energía que el cuerpo utiliza en reposo. El TDEE añade el gasto asociado a la actividad diaria y al ejercicio."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "¿Cuántas calorías debo reducir para perder grasa?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Suele utilizarse un déficit moderado respecto a las calorías de mantenimiento. El resultado de esta herramienta es orientativo y debe ajustarse según la evolución individual."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "¿Cuántas calorías necesito para ganar masa muscular?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Normalmente se emplea un superávit moderado sobre las calorías de mantenimiento, combinado con entrenamiento de fuerza, suficiente proteína y descanso."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "¿La calculadora ofrece un resultado exacto?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "No. Las fórmulas ofrecen una estimación útil, pero las necesidades reales pueden variar por la composición corporal, la genética, el descanso, el entrenamiento y otros factores."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "¿Cada cuánto debo revisar mis calorías?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Conviene revisar el resultado cuando cambien de forma relevante el peso, el nivel de actividad o el objetivo, y ajustar la ingesta según la evolución observada durante varias semanas."
+                }
+            }
+        ]
+    }
+    </script>
+    <meta name="twitter:url" content="https://imoancy.com/herramientas/calculadora-calorias/">
+
+    <!-- Google Analytics · configuración estándar de Imoancy -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-QH8MJ6LVHN"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag("js", new Date());
+      gtag("config","G-QH8MJ6LVHN");
+    </script>
+</head>
+
+<body>
+
+    <!-- Enlace de accesibilidad -->
+    <a class="skip-link" href="#contenido-principal">Saltar al contenido principal</a>
+
+    <!-- =====================================================
+         CABECERA
+    ====================================================== -->
+    <header class="site-header">
+
+        <div class="container site-header__inner">
+
+            <a class="brand" href="https://imoancy.com/"
+                aria-label="Ir al portal principal de Imoancy">
+
+                <span class="brand__icon" aria-hidden="true">🧮</span>
+
+                <span class="brand__text">
+                    <strong>Imoancy</strong>
+                    <small>Calculadoras gratuitas</small>
+                </span>
+
+            </a>
+
+            <nav class="main-nav" aria-label="Navegación principal">
+
+                <a href="https://imoancy.com/">
+                    Portal
+                </a>
+
+                <a href="#calculadora">
+                    Calcular
+                </a>
+
+                <a href="#como-funciona">
+                    Cómo funciona
+                </a>
+
+                <a href="#preguntas-frecuentes">
+                    FAQ
+                </a>
+
+            </nav>
+
+        </div>
+
+    </header>
+
+    <!-- =====================================================
+         MIGAS DE PAN
+    ====================================================== -->
+    <div class="breadcrumb-wrapper">
+
+        <nav class="container breadcrumb" aria-label="Migas de pan">
+
+            <ol>
+                <li>
+                    <a href="https://imoancy.com/">
+                        Inicio
+                    </a>
+                </li>
+
+                <li>
+                    <a href="https://imoancy.com/#salud">
+                        Salud
+                    </a>
+                </li>
+
+                <li aria-current="page">
+                    Calculadora de calorías
+                </li>
+            </ol>
+
+        </nav>
+
+    </div>
+
+    <main id="contenido-principal">
+
+        <!-- =====================================================
+             HERO
+        ====================================================== -->
+        <section class="hero">
+
+            <div class="container hero__inner">
+
+                <div class="hero__content">
+
+                    <p class="eyebrow">
+                        Imoancy · Salud y nutrición
+                    </p>
+
+                    <h1>
+                        Calculadora de Calorías Diarias
+                    </h1>
+
+                    <p class="hero__lead">
+                        Calcula cuántas calorías necesitas al día para perder grasa,
+                        mantener tu peso o ganar masa muscular según tus características
+                        y tu nivel de actividad.
+                    </p>
+
+                    <ul class="hero__benefits" aria-label="Ventajas de la calculadora">
+                        <li>Resultado personalizado</li>
+                        <li>Fórmula Mifflin-St Jeor</li>
+                        <li>Gratis y sin registro</li>
+                    </ul>
+
+                    <a class="button button--primary" href="#calculadora">
+                        Calcular mis calorías
+                    </a>
+
+                </div>
+
+                <div class="hero__visual" aria-hidden="true">
+
+                    <div class="hero-card">
+
+                        <span class="hero-card__icon">🔥</span>
+
+                        <p class="hero-card__label">
+                            Ejemplo de mantenimiento
+                        </p>
+
+                        <strong class="hero-card__value">
+                            2.430 kcal
+                        </strong>
+
+                        <span class="hero-card__caption">
+                            al día
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- =====================================================
+             NAVEGACIÓN INTERNA
+        ====================================================== -->
+        <section class="section section--compact" aria-label="Contenido de la página">
+
+            <div class="container">
+
+                <nav class="section-nav">
+
+                    <a href="#calculadora">Calculadora</a>
+                    <a href="#resultados">Resultados</a>
+                    <a href="#que-calcula">Qué calcula</a>
+                    <a href="#como-funciona">Cómo funciona</a>
+                    <a href="#formula">Fórmula</a>
+                    <a href="#consejos">Consejos</a>
+                    <a href="#preguntas-frecuentes">FAQ</a>
+
+                </nav>
+
+            </div>
+
+        </section>
+
+        <!-- =====================================================
+             CALCULADORA
+        ====================================================== -->
+        <section id="calculadora" class="section">
+
+            <div class="container container--narrow">
+
+                <div class="section-heading">
+
+                    <p class="eyebrow">
+                        Cálculo personalizado
+                    </p>
+
+                    <h2>
+                        Introduce tus datos
+                    </h2>
+
+                    <p>
+                        Completa el formulario para estimar tu metabolismo basal,
+                        tus calorías de mantenimiento y la recomendación correspondiente
+                        a tu objetivo.
+                    </p>
+
+                </div>
+
+                <div class="calculator-card">
+
+                    <form id="form-calorias" class="calculator-form" novalidate>
+
+                        <!-- Sexo -->
+                        <fieldset class="form-group">
+
+                            <legend>
+                                Sexo
+                            </legend>
+
+                            <div class="option-grid option-grid--two">
+
+                                <label class="option-card">
+
+                                    <input type="radio" name="sexo" value="hombre" required>
+
+                                    <span class="option-card__content">
+                                        <span class="option-card__icon" aria-hidden="true">👨</span>
+                                        <strong>Hombre</strong>
+                                    </span>
+
+                                </label>
+
+                                <label class="option-card">
+
+                                    <input type="radio" name="sexo" value="mujer" required>
+
+                                    <span class="option-card__content">
+                                        <span class="option-card__icon" aria-hidden="true">👩</span>
+                                        <strong>Mujer</strong>
+                                    </span>
+
+                                </label>
+
+                            </div>
+
+                            <p class="field-error" id="error-sexo" aria-live="polite"></p>
+
+                        </fieldset>
+
+                        <!-- Datos físicos -->
+                        <div class="form-grid form-grid--three">
+
+                            <div class="form-field">
+
+                                <label for="edad">
+                                    Edad
+                                </label>
+
+                                <div class="input-with-unit">
+
+                                    <input type="number" id="edad" name="edad" min="18" max="100" step="1"
+                                        inputmode="numeric" autocomplete="off" placeholder="Ej.: 35" required
+                                        aria-describedby="ayuda-edad error-edad">
+
+                                    <span aria-hidden="true">años</span>
+
+                                </div>
+
+                                <small id="ayuda-edad" class="field-help">
+                                    Entre 18 y 100 años.
+                                </small>
+
+                                <p class="field-error" id="error-edad" aria-live="polite"></p>
+
+                            </div>
+
+                            <div class="form-field">
+
+                                <label for="peso">
+                                    Peso
+                                </label>
+
+                                <div class="input-with-unit">
+
+                                    <input type="number" id="peso" name="peso" min="35" max="300" step="0.1"
+                                        inputmode="decimal" autocomplete="off" placeholder="Ej.: 75" required
+                                        aria-describedby="ayuda-peso error-peso">
+
+                                    <span aria-hidden="true">kg</span>
+
+                                </div>
+
+                                <small id="ayuda-peso" class="field-help">
+                                    Utiliza tu peso actual.
+                                </small>
+
+                                <p class="field-error" id="error-peso" aria-live="polite"></p>
+
+                            </div>
+
+                            <div class="form-field">
+
+                                <label for="altura">
+                                    Altura
+                                </label>
+
+                                <div class="input-with-unit">
+
+                                    <input type="number" id="altura" name="altura" min="120" max="230" step="1"
+                                        inputmode="numeric" autocomplete="off" placeholder="Ej.: 175" required
+                                        aria-describedby="ayuda-altura error-altura">
+
+                                    <span aria-hidden="true">cm</span>
+
+                                </div>
+
+                                <small id="ayuda-altura" class="field-help">
+                                    Introduce la altura en centímetros.
+                                </small>
+
+                                <p class="field-error" id="error-altura" aria-live="polite"></p>
+
+                            </div>
+
+                        </div>
+
+                        <!-- Nivel de actividad -->
+                        <div class="form-field">
+
+                            <label for="actividad">
+                                Nivel de actividad física
+                            </label>
+
+                            <select id="actividad" name="actividad" required
+                                aria-describedby="ayuda-actividad error-actividad">
+
+                                <option value="">
+                                    Selecciona una opción
+                                </option>
+
+                                <option value="1.2">
+                                    Sedentario · Poco o ningún ejercicio
+                                </option>
+
+                                <option value="1.375">
+                                    Actividad ligera · Ejercicio 1–3 días por semana
+                                </option>
+
+                                <option value="1.55">
+                                    Actividad moderada · Ejercicio 3–5 días por semana
+                                </option>
+
+                                <option value="1.725">
+                                    Actividad intensa · Ejercicio 6–7 días por semana
+                                </option>
+
+                                <option value="1.9">
+                                    Actividad muy intensa · Entrenamientos exigentes o trabajo físico
+                                </option>
+
+                            </select>
+
+                            <small id="ayuda-actividad" class="field-help">
+                                Elige la opción que mejor represente una semana habitual.
+                            </small>
+
+                            <p class="field-error" id="error-actividad" aria-live="polite"></p>
+
+                        </div>
+
+                        <!-- Objetivo -->
+                        <fieldset class="form-group">
+
+                            <legend>
+                                ¿Cuál es tu objetivo principal?
+                            </legend>
+
+                            <div class="option-grid option-grid--three">
+
+                                <label class="option-card">
+
+                                    <input type="radio" name="objetivo" value="perder" required>
+
+                                    <span class="option-card__content">
+                                        <span class="option-card__icon" aria-hidden="true">🔥</span>
+                                        <strong>Perder grasa</strong>
+                                        <small>Déficit moderado</small>
+                                    </span>
+
+                                </label>
+
+                                <label class="option-card">
+
+                                    <input type="radio" name="objetivo" value="mantener" required>
+
+                                    <span class="option-card__content">
+                                        <span class="option-card__icon" aria-hidden="true">⚖️</span>
+                                        <strong>Mantener peso</strong>
+                                        <small>Equilibrio energético</small>
+                                    </span>
+
+                                </label>
+
+                                <label class="option-card">
+
+                                    <input type="radio" name="objetivo" value="ganar" required>
+
+                                    <span class="option-card__content">
+                                        <span class="option-card__icon" aria-hidden="true">💪</span>
+                                        <strong>Ganar músculo</strong>
+                                        <small>Superávit moderado</small>
+                                    </span>
+
+                                </label>
+
+                            </div>
+
+                            <p class="field-error" id="error-objetivo" aria-live="polite"></p>
+
+                        </fieldset>
+
+                        <!-- Mensaje general del formulario -->
+                        <div id="mensaje-formulario" class="form-message" role="alert" aria-live="assertive" hidden>
+                        </div>
+
+                        <!-- Acciones -->
+                        <div class="form-actions">
+
+                            <button type="submit" id="boton-calcular" class="button button--primary">
+
+                                Calcular mis calorías
+
+                            </button>
+
+                            <button type="reset" id="boton-reiniciar" class="button button--secondary">
+
+                                Reiniciar
+
+                            </button>
+
+                        </div>
+
+                    </form>
+
+                    <div class="privacy-note">
+
+                        <span aria-hidden="true">🔒</span>
+
+                        <p>
+                            Tus datos se procesan únicamente en tu navegador.
+                            No necesitas registrarte.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- =====================================================
+             RESULTADOS
+        ====================================================== -->
+        <section id="resultados" class="section section--soft" aria-labelledby="titulo-resultados" hidden>
+
+            <div class="container">
+
+                <div class="section-heading">
+
+                    <p class="eyebrow">
+                        Tu estimación personalizada
+                    </p>
+
+                    <h2 id="titulo-resultados">
+                        Resultado de calorías diarias
+                    </h2>
+
+                    <p id="resumen-resultado">
+                        Estos valores se mostrarán después de completar el formulario.
+                    </p>
+
+                </div>
+
+                <!-- Resultado principal -->
+                <article class="result-main" aria-live="polite">
+
+                    <div class="result-main__header">
+
+                        <span id="resultado-icono" class="result-main__icon" aria-hidden="true">
+                            🔥
+                        </span>
+
+                        <div>
+
+                            <p id="resultado-etiqueta" class="result-main__label">
+                                Calorías recomendadas
+                            </p>
+
+                            <h3 id="resultado-objetivo">
+                                Tu objetivo
+                            </h3>
+
+                        </div>
+
+                    </div>
+
+                    <div class="result-main__value">
+
+                        <strong id="calorias-principales">
+                            0
+                        </strong>
+
+                        <span>
+                            kcal/día
+                        </span>
+
+                    </div>
+
+                    <p id="resultado-interpretacion" class="result-main__description">
+                        Aquí aparecerá una explicación personalizada del resultado.
+                    </p>
+
+                    <div class="confidence">
+
+                        <div class="confidence__header">
+
+                            <strong>
+                                Fiabilidad de la estimación
+                            </strong>
+
+                            <span id="nivel-confianza">
+                                Alta
+                            </span>
+
+                        </div>
+
+                        <div class="confidence__bar" role="progressbar"
+                            aria-label="Fiabilidad orientativa del resultado" aria-valuemin="0" aria-valuemax="100"
+                            aria-valuenow="80">
+
+                            <span style="width: 80%;"></span>
+
+                        </div>
+
+                        <p>
+                            Basada en una fórmula ampliamente utilizada. Las necesidades
+                            reales pueden variar por la composición corporal, la genética,
+                            el descanso y otros factores.
+                        </p>
+
+                    </div>
+
+                </article>
+
+                <!-- Resultados secundarios -->
+                <div class="result-grid">
+
+                    <article class="result-card">
+
+                        <span class="result-card__icon" aria-hidden="true">🔥</span>
+
+                        <h3>
+                            Perder grasa
+                        </h3>
+
+                        <p class="result-card__value">
+                            <strong id="calorias-perder">0</strong>
+                            <span>kcal/día</span>
+                        </p>
+
+                        <p>
+                            Déficit moderado respecto a tu mantenimiento.
+                        </p>
+
+                    </article>
+
+                    <article class="result-card">
+
+                        <span class="result-card__icon" aria-hidden="true">⚖️</span>
+
+                        <h3>
+                            Mantener peso
+                        </h3>
+
+                        <p class="result-card__value">
+                            <strong id="calorias-mantener">0</strong>
+                            <span>kcal/día</span>
+                        </p>
+
+                        <p>
+                            Estimación de tu gasto energético total diario.
+                        </p>
+
+                    </article>
+
+                    <article class="result-card">
+
+                        <span class="result-card__icon" aria-hidden="true">💪</span>
+
+                        <h3>
+                            Ganar músculo
+                        </h3>
+
+                        <p class="result-card__value">
+                            <strong id="calorias-ganar">0</strong>
+                            <span>kcal/día</span>
+                        </p>
+
+                        <p>
+                            Superávit moderado sobre tu mantenimiento.
+                        </p>
+
+                    </article>
+
+                </div>
+
+                <!-- Detalles del cálculo -->
+                <div class="details-card">
+
+                    <div class="details-card__header">
+
+                        <div>
+
+                            <p class="eyebrow">
+                                Detalles
+                            </p>
+
+                            <h3>
+                                Cómo se forma tu resultado
+                            </h3>
+
+                        </div>
+
+                    </div>
+
+                    <dl class="details-list">
+
+                        <div>
+                            <dt>
+                                Tasa metabólica basal
+                            </dt>
+
+                            <dd>
+                                <strong id="resultado-tmb">0</strong>
+                                kcal/día
+                            </dd>
+                        </div>
+
+                        <div>
+                            <dt>
+                                Factor de actividad
+                            </dt>
+
+                            <dd id="resultado-factor">
+                                —
+                            </dd>
+                        </div>
+
+                        <div>
+                            <dt>
+                                Gasto energético diario
+                            </dt>
+
+                            <dd>
+                                <strong id="resultado-tdee">0</strong>
+                                kcal/día
+                            </dd>
+                        </div>
+
+                        <div>
+                            <dt>
+                                Ajuste aplicado
+                            </dt>
+
+                            <dd id="resultado-ajuste">
+                                —
+                            </dd>
+                        </div>
+
+                    </dl>
+
+                </div>
+
+                <!-- Recomendaciones personalizadas -->
+                <article class="recommendation-card">
+
+                    <div class="recommendation-card__header">
+
+                        <span id="recomendacion-icono" aria-hidden="true">
+                            ✅
+                        </span>
+
+                        <div>
+
+                            <p class="eyebrow">
+                                Orientación práctica
+                            </p>
+
+                            <h3 id="recomendacion-titulo">
+                                Recomendaciones para tu objetivo
+                            </h3>
+
+                        </div>
+
+                    </div>
+
+                    <div id="recomendacion-contenido">
+                        <p>
+                            Las recomendaciones personalizadas aparecerán aquí.
+                        </p>
+                    </div>
+
+                </article>
+
+                <div class="result-actions">
+
+                    <button type="button" id="boton-nuevo-calculo" class="button button--primary">
+
+                        Hacer un nuevo cálculo
+
+                    </button>
+
+                    <button type="button" id="boton-copiar" class="button button--secondary">
+
+                        Copiar resultado
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- =====================================================
+             QUÉ CALCULA
+        ====================================================== -->
+        <section id="que-calcula" class="section">
+
+            <div class="container">
+
+                <div class="section-heading">
+
+                    <p class="eyebrow">
+                        Información esencial
+                    </p>
+
+                    <h2>
+                        ¿Qué calcula esta herramienta?
+                    </h2>
+
+                    <p>
+                        Estima la energía diaria que necesita tu organismo y adapta
+                        el resultado al objetivo que hayas seleccionado.
+                    </p>
+
+                </div>
+
+                <div class="content-grid content-grid--two">
+
+                    <article class="info-card">
+
+                        <span class="info-card__icon" aria-hidden="true">🫀</span>
+
+                        <h3>
+                            Metabolismo basal
+                        </h3>
+
+                        <p>
+                            Es la energía aproximada que tu cuerpo necesita en reposo
+                            para mantener funciones vitales como respirar, regular la
+                            temperatura o hacer circular la sangre.
+                        </p>
+
+                    </article>
+
+                    <article class="info-card">
+
+                        <span class="info-card__icon" aria-hidden="true">🏃</span>
+
+                        <h3>
+                            Gasto energético diario
+                        </h3>
+
+                        <p>
+                            Añade al metabolismo basal la energía relacionada con tu
+                            actividad cotidiana y el ejercicio para estimar tus calorías
+                            de mantenimiento.
+                        </p>
+
+                    </article>
+
+                    <article class="info-card">
+
+                        <span class="info-card__icon" aria-hidden="true">📉</span>
+
+                        <h3>
+                            Déficit calórico
+                        </h3>
+
+                        <p>
+                            Para perder grasa se propone una ingesta moderadamente inferior
+                            a las calorías de mantenimiento, evitando recortes extremos.
+                        </p>
+
+                    </article>
+
+                    <article class="info-card">
+
+                        <span class="info-card__icon" aria-hidden="true">📈</span>
+
+                        <h3>
+                            Superávit calórico
+                        </h3>
+
+                        <p>
+                            Para ganar masa muscular se propone una ingesta moderadamente
+                            superior al mantenimiento, acompañada de entrenamiento de fuerza.
+                        </p>
+
+                    </article>
+
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- =====================================================
+             CÓMO FUNCIONA
+        ====================================================== -->
+        <section id="como-funciona" class="section section--soft">
+
+            <div class="container">
+
+                <div class="section-heading">
+
+                    <p class="eyebrow">
+                        Proceso de cálculo
+                    </p>
+
+                    <h2>
+                        ¿Cómo funciona la calculadora?
+                    </h2>
+
+                </div>
+
+                <ol class="steps">
+
+                    <li class="step-card">
+
+                        <span class="step-card__number">
+                            1
+                        </span>
+
+                        <div>
+
+                            <h3>
+                                Calcula tu TMB
+                            </h3>
+
+                            <p>
+                                Utiliza el sexo, la edad, el peso y la altura para
+                                estimar la tasa metabólica basal.
+                            </p>
+
+                        </div>
+
+                    </li>
+
+                    <li class="step-card">
+
+                        <span class="step-card__number">
+                            2
+                        </span>
+
+                        <div>
+
+                            <h3>
+                                Aplica tu actividad
+                            </h3>
+
+                            <p>
+                                Multiplica la TMB por el factor correspondiente al
+                                nivel de actividad seleccionado.
+                            </p>
+
+                        </div>
+
+                    </li>
+
+                    <li class="step-card">
+
+                        <span class="step-card__number">
+                            3
+                        </span>
+
+                        <div>
+
+                            <h3>
+                                Adapta el resultado
+                            </h3>
+
+                            <p>
+                                Ajusta las calorías de mantenimiento mediante un
+                                déficit o superávit moderado según tu objetivo.
+                            </p>
+
+                        </div>
+
+                    </li>
+
+                    <li class="step-card">
+
+                        <span class="step-card__number">
+                            4
+                        </span>
+
+                        <div>
+
+                            <h3>
+                                Revisa tu evolución
+                            </h3>
+
+                            <p>
+                                Usa el resultado como punto de partida y ajústalo
+                                según tu evolución durante varias semanas.
+                            </p>
+
+                        </div>
+
+                    </li>
+
+                </ol>
+
+            </div>
+
+        </section>
+
+        <!-- =====================================================
+             FÓRMULA
+        ====================================================== -->
+        <section id="formula" class="section">
+
+            <div class="container container--narrow">
+
+                <div class="section-heading">
+
+                    <p class="eyebrow">
+                        Base matemática
+                    </p>
+
+                    <h2>
+                        Fórmula utilizada
+                    </h2>
+
+                    <p>
+                        La calculadora utiliza la ecuación de Mifflin-St Jeor para
+                        estimar la tasa metabólica basal.
+                    </p>
+
+                </div>
+
+                <div class="formula-card">
+
+                    <article>
+
+                        <h3>
+                            Hombres
+                        </h3>
+
+                        <p class="formula">
+                            TMB = (10 × peso) + (6,25 × altura) − (5 × edad) + 5
+                        </p>
+
+                    </article>
+
+                    <article>
+
+                        <h3>
+                            Mujeres
+                        </h3>
+
+                        <p class="formula">
+                            TMB = (10 × peso) + (6,25 × altura) − (5 × edad) − 161
+                        </p>
+
+                    </article>
+
+                    <p class="formula-card__note">
+                        El peso se expresa en kilogramos, la altura en centímetros
+                        y la edad en años. Después se aplica el factor de actividad.
+                    </p>
+
+                </div>
+
+                <div class="table-wrapper">
+
+                    <table>
+
+                        <caption>
+                            Factores orientativos de actividad física
+                        </caption>
+
+                        <thead>
+                            <tr>
+                                <th scope="col">Nivel</th>
+                                <th scope="col">Descripción</th>
+                                <th scope="col">Factor</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr>
+                                <th scope="row">Sedentario</th>
+                                <td>Poco o ningún ejercicio</td>
+                                <td>1,20</td>
+                            </tr>
+
+                            <tr>
+                                <th scope="row">Ligero</th>
+                                <td>Ejercicio 1–3 días por semana</td>
+                                <td>1,375</td>
+                            </tr>
+
+                            <tr>
+                                <th scope="row">Moderado</th>
+                                <td>Ejercicio 3–5 días por semana</td>
+                                <td>1,55</td>
+                            </tr>
+
+                            <tr>
+                                <th scope="row">Intenso</th>
+                                <td>Ejercicio 6–7 días por semana</td>
+                                <td>1,725</td>
+                            </tr>
+
+                            <tr>
+                                <th scope="row">Muy intenso</th>
+                                <td>Entrenamiento exigente o trabajo físico</td>
+                                <td>1,90</td>
+                            </tr>
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- =====================================================
+             CONSEJOS
+        ====================================================== -->
+        <section id="consejos" class="section section--soft">
+
+            <div class="container">
+
+                <div class="section-heading">
+
+                    <p class="eyebrow">
+                        Uso responsable
+                    </p>
+
+                    <h2>
+                        Consejos para interpretar el resultado
+                    </h2>
+
+                </div>
+
+                <div class="content-grid content-grid--three">
+
+                    <article class="tip-card">
+
+                        <span class="tip-card__icon" aria-hidden="true">📆</span>
+
+                        <h3>
+                            Observa varias semanas
+                        </h3>
+
+                        <p>
+                            El peso puede variar de un día a otro. Evalúa tendencias
+                            de varias semanas antes de hacer grandes ajustes.
+                        </p>
+
+                    </article>
+
+                    <article class="tip-card">
+
+                        <span class="tip-card__icon" aria-hidden="true">🥗</span>
+
+                        <h3>
+                            Prioriza la calidad
+                        </h3>
+
+                        <p>
+                            Las calorías importan, pero también la variedad de alimentos,
+                            la proteína, la fibra y los micronutrientes.
+                        </p>
+
+                    </article>
+
+                    <article class="tip-card">
+
+                        <span class="tip-card__icon" aria-hidden="true">🏋️</span>
+
+                        <h3>
+                            Mantén actividad física
+                        </h3>
+
+                        <p>
+                            El entrenamiento de fuerza, el movimiento diario y el descanso
+                            favorecen una composición corporal saludable.
+                        </p>
+
+                    </article>
+
+                    <article class="tip-card">
+
+                        <span class="tip-card__icon" aria-hidden="true">💧</span>
+
+                        <h3>
+                            Cuida la hidratación
+                        </h3>
+
+                        <p>
+                            Mantén una hidratación adecuada, especialmente cuando haces
+                            ejercicio o aumentan las temperaturas.
+                        </p>
+
+                    </article>
+
+                    <article class="tip-card">
+
+                        <span class="tip-card__icon" aria-hidden="true">😴</span>
+
+                        <h3>
+                            Descansa correctamente
+                        </h3>
+
+                        <p>
+                            El sueño influye en el rendimiento, la recuperación y la
+                            regulación del apetito.
+                        </p>
+
+                    </article>
+
+                    <article class="tip-card">
+
+                        <span class="tip-card__icon" aria-hidden="true">🩺</span>
+
+                        <h3>
+                            Consulta a un profesional
+                        </h3>
+
+                        <p>
+                            Un dietista-nutricionista puede adaptar la alimentación a
+                            tu situación, preferencias y necesidades particulares.
+                        </p>
+
+                    </article>
+
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- =====================================================
+             PREGUNTAS FRECUENTES
+        ====================================================== -->
+        <section id="preguntas-frecuentes" class="section">
+
+            <div class="container container--narrow">
+
+                <div class="section-heading">
+
+                    <p class="eyebrow">
+                        Resolvemos tus dudas
+                    </p>
+
+                    <h2>
+                        Preguntas frecuentes
+                    </h2>
+
+                </div>
+
+                <div class="faq-list">
+
+                    <details class="faq-item">
+
+                        <summary>
+                            ¿Cuántas calorías debo consumir al día?
+                        </summary>
+
+                        <div class="faq-item__content">
+                            <p>
+                                Depende de factores como el sexo, la edad, el peso,
+                                la altura y el nivel de actividad física. La calculadora
+                                combina esos datos para ofrecer una estimación personalizada.
+                            </p>
+                        </div>
+
+                    </details>
+
+                    <details class="faq-item">
+
+                        <summary>
+                            ¿Qué diferencia hay entre TMB y TDEE?
+                        </summary>
+
+                        <div class="faq-item__content">
+                            <p>
+                                La TMB estima la energía que utiliza tu organismo en reposo.
+                                El TDEE o gasto energético total diario añade la actividad
+                                cotidiana y el ejercicio.
+                            </p>
+                        </div>
+
+                    </details>
+
+                    <details class="faq-item">
+
+                        <summary>
+                            ¿Cuántas calorías debo comer para perder grasa?
+                        </summary>
+
+                        <div class="faq-item__content">
+                            <p>
+                                La herramienta propone un déficit moderado respecto a tus
+                                calorías de mantenimiento. El resultado debe tomarse como
+                                punto de partida y ajustarse según la evolución.
+                            </p>
+                        </div>
+
+                    </details>
+
+                    <details class="faq-item">
+
+                        <summary>
+                            ¿Cuántas calorías necesito para ganar masa muscular?
+                        </summary>
+
+                        <div class="faq-item__content">
+                            <p>
+                                Habitualmente se utiliza un superávit moderado sobre el
+                                mantenimiento, acompañado de entrenamiento de fuerza,
+                                suficiente proteína y descanso.
+                            </p>
+                        </div>
+
+                    </details>
+
+                    <details class="faq-item">
+
+                        <summary>
+                            ¿Es malo consumir muy pocas calorías?
+                        </summary>
+
+                        <div class="faq-item__content">
+                            <p>
+                                Una restricción excesiva puede dificultar el aporte adecuado
+                                de nutrientes y afectar al rendimiento o al bienestar. Evita
+                                cambios extremos y busca asesoramiento profesional cuando sea necesario.
+                            </p>
+                        </div>
+
+                    </details>
+
+                    <details class="faq-item">
+
+                        <summary>
+                            ¿El ejercicio cambia mis necesidades calóricas?
+                        </summary>
+
+                        <div class="faq-item__content">
+                            <p>
+                                Sí. Una mayor actividad suele elevar el gasto energético diario.
+                                Por eso es importante elegir el nivel que mejor represente tu
+                                semana habitual.
+                            </p>
+                        </div>
+
+                    </details>
+
+                    <details class="faq-item">
+
+                        <summary>
+                            ¿Las necesidades calóricas cambian con la edad?
+                        </summary>
+
+                        <div class="faq-item__content">
+                            <p>
+                                Sí. La edad forma parte de la fórmula porque las necesidades
+                                energéticas pueden variar a lo largo de la vida, junto con la
+                                composición corporal y el nivel de actividad.
+                            </p>
+                        </div>
+
+                    </details>
+
+                    <details class="faq-item">
+
+                        <summary>
+                            ¿Cada cuánto debo volver a calcular mis calorías?
+                        </summary>
+
+                        <div class="faq-item__content">
+                            <p>
+                                Puedes repetir el cálculo cuando cambien de forma relevante
+                                tu peso, tu actividad o tu objetivo. También conviene revisar
+                                la evolución antes de ajustar la ingesta.
+                            </p>
+                        </div>
+
+                    </details>
+
+                    <details class="faq-item">
+
+                        <summary>
+                            ¿El resultado es exacto?
+                        </summary>
+
+                        <div class="faq-item__content">
+                            <p>
+                                No. Es una estimación basada en fórmulas poblacionales.
+                                La genética, la composición corporal, el descanso y otros
+                                factores pueden hacer que tus necesidades reales sean diferentes.
+                            </p>
+                        </div>
+
+                    </details>
+
+                    <details class="faq-item">
+
+                        <summary>
+                            ¿Tengo que registrarme para utilizarla?
+                        </summary>
+
+                        <div class="faq-item__content">
+                            <p>
+                                No. La calculadora es gratuita, funciona directamente en el
+                                navegador y no requiere crear una cuenta.
+                            </p>
+                        </div>
+
+                    </details>
+
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- =====================================================
+             HERRAMIENTAS RELACIONADAS
+        ====================================================== -->
+        <section class="section section--soft">
+
+            <div class="container">
+
+                <div class="section-heading">
+
+                    <p class="eyebrow">
+                        Sigue calculando
+                    </p>
+
+                    <h2>
+                        Herramientas relacionadas
+                    </h2>
+
+                    <p>
+                        Completa la información con otras calculadoras gratuitas
+                        de la categoría Salud.
+                    </p>
+
+                </div>
+
+                <div class="related-grid">
+
+                    <a class="related-card" href="https://imoancy.com/herramientas/calculadora-tmb/">
+
+                        <span class="related-card__icon" aria-hidden="true">🔥</span>
+
+                        <div>
+                            <h3>Calculadora TMB</h3>
+                            <p>Estima las calorías que tu cuerpo utiliza en reposo.</p>
+                        </div>
+
+                        <span class="related-card__arrow" aria-hidden="true">→</span>
+
+                    </a>
+
+                    <a class="related-card" href="https://imoancy.com/herramientas/calculadora-imc/">
+
+                        <span class="related-card__icon" aria-hidden="true">⚖️</span>
+
+                        <div>
+                            <h3>Calculadora de IMC</h3>
+                            <p>Calcula tu índice de masa corporal y su clasificación.</p>
+                        </div>
+
+                        <span class="related-card__arrow" aria-hidden="true">→</span>
+
+                    </a>
+
+                    <a class="related-card" href="https://imoancy.com/herramientas/calculadora-agua-diaria/">
+
+                        <span class="related-card__icon" aria-hidden="true">💧</span>
+
+                        <div>
+                            <h3>Calculadora de Agua</h3>
+                            <p>Estima cuánta agua podrías necesitar beber cada día.</p>
+                        </div>
+
+                        <span class="related-card__arrow" aria-hidden="true">→</span>
+
+                    </a>
+
+                </div>
+
+                <div class="section-cta">
+
+                    <a class="button button--secondary" href="https://imoancy.com/">
+
+                        Ver todas las herramientas
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- =====================================================
+             AVISO
+        ====================================================== -->
+        <section class="section section--compact">
+
+            <div class="container container--narrow">
+
+                <aside class="notice" aria-label="Aviso importante">
+
+                    <span class="notice__icon" aria-hidden="true">ℹ️</span>
+
+                    <div>
+
+                        <h2>
+                            Resultado orientativo
+                        </h2>
+
+                        <p>
+                            Esta calculadora proporciona una estimación general y no sustituye
+                            la valoración de un médico o dietista-nutricionista. Las necesidades
+                            pueden variar en menores, embarazo, lactancia, deportistas de alto
+                            rendimiento y personas con enfermedades o necesidades específicas.
+                        </p>
+
+                    </div>
+
+                </aside>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- =====================================================
+         PIE DE PÁGINA
+    ====================================================== -->
+    <footer class="site-footer">
+
+        <div class="container site-footer__grid">
+
+            <div>
+
+                <a class="brand brand--footer" href="https://imoancy.com/">
+
+                    <span class="brand__icon" aria-hidden="true">🧮</span>
+
+                    <span class="brand__text">
+                        <strong>Imoancy</strong>
+                        <small>Herramientas claras para decisiones reales</small>
+                    </span>
+
+                </a>
+
+                <p class="site-footer__description">
+                    Calculadoras gratuitas, rápidas y fáciles de usar para salud,
+                    finanzas, trabajo y vida diaria.
+                </p>
+
+            </div>
+
+            <nav aria-label="Enlaces del portal">
+
+                <h2>
+                    Imoancy
+                </h2>
+
+                <ul>
+                    <li>
+                        <a href="https://imoancy.com/">
+                            Portal principal
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="https://imoancy.com/sobre-nosotros.html">
+                            Sobre nosotros
+                        </a>
+                    </li>
+                </ul>
+
+            </nav>
+
+            <nav aria-label="Información legal">
+
+                <h2>
+                    Legal
+                </h2>
+
+                <ul>
+                    <li>
+                        <a href="https://imoancy.com/aviso-legal.html">
+                            Aviso legal
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="https://imoancy.com/politica-privacidad.html">
+                            Política de privacidad
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="https://imoancy.com/politica-cookies.html">
+                            Política de cookies
+                        </a>
+                    </li>
+                </ul>
+
+            </nav>
+
+        </div>
+
+        <div class="container site-footer__bottom">
+
+            <p>
+                © 2026 Imoancy · Todos los derechos reservados.
+            </p>
+
+            <a href="#contenido-principal">
+                Volver arriba ↑
+            </a>
+
+        </div>
+
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="js/config.js"></script>
+    <script src="js/core.js"></script>
+    <script src="js/results.js"></script>
+    <script src="js/script.js"></script>
+
+</body>
+
+</html>

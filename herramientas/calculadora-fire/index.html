@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora FIRE - Independencia Financiera</title>
+    <meta name="description" content="Calcula de forma orientativa cuánto necesitas para alcanzar la independencia financiera con la regla del 4%.">
+    <meta name="author" content="Imoancy">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://imoancy.com/herramientas/calculadora-fire/">
+
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="es_ES">
+    <meta property="og:site_name" content="Imoancy">
+    <meta property="og:title" content="Calculadora FIRE - Independencia Financiera">
+    <meta property="og:description" content="Calcula de forma orientativa cuánto necesitas para alcanzar la independencia financiera con la regla del 4%.">
+    <meta property="og:url" content="https://imoancy.com/herramientas/calculadora-fire/">
+    <meta property="og:image" content="https://avatars.githubusercontent.com/tpz4hm662z-rgb">
+    <meta property="og:image:alt" content="Calculadora FIRE de independencia financiera">
+
+    <link rel="icon" type="image/svg+xml" href="icons/favicon.svg">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Calculadora FIRE - Independencia Financiera">
+    <meta name="twitter:description" content="Calcula de forma orientativa cuánto necesitas para alcanzar la independencia financiera con la regla del 4%.">
+    <meta name="twitter:url" content="https://imoancy.com/herramientas/calculadora-fire/">
+    <meta name="twitter:image" content="https://avatars.githubusercontent.com/tpz4hm662z-rgb">
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@graph": [
+            {
+                "@type": "WebPage",
+                "@id": "https://imoancy.com/herramientas/calculadora-fire/",
+                "url": "https://imoancy.com/herramientas/calculadora-fire/",
+                "name": "Calculadora FIRE - Independencia Financiera",
+                "description": "Calcula de forma orientativa cuánto necesitas para alcanzar la independencia financiera con la regla del 4%.",
+                "mainEntityOfPage": "https://imoancy.com/herramientas/calculadora-fire/"
+            },
+            {
+                "@type": "SoftwareApplication",
+                "@id": "https://imoancy.com/herramientas/calculadora-fire/",
+                "url": "https://imoancy.com/herramientas/calculadora-fire/",
+                "name": "Calculadora FIRE - Independencia Financiera",
+                "applicationCategory": "FinanceApplication",
+                "operatingSystem": "Web",
+                "mainEntityOfPage": "https://imoancy.com/herramientas/calculadora-fire/"
+            },
+            {
+                "@type": "BreadcrumbList",
+                "@id": "https://imoancy.com/herramientas/calculadora-fire/",
+                "url": "https://imoancy.com/herramientas/calculadora-fire/",
+                "mainEntityOfPage": "https://imoancy.com/herramientas/calculadora-fire/",
+                "itemListElement": [
+                    {
+                        "@type": "ListItem",
+                        "position": 1,
+                        "name": "Calculadora FIRE - Independencia Financiera",
+                        "item": "https://imoancy.com/herramientas/calculadora-fire/"
+                    }
+                ]
+            }
+        ]
+    }
+    </script>
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-QH8MJ6LVHN"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag("js",new Date());
+        gtag("config","G-QH8MJ6LVHN");
+    </script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="contenedor">
+
+        <h1>Calculadora FIRE</h1>
+
+        <p class="subtitulo">
+            Calcula de forma orientativa cuánto necesitas para alcanzar la independencia financiera.
+        </p>
+
+        <label>Patrimonio actual (€)</label>
+        <input type="number" id="patrimonioActual" placeholder="Ejemplo: 5000">
+
+        <label>Ahorro mensual (€)</label>
+        <input type="number" id="ahorroMensual" placeholder="Ejemplo: 500">
+
+        <label>Gastos mensuales (€)</label>
+        <input type="number" id="gastosMensuales" placeholder="Ejemplo: 1200">
+
+        <label>Rentabilidad anual esperada (%)</label>
+        <input type="number" id="rentabilidadAnual" placeholder="Ejemplo: 7">
+
+        <button onclick="calcularFire()">Calcular FIRE</button>
+
+        <button class="boton-secundario" onclick="reiniciarCalculadora()">Reiniciar</button>
+
+        <div id="resultado" class="resultado"></div>
+
+        <div class="info-box">
+            <h2>¿Qué es FIRE?</h2>
+            <p>
+                FIRE significa independencia financiera. La idea es acumular suficiente patrimonio
+                para que tus inversiones puedan cubrir tus gastos de vida.
+            </p>
+            <p>
+                Esta herramienta usa una estimación orientativa basada en la regla del 4%.
+            </p>
+        </div>
+
+    </div>
+
+    <script src="js/config.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

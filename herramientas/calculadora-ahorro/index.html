@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Ahorro</title>
+    <meta name="description" content="Calcula el crecimiento de tus ahorros mediante interés compuesto y visualiza su evolución financiera a largo plazo.">
+    <meta name="author" content="Imoancy">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://imoancy.com/herramientas/calculadora-ahorro/">
+
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="es_ES">
+    <meta property="og:site_name" content="Imoancy">
+    <meta property="og:title" content="Calculadora de Ahorro">
+    <meta property="og:description" content="Calcula el crecimiento de tus ahorros mediante interés compuesto y visualiza su evolución financiera a largo plazo.">
+    <meta property="og:url" content="https://imoancy.com/herramientas/calculadora-ahorro/">
+    <meta property="og:image" content="https://avatars.githubusercontent.com/tpz4hm662z-rgb">
+    <meta property="og:image:alt" content="Calculadora de Ahorro de Imoancy">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Calculadora de Ahorro">
+    <meta name="twitter:description" content="Calcula el crecimiento de tus ahorros mediante interés compuesto y visualiza su evolución financiera a largo plazo.">
+    <meta name="twitter:url" content="https://imoancy.com/herramientas/calculadora-ahorro/">
+    <meta name="twitter:image" content="https://avatars.githubusercontent.com/tpz4hm662z-rgb">
+    <meta name="twitter:image:alt" content="Calculadora de Ahorro de Imoancy">
+
+    <link rel="icon" type="image/svg+xml" href="icons/favicon.svg">
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Calculadora de Ahorro",
+        "description": "Calcula el crecimiento de tus ahorros mediante interés compuesto y visualiza su evolución financiera a largo plazo.",
+        "url": "https://imoancy.com/herramientas/calculadora-ahorro/",
+        "applicationCategory": "FinanceApplication",
+        "operatingSystem": "Any",
+        "browserRequirements": "Requires JavaScript",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "EUR"
+        },
+        "author": {
+            "@type": "Organization",
+            "name": "Imoancy"
+        }
+    }
+    </script>
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-QH8MJ6LVHN"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag("js", new Date());
+        gtag("config", "G-QH8MJ6LVHN");
+    </script>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="contenedor">
+
+        <h1>Calculadora de Ahorro</h1>
+
+        <p class="descripcion">
+            Calcula el crecimiento de tus ahorros mediante interés compuesto y visualiza tu evolución financiera a largo plazo.
+        </p>
+
+        <p>Introduce cuánto puedes ahorrar al mes:</p>
+        <input type="number" id="ahorroMensual" placeholder="Ejemplo: 1400">
+
+        <p>Moneda:</p>
+        <select id="moneda">
+            <option value="EUR">Euro (€)</option>
+            <option value="USD">Dólar ($)</option>
+            <option value="GBP">Libra (£)</option>
+        </select>
+
+        <p>Rentabilidad anual (%):</p>
+        <input type="number" id="interesAnual" value="7">
+
+        <br><br>
+
+        <button onclick="calcularAhorro()">Calcular</button>
+        <button onclick="reiniciarCalculadora()">Reiniciar</button>
+
+        <h2 id="resultado"></h2>
+
+        <canvas id="graficoAhorro"></canvas>
+
+        <button id="btnPDF" style="display:none;">
+            📄 Descargar PDF
+        </button>
+
+    </div>
+
+    <footer>
+        <p>Calculadora de Ahorro v1.0 | Creada para planificar objetivos financieros a largo plazo.</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="js/config.js"></script>
+    <script src="js/core.js"></script>
+    <script src="script.js"></script>
+
+</body>
+</html>

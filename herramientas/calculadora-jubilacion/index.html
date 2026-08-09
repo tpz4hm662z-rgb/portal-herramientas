@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Jubilación</title>
+    <meta name="description" content="Calcula cuánto podrías acumular para tu jubilación con ahorro e interés compuesto.">
+    <link rel="canonical" href="https://imoancy.com/herramientas/calculadora-jubilacion/">
+
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="es_ES">
+    <meta property="og:site_name" content="Imoancy">
+    <meta property="og:title" content="Calculadora de Jubilación">
+    <meta property="og:description" content="Calcula cuánto podrías acumular para tu jubilación con ahorro e interés compuesto.">
+    <meta property="og:url" content="https://imoancy.com/herramientas/calculadora-jubilacion/">
+    <meta property="og:image" content="https://avatars.githubusercontent.com/tpz4hm662z-rgb">
+    <meta property="og:image:alt" content="Calculadora de Jubilación">
+
+    <link rel="icon" type="image/svg+xml" href="icons/favicon.svg">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Calculadora de Jubilación">
+    <meta name="twitter:description" content="Calcula cuánto podrías acumular para tu jubilación con ahorro e interés compuesto.">
+    <meta name="twitter:url" content="https://imoancy.com/herramientas/calculadora-jubilacion/">
+    <meta name="twitter:image" content="https://avatars.githubusercontent.com/tpz4hm662z-rgb">
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-QH8MJ6LVHN"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag("js",new Date());
+        gtag("config","G-QH8MJ6LVHN");
+    </script>
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@graph": [
+            {
+                "@type": "WebPage",
+                "@id": "https://imoancy.com/herramientas/calculadora-jubilacion/",
+                "url": "https://imoancy.com/herramientas/calculadora-jubilacion/",
+                "name": "Calculadora de Jubilación",
+                "description": "Calcula cuánto podrías acumular para tu jubilación con ahorro e interés compuesto.",
+                "mainEntityOfPage": "https://imoancy.com/herramientas/calculadora-jubilacion/"
+            },
+            {
+                "@type": "SoftwareApplication",
+                "@id": "https://imoancy.com/herramientas/calculadora-jubilacion/",
+                "url": "https://imoancy.com/herramientas/calculadora-jubilacion/",
+                "name": "Calculadora de Jubilación",
+                "applicationCategory": "FinanceApplication",
+                "operatingSystem": "Web",
+                "mainEntityOfPage": "https://imoancy.com/herramientas/calculadora-jubilacion/"
+            },
+            {
+                "@type": "BreadcrumbList",
+                "@id": "https://imoancy.com/herramientas/calculadora-jubilacion/",
+                "url": "https://imoancy.com/herramientas/calculadora-jubilacion/",
+                "mainEntityOfPage": "https://imoancy.com/herramientas/calculadora-jubilacion/",
+                "itemListElement": [
+                    {
+                        "@type": "ListItem",
+                        "position": 1,
+                        "name": "Calculadora de Jubilación",
+                        "item": "https://imoancy.com/herramientas/calculadora-jubilacion/"
+                    }
+                ]
+            }
+        ]
+    }
+    </script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="contenedor">
+
+        <h1>Calculadora de Jubilación</h1>
+
+        <p class="subtitulo">
+            Calcula cuánto podrías acumular para tu jubilación con ahorro e interés compuesto.
+        </p>
+
+        <label>Edad actual</label>
+        <input type="number" id="edadActual" placeholder="Ej: 35">
+
+        <label>Edad objetivo de jubilación</label>
+        <input type="number" id="edadJubilacion" placeholder="Ej: 67">
+
+        <label>Ahorro actual (€)</label>
+        <input type="number" id="ahorroActual" placeholder="Ej: 10000">
+
+        <label>Aportación mensual (€)</label>
+        <input type="number" id="aportacionMensual" placeholder="Ej: 300">
+
+        <label>Rentabilidad anual estimada (%)</label>
+        <input type="number" id="rentabilidadAnual" placeholder="Ej: 5">
+
+        <button onclick="calcularJubilacion()">
+          Calcular Jubilación
+        </button>
+
+<button class="reiniciar" onclick="reiniciarFormulario()">
+    Reiniciar
+</button>
+
+        <div id="resultado" class="resultado"></div>
+
+    </div>
+
+    <script src="js/config.js"></script>
+    <script src="script.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,950 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <!-- =========================================
+         Imoancy
+         Calculadora TMB
+         Versión 1.0
+         © 2026 Imoancy · Todos los derechos reservados.
+    ========================================== -->
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Calculadora TMB Gratis | Metabolismo Basal y Calorías | Imoancy</title>
+
+    <meta name="description"
+        content="Calcula gratis tu Tasa Metabólica Basal (TMB), tus calorías de mantenimiento y una estimación para perder grasa o ganar masa muscular.">
+
+    <meta name="keywords"
+        content="calculadora TMB, metabolismo basal, calorías diarias, TDEE, Mifflin St Jeor, calorías mantenimiento, perder peso, ganar músculo">
+
+    <meta name="author" content="Imoancy">
+    <meta name="robots" content="index, follow">
+
+    <link rel="canonical" href="https://imoancy.com/herramientas/calculadora-tmb/">
+
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Calculadora TMB Gratis | Metabolismo Basal y Calorías | Imoancy">
+    <meta property="og:description"
+        content="Calcula gratis tu Tasa Metabólica Basal (TMB), tus calorías de mantenimiento y una estimación para perder grasa o ganar masa muscular.">
+    <meta property="og:url" content="https://imoancy.com/herramientas/calculadora-tmb/">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Calculadora TMB Gratis | Metabolismo Basal y Calorías | Imoancy">
+    <meta name="twitter:description"
+        content="Calcula gratis tu Tasa Metabólica Basal (TMB), tus calorías de mantenimiento y una estimación para perder grasa o ganar masa muscular.">
+
+    <link rel="stylesheet" href="css/style.css">
+    <meta property="og:locale" content="es_ES">
+    <meta property="og:site_name" content="Imoancy">
+    <meta property="og:image" content="https://avatars.githubusercontent.com/tpz4hm662z-rgb">
+    <meta property="og:image:alt" content="Calculadora TMB">
+    <meta name="twitter:image" content="https://avatars.githubusercontent.com/tpz4hm662z-rgb">
+    <meta name="twitter:url" content="https://imoancy.com/herramientas/calculadora-tmb/">
+    <!-- Datos estructurados · configuración estándar de Imoancy -->
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": "https://imoancy.com/herramientas/calculadora-tmb/",
+      "url": "https://imoancy.com/herramientas/calculadora-tmb/",
+      "name": "Calculadora TMB Gratis | Metabolismo Basal y Calorías | Imoancy",
+      "description": "Calcula gratis tu Tasa Metabólica Basal (TMB), tus calorías de mantenimiento y una estimación para perder grasa o ganar masa muscular.",
+      "breadcrumb": {
+        "@id": "https://imoancy.com/herramientas/calculadora-tmb/"
+      },
+      "mainEntity": {
+        "@id": "https://imoancy.com/herramientas/calculadora-tmb/"
+      }
+    },
+    {
+      "@type": "SoftwareApplication",
+      "@id": "https://imoancy.com/herramientas/calculadora-tmb/",
+      "name": "Calculadora TMB",
+      "description": "Calcula gratis tu Tasa Metabólica Basal (TMB), tus calorías de mantenimiento y una estimación para perder grasa o ganar masa muscular.",
+      "url": "https://imoancy.com/herramientas/calculadora-tmb/",
+      "mainEntityOfPage": "https://imoancy.com/herramientas/calculadora-tmb/",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "Any",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "EUR"
+      },
+      "author": {
+        "@type": "Organization",
+        "name": "Imoancy",
+        "url": "https://imoancy.com/"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://imoancy.com/herramientas/calculadora-tmb/",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Imoancy",
+          "item": "https://imoancy.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Calculadora TMB",
+          "item": "https://imoancy.com/herramientas/calculadora-tmb/"
+        }
+      ]
+    }
+  ]
+}
+    </script>
+    <link rel="icon" type="image/svg+xml" href="icons/favicon.svg">
+
+    <!-- Google Analytics · configuración estándar de Imoancy -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-QH8MJ6LVHN"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag("js", new Date());
+      gtag("config","G-QH8MJ6LVHN");
+    </script>
+</head>
+
+<body>
+
+    <header class="cabecera">
+
+        <div class="contenedor cabecera-contenido">
+
+            <a class="volver-portal" href="https://imoancy.com/">
+                ← Volver al Portal
+            </a>
+
+            <div class="hero">
+
+                <span class="hero-icono" aria-hidden="true">
+                    🔥
+                </span>
+
+                <h1>
+                    Calculadora TMB
+                </h1>
+
+                <p>
+                    Descubre cuántas calorías necesita tu cuerpo en reposo y calcula tu gasto energético diario.
+                </p>
+
+            </div>
+
+        </div>
+
+    </header>
+
+    <main>
+
+        <section class="seccion-calculadora" aria-labelledby="titulo-calculadora">
+
+            <div class="contenedor">
+
+                <div class="calculadora-grid">
+
+                    <article class="tarjeta formulario-tarjeta">
+
+                        <div class="seccion-encabezado">
+
+                            <span class="etiqueta">
+                                Cálculo personalizado
+                            </span>
+
+                            <h2 id="titulo-calculadora">
+                                Calcula tu metabolismo basal
+                            </h2>
+
+                            <p>
+                                Introduce tus datos para conocer tu TMB y una estimación de tus calorías diarias.
+                            </p>
+
+                        </div>
+
+                        <form id="formularioTmb" novalidate>
+
+                            <div class="campo">
+
+                                <label for="sexo">
+                                    Sexo
+                                </label>
+
+                                <select id="sexo" name="sexo" required>
+
+                                    <option value="">
+                                        Selecciona una opción
+                                    </option>
+
+                                    <option value="hombre">
+                                        Hombre
+                                    </option>
+
+                                    <option value="mujer">
+                                        Mujer
+                                    </option>
+
+                                </select>
+
+                                <small class="mensaje-error" id="errorSexo"></small>
+
+                            </div>
+
+                            <div class="campos-dobles">
+
+                                <div class="campo">
+
+                                    <label for="edad">
+                                        Edad
+                                    </label>
+
+                                    <div class="campo-unidad">
+
+                                        <input type="number" id="edad" name="edad" min="14" max="100" step="1"
+                                            placeholder="Ej: 30" inputmode="numeric" required>
+
+                                        <span>
+                                            años
+                                        </span>
+
+                                    </div>
+
+                                    <small class="mensaje-error" id="errorEdad"></small>
+
+                                </div>
+
+                                <div class="campo">
+
+                                    <label for="peso">
+                                        Peso
+                                    </label>
+
+                                    <div class="campo-unidad">
+
+                                        <input type="number" id="peso" name="peso" min="35" max="300" step="0.1"
+                                            placeholder="Ej: 80" inputmode="decimal" required>
+
+                                        <span>
+                                            kg
+                                        </span>
+
+                                    </div>
+
+                                    <small class="mensaje-error" id="errorPeso"></small>
+
+                                </div>
+
+                            </div>
+
+                            <div class="campo">
+
+                                <label for="altura">
+                                    Altura
+                                </label>
+
+                                <div class="campo-unidad">
+
+                                    <input type="number" id="altura" name="altura" min="120" max="230" step="1"
+                                        placeholder="Ej: 180" inputmode="numeric" required>
+
+                                    <span>
+                                        cm
+                                    </span>
+
+                                </div>
+
+                                <small class="mensaje-error" id="errorAltura"></small>
+
+                            </div>
+
+                            <div class="campo">
+
+                                <label for="actividad">
+                                    Nivel de actividad física
+                                </label>
+
+                                <select id="actividad" name="actividad" required>
+
+                                    <option value="">
+                                        Selecciona tu nivel
+                                    </option>
+
+                                    <option value="1.2">
+                                        Sedentario: poco o ningún ejercicio
+                                    </option>
+
+                                    <option value="1.375">
+                                        Ligero: ejercicio 1-3 días por semana
+                                    </option>
+
+                                    <option value="1.55">
+                                        Moderado: ejercicio 3-5 días por semana
+                                    </option>
+
+                                    <option value="1.725">
+                                        Intenso: ejercicio 6-7 días por semana
+                                    </option>
+
+                                    <option value="1.9">
+                                        Muy intenso: trabajo físico o doble entrenamiento
+                                    </option>
+
+                                </select>
+
+                                <small class="mensaje-error" id="errorActividad"></small>
+
+                            </div>
+
+                            <button type="submit" class="boton-principal" id="calcular">
+                                Calcular mi TMB
+                            </button>
+
+                            <button type="button" class="boton-secundario oculto" id="reiniciar">
+                                Reiniciar calculadora
+                            </button>
+
+                        </form>
+
+                    </article>
+
+                    <aside class="tarjeta resumen-tarjeta" aria-label="Información del cálculo">
+
+                        <span class="resumen-icono" aria-hidden="true">
+                            ⚡
+                        </span>
+
+                        <h2>
+                            ¿Qué obtendrás?
+                        </h2>
+
+                        <ul class="lista-beneficios">
+
+                            <li>
+
+                                <strong>
+                                    Tasa Metabólica Basal
+                                </strong>
+
+                                <span>
+                                    Las calorías que consume tu cuerpo en reposo.
+                                </span>
+
+                            </li>
+
+                            <li>
+
+                                <strong>
+                                    Calorías de mantenimiento
+                                </strong>
+
+                                <span>
+                                    Una estimación de tu gasto energético diario.
+                                </span>
+
+                            </li>
+
+                            <li>
+
+                                <strong>
+                                    Objetivos orientativos
+                                </strong>
+
+                                <span>
+                                    Calorías para perder grasa o ganar masa muscular.
+                                </span>
+
+                            </li>
+
+                        </ul>
+
+                        <div class="aviso-resumen">
+
+                            <strong>
+                                Fórmula utilizada:
+                            </strong>
+
+                            <p>
+                                Mifflin-St Jeor, una de las fórmulas más utilizadas para estimar la TMB.
+                            </p>
+
+                        </div>
+
+                    </aside>
+
+                </div>
+
+            </div>
+
+        </section>
+
+        <section id="resultado" class="seccion-resultados oculto" aria-live="polite">
+
+            <div class="contenedor">
+
+                <div class="resultado-cabecera">
+
+                    <span class="etiqueta">
+                        Resultado personalizado
+                    </span>
+
+                    <h2>
+                        Tu estimación calórica diaria
+                    </h2>
+
+                    <p id="resumenResultado"></p>
+
+                </div>
+
+                <div class="resultados-grid">
+
+                    <article class="resultado-principal">
+
+                        <span class="resultado-icono" aria-hidden="true">
+                            🔥
+                        </span>
+
+                        <p class="resultado-nombre">
+                            Tu Tasa Metabólica Basal
+                        </p>
+
+                        <p class="resultado-numero">
+
+                            <span id="tmbResultado">
+                                0
+                            </span>
+
+                            <small>
+                                kcal/día
+                            </small>
+
+                        </p>
+
+                        <p class="resultado-descripcion">
+                            Energía estimada que tu organismo necesita en reposo para mantener sus funciones vitales.
+                        </p>
+
+                    </article>
+
+                    <article class="resultado-tarjeta mantenimiento">
+
+                        <span class="mini-icono" aria-hidden="true">
+                            ⚡
+                        </span>
+
+                        <h3>
+                            Mantenimiento
+                        </h3>
+
+                        <p>
+                            <span id="mantenimientoResultado">
+                                0
+                            </span>
+                            kcal/día
+                        </p>
+
+                        <small>
+                            Estimación para mantener tu peso actual.
+                        </small>
+
+                    </article>
+
+                    <article class="resultado-tarjeta perder">
+
+                        <span class="mini-icono" aria-hidden="true">
+                            📉
+                        </span>
+
+                        <h3>
+                            Perder grasa
+                        </h3>
+
+                        <p>
+                            <span id="perderResultado">
+                                0
+                            </span>
+                            kcal/día
+                        </p>
+
+                        <small>
+                            Déficit moderado aproximado de 500 kcal.
+                        </small>
+
+                    </article>
+
+                    <article class="resultado-tarjeta ganar">
+
+                        <span class="mini-icono" aria-hidden="true">
+                            💪
+                        </span>
+
+                        <h3>
+                            Ganar músculo
+                        </h3>
+
+                        <p>
+                            <span id="ganarResultado">
+                                0
+                            </span>
+                            kcal/día
+                        </p>
+
+                        <small>
+                            Superávit moderado aproximado de 300 kcal.
+                        </small>
+
+                    </article>
+
+                </div>
+
+                <article class="interpretacion tarjeta">
+
+                    <div class="interpretacion-icono" aria-hidden="true">
+                        🎯
+                    </div>
+
+                    <div>
+
+                        <h3>
+                            Interpretación de tus resultados
+                        </h3>
+
+                        <p id="interpretacionResultado"></p>
+
+                    </div>
+
+                </article>
+
+                <div class="aviso-salud">
+
+                    <strong>
+                        Importante:
+                    </strong>
+
+                    Estos resultados son estimaciones orientativas y no sustituyen el asesoramiento de un profesional
+                    sanitario o de la nutrición.
+
+                </div>
+
+            </div>
+
+        </section>
+
+        <section class="seccion-informativa">
+
+            <div class="contenedor contenido-estrecho">
+
+                <span class="etiqueta">
+                    Guía completa
+                </span>
+
+                <h2>
+                    ¿Qué es la Tasa Metabólica Basal?
+                </h2>
+
+                <p>
+                    La Tasa Metabólica Basal, también conocida como TMB, representa la cantidad mínima de energía que
+                    necesita tu cuerpo para mantener funciones esenciales como respirar, regular la temperatura
+                    corporal, hacer circular la sangre y mantener activos los órganos.
+                </p>
+
+                <p>
+                    Aunque permanecieras todo el día en reposo, tu organismo seguiría consumiendo energía. Por eso la
+                    TMB suele representar una parte importante del gasto calórico diario total.
+                </p>
+
+                <div class="informacion-grid">
+
+                    <article class="info-tarjeta">
+
+                        <span aria-hidden="true">
+                            🧬
+                        </span>
+
+                        <h3>
+                            Metabolismo
+                        </h3>
+
+                        <p>
+                            La genética y la composición corporal influyen en el gasto energético.
+                        </p>
+
+                    </article>
+
+                    <article class="info-tarjeta">
+
+                        <span aria-hidden="true">
+                            🎂
+                        </span>
+
+                        <h3>
+                            Edad
+                        </h3>
+
+                        <p>
+                            El gasto basal puede disminuir progresivamente con el paso de los años.
+                        </p>
+
+                    </article>
+
+                    <article class="info-tarjeta">
+
+                        <span aria-hidden="true">
+                            🏋️
+                        </span>
+
+                        <h3>
+                            Masa muscular
+                        </h3>
+
+                        <p>
+                            Una mayor cantidad de masa muscular suele elevar el gasto energético basal.
+                        </p>
+
+                    </article>
+
+                </div>
+
+            </div>
+
+        </section>
+
+        <section class="seccion-alternativa">
+
+            <div class="contenedor contenido-estrecho">
+
+                <span class="etiqueta">
+                    TMB y TDEE
+                </span>
+
+                <h2>
+                    ¿Cuál es la diferencia entre TMB y gasto calórico diario?
+                </h2>
+
+                <div class="comparacion-grid">
+
+                    <article class="comparacion-tarjeta">
+
+                        <h3>
+                            🔥 TMB
+                        </h3>
+
+                        <p>
+                            Es la energía que tu cuerpo utiliza en reposo para mantener las funciones vitales.
+                        </p>
+
+                    </article>
+
+                    <article class="comparacion-tarjeta">
+
+                        <h3>
+                            ⚡ TDEE
+                        </h3>
+
+                        <p>
+                            Es el gasto energético total diario e incluye actividad física, trabajo, desplazamientos y
+                            ejercicio.
+                        </p>
+
+                    </article>
+
+                </div>
+
+                <p>
+                    Para estimar el gasto calórico diario, la calculadora multiplica la TMB por un factor de actividad.
+                    El resultado es orientativo, ya que el movimiento real de cada persona puede variar de un día a
+                    otro.
+                </p>
+
+            </div>
+
+        </section>
+
+        <section class="seccion-informativa">
+
+            <div class="contenedor contenido-estrecho">
+
+                <span class="etiqueta">
+                    Fórmula
+                </span>
+
+                <h2>
+                    ¿Cómo se calcula la TMB?
+                </h2>
+
+                <p>
+                    Esta herramienta utiliza la fórmula de Mifflin-St Jeor, que tiene en cuenta el sexo, la edad, el
+                    peso y la altura.
+                </p>
+
+                <div class="formula-grid">
+
+                    <article class="formula-tarjeta">
+
+                        <h3>
+                            Hombres
+                        </h3>
+
+                        <p>
+                            TMB = (10 × peso) + (6,25 × altura) − (5 × edad) + 5
+                        </p>
+
+                    </article>
+
+                    <article class="formula-tarjeta">
+
+                        <h3>
+                            Mujeres
+                        </h3>
+
+                        <p>
+                            TMB = (10 × peso) + (6,25 × altura) − (5 × edad) − 161
+                        </p>
+
+                    </article>
+
+                </div>
+
+                <p class="nota-formula">
+                    El peso se introduce en kilogramos, la altura en centímetros y la edad en años.
+                </p>
+
+            </div>
+
+        </section>
+
+        <section class="seccion-alternativa">
+
+            <div class="contenedor contenido-estrecho">
+
+                <span class="etiqueta">
+                    Preguntas frecuentes
+                </span>
+
+                <h2>
+                    Preguntas frecuentes sobre la TMB
+                </h2>
+
+                <div class="faq">
+
+                    <details>
+
+                        <summary>
+                            ¿La TMB indica exactamente cuántas calorías debo comer?
+                        </summary>
+
+                        <p>
+                            No. La TMB representa el gasto en reposo. Para estimar tus necesidades diarias hay que
+                            considerar también tu nivel de actividad física.
+                        </p>
+
+                    </details>
+
+                    <details>
+
+                        <summary>
+                            ¿Puedo comer menos calorías que mi TMB?
+                        </summary>
+
+                        <p>
+                            Mantener durante mucho tiempo una ingesta muy baja puede ser inadecuado. Para planificar una
+                            pérdida de peso segura es recomendable consultar con un profesional sanitario o nutricionista.
+                        </p>
+
+                    </details>
+
+                    <details>
+
+                        <summary>
+                            ¿La calculadora sirve para deportistas?
+                        </summary>
+
+                        <p>
+                            Puede ofrecer una estimación inicial, pero los deportistas con entrenamientos intensos pueden
+                            necesitar una valoración más personalizada.
+                        </p>
+
+                    </details>
+
+                    <details>
+
+                        <summary>
+                            ¿Por qué cambia la TMB con la edad?
+                        </summary>
+
+                        <p>
+                            Con el paso del tiempo pueden producirse cambios en la masa muscular, la actividad física y la
+                            composición corporal, lo que puede modificar el gasto energético.
+                        </p>
+
+                    </details>
+
+                    <details>
+
+                        <summary>
+                            ¿Los resultados son exactos?
+                        </summary>
+
+                        <p>
+                            Son estimaciones basadas en fórmulas matemáticas. El gasto energético real puede variar según
+                            la genética, la composición corporal, la salud y el nivel de actividad.
+                        </p>
+
+                    </details>
+
+                </div>
+
+            </div>
+
+        </section>
+
+        <section class="seccion-relacionadas">
+
+            <div class="contenedor">
+
+                <div class="seccion-encabezado centrado">
+
+                    <span class="etiqueta">
+                        Sigue calculando
+                    </span>
+
+                    <h2>
+                        Herramientas relacionadas
+                    </h2>
+
+                    <p>
+                        Completa tu información con otras calculadoras gratuitas de Imoancy.
+                    </p>
+
+                </div>
+
+                <div class="relacionadas-grid">
+
+                    <a class="relacionada-tarjeta"
+                        href="https://imoancy.com/herramientas/calculadora-imc/">
+
+                        <span aria-hidden="true">
+                            ⚖️
+                        </span>
+
+                        <h3>
+                            Calculadora IMC
+                        </h3>
+
+                        <p>
+                            Calcula tu Índice de Masa Corporal y conoce tu rango orientativo.
+                        </p>
+
+                        <strong>
+                            Calcular IMC →
+                        </strong>
+
+                    </a>
+
+                    <a class="relacionada-tarjeta"
+                        href="https://imoancy.com/herramientas/calculadora-agua-diaria/">
+
+                        <span aria-hidden="true">
+                            💧
+                        </span>
+
+                        <h3>
+                            Calculadora de Agua
+                        </h3>
+
+                        <p>
+                            Descubre cuánta agua deberías beber al día según tus características.
+                        </p>
+
+                        <strong>
+                            Calcular agua →
+                        </strong>
+
+                    </a>
+
+                    <a class="relacionada-tarjeta"
+                        href="https://imoancy.com/">
+
+                        <span aria-hidden="true">
+                            🧰
+                        </span>
+
+                        <h3>
+                            Portal Imoancy
+                        </h3>
+
+                        <p>
+                            Accede a todas nuestras calculadoras gratuitas de finanzas, trabajo y salud.
+                        </p>
+
+                        <strong>
+                            Ver herramientas →
+                        </strong>
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <footer class="pie-pagina">
+
+        <div class="contenedor pie-contenido">
+
+            <div>
+
+                <strong>
+                    Imoancy
+                </strong>
+
+                <p>
+                    Calculadoras gratuitas, sencillas y útiles para tu día a día.
+                </p>
+
+            </div>
+
+            <nav aria-label="Enlaces legales">
+
+                <a href="https://imoancy.com/aviso-legal.html">
+                    Aviso legal
+                </a>
+
+                <a href="https://imoancy.com/politica-privacidad.html">
+                    Privacidad
+                </a>
+
+                <a href="https://imoancy.com/politica-cookies.html">
+                    Cookies
+                </a>
+
+            </nav>
+
+        </div>
+
+        <div class="contenedor copyright">
+
+            <p>
+                © 2026 Imoancy · Todos los derechos reservados.
+            </p>
+
+        </div>
+
+    </footer>
+
+    <script src="js/config.js"></script>
+    <script src="js/script.js"></script>
+
+</body>
+
+</html>

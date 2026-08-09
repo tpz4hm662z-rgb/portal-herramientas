@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Sueldo Neto España</title>
+    <meta name="description" content="Calcula de forma orientativa tu salario neto anual, mensual y por paga en España.">
+    <link rel="canonical" href="https://imoancy.com/herramientas/calculadora-sueldo-neto/">
+
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="es_ES">
+    <meta property="og:site_name" content="Imoancy">
+    <meta property="og:title" content="Calculadora de Sueldo Neto España">
+    <meta property="og:description" content="Calcula de forma orientativa tu salario neto anual, mensual y por paga en España.">
+    <meta property="og:url" content="https://imoancy.com/herramientas/calculadora-sueldo-neto/">
+    <meta property="og:image" content="https://avatars.githubusercontent.com/tpz4hm662z-rgb">
+    <meta property="og:image:alt" content="Calculadora de Sueldo Neto España">
+
+    <link rel="icon" type="image/svg+xml" href="icons/favicon.svg">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Calculadora de Sueldo Neto España">
+    <meta name="twitter:description" content="Calcula de forma orientativa tu salario neto anual, mensual y por paga en España.">
+    <meta name="twitter:url" content="https://imoancy.com/herramientas/calculadora-sueldo-neto/">
+    <meta name="twitter:image" content="https://avatars.githubusercontent.com/tpz4hm662z-rgb">
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@graph": [
+            {
+                "@type": "WebPage",
+                "@id": "https://imoancy.com/herramientas/calculadora-sueldo-neto/",
+                "url": "https://imoancy.com/herramientas/calculadora-sueldo-neto/",
+                "name": "Calculadora de Sueldo Neto España",
+                "description": "Calcula de forma orientativa tu salario neto anual, mensual y por paga en España."
+            },
+            {
+                "@type": "SoftwareApplication",
+                "@id": "https://imoancy.com/herramientas/calculadora-sueldo-neto/",
+                "url": "https://imoancy.com/herramientas/calculadora-sueldo-neto/",
+                "mainEntityOfPage": "https://imoancy.com/herramientas/calculadora-sueldo-neto/",
+                "name": "Calculadora de Sueldo Neto España",
+                "applicationCategory": "FinanceApplication",
+                "operatingSystem": "Web"
+            },
+            {
+                "@type": "BreadcrumbList",
+                "@id": "https://imoancy.com/herramientas/calculadora-sueldo-neto/",
+                "itemListElement": [
+                    {
+                        "@type": "ListItem",
+                        "position": 1,
+                        "name": "Calculadora de Sueldo Neto España",
+                        "item": "https://imoancy.com/herramientas/calculadora-sueldo-neto/"
+                    }
+                ]
+            }
+        ]
+    }
+    </script>
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-QH8MJ6LVHN"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag("js", new Date());
+        gtag("config","G-QH8MJ6LVHN");
+    </script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="contenedor">
+
+        <h1>Calculadora de Sueldo Neto España</h1>
+
+        <p class="subtitulo">
+            Calcula de forma orientativa tu salario neto anual y mensual.
+        </p>
+
+        <label>Salario Bruto Anual (€)</label>
+        <input type="number" id="salarioBruto" placeholder="Ej: 30000">
+
+        <label>Número de pagas</label>
+        <input type="number" id="pagas" placeholder="Ej: 14">
+
+        <button onclick="calcularSueldo()">
+    Calcular Sueldo Neto
+</button>
+
+<button class="reiniciar" onclick="reiniciarFormulario()">
+    Reiniciar
+</button>
+
+        <div id="resultado" class="resultado"></div>
+
+    </div>
+
+    <script src="js/config.js"></script>
+    <script src="script.js"></script>
+
+</body>
+</html>

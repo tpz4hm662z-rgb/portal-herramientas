@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Indemnización por Despido</title>
+    <link rel="canonical" href="https://imoancy.com/herramientas/calculadora-indemnizacion/">
+
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Calculadora de Indemnización por Despido">
+    <meta property="og:url" content="https://imoancy.com/herramientas/calculadora-indemnizacion/">
+    <meta property="og:image" content="https://avatars.githubusercontent.com/tpz4hm662z-rgb">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Calculadora de Indemnización por Despido">
+    <meta name="twitter:url" content="https://imoancy.com/herramientas/calculadora-indemnizacion/">
+    <meta name="twitter:image" content="https://avatars.githubusercontent.com/tpz4hm662z-rgb">
+
+    <script>
+        const CONFIG = {
+            herramienta: {
+                url: "https://imoancy.com/herramientas/calculadora-indemnizacion/"
+            }
+        };
+    </script>
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@graph": [
+            {
+                "@type": "WebPage",
+                "@id": "https://imoancy.com/herramientas/calculadora-indemnizacion/",
+                "url": "https://imoancy.com/herramientas/calculadora-indemnizacion/",
+                "name": "Calculadora de Indemnización por Despido",
+                "mainEntityOfPage": "https://imoancy.com/herramientas/calculadora-indemnizacion/"
+            },
+            {
+                "@type": "SoftwareApplication",
+                "@id": "https://imoancy.com/herramientas/calculadora-indemnizacion/",
+                "url": "https://imoancy.com/herramientas/calculadora-indemnizacion/",
+                "name": "Calculadora de Indemnización por Despido",
+                "applicationCategory": "FinanceApplication",
+                "operatingSystem": "Web",
+                "mainEntityOfPage": "https://imoancy.com/herramientas/calculadora-indemnizacion/"
+            },
+            {
+                "@type": "BreadcrumbList",
+                "@id": "https://imoancy.com/herramientas/calculadora-indemnizacion/",
+                "url": "https://imoancy.com/herramientas/calculadora-indemnizacion/",
+                "mainEntityOfPage": "https://imoancy.com/herramientas/calculadora-indemnizacion/",
+                "itemListElement": [
+                    {
+                        "@type": "ListItem",
+                        "position": 1,
+                        "name": "Calculadora de Indemnización por Despido",
+                        "item": "https://imoancy.com/herramientas/calculadora-indemnizacion/"
+                    }
+                ]
+            }
+        ]
+    }
+    </script>
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-QH8MJ6LVHN"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag("js", new Date());
+        gtag("config","G-QH8MJ6LVHN");
+    </script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="contenedor">
+        <h1>Calculadora de Indemnización por Despido</h1>
+
+        <label>Salario bruto mensual (€)</label>
+        <input type="number" id="salario" placeholder="Ejemplo: 2000">
+
+        <label>Fecha de inicio en la empresa</label>
+        <input type="date" id="fechaInicio">
+
+        <label>Fecha de fin del contrato</label>
+        <input type="date" id="fechaFin">
+
+        <label>Tipo de despido</label>
+        <select id="tipoDespido">
+            <option value="objetivo">Despido objetivo</option>
+            <option value="improcedente">Despido improcedente</option>
+        </select>
+
+        <button onclick="calcularIndemnizacion()">Calcular indemnización</button>
+        <button onclick="reiniciar()">Reiniciar</button>
+
+        <div id="resultado"></div>
+        <div class="explicacion">
+    <h3>Tipos de despido</h3>
+
+    <p>
+        <strong>Despido Objetivo:</strong>
+        20 días por año trabajado con un máximo de 12 mensualidades.
+    </p>
+
+    <p>
+        <strong>Despido Improcedente:</strong>
+        33 días por año trabajado con un máximo de 24 mensualidades.
+    </p>
+</div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

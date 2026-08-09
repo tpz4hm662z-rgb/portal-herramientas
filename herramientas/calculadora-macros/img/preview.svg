@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-label="Calculadora de Macronutrientes">
+  <rect width="1200" height="630" fill="#f8fafc"/>
+  <rect x="72" y="72" width="1056" height="486" rx="42" fill="#fff" stroke="#dbeafe" stroke-width="4"/>
+  <text x="130" y="205" fill="#2563eb" font-family="Arial,sans-serif" font-size="38" font-weight="700">Imoancy</text>
+  <text x="130" y="315" fill="#1f2937" font-family="Arial,sans-serif" font-size="56" font-weight="800">Calculadora de Macronutrientes</text>
+  <text x="130" y="395" fill="#475569" font-family="Arial,sans-serif" font-size="28">Herramienta gratuita, rápida y privada</text>
+  <rect x="130" y="440" width="330" height="62" rx="31" fill="#2563eb"/>
+  <text x="295" y="480" text-anchor="middle" fill="#fff" font-family="Arial,sans-serif" font-size="24" font-weight="700">Imoancy</text>
+</svg>

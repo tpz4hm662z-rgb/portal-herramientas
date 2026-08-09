@@ -1,0 +1,459 @@
+/* =====================================================
+   HERRAMIENTAS360 UI KIT
+   Calculadora IMC - Versión Premium
+===================================================== */
+
+:root {
+    --color-primario: #2563eb;
+    --color-secundario: #3b82f6;
+    --color-fondo: #f8fafc;
+    --color-texto: #1e293b;
+    --color-muted: #64748b;
+    --color-blanco: #ffffff;
+    --color-borde: #e2e8f0;
+
+    --verde: #16a34a;
+    --azul: #2563eb;
+    --amarillo: #f59e0b;
+    --rojo: #dc2626;
+
+    --radio: 16px;
+    --radio-grande: 22px;
+    --sombra: 0 10px 25px rgba(0, 0, 0, .08);
+    --sombra-premium: 0 18px 45px rgba(37, 99, 235, .14);
+}
+
+/* RESET */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: var(--color-fondo);
+    color: var(--color-texto);
+    line-height: 1.6;
+}
+
+/* CONTENEDOR */
+
+.contenedor {
+    width: min(1100px, 92%);
+    margin: auto;
+    padding: 40px 0;
+}
+
+/* HERO */
+
+.hero {
+    text-align: center;
+    background: linear-gradient(135deg, var(--color-primario), var(--color-secundario));
+    color: white;
+    padding: 55px 30px;
+    border-radius: var(--radio-grande);
+    margin-bottom: 40px;
+    box-shadow: var(--sombra-premium);
+}
+
+.hero h1 {
+    font-size: clamp(32px, 5vw, 46px);
+    margin-bottom: 15px;
+}
+
+.subtitulo {
+    font-size: 20px;
+    opacity: .95;
+    max-width: 760px;
+    margin: auto;
+}
+
+/* CALCULADORA */
+
+.calculadora {
+    background: var(--color-blanco);
+    padding: 35px;
+    border-radius: var(--radio-grande);
+    box-shadow: var(--sombra);
+    border: 1px solid var(--color-borde);
+}
+
+.campo {
+    margin-bottom: 22px;
+}
+
+.campo label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 700;
+}
+
+.campo input {
+    width: 100%;
+    padding: 15px;
+    border: 1px solid #cbd5e1;
+    border-radius: 12px;
+    font-size: 16px;
+    transition: .25s ease;
+}
+
+.campo input:focus {
+    outline: none;
+    border-color: var(--color-primario);
+    box-shadow: 0 0 0 4px rgba(37, 99, 235, .12);
+}
+
+button {
+    width: 100%;
+    padding: 17px;
+    border: none;
+    border-radius: 12px;
+    background: linear-gradient(135deg, var(--color-primario), var(--color-secundario));
+    color: white;
+    font-size: 17px;
+    font-weight: 800;
+    cursor: pointer;
+    transition: .25s ease;
+}
+
+button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 25px rgba(37, 99, 235, .25);
+}
+
+/* RESULTADO GENERAL */
+
+.resultado {
+    margin-top: 40px;
+}
+
+#resultado {
+    margin-top: 20px;
+}
+
+/* TARJETA PREMIUM RESULTADO */
+
+.resultado-card {
+    background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+    border-radius: 26px;
+    padding: 35px;
+    text-align: center;
+    border: 1px solid #dbeafe;
+    box-shadow: var(--sombra-premium);
+    animation: aparecer .35s ease;
+}
+
+.resultado-card h2 {
+    font-size: 22px;
+    color: var(--color-muted);
+    margin-bottom: 12px;
+}
+
+.numero-imc {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 150px;
+    height: 150px;
+    margin: 10px auto 18px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #dbeafe, #eff6ff);
+    color: #0f766e;
+    font-size: 58px;
+    font-weight: 900;
+    box-shadow: inset 0 0 0 8px #ffffff, 0 12px 28px rgba(15, 118, 110, .18);
+}
+
+.clasificacion {
+    display: inline-block;
+    font-size: 20px;
+    font-weight: 800;
+    padding: 10px 18px;
+    border-radius: 999px;
+    background: #ecfdf5;
+    color: #065f46;
+    margin-bottom: 25px;
+}
+
+/* BARRA IMC */
+
+.barra-imc {
+    position: relative;
+    width: 100%;
+    height: 24px;
+    border-radius: 999px;
+    overflow: hidden;
+    margin: 28px 0 22px;
+    background: #e5e7eb;
+}
+
+.barra-color {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        to right,
+        #4aa3ff 0%,
+        #4aa3ff 20%,
+        #22c55e 20%,
+        #22c55e 50%,
+        #f59e0b 50%,
+        #f59e0b 70%,
+        #ef4444 70%,
+        #ef4444 100%
+    );
+}
+
+.marcador {
+    position: absolute;
+    top: -7px;
+    width: 16px;
+    height: 38px;
+    background: #111827;
+    border: 3px solid white;
+    border-radius: 999px;
+    transform: translateX(-50%);
+    box-shadow: 0 6px 16px rgba(0,0,0,.25);
+}
+
+/* MENSAJE */
+
+.mensaje {
+    margin-top: 22px;
+    font-size: 17px;
+    color: var(--color-texto);
+    line-height: 1.8;
+}
+
+/* PESO SALUDABLE */
+
+.peso-saludable {
+    margin-top: 30px;
+    padding: 24px;
+    background: #eff6ff;
+    border: 1px solid #bfdbfe;
+    border-radius: 18px;
+}
+
+.peso-saludable h3 {
+    margin-bottom: 12px;
+    font-size: 20px;
+    color: #1d4ed8;
+}
+
+.peso-saludable p {
+    font-size: 24px;
+    font-weight: 900;
+    color: #1e293b;
+}
+
+/* PLAN PERSONALIZADO */
+
+.plan-personalizado {
+    margin-top: 32px;
+    padding: 30px;
+    background: #ffffff;
+    border-radius: 24px;
+    border: 1px solid var(--color-borde);
+    box-shadow: var(--sombra);
+    animation: aparecer .35s ease;
+}
+
+.plan-personalizado h2 {
+    text-align: center;
+    margin-bottom: 24px;
+    color: #1e293b;
+    font-size: 26px;
+}
+
+.plan-personalizado h3 {
+    margin-bottom: 16px;
+    color: var(--color-primario);
+    font-size: 21px;
+}
+
+.plan-personalizado ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.plan-personalizado li {
+    margin-bottom: 12px;
+    padding: 12px 14px;
+    background: #f8fafc;
+    border-radius: 12px;
+    line-height: 1.6;
+}
+
+/* RIESGO SALUD */
+
+.riesgo-salud {
+    margin-top: 25px;
+    padding: 20px;
+    border-radius: 16px;
+    font-size: 16px;
+    font-weight: 700;
+    text-align: center;
+    line-height: 1.7;
+}
+
+.riesgo-bajo {
+    background: #dbeafe;
+    color: #1e40af;
+}
+
+.riesgo-normal {
+    background: #dcfce7;
+    color: #166534;
+}
+
+.riesgo-medio {
+    background: #fef3c7;
+    color: #92400e;
+}
+
+.riesgo-alto {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+/* SECCIONES INFORMATIVAS */
+
+.informacion,
+.tabla-imc,
+.interpretacion,
+.faq,
+.relacionadas {
+    margin-top: 60px;
+    background: #ffffff;
+    padding: 30px;
+    border-radius: var(--radio-grande);
+    box-shadow: var(--sombra);
+    border: 1px solid var(--color-borde);
+}
+
+.informacion h2,
+.tabla-imc h2,
+.interpretacion h2,
+.faq h2,
+.relacionadas h2 {
+    margin-bottom: 18px;
+    color: #1e293b;
+}
+
+.informacion p,
+.interpretacion p,
+.faq p {
+    line-height: 1.8;
+    color: #334155;
+}
+
+/* TABLA */
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    overflow: hidden;
+    border-radius: 12px;
+}
+
+th,
+td {
+    border: 1px solid #e2e8f0;
+    padding: 14px;
+    text-align: center;
+}
+
+th {
+    background: var(--color-primario);
+    color: white;
+}
+
+/* HERRAMIENTAS RELACIONADAS */
+
+.herramientas-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 22px;
+    margin-top: 25px;
+}
+
+.herramienta-card {
+    text-decoration: none;
+    color: inherit;
+    background: white;
+    border-radius: 18px;
+    padding: 22px;
+    border: 1px solid #e2e8f0;
+    transition: .25s ease;
+}
+
+.herramienta-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--sombra);
+    border-color: #bfdbfe;
+}
+
+/* ANIMACIONES */
+
+@keyframes aparecer {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 768px) {
+
+    .contenedor {
+        width: 94%;
+        padding: 25px 0;
+    }
+
+    .hero {
+        padding: 38px 22px;
+    }
+
+    .subtitulo {
+        font-size: 17px;
+    }
+
+    .calculadora,
+    .resultado-card,
+    .plan-personalizado,
+    .informacion,
+    .tabla-imc,
+    .interpretacion,
+    .faq,
+    .relacionadas {
+        padding: 24px;
+    }
+
+    .numero-imc {
+        width: 125px;
+        height: 125px;
+        font-size: 46px;
+    }
+
+    .peso-saludable p {
+        font-size: 20px;
+    }
+
+    table {
+        font-size: 14px;
+    }
+
+    th,
+    td {
+        padding: 10px;
+    }
+}

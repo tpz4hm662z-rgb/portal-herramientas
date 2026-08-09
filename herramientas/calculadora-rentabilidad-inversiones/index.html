@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Rentabilidad de Inversiones</title>
+    <meta name="description" content="Calcula cuánto podría crecer una inversión con aportaciones mensuales y rentabilidad anual estimada.">
+    <link rel="canonical" href="https://imoancy.com/herramientas/calculadora-rentabilidad-inversiones/">
+
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="es_ES">
+    <meta property="og:site_name" content="Imoancy">
+    <meta property="og:title" content="Calculadora de Rentabilidad de Inversiones">
+    <meta property="og:description" content="Calcula cuánto podría crecer una inversión con aportaciones mensuales y rentabilidad anual estimada.">
+    <meta property="og:url" content="https://imoancy.com/herramientas/calculadora-rentabilidad-inversiones/">
+    <meta property="og:image" content="https://avatars.githubusercontent.com/tpz4hm662z-rgb">
+    <meta property="og:image:alt" content="Calculadora de Rentabilidad de Inversiones">
+
+    <link rel="icon" type="image/svg+xml" href="icons/favicon.svg">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Calculadora de Rentabilidad de Inversiones">
+    <meta name="twitter:description" content="Calcula cuánto podría crecer una inversión con aportaciones mensuales y rentabilidad anual estimada.">
+    <meta name="twitter:url" content="https://imoancy.com/herramientas/calculadora-rentabilidad-inversiones/">
+    <meta name="twitter:image" content="https://avatars.githubusercontent.com/tpz4hm662z-rgb">
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@graph": [
+            {
+                "@type": "WebPage",
+                "@id": "https://imoancy.com/herramientas/calculadora-rentabilidad-inversiones/",
+                "url": "https://imoancy.com/herramientas/calculadora-rentabilidad-inversiones/",
+                "name": "Calculadora de Rentabilidad de Inversiones",
+                "description": "Calcula cuánto podría crecer una inversión con aportaciones mensuales y rentabilidad anual estimada.",
+                "mainEntityOfPage": "https://imoancy.com/herramientas/calculadora-rentabilidad-inversiones/"
+            },
+            {
+                "@type": "SoftwareApplication",
+                "@id": "https://imoancy.com/herramientas/calculadora-rentabilidad-inversiones/",
+                "url": "https://imoancy.com/herramientas/calculadora-rentabilidad-inversiones/",
+                "name": "Calculadora de Rentabilidad de Inversiones",
+                "applicationCategory": "FinanceApplication",
+                "operatingSystem": "Web",
+                "mainEntityOfPage": "https://imoancy.com/herramientas/calculadora-rentabilidad-inversiones/"
+            },
+            {
+                "@type": "BreadcrumbList",
+                "@id": "https://imoancy.com/herramientas/calculadora-rentabilidad-inversiones/",
+                "url": "https://imoancy.com/herramientas/calculadora-rentabilidad-inversiones/",
+                "mainEntityOfPage": "https://imoancy.com/herramientas/calculadora-rentabilidad-inversiones/",
+                "itemListElement": [
+                    {
+                        "@type": "ListItem",
+                        "position": 1,
+                        "name": "Calculadora de Rentabilidad de Inversiones",
+                        "item": "https://imoancy.com/herramientas/calculadora-rentabilidad-inversiones/"
+                    }
+                ]
+            }
+        ]
+    }
+    </script>
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-QH8MJ6LVHN"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag("js",new Date());
+        gtag("config","G-QH8MJ6LVHN");
+    </script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="contenedor">
+
+        <h1>Calculadora de Rentabilidad de Inversiones</h1>
+
+        <p class="subtitulo">
+            Calcula cuánto podría crecer una inversión con aportaciones mensuales y rentabilidad anual estimada.
+        </p>
+
+        <label>Capital inicial (€)</label>
+        <input type="number" id="capitalInicial" placeholder="Ejemplo: 1000">
+
+        <label>Aportación mensual (€)</label>
+        <input type="number" id="aportacionMensual" placeholder="Ejemplo: 200">
+
+        <label>Rentabilidad anual esperada (%)</label>
+        <input type="number" id="rentabilidadAnual" placeholder="Ejemplo: 7">
+
+        <label>Años de inversión</label>
+        <input type="number" id="anos" placeholder="Ejemplo: 20">
+
+        <button onclick="calcularRentabilidad()">Calcular rentabilidad</button>
+
+        <button class="boton-secundario" onclick="reiniciarCalculadora()">Reiniciar</button>
+
+        <div id="resultado" class="resultado"></div>
+
+        <div class="info-box">
+            <h2>¿Qué calcula esta herramienta?</h2>
+            <p>
+                Esta calculadora estima el crecimiento de una inversión teniendo en cuenta el capital inicial,
+                las aportaciones mensuales, la rentabilidad anual esperada y el plazo de inversión.
+            </p>
+            <p>
+                Los resultados son orientativos y no garantizan rentabilidades futuras.
+            </p>
+        </div>
+
+    </div>
+
+    <script src="js/config.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

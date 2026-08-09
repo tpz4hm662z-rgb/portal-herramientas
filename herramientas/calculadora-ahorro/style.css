@@ -1,0 +1,144 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f2f4f8;
+    margin: 0;
+    padding: 0;
+}
+
+.contenedor {
+    max-width: 500px;
+    margin: 60px auto;
+    background-color: white;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+h1 {
+    color: #1f3c88;
+}
+
+input {
+    width: 90%;
+    padding: 12px;
+    margin: 10px 0;
+    font-size: 16px;
+}
+select {
+    width: 90%;
+    padding: 12px;
+    margin: 10px 0;
+    font-size: 16px;
+}
+button {
+    background-color: #1f3c88;
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    font-size: 16px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #162d66;
+}
+
+#resultado {
+    margin-top: 25px;
+    text-align: center;
+}
+
+.tarjeta {
+    background-color: #f8f9fc;
+    border-left: 5px solid #1f3c88;
+    margin: 20px 0;
+    padding: 15px;
+    border-radius: 10px;
+    text-align: left;
+}
+
+.tarjeta h3 {
+    margin-top: 0;
+    color: #1f3c88;
+}
+
+.tarjeta p {
+    margin: 8px 0;
+}
+.beneficio {
+    color: green;
+}
+
+.total {
+    color: #1f3c88;
+}
+@media (max-width: 600px) {
+
+    body {
+        padding: 10px;
+    }
+
+    .contenedor {
+        width: 100%;
+        padding: 20px;
+        box-sizing: border-box;
+    }
+
+    input, select, button {
+        width: 100%;
+        margin-top: 8px;
+        margin-bottom: 8px;
+        box-sizing: border-box;
+    }
+
+    button {
+        padding: 12px;
+        font-size: 16px;
+    }
+
+    h1 {
+        font-size: 26px;
+    }
+
+    #resultado {
+        font-size: 18px;
+    }
+
+    canvas {
+        max-width: 100%;
+    }
+}
+.resumen-final {
+    background: #e8f5e9;
+    border: 2px solid #4caf50;
+    border-radius: 12px;
+    padding: 15px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.resumen-final p {
+    margin: 0;
+    font-size: 16px;
+    color: #333;
+}
+
+.resumen-final h2 {
+    margin-top: 10px;
+    color: #2e7d32;
+}
+footer {
+    margin-top: 40px;
+    text-align: center;
+    color: #666;
+    font-size: 14px;
+    padding: 20px;
+}
+.descripcion {
+    color: #666;
+    font-size: 15px;
+    margin-bottom: 25px;
+    line-height: 1.5;
+}

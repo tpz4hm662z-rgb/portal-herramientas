@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Calculadora de Agua Diaria Gratis | Imoancy</title>
+
+    <meta name="description"
+        content="Calcula cuánta agua debes beber al día según tu peso, sexo y nivel de actividad física. Calculadora gratuita y fácil de usar.">
+
+    <meta name="keywords"
+        content="calculadora agua, cuánta agua beber, hidratación diaria, litros de agua, agua por peso">
+
+    <meta name="author" content="Imoancy">
+
+    <link rel="canonical" href="https://imoancy.com/herramientas/calculadora-agua-diaria/">
+    <meta property="og:title" content="Calculadora de Agua Diaria Gratis | Imoancy">
+    <meta property="og:description"
+        content="Calcula cuánta agua debes beber al día según tu peso, sexo y nivel de actividad física. Calculadora gratuita y fácil de usar.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://imoancy.com/herramientas/calculadora-agua-diaria/">
+    <meta property="og:locale" content="es_ES">
+    <meta property="og:site_name" content="Imoancy">
+    <meta property="og:image" content="https://avatars.githubusercontent.com/tpz4hm662z-rgb">
+    <meta property="og:image:alt" content="💧 Calculadora de Agua Diaria">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Calculadora de Agua Diaria Gratis | Imoancy">
+    <meta name="twitter:description" content="Calcula cuánta agua debes beber al día según tu peso, sexo y nivel de actividad física. Calculadora gratuita y fácil de usar.">
+    <meta name="twitter:image" content="https://avatars.githubusercontent.com/tpz4hm662z-rgb">
+    <meta name="twitter:url" content="https://imoancy.com/herramientas/calculadora-agua-diaria/">
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/svg+xml" href="icons/favicon.svg">
+
+    <script>
+      const CONFIG = {
+        herramienta: {
+          url: "https://imoancy.com/herramientas/calculadora-agua-diaria/"
+        }
+      };
+    </script>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebPage",
+          "@id": "https://imoancy.com/herramientas/calculadora-agua-diaria/",
+          "url": "https://imoancy.com/herramientas/calculadora-agua-diaria/",
+          "name": "Calculadora de Agua Diaria Gratis | Imoancy",
+          "description": "Calcula cuánta agua debes beber al día según tu peso, sexo y nivel de actividad física. Calculadora gratuita y fácil de usar.",
+          "mainEntity": {
+            "@type": "SoftwareApplication",
+            "name": "Calculadora de Agua Diaria",
+            "url": "https://imoancy.com/herramientas/calculadora-agua-diaria/",
+            "mainEntityOfPage": "https://imoancy.com/herramientas/calculadora-agua-diaria/",
+            "applicationCategory": "HealthApplication",
+            "operatingSystem": "Any",
+            "description": "Calculadora gratuita para conocer cuánta agua debes beber al día según tu peso, sexo y nivel de actividad física.",
+            "offers": {
+              "@type": "Offer",
+              "price": "0",
+              "priceCurrency": "EUR"
+            }
+          },
+          "breadcrumb": {
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Imoancy",
+                "item": "https://imoancy.com/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Calculadora de Agua Diaria",
+                "item": "https://imoancy.com/herramientas/calculadora-agua-diaria/"
+              }
+            ]
+          }
+        }
+      ]
+    }
+    </script>
+
+    <!-- Google Analytics · configuración estándar de Imoancy -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-QH8MJ6LVHN"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag("js", new Date());
+      gtag("config","G-QH8MJ6LVHN");
+    </script>
+</head>
+
+<body>
+
+    <header>
+
+        <a href="https://imoancy.com/">
+            ← Volver al Portal
+        </a>
+
+        <h1>💧 Calculadora de Agua Diaria</h1>
+
+        <p>
+            Descubre cuánta agua necesitas beber cada día según tu peso,
+            sexo y nivel de actividad física.
+        </p>
+
+    </header>
+
+    <main>
+
+        <!-- CALCULADORA -->
+
+        <section class="calculadora">
+
+            <label>Peso (kg)</label>
+            <input type="number" id="peso" placeholder="Ejemplo: 75">
+
+            <label>Sexo</label>
+
+            <select id="sexo">
+                <option value="hombre">Hombre</option>
+                <option value="mujer">Mujer</option>
+            </select>
+
+            <label>Nivel de actividad</label>
+
+            <select id="actividad">
+                <option value="sedentario">Sedentario</option>
+                <option value="ligero">Actividad ligera</option>
+                <option value="moderado">Actividad moderada</option>
+                <option value="intenso">Actividad intensa</option>
+            </select>
+
+            <button onclick="calcularAgua()">
+                Calcular
+            </button>
+
+            <button onclick="reiniciarFormulario()">
+                Reiniciar
+            </button>
+
+            <div id="resultado"></div>
+
+        </section>
+
+        <!-- INFORMACIÓN -->
+
+        <section class="informacion">
+
+            <h2>¿Cuánta agua hay que beber al día?</h2>
+
+            <p>
+                La cantidad de agua que necesita una persona depende de numerosos factores,
+                como el peso corporal, el nivel de actividad física, el clima y el estado de salud.
+            </p>
+
+            <p>
+                Una recomendación habitual para adultos es consumir alrededor de 30 a 35 ml
+                de agua por cada kilogramo de peso corporal al día, aunque esta cifra puede aumentar
+                cuando se practica deporte o hace mucho calor.
+            </p>
+
+            <h2>Beneficios de una buena hidratación</h2>
+
+            <ul>
+
+                <li>💧 Ayuda a regular la temperatura corporal.</li>
+
+                <li>🧠 Favorece la concentración y el rendimiento mental.</li>
+
+                <li>❤️ Contribuye al correcto funcionamiento del organismo.</li>
+
+                <li>🏃 Mejora el rendimiento físico durante el ejercicio.</li>
+
+                <li>🚰 Ayuda a prevenir la deshidratación.</li>
+
+            </ul>
+
+        </section>
+        <section class="faq">
+
+            <h2>Preguntas frecuentes</h2>
+
+            <div class="faq-item">
+                <h3>¿Cuánta agua debo beber al día?</h3>
+                <p>
+                    Como orientación general, se recomienda consumir entre 30 y 35 ml de agua por cada kilogramo de peso
+                    corporal. Esta cantidad puede variar según el ejercicio, el clima y el estado de salud.
+                </p>
+            </div>
+
+            <div class="faq-item">
+                <h3>¿Beber demasiada agua es malo?</h3>
+                <p>
+                    Sí. Aunque es poco frecuente, un consumo excesivo de agua en muy poco tiempo puede provocar un
+                    desequilibrio de sodio en el organismo. Lo recomendable es repartir la hidratación durante todo el
+                    día.
+                </p>
+            </div>
+
+            <div class="faq-item">
+                <h3>¿El café o el té cuentan como agua?</h3>
+                <p>
+                    Sí. Aunque el agua sigue siendo la mejor opción, bebidas como el café o el té también contribuyen a
+                    la hidratación diaria cuando se consumen con moderación.
+                </p>
+            </div>
+
+            <div class="faq-item">
+                <h3>¿Necesito beber más agua si hago deporte?</h3>
+                <p>
+                    Sí. Durante la actividad física se pierde agua a través del sudor, por lo que es recomendable
+                    aumentar la ingesta antes, durante y después del ejercicio.
+                </p>
+            </div>
+            <section class="relacionadas">
+
+                <h2>Herramientas relacionadas</h2>
+
+                <a href="https://imoancy.com/herramientas/calculadora-imc/">
+                    Calculadora de IMC
+                </a>
+
+                <a href="https://imoancy.com/herramientas/calculadora-fire/">
+                    Calculadora FIRE
+                </a>
+
+                <a href="https://imoancy.com/herramientas/calculadora-ahorro/">
+                    Calculadora de Ahorro
+                </a>
+
+            </section>
+        </section>
+
+    </main>
+
+    <footer>
+
+        <p>
+            © 2026 Imoancy · Todos los derechos reservados.
+        </p>
+
+    </footer>
+
+    <script src="js/config.js"></script>
+    <script src="script.js"></script>
+
+</body>
+
+</html>
