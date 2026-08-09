@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Imoancy, leche y tomas del bebé">
+  <rect width="512" height="512" rx="112" fill="#2563eb"/>
+  <path d="M196 92h120v58c0 24 18 41 39 58 31 25 49 61 49 101v81c0 28-22 50-50 50H158c-28 0-50-22-50-50v-81c0-40 18-76 49-101 21-17 39-34 39-58V92Z" fill="#fff"/>
+  <path d="M177 266h158c18 0 33 15 33 33v84c0 12-10 22-22 22H166c-12 0-22-10-22-22v-84c0-18 15-33 33-33Z" fill="#bfdbfe"/>
+  <path d="M190 92h132v58H190z" fill="#dbeafe"/><path d="M180 72h152v34H180z" rx="14" fill="#fff"/>
+  <circle cx="313" cy="323" r="17" fill="#2563eb"/><path d="M208 323h72" stroke="#2563eb" stroke-width="18" stroke-linecap="round"/>
+</svg>

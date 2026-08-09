@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <!-- Imoancy Template v3.1 Stable · Herramienta nº31 -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#2563eb">
+    <title>Calculadora de Peso Fetal Estimado PRO | Imoancy</title>
+    <meta name="description" content="Calcula el peso fetal estimado con HC, AC y FL mediante Hadlock y consulta su percentil INTERGROWTH-21st con una interpretación orientativa.">
+    <meta name="keywords" content="calculadora peso fetal estimado, peso fetal por semanas, fórmula Hadlock, biometría fetal, BPD, HC, AC, FL, percentil fetal, ecografía embarazo">
+    <meta name="author" content="Imoancy">
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+    <link rel="canonical" href="https://imoancy.com/herramientas/calculadora-de-peso-fetal-estimado/">
+
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="es_ES">
+    <meta property="og:site_name" content="Imoancy">
+    <meta property="og:title" content="Calculadora de Peso Fetal Estimado PRO">
+    <meta property="og:description" content="Estima el peso fetal a partir de la edad gestacional y las medidas BPD, HC, AC y FL, con una explicación clara y responsable.">
+    <meta property="og:url" content="https://imoancy.com/herramientas/calculadora-de-peso-fetal-estimado/">
+    <meta property="og:image" content="https://imoancy.com/herramientas/calculadora-de-peso-fetal-estimado/icons/favicon.svg">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Calculadora de Peso Fetal Estimado PRO">
+    <meta name="twitter:description" content="Estima el peso fetal con biometrías ecográficas y consulta una guía completa para interpretar el resultado.">
+    <meta name="twitter:url" content="https://imoancy.com/herramientas/calculadora-de-peso-fetal-estimado/">
+    <meta name="twitter:image" content="https://imoancy.com/herramientas/calculadora-de-peso-fetal-estimado/icons/favicon.svg">
+
+    <link rel="icon" type="image/svg+xml" href="icons/favicon.svg">
+    <link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png">
+    <link rel="stylesheet" href="css/style.css">
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-QH8MJ6LVHN"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag("js", new Date());
+      gtag("config","G-QH8MJ6LVHN");
+    </script>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Organization",
+          "@id": "https://imoancy.com/#organization",
+          "name": "Imoancy",
+          "url": "https://imoancy.com/"
+        },
+        {
+          "@type": ["WebPage", "MedicalWebPage"],
+          "@id": "https://imoancy.com/herramientas/calculadora-de-peso-fetal-estimado/#webpage",
+          "url": "https://imoancy.com/herramientas/calculadora-de-peso-fetal-estimado/",
+          "name": "Calculadora de Peso Fetal Estimado PRO",
+          "description": "Herramienta orientativa para estimar el peso fetal mediante edad gestacional y biometrías ecográficas BPD, HC, AC y FL.",
+          "inLanguage": "es-ES",
+          "dateModified": "2026-08-03",
+          "lastReviewed": "2026-08-03",
+          "about": {"@type": "Thing", "name": "Estimación ecográfica del peso fetal"},
+          "specialty": "https://schema.org/Obstetric",
+          "publisher": {"@id": "https://imoancy.com/#organization"},
+          "breadcrumb": {"@id": "https://imoancy.com/herramientas/calculadora-de-peso-fetal-estimado/#breadcrumb"},
+          "mainEntity": {"@id": "https://imoancy.com/herramientas/calculadora-de-peso-fetal-estimado/#application"}
+        },
+        {
+          "@type": "SoftwareApplication",
+          "@id": "https://imoancy.com/herramientas/calculadora-de-peso-fetal-estimado/#application",
+          "name": "Calculadora de Peso Fetal Estimado PRO",
+          "url": "https://imoancy.com/herramientas/calculadora-de-peso-fetal-estimado/",
+          "mainEntityOfPage": {"@id": "https://imoancy.com/herramientas/calculadora-de-peso-fetal-estimado/#webpage"},
+          "description": "Calculadora gratuita de peso fetal estimado mediante la fórmula Hadlock HC–AC–FL y percentiles INTERGROWTH-21st.",
+          "applicationCategory": "HealthApplication",
+          "applicationSubCategory": "Pregnancy calculator",
+          "operatingSystem": "Any",
+          "browserRequirements": "Requiere un navegador moderno con JavaScript",
+          "isAccessibleForFree": true,
+          "offers": {"@type": "Offer", "price": "0", "priceCurrency": "EUR"},
+          "author": {"@id": "https://imoancy.com/#organization"}
+        },
+        {
+          "@type": "BreadcrumbList",
+          "@id": "https://imoancy.com/herramientas/calculadora-de-peso-fetal-estimado/#breadcrumb",
+          "itemListElement": [
+            {"@type": "ListItem", "position": 1, "name": "Inicio", "item": "https://imoancy.com/"},
+            {"@type": "ListItem", "position": 2, "name": "Salud y embarazo", "item": "https://imoancy.com/#salud"},
+            {"@type": "ListItem", "position": 3, "name": "Calculadora de Peso Fetal Estimado PRO", "item": "https://imoancy.com/herramientas/calculadora-de-peso-fetal-estimado/"}
+          ]
+        },
+        {
+          "@type": "FAQPage",
+          "@id": "https://imoancy.com/herramientas/calculadora-de-peso-fetal-estimado/#faq",
+          "mainEntity": [
+            {"@type":"Question","name":"¿Qué es el peso fetal estimado?","acceptedAnswer":{"@type":"Answer","text":"Es una aproximación del peso del bebé obtenida mediante fórmulas que combinan medidas ecográficas. No es un pesaje directo ni un diagnóstico."}},
+            {"@type":"Question","name":"¿Qué datos necesita la calculadora?","acceptedAnswer":{"@type":"Answer","text":"Necesita la edad gestacional en semanas y días y las biometrías BPD, HC, AC y FL en milímetros, tal como aparecen en el informe ecográfico."}},
+            {"@type":"Question","name":"¿Qué significan BPD, HC, AC y FL?","acceptedAnswer":{"@type":"Answer","text":"BPD es el diámetro biparietal, HC el perímetro cefálico, AC el perímetro abdominal y FL la longitud del fémur."}},
+            {"@type":"Question","name":"¿El resultado es exacto?","acceptedAnswer":{"@type":"Answer","text":"No. Es una estimación sujeta a variabilidad biológica, técnica y matemática; el margen puede aumentar al final del embarazo o con mediciones difíciles."}},
+            {"@type":"Question","name":"¿Qué fórmula se utiliza para calcular el peso fetal?","acceptedAnswer":{"@type":"Answer","text":"Se utiliza la fórmula Hadlock de tres parámetros HC–AC–FL, convirtiendo internamente las medidas de milímetros a centímetros. BPD no interviene en esta ecuación."}},
+            {"@type":"Question","name":"¿Qué diferencia hay entre gramos, kilogramos y percentil?","acceptedAnswer":{"@type":"Answer","text":"Gramos y kilogramos expresan el mismo peso en unidades distintas; el percentil compara la estimación con una referencia para la misma edad gestacional."}},
+            {"@type":"Question","name":"¿Qué es un percentil fetal?","acceptedAnswer":{"@type":"Answer","text":"Es la posición relativa del peso estimado dentro de una población de referencia de la misma edad gestacional; no representa un porcentaje de salud."}},
+            {"@type":"Question","name":"¿Un percentil bajo significa que existe un problema?","acceptedAnswer":{"@type":"Answer","text":"No necesariamente. Debe valorarse la evolución, el contexto clínico, la precisión de la datación, el Doppler y otros hallazgos por un especialista."}},
+            {"@type":"Question","name":"¿Un percentil alto significa macrosomía?","acceptedAnswer":{"@type":"Answer","text":"No por sí solo. Un percentil elevado puede motivar seguimiento, pero el diagnóstico requiere valoración clínica y considerar el margen de error."}},
+            {"@type":"Question","name":"¿Por qué puede variar el peso entre dos ecografías?","acceptedAnswer":{"@type":"Answer","text":"Influyen el crecimiento real, el intervalo entre estudios, la postura fetal, el equipo, el profesional y pequeñas diferencias al trazar cada medida."}},
+            {"@type":"Question","name":"¿Puedo introducir centímetros en lugar de milímetros?","acceptedAnswer":{"@type":"Answer","text":"No. Los campos biométricos están preparados para milímetros. Si el informe usa centímetros, deben convertirse correctamente antes de introducirlos."}},
+            {"@type":"Question","name":"¿Qué ocurre si falta una medida ecográfica?","acceptedAnswer":{"@type":"Answer","text":"Algunas ecuaciones admiten combinaciones diferentes, pero no deben inventarse datos. La calculadora debe utilizar únicamente una fórmula compatible con las medidas disponibles."}},
+            {"@type":"Question","name":"¿Cómo debo indicar la edad gestacional?","acceptedAnswer":{"@type":"Answer","text":"Introduce las semanas completas y los días adicionales, de cero a seis, correspondientes a la fecha de la ecografía."}},
+            {"@type":"Question","name":"¿La edad gestacional cambia el peso calculado?","acceptedAnswer":{"@type":"Answer","text":"La fórmula biométrica estima el peso desde las medidas; la edad gestacional es esencial para comparar ese peso con curvas de referencia y obtener el percentil."}},
+            {"@type":"Question","name":"¿Sirve para embarazos gemelares o múltiples?","acceptedAnswer":{"@type":"Answer","text":"Puede ofrecer una cifra orientativa por feto, pero los embarazos múltiples requieren curvas, seguimiento e interpretación especializados."}},
+            {"@type":"Question","name":"¿Puedo usar medidas de ecografías realizadas en fechas distintas?","acceptedAnswer":{"@type":"Answer","text":"No es recomendable. Las medidas deberían proceder del mismo estudio porque el feto crece y mezclar fechas puede distorsionar la estimación."}},
+            {"@type":"Question","name":"¿Cuándo debo consultar al especialista?","acceptedAnswer":{"@type":"Answer","text":"Consulta ante resultados inesperados, discrepancias importantes, cambios bruscos en la curva o cualquier preocupación. Acude a atención urgente si aparecen síntomas de alarma."}},
+            {"@type":"Question","name":"¿La calculadora sustituye el informe de la ecografía?","acceptedAnswer":{"@type":"Answer","text":"No. El informe y la interpretación del equipo obstétrico integran datos clínicos que una calculadora online no puede valorar."}},
+            {"@type":"Question","name":"¿Se guardan mis datos médicos?","acceptedAnswer":{"@type":"Answer","text":"La herramienta está planteada para efectuar el cálculo en el navegador sin pedir registro. Evita introducir datos identificativos personales."}},
+            {"@type":"Question","name":"¿Puedo utilizar la calculadora desde el móvil?","acceptedAnswer":{"@type":"Answer","text":"Sí. La interfaz está preparada para móvil, tableta y ordenador, con etiquetas, ayudas y controles accesibles."}}
+          ]
+        }
+      ]
+    }
+    </script>
+</head>
+
+<body>
+    <a href="#contenido-principal" class="salto-contenido">Ir al contenido principal</a>
+
+    <header class="cabecera-principal">
+        <div class="contenedor cabecera-contenido">
+            <a href="https://imoancy.com/" class="marca" aria-label="Ir al portal Imoancy">
+                <span class="marca-icono" aria-hidden="true">🧰</span>
+                <span class="marca-texto">Imoancy</span>
+            </a>
+            <nav class="navegacion-principal" aria-label="Navegación principal">
+                <a href="https://imoancy.com/" class="enlace-portal">← Volver al portal</a>
+            </nav>
+        </div>
+    </header>
+
+    <nav class="migas-pan" aria-label="Migas de pan">
+        <div class="contenedor">
+            <ol>
+                <li><a href="https://imoancy.com/">Inicio</a></li>
+                <li><a href="https://imoancy.com/#salud">Salud y embarazo</a></li>
+                <li aria-current="page">Peso fetal estimado</li>
+            </ol>
+        </div>
+    </nav>
+
+    <main id="contenido-principal">
+        <section class="hero" aria-labelledby="titulo-principal">
+            <div class="contenedor hero-contenido">
+                <div class="hero-icono" aria-hidden="true">👶</div>
+                <span class="hero-categoria">Embarazo y salud fetal</span>
+                <h1 id="titulo-principal">Calculadora de Peso Fetal Estimado PRO</h1>
+                <p class="hero-descripcion"><strong>Estima el peso fetal a partir de las principales medidas de tu ecografía.</strong></p>
+                <p class="hero-descripcion">Introduce la edad gestacional y las biometrías HC, AC y FL para obtener una estimación en gramos y kilogramos, su percentil INTERGROWTH-21st cuando esté disponible y una interpretación comprensible. BPD se conserva como medida informativa.</p>
+                <div class="acciones-formulario">
+                    <a href="#calculadora" class="boton boton-principal">Introducir medidas</a>
+                    <a href="#entender-ecografia" class="boton boton-secundario">Entender mi ecografía</a>
+                </div>
+                <div class="hero-caracteristicas">
+                    <div class="caracteristica"><span aria-hidden="true">📐</span><strong>Biometría completa</strong></div>
+                    <div class="caracteristica"><span aria-hidden="true">🔒</span><strong>Sin registro</strong></div>
+                    <div class="caracteristica"><span aria-hidden="true">📱</span><strong>Adaptada a móvil</strong></div>
+                    <div class="caracteristica"><span aria-hidden="true">🩺</span><strong>Información responsable</strong></div>
+                </div>
+                <div class="aviso-profesional" role="note" aria-label="Aviso sanitario">
+                    <strong>Aviso sanitario:</strong> esta herramienta ofrece una estimación educativa y no sustituye la ecografía, el diagnóstico ni el seguimiento de obstetricia. No tomes decisiones médicas basándote únicamente en el resultado.
+                </div>
+                <p class="ultima-actualizacion">Última actualización: <time datetime="2026-08-03">3 de agosto de 2026</time></p>
+            </div>
+        </section>
+
+        <nav class="indice-secciones" aria-label="Índice de la herramienta">
+            <div class="contenedor indice-contenido">
+                <a href="#calculadora">Calculadora</a>
+                <a href="#resultados">Resultados</a>
+                <a href="#entender-ecografia">Entender mi ecografía</a>
+                <a href="#informacion">Guía</a>
+                <a href="#preguntas-frecuentes">Preguntas frecuentes</a>
+                <a href="#herramientas-relacionadas">Herramientas relacionadas</a>
+            </div>
+        </nav>
+
+        <section id="calculadora" class="seccion-calculadora" aria-labelledby="titulo-calculadora">
+            <div class="contenedor">
+                <div class="calculadora-grid">
+                    <article class="tarjeta formulario-tarjeta">
+                        <header class="seccion-encabezado">
+                            <span class="etiqueta">Cálculo personalizado</span>
+                            <h2 id="titulo-calculadora">Introduce los datos de la ecografía</h2>
+                            <p>Copia las medidas de un mismo informe ecográfico. Comprueba las unidades antes de continuar.</p>
+                        </header>
+                        <div id="estadoFormulario" class="mensaje-error" role="alert" aria-live="assertive" aria-atomic="true"></div>
+                        <form id="formularioHerramienta" novalidate autocomplete="off">
+                            <fieldset>
+                                <legend>Edad gestacional el día de la ecografía</legend>
+                                <div class="campo">
+                                    <label for="datoUno">Semanas de gestación</label>
+                                    <div class="campo-unidad">
+                                        <input type="number" id="datoUno" name="semanasGestacion" placeholder="Ejemplo: 28" min="14" max="42" step="1" inputmode="numeric" autocomplete="off" aria-describedby="ayudaDatoUno errorDatoUno" required>
+                                        <span aria-hidden="true">semanas</span>
+                                    </div>
+                                    <small id="ayudaDatoUno" class="texto-ayuda">Semanas completas indicadas en el informe, normalmente entre 14 y 42.</small>
+                                    <small id="errorDatoUno" class="mensaje-error" aria-live="polite"></small>
+                                </div>
+                                <div class="campo">
+                                    <label for="datoDos">Días adicionales</label>
+                                    <div class="campo-unidad">
+                                        <input type="number" id="datoDos" name="diasGestacion" placeholder="Ejemplo: 4" min="0" max="6" step="1" inputmode="numeric" autocomplete="off" aria-describedby="ayudaDatoDos errorDatoDos" required>
+                                        <span aria-hidden="true">días</span>
+                                    </div>
+                                    <small id="ayudaDatoDos" class="texto-ayuda">Días que acompañan a las semanas; introduce un valor de 0 a 6.</small>
+                                    <small id="errorDatoDos" class="mensaje-error" aria-live="polite"></small>
+                                </div>
+                            </fieldset>
+
+                            <fieldset>
+                                <legend>Medidas biométricas fetales</legend>
+                                <div class="campo">
+                                    <label for="bpd">BPD · Diámetro biparietal</label>
+                                    <div class="campo-unidad">
+                                        <input type="number" id="bpd" name="bpd" placeholder="Ejemplo: 72,4" min="20" max="120" step="0.1" inputmode="decimal" autocomplete="off" aria-describedby="ayudaBpd errorBpd" required>
+                                        <span aria-hidden="true">mm</span>
+                                    </div>
+                                    <small id="ayudaBpd" class="texto-ayuda">Anchura de la cabeza fetal en milímetros. Se muestra como dato informativo y no interviene en la fórmula Hadlock seleccionada.</small>
+                                    <small id="errorBpd" class="mensaje-error" aria-live="polite"></small>
+                                </div>
+                                <div class="campo">
+                                    <label for="hc">HC · Perímetro cefálico</label>
+                                    <div class="campo-unidad">
+                                        <input type="number" id="hc" name="hc" placeholder="Ejemplo: 265,0" min="80" max="420" step="0.1" inputmode="decimal" autocomplete="off" aria-describedby="ayudaHc errorHc" required>
+                                        <span aria-hidden="true">mm</span>
+                                    </div>
+                                    <small id="ayudaHc" class="texto-ayuda">Contorno de la cabeza fetal en milímetros. Rango técnico admitido: 80–420 mm.</small>
+                                    <small id="errorHc" class="mensaje-error" aria-live="polite"></small>
+                                </div>
+                                <div class="campo">
+                                    <label for="ac">AC · Perímetro abdominal</label>
+                                    <div class="campo-unidad">
+                                        <input type="number" id="ac" name="ac" placeholder="Ejemplo: 245,0" min="70" max="450" step="0.1" inputmode="decimal" autocomplete="off" aria-describedby="ayudaAc errorAc" required>
+                                        <span aria-hidden="true">mm</span>
+                                    </div>
+                                    <small id="ayudaAc" class="texto-ayuda">Contorno del abdomen fetal en milímetros. Rango técnico admitido: 70–450 mm.</small>
+                                    <small id="errorAc" class="mensaje-error" aria-live="polite"></small>
+                                </div>
+                                <div class="campo">
+                                    <label for="fl">FL · Longitud del fémur</label>
+                                    <div class="campo-unidad">
+                                        <input type="number" id="fl" name="fl" placeholder="Ejemplo: 53,0" min="10" max="100" step="0.1" inputmode="decimal" autocomplete="off" aria-describedby="ayudaFl errorFl" required>
+                                        <span aria-hidden="true">mm</span>
+                                    </div>
+                                    <small id="ayudaFl" class="texto-ayuda">Longitud de la diáfisis del fémur fetal en milímetros. Rango técnico admitido: 10–100 mm.</small>
+                                    <small id="errorFl" class="mensaje-error" aria-live="polite"></small>
+                                </div>
+                            </fieldset>
+
+                            <fieldset>
+                                <legend>Configuración del cálculo</legend>
+                                <div class="campo">
+                                    <label for="opcion">Fórmula de estimación</label>
+                                    <select id="opcion" name="formula" autocomplete="off" aria-describedby="ayudaOpcion errorOpcion" required>
+                                        <option value="hadlock-3">Fórmula Hadlock HC–AC–FL</option>
+                                        <option value="automatico">Selección automática · usa Hadlock HC–AC–FL</option>
+                                    </select>
+                                    <small id="ayudaOpcion" class="texto-ayuda">La selección automática utiliza actualmente la fórmula Hadlock HC–AC–FL.</small>
+                                    <small id="errorOpcion" class="mensaje-error" aria-live="polite"></small>
+                                </div>
+                                <div id="camposAdicionales" aria-label="Espacio para futuras ampliaciones"></div>
+                            </fieldset>
+
+                            <div class="acciones-formulario">
+                                <button type="submit" id="botonCalcular" class="boton boton-principal">Calcular peso fetal</button>
+                                <button type="button" id="botonReiniciar" class="boton boton-secundario oculto">Reiniciar herramienta</button>
+                                <button type="button" id="botonCompartir" class="boton boton-secundario oculto" aria-label="Compartir el resultado del cálculo">Compartir resultado</button>
+                            </div>
+                            <p id="estadoCompartir" class="texto-ayuda" role="status" aria-live="polite" aria-atomic="true"></p>
+                        </form>
+                    </article>
+
+                    <aside class="tarjeta resumen-tarjeta" aria-labelledby="titulo-resumen">
+                        <div class="resumen-icono" aria-hidden="true">💡</div>
+                        <h2 id="titulo-resumen">¿Qué mostrará el resultado?</h2>
+                        <ul class="lista-beneficios">
+                            <li><strong>Peso fetal estimado</strong><span>La estimación principal en gramos y su equivalencia en kilogramos.</span></li>
+                            <li><strong>Percentil orientativo</strong><span>Comparación con una curva de referencia para la edad gestacional.</span></li>
+                            <li><strong>Rango e interpretación</strong><span>Contexto comprensible para evitar leer una cifra de forma aislada.</span></li>
+                            <li><strong>Método y avisos</strong><span>Fórmula utilizada, límites y recordatorios sanitarios.</span></li>
+                        </ul>
+                        <div class="aviso-resumen"><strong>Antes de empezar</strong><p>Usa medidas del mismo estudio y en milímetros. No completes un dato que no figure en el informe.</p></div>
+                    </aside>
+                </div>
+            </div>
+        </section>
+
+        <section id="resultados" class="seccion-resultados oculto" aria-labelledby="titulo-resultados" aria-busy="false">
+            <div class="contenedor">
+                <header class="resultado-cabecera">
+                    <span class="etiqueta">Resultado personalizado</span>
+                    <h2 id="titulo-resultados">Estimación del peso fetal</h2>
+                    <p id="resumenResultado">El resumen del cálculo aparecerá aquí.</p>
+                </header>
+                <div class="resultados-grid">
+                    <article class="resultado-principal">
+                        <div class="resultado-icono" aria-hidden="true">⚖️</div>
+                        <h3 class="resultado-nombre">Peso fetal estimado</h3>
+                        <p class="resultado-numero"><span id="resultadoPrincipal">—</span> <small id="unidadResultadoPrincipal">g</small></p>
+                        <p id="descripcionResultadoPrincipal" class="resultado-descripcion">El detalle se mostrará después de calcular.</p>
+                    </article>
+                    <article class="resultado-tarjeta">
+                        <span class="mini-icono" aria-hidden="true">🔢</span>
+                        <h3>Peso en kilogramos</h3>
+                        <p><span id="resultadoSecundarioUno">—</span> <small id="unidadResultadoSecundarioUno">kg</small></p>
+                        <span class="resultado-ayuda">Conversión del peso estimado a kilogramos.</span>
+                    </article>
+                    <article class="resultado-tarjeta">
+                        <span class="mini-icono" aria-hidden="true">📊</span>
+                        <h3>Percentil estimado</h3>
+                        <p><span id="resultadoSecundarioDos">—</span> <small id="unidadResultadoSecundarioDos">percentil</small></p>
+                        <span class="resultado-ayuda">Posición orientativa para la edad gestacional.</span>
+                    </article>
+                    <article class="resultado-tarjeta">
+                        <span class="mini-icono" aria-hidden="true">↔️</span>
+                        <h3>Rango esperado</h3>
+                        <p><span id="resultadoSecundarioTres">—</span> <small id="unidadResultadoSecundarioTres">g</small></p>
+                        <span class="resultado-ayuda">Intervalo de referencia asociado a la semana indicada.</span>
+                    </article>
+                </div>
+
+                <article class="tarjeta interpretacion">
+                    <div class="interpretacion-icono" aria-hidden="true">🧠</div>
+                    <div><h3>Interpretación del resultado</h3><p id="interpretacionResultado">Aquí se explicará el peso estimado y su posición en la curva, sin convertir el resultado en un diagnóstico.</p></div>
+                </article>
+
+                <article class="tarjeta recomendaciones">
+                    <div class="recomendaciones-icono" aria-hidden="true">📋</div>
+                    <div><h3>Fórmula, rango y avisos</h3><ul id="listaRecomendaciones"><li id="formulaUtilizada">La fórmula utilizada se mostrará después de calcular.</li><li id="rangoEsperado">El rango de referencia se mostrará cuando esté disponible.</li><li id="avisoResultado">Los avisos aparecerán junto al resultado.</li></ul></div>
+                </article>
+
+                <section aria-labelledby="titulo-visualizaciones">
+                    <header class="resultado-cabecera">
+                        <span class="etiqueta">Visualizaciones</span>
+                        <h3 id="titulo-visualizaciones">Contexto visual del resultado</h3>
+                    </header>
+                    <article class="tarjeta" aria-labelledby="titulo-barra-percentil">
+                        <h3 id="titulo-barra-percentil">Barra de percentil</h3>
+                        <div id="barraPercentil" role="img" aria-label="Barra de percentil antes del cálculo">
+                            <div id="indicadorPercentil" aria-hidden="true"></div>
+                        </div>
+                        <p id="leyendaPercentil" class="texto-ayuda">La posición del resultado aparecerá aquí.</p>
+                    </article>
+                    <div class="informacion-grid">
+                        <article class="info-tarjeta" aria-labelledby="titulo-indicadores">
+                            <span aria-hidden="true">🚦</span><h3 id="titulo-indicadores">Indicadores visuales</h3>
+                            <div id="indicadoresVisuales" role="group" aria-label="Resumen visual del resultado"><span id="indicadorPeso">Sin calcular</span><span id="indicadorRango">Sin calcular</span><span id="indicadorDatos">Sin calcular</span></div>
+                            <p>Señales visuales acompañadas siempre por texto accesible.</p>
+                        </article>
+                    </div>
+                </section>
+
+                <div class="aviso-profesional"><strong>Importante:</strong> el peso fetal ecográfico es una estimación con margen de error. La interpretación clínica corresponde al equipo de obstetricia.</div>
+            </div>
+        </section>
+
+        <section id="entender-ecografia" class="seccion-informativa" aria-labelledby="titulo-entender-ecografia">
+            <div class="contenedor contenido-estrecho">
+                <span class="etiqueta">Entender mi ecografía</span>
+                <h2 id="titulo-entender-ecografia">Qué significan las medidas BPD, HC, AC y FL</h2>
+                <p>Estas biometrías describen dimensiones concretas del feto. Se obtienen en planos ecográficos estandarizados y deben interpretarse juntas, considerando la edad gestacional y la evolución.</p>
+                <div class="informacion-grid">
+                    <article class="info-tarjeta"><span aria-hidden="true">🧠</span><h3>BPD · Diámetro biparietal</h3><p><strong>Qué significa:</strong> anchura transversal de la cabeza entre ambos huesos parietales.</p><p><strong>Cómo se mide:</strong> en un corte axial estandarizado del cráneo, colocando los calibradores según el protocolo ecográfico.</p><p><strong>Por qué importa:</strong> contribuye a valorar el tamaño cefálico y forma parte de algunas ecuaciones de peso.</p></article>
+                    <article class="info-tarjeta"><span aria-hidden="true">⭕</span><h3>HC · Perímetro cefálico</h3><p><strong>Qué significa:</strong> circunferencia de la cabeza fetal.</p><p><strong>Cómo se mide:</strong> trazando una elipse alrededor del contorno externo del cráneo en el plano adecuado.</p><p><strong>Por qué importa:</strong> aporta una medida global de crecimiento cefálico y suele ser menos sensible que el BPD a ciertas formas de la cabeza.</p></article>
+                    <article class="info-tarjeta"><span aria-hidden="true">🫄</span><h3>AC · Perímetro abdominal</h3><p><strong>Qué significa:</strong> circunferencia del abdomen fetal.</p><p><strong>Cómo se mide:</strong> sobre un corte transversal correcto del abdomen, evitando una imagen oblicua.</p><p><strong>Por qué importa:</strong> refleja especialmente el tamaño de tejidos y reservas; tiene gran influencia en la estimación del peso.</p></article>
+                    <article class="info-tarjeta"><span aria-hidden="true">🦴</span><h3>FL · Longitud del fémur</h3><p><strong>Qué significa:</strong> longitud de la parte osificada del hueso largo del muslo.</p><p><strong>Cómo se mide:</strong> alineando el fémur en su eje mayor y midiendo la diáfisis visible, sin incluir extremos no osificados.</p><p><strong>Por qué importa:</strong> ayuda a evaluar el crecimiento longitudinal y equilibra las medidas de cabeza y abdomen en la fórmula.</p></article>
+                </div>
+                <div class="nota-informativa"><strong>Recuerda:</strong> pequeñas diferencias de colocación de los calibradores pueden cambiar una medida. Copia siempre los valores finales del informe, sin medir una fotografía por tu cuenta.</div>
+            </div>
+        </section>
+
+        <section id="informacion" class="seccion-alternativa" aria-labelledby="titulo-informacion">
+            <div class="contenedor contenido-estrecho">
+                <span class="etiqueta">Guía completa</span>
+                <h2 id="titulo-informacion">Guía del peso fetal estimado</h2>
+                <h3>Qué es el peso fetal estimado</h3>
+                <p>El peso fetal estimado, abreviado con frecuencia como PFE o EFW, es una aproximación matemática del peso del bebé antes del nacimiento. Como el feto no puede pesarse directamente, la ecografía mide varias estructuras y las combina mediante una ecuación desarrollada a partir de poblaciones de referencia.</p>
+                <p>La cifra sirve para seguir el crecimiento, comparar mediciones a lo largo del embarazo y detectar situaciones que pueden necesitar una valoración más detallada. Una estimación aislada no describe por sí sola el bienestar fetal.</p>
+
+                <h3 id="titulo-formula">Cómo se calcula</h3>
+                <p>Las ecuaciones de Hadlock son métodos habituales. Según la variante, combinan el diámetro biparietal, el perímetro cefálico, el perímetro abdominal y la longitud del fémur. La ecuación produce primero un valor logarítmico que se transforma en gramos. La edad gestacional se utiliza después para situar el resultado en una curva y estimar el percentil.</p>
+                <article class="formula-tarjeta">
+                    <h3>Metodología y fuentes</h3>
+                    <p class="formula">HC + AC + FL → Hadlock → gramos → INTERGROWTH-21st → percentil</p>
+                    <p>El peso se calcula con la fórmula Hadlock de tres parámetros HC–AC–FL, usando las medidas en centímetros. BPD no interviene en esta ecuación.</p>
+                    <p>El percentil utiliza el estándar <a href="https://doi.org/10.1002/uog.22000" rel="noopener noreferrer">INTERGROWTH-21st para estimaciones Hadlock</a>, publicado por Stirnemann, Salomon y Papageorghiou en 2020. La curva cubre de 18+0 a 41+0 semanas y no se extrapola.</p>
+                    <p>La técnica y la interpretación de las biometrías siguen como referencia las <a href="https://www.isuog.org/resource/isuog-practice-guidelines-ultrasound-assessment-of-fetal-biometry-and-growth-pdf.html" rel="noopener noreferrer">guías ISUOG sobre biometría y crecimiento fetal</a> de 2019.</p>
+                    <p>El peso ecográfico conserva margen de error y depende de la calidad técnica y de las medidas introducidas.</p>
+                </article>
+
+                <h3>Margen de error</h3>
+                <p>El PFE nunca equivale a un peso exacto. La incertidumbre procede del propio modelo, de la variabilidad entre fetos y de la medición ecográfica. Una diferencia pequeña en el contorno abdominal, por ejemplo, puede modificar el resultado. La precisión también puede reducirse con posiciones fetales difíciles, determinadas condiciones maternas, poco líquido amniótico o edades gestacionales avanzadas.</p>
+                <p>Por eso conviene pensar en un intervalo razonable, no en un único número definitivo. El margen concreto depende del contexto y debe explicarlo el profesional responsable del estudio.</p>
+
+                <h3>Factores que influyen</h3>
+                <div class="consejos-grid">
+                    <article class="consejo-tarjeta"><span aria-hidden="true">📅</span><h3>Datación y evolución</h3><p>Una edad gestacional bien establecida permite comparar correctamente. La tendencia entre estudios separados por un intervalo adecuado suele aportar más información que una cifra aislada.</p></article>
+                    <article class="consejo-tarjeta"><span aria-hidden="true">📐</span><h3>Calidad de las medidas</h3><p>El plano, la postura fetal, el equipo y la colocación de los calibradores influyen. Las biometrías deben proceder del mismo estudio y de personal cualificado.</p></article>
+                    <article class="consejo-tarjeta"><span aria-hidden="true">🧬</span><h3>Contexto individual</h3><p>La constitución familiar, la salud materna, la placenta, el embarazo múltiple y otros factores pueden influir en el patrón de crecimiento.</p></article>
+                </div>
+
+                <h3 id="titulo-consejos">Cómo interpretar el resultado</h3>
+                <p>Comprueba primero que semanas, días, medidas y unidades sean correctos. Después observa el peso junto al percentil y al rango de referencia. El percentil expresa una posición relativa, no una nota de salud: un valor concreto puede ser normal para un bebé y requerir seguimiento en otro contexto.</p>
+                <p>La evolución es fundamental. El especialista puede integrar ecografías previas, velocidad de crecimiento, líquido amniótico, Doppler, antecedentes y exploración materna. No compares resultados obtenidos con curvas o fórmulas diferentes como si fueran idénticos.</p>
+
+                <h3>Cuándo consultar al especialista</h3>
+                <p>Comenta el resultado con obstetricia si aparece fuera del rango esperado, si cambia notablemente respecto a estudios previos, si las medidas son discordantes o si tienes cualquier duda. Solo el profesional puede confirmar si se trata de variación normal, error de estimación o un hallazgo que precise vigilancia.</p>
+                <div class="aviso-profesional"><strong>Busca atención sanitaria urgente</strong> ante disminución o ausencia de movimientos fetales, sangrado, pérdida de líquido, dolor intenso, contracciones regulares antes de término, cefalea intensa con alteraciones visuales u otros síntomas de alarma. No esperes al resultado de una calculadora.</div>
+            </div>
+        </section>
+
+        <section class="seccion-informativa" aria-labelledby="titulo-funcionamiento">
+            <div class="contenedor contenido-estrecho">
+                <span class="etiqueta">Uso responsable</span>
+                <h2 id="titulo-funcionamiento">Cómo utilizar la calculadora</h2>
+                <div class="pasos-grid">
+                    <article class="paso-tarjeta"><span class="paso-numero">1</span><h3>Reúne el informe</h3><p>Localiza la edad gestacional del día del estudio y las medidas BPD, HC, AC y FL.</p></article>
+                    <article class="paso-tarjeta"><span class="paso-numero">2</span><h3>Introduce y revisa</h3><p>Copia todos los valores en milímetros, sin mezclar ecografías ni completar datos ausentes.</p></article>
+                    <article class="paso-tarjeta"><span class="paso-numero">3</span><h3>Interpreta en contexto</h3><p>Lee peso, percentil, rango, fórmula y avisos, y consulta las dudas con tu especialista.</p></article>
+                </div>
+            </div>
+        </section>
+
+        <section id="preguntas-frecuentes" class="seccion-alternativa" aria-labelledby="titulo-faq">
+            <div class="contenedor contenido-estrecho">
+                <span class="etiqueta">Preguntas frecuentes</span>
+                <h2 id="titulo-faq">20 dudas sobre el peso fetal estimado</h2>
+                <div class="faq">
+                    <details><summary>1. ¿Qué es el peso fetal estimado?</summary><p>Es una aproximación del peso del bebé obtenida mediante fórmulas que combinan medidas ecográficas. No es un pesaje directo ni un diagnóstico. Su principal utilidad es aportar contexto al seguimiento del crecimiento cuando se interpreta junto con el resto del estudio.</p></details>
+                    <details><summary>2. ¿Qué datos necesita la calculadora?</summary><p>Necesita las semanas completas y los días adicionales de gestación en la fecha de la ecografía, además del BPD, HC, AC y FL en milímetros. Todos los valores deberían proceder del mismo informe para mantener coherencia temporal.</p></details>
+                    <details><summary>3. ¿Qué significan BPD, HC, AC y FL?</summary><p>BPD es el diámetro biparietal o anchura de la cabeza; HC, el perímetro cefálico; AC, el perímetro abdominal; y FL, la longitud del fémur. Cada medida aporta información distinta y su combinación reduce la dependencia de una única dimensión.</p></details>
+                    <details><summary>4. ¿El resultado es exacto?</summary><p>No. Toda estimación ecográfica tiene incertidumbre por la variabilidad biológica, la técnica de medición y la ecuación empleada. Debe leerse como una aproximación con un rango posible, especialmente en etapas avanzadas del embarazo.</p></details>
+                    <details><summary>5. ¿Qué fórmula se utiliza para calcular el peso fetal?</summary><p>Se utiliza la fórmula Hadlock de tres parámetros HC–AC–FL, con las medidas convertidas internamente de milímetros a centímetros. BPD se conserva como información ecográfica, pero no interviene en esta ecuación.</p></details>
+                    <details><summary>6. ¿Qué diferencia hay entre gramos, kilogramos y percentil?</summary><p>Los gramos y kilogramos expresan el mismo peso en unidades distintas. El percentil no es otra unidad de peso: indica la posición relativa de la estimación frente a una población de referencia de la misma edad gestacional.</p></details>
+                    <details><summary>7. ¿Qué es un percentil fetal?</summary><p>Es una forma de ordenar valores dentro de una curva de referencia. Por ejemplo, un percentil no indica “porcentaje de salud” ni probabilidad de enfermedad; necesita una curva concreta, una edad gestacional fiable y contexto clínico.</p></details>
+                    <details><summary>8. ¿Un percentil bajo significa que existe un problema?</summary><p>No necesariamente. Puede reflejar constitución familiar, una datación diferente o variación normal, aunque también puede justificar estudio y seguimiento. Obstetricia valora la tendencia, el Doppler, el líquido amniótico y otros datos antes de concluir.</p></details>
+                    <details><summary>9. ¿Un percentil alto significa macrosomía?</summary><p>No por sí solo. Una estimación alta puede motivar vigilancia, pero conserva un margen de error. El diagnóstico y las decisiones sobre el embarazo o el parto no deben basarse únicamente en un cálculo online o una cifra aislada.</p></details>
+                    <details><summary>10. ¿Por qué puede variar el peso entre dos ecografías?</summary><p>Además del crecimiento real, influyen el intervalo entre estudios, la posición fetal, el equipo, el examinador y pequeñas diferencias en los trazados. Comparar estudios demasiado próximos puede magnificar el ruido de medición frente al crecimiento verdadero.</p></details>
+                    <details><summary>11. ¿Puedo introducir centímetros en lugar de milímetros?</summary><p>No. Los campos están preparados para milímetros, la unidad habitual de las biometrías mostradas. Si el informe usa centímetros, conviértelos con cuidado: un centímetro equivale a diez milímetros. Una unidad incorrecta invalida el resultado.</p></details>
+                    <details><summary>12. ¿Qué ocurre si falta una medida ecográfica?</summary><p>No inventes ni sustituyas el dato. Algunas ecuaciones admiten otras combinaciones biométricas, pero solo debería emplearse una variante compatible y mostrarse claramente. En esta configuración completa, los cuatro valores están marcados como obligatorios.</p></details>
+                    <details><summary>13. ¿Cómo debo indicar la edad gestacional?</summary><p>Introduce las semanas completas y, por separado, los días adicionales de cero a seis que correspondan exactamente a la fecha del estudio. Por ejemplo, 28 semanas y 4 días se registran como 28 y 4, no como un decimal.</p></details>
+                    <details><summary>14. ¿La edad gestacional cambia el peso calculado?</summary><p>La ecuación biométrica obtiene el peso a partir de las medidas. La edad gestacional es imprescindible para comparar esa cifra con valores de referencia y estimar su percentil, por lo que una datación errónea puede cambiar mucho la interpretación.</p></details>
+                    <details><summary>15. ¿Sirve para embarazos gemelares o múltiples?</summary><p>Puede generar una estimación biométrica individual si se introducen por separado los datos de cada feto, pero la interpretación del crecimiento en embarazos múltiples es específica. Debe realizarla el equipo que conoce la corionicidad y la evolución de ambos bebés.</p></details>
+                    <details><summary>16. ¿Puedo usar medidas de ecografías realizadas en fechas distintas?</summary><p>No es recomendable. El feto crece entre estudios y cada medición representa un momento concreto. Mezclar BPD, HC, AC o FL de fechas diferentes crea una combinación que nunca existió simultáneamente y puede distorsionar la estimación.</p></details>
+                    <details><summary>17. ¿Cuándo debo consultar al especialista?</summary><p>Consulta ante un resultado inesperado, una discordancia marcada entre medidas, un cambio llamativo de percentil o cualquier preocupación. Si notas menos movimientos, sangrado, pérdida de líquido, dolor intenso u otro síntoma de alarma, busca atención sin esperar a calcular.</p></details>
+                    <details><summary>18. ¿La calculadora sustituye el informe de la ecografía?</summary><p>No. El informe documenta la técnica, los hallazgos y el contexto que el profesional ha observado. La calculadora solo reorganiza determinados números mediante una fórmula y no puede evaluar anatomía, Doppler, placenta, líquido ni situación clínica.</p></details>
+                    <details><summary>19. ¿Se guardan mis datos médicos?</summary><p>La herramienta está planteada para procesar los datos localmente en el navegador y no requiere registro. Aun así, introduce solo medidas numéricas y evita nombres, números de historia clínica u otra información que pueda identificarte.</p></details>
+                    <details><summary>20. ¿Puedo utilizar la calculadora desde el móvil?</summary><p>Sí. La estructura es adaptable a móvil, tableta y ordenador. Los campos incluyen etiquetas visibles, ayudas asociadas, teclado numérico adecuado, mensajes de error accesibles y regiones de estado para tecnologías de asistencia.</p></details>
+                </div>
+            </div>
+        </section>
+
+        <section id="herramientas-relacionadas" class="seccion-relacionadas" aria-labelledby="titulo-relacionadas">
+            <div class="contenedor">
+                <header class="seccion-encabezado centrado"><span class="etiqueta">Sigue cuidándote</span><h2 id="titulo-relacionadas">Herramientas relacionadas</h2><p>Otros recursos gratuitos de embarazo, parto y desarrollo infantil.</p></header>
+                <div class="relacionadas-grid">
+                    <a href="https://imoancy.com/herramientas/calculadora-fecha-de-parto/" class="relacionada-tarjeta"><span aria-hidden="true">📅</span><h3>Calculadora de Fecha de Parto PRO</h3><p>Estima la fecha probable de parto y consulta hitos del embarazo.</p><strong>Abrir herramienta →</strong></a>
+                    <a href="https://imoancy.com/herramientas/calculadora-de-edad-gestacional/" class="relacionada-tarjeta"><span aria-hidden="true">🗓️</span><h3>Calculadora de Edad Gestacional PRO</h3><p>Calcula semanas y días de embarazo para una fecha concreta.</p><strong>Abrir herramienta →</strong></a>
+                    <a href="https://imoancy.com/herramientas/contador-de-contracciones-de-parto-pro/" class="relacionada-tarjeta"><span aria-hidden="true">⏱️</span><h3>Contador de Contracciones de Parto PRO</h3><p>Registra duración, frecuencia e intervalos de las contracciones.</p><strong>Abrir herramienta →</strong></a>
+                    <a href="https://imoancy.com/herramientas/calculadora-de-percentiles-de-perimetro-cefalico-del-bebe/" class="relacionada-tarjeta"><span aria-hidden="true">📊</span><h3>Calculadora de Percentiles de Perímetro Cefálico del Bebé PRO</h3><p>Compara el perímetro cefálico infantil con referencias por edad y sexo.</p><strong>Abrir herramienta →</strong></a>
+                    <a href="https://imoancy.com/herramientas/calculadora-de-edad-corregida-para-bebes-prematuros/" class="relacionada-tarjeta"><span aria-hidden="true">👶</span><h3>Calculadora de Edad Corregida para Bebés Prematuros PRO</h3><p>Obtén la edad corregida para contextualizar el desarrollo temprano.</p><strong>Abrir herramienta →</strong></a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="pie-pagina">
+        <div class="contenedor pie-contenido">
+            <div class="pie-marca">
+                <a href="https://imoancy.com/" class="marca" aria-label="Imoancy, ir al portal"><span class="marca-icono" aria-hidden="true">🧰</span><span class="marca-texto">Imoancy</span></a>
+                <p>Herramientas gratuitas, sencillas y útiles para ayudarte en tu día a día.</p>
+            </div>
+            <nav class="pie-navegacion" aria-label="Enlaces legales">
+                <a href="https://imoancy.com/sobre-nosotros.html">Sobre nosotros</a>
+                <a href="https://imoancy.com/aviso-legal.html">Aviso legal</a>
+                <a href="https://imoancy.com/politica-privacidad.html">Privacidad</a>
+                <a href="https://imoancy.com/politica-cookies.html">Cookies</a>
+            </nav>
+        </div>
+        <div class="contenedor copyright"><p>© 2026 Imoancy · Todos los derechos reservados.</p></div>
+    </footer>
+
+    <!-- Integraciones oficiales de Imoancy -->
+    <script src="js/config.js"></script>
+    <script src="js/core.js"></script>
+    <script src="js/script.js"></script>
+</body>
+</html>

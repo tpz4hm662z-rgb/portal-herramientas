@@ -1,0 +1,15 @@
+/** Panel de historial. Solo presenta registros ya resumidos y delega acciones. */
+import { formatearAlimentacion,formatearEdad,formatearPeso } from "../utils/formatters.js";
+import { crearElemento,vaciar } from "../utils/render-helpers.js";
+function formatearFecha(fecha){const d=new Date(fecha);return Number.isNaN(d.getTime())?"Fecha no disponible":d.toLocaleString("es-ES",{dateStyle:"medium",timeStyle:"short"});}
+export function crearHistoryRenderer(destino,{onVer=()=>{},onEliminar=()=>{}}={}){
+  destino.addEventListener("click",(evento)=>{const boton=evento.target.closest?.("button[data-accion]");if(!boton)return;const fecha=boton.dataset.fecha;if(boton.dataset.accion==="ver")onVer(fecha);if(boton.dataset.accion==="eliminar")onEliminar(fecha);});
+  return function renderHistory(registros){
+    vaciar(destino);
+    if(!registros.length){const vacio=crearElemento("div","","historial-vacio");vacio.append(crearElemento("span","🗂️","historial-vacio-icono"),crearElemento("h3","Tu historial está vacío"),crearElemento("p","Los informes que generes aparecerán aquí y permanecerán únicamente en este dispositivo."));destino.append(vacio);return;}
+    const fragmento=document.createDocumentFragment();
+    registros.forEach((registro)=>{const articulo=crearElemento("article","","historial-item");articulo.dataset.fecha=registro.fecha;const cabecera=crearElemento("header");const fecha=crearElemento("time",formatearFecha(registro.fecha));fecha.setAttribute("datetime",registro.fecha);cabecera.append(crearElemento("strong",formatearAlimentacion(registro.alimentacion)),fecha);const datos=crearElemento("p",`${formatearEdad(registro.edad)} · ${formatearPeso(registro.peso)} · ${registro.prematuro?"Prematuro":"A término"}`);const resumen=crearElemento("div",registro.resumen,"historial-resumen oculto");resumen.hidden=true;resumen.id=`resumen-${registro.fecha.replace(/[^0-9]/g,"")}`;const acciones=crearElemento("div","","historial-acciones");const ver=crearElemento("button","Ver resumen","boton boton-terciario");ver.type="button";ver.dataset.accion="ver";ver.dataset.fecha=registro.fecha;ver.setAttribute("aria-expanded","false");ver.setAttribute("aria-controls",resumen.id);const eliminar=crearElemento("button","Eliminar","boton boton-peligro");eliminar.type="button";eliminar.dataset.accion="eliminar";eliminar.dataset.fecha=registro.fecha;eliminar.setAttribute("aria-label",`Eliminar informe del ${formatearFecha(registro.fecha)}`);acciones.append(ver,eliminar);articulo.append(cabecera,datos,resumen,acciones);fragmento.append(articulo);});
+    destino.append(fragmento);
+  };
+}
+export function alternarResumenHistorial(destino,fecha){const item=[...destino.querySelectorAll(".historial-item")].find((n)=>n.dataset.fecha===fecha);if(!item)return false;const resumen=item.querySelector(".historial-resumen");const boton=item.querySelector('[data-accion="ver"]');const visible=resumen.hidden;resumen.hidden=!visible;resumen.classList.toggle("oculto",!visible);boton.setAttribute("aria-expanded",String(visible));boton.textContent=visible?"Ocultar resumen":"Ver resumen";return true;}

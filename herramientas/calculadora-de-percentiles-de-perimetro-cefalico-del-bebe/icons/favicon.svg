@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Bebé y cinta métrica">
+  <rect width="64" height="64" rx="14" fill="#2563eb"/>
+  <circle cx="32" cy="30" r="18" fill="#fff"/>
+  <path d="M23 30c3 3 15 3 18 0M25 24h2m10 0h2" fill="none" stroke="#2563eb" stroke-width="3" stroke-linecap="round"/>
+  <path d="M12 47h40" stroke="#fbbf24" stroke-width="7" stroke-linecap="round" stroke-dasharray="3 3"/>
+</svg>

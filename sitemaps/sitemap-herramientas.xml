@@ -1,13 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    <url><loc>https://imoancy.com/herramientas/asistente-de-recuperacion-posparto/</loc></url>
     <url><loc>https://imoancy.com/herramientas/calculadora-agua-diaria/</loc></url>
     <url><loc>https://imoancy.com/herramientas/calculadora-ahorro/</loc></url>
     <url><loc>https://imoancy.com/herramientas/calculadora-calorias/</loc></url>
     <url><loc>https://imoancy.com/herramientas/calculadora-de-alimentacion-para-bebes-prematuros/</loc></url>
+    <url><loc>https://imoancy.com/herramientas/calculadora-de-cantidad-de-leche-y-tomas-del-bebe/</loc></url>
     <url><loc>https://imoancy.com/herramientas/calculadora-de-edad-corregida-para-bebes-prematuros/</loc></url>
     <url><loc>https://imoancy.com/herramientas/calculadora-de-edad-gestacional/</loc></url>
     <url><loc>https://imoancy.com/herramientas/calculadora-de-percentiles-de-crecimiento-del-bebe/</loc></url>
+    <url><loc>https://imoancy.com/herramientas/calculadora-de-percentiles-de-perimetro-cefalico-del-bebe/</loc></url>
     <url><loc>https://imoancy.com/herramientas/calculadora-de-percentiles-de-peso-y-talla-infantil/</loc></url>
+    <url><loc>https://imoancy.com/herramientas/calculadora-de-peso-fetal-estimado/</loc></url>
     <url><loc>https://imoancy.com/herramientas/calculadora-fecha-de-parto/</loc></url>
     <url><loc>https://imoancy.com/herramientas/calculadora-finiquito/</loc></url>
     <url><loc>https://imoancy.com/herramientas/calculadora-fire/</loc></url>
@@ -28,4 +32,6 @@
     <url><loc>https://imoancy.com/herramientas/calculadora-rentabilidad-inversiones/</loc></url>
     <url><loc>https://imoancy.com/herramientas/calculadora-sueldo-neto/</loc></url>
     <url><loc>https://imoancy.com/herramientas/calculadora-tmb/</loc></url>
+    <url><loc>https://imoancy.com/herramientas/contador-de-contracciones-de-parto-pro/</loc></url>
+    <url><loc>https://imoancy.com/herramientas/contador-de-movimientos-fetales/</loc></url>
 </urlset>

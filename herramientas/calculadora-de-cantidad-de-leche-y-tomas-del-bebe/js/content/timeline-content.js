@@ -1,0 +1,10 @@
+/** Evolución editorial aproximada; no modifica los cálculos. */
+export const TIMELINE_CONTENT = Object.freeze([
+  { etapa:"recien_nacido", etiqueta:"Nacimiento", icono:"🌱", titulo:"Primeros días", texto:"Las tomas suelen ser pequeñas y frecuentes mientras comienza la adaptación. El patrón puede cambiar rápidamente; el seguimiento profesional resulta especialmente importante en esta etapa." },
+  { etapa:"primer_mes", etiqueta:"1 semana–1 mes", icono:"🍼", titulo:"Se establece el ritmo", texto:"La capacidad y la coordinación evolucionan y las cantidades pueden aumentar gradualmente. Sigue siendo habitual que el ritmo no sea idéntico en todas las tomas." },
+  { etapa:"uno_tres_meses", etiqueta:"1–3 meses", icono:"☀️", titulo:"Mayor variabilidad", texto:"Algunos bebés espacian progresivamente las tomas y otros mantienen una frecuencia alta. El apetito y los periodos de crecimiento pueden producir variaciones." },
+  { etapa:"tres_seis_meses", etiqueta:"3–6 meses", icono:"🌿", titulo:"Un patrón más reconocible", texto:"La rutina puede resultar más predecible, aunque continúa siendo flexible. Las señales de hambre y saciedad siguen guiando la alimentación." },
+  { etapa:"seis_nueve_meses", etiqueta:"6–9 meses", icono:"🥣", titulo:"Comienza la alimentación complementaria", texto:"Alrededor de los seis meses suelen incorporarse alimentos adecuados al desarrollo, junto con leche materna o fórmula. La transición es gradual, no una sustitución brusca." },
+  { etapa:"nueve_doce_meses", etiqueta:"9–12 meses", icono:"🍽️", titulo:"Más variedad y habilidades", texto:"Aumentan progresivamente la variedad, las texturas y la participación en las comidas. La leche continúa formando parte del patrón durante esta transición." },
+  { etapa:"doce_meses", etiqueta:"12 meses", icono:"🎈", titulo:"Nueva etapa alimentaria", texto:"La alimentación familiar adaptada gana protagonismo. Conviene revisar con pediatría las necesidades, el crecimiento y la transición de las bebidas lácteas." }
+].map(Object.freeze));

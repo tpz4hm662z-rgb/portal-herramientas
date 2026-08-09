@@ -1,0 +1,1 @@
+export async function registrarServiceWorker({navigatorRef=globalThis.navigator,ruta="./sw.js"}={}){if(!("serviceWorker" in (navigatorRef??{})))return {ok:false,motivo:"no_disponible"};try{const registro=await navigatorRef.serviceWorker.register(ruta,{scope:"./"});return {ok:true,registro};}catch{return {ok:false,motivo:"registro_fallido"};}}

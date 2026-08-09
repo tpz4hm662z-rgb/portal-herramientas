@@ -1,0 +1,16 @@
+{
+  "name": "Calculadora de Cantidad de Leche y Tomas del Bebé PRO",
+  "short_name": "Leche bebé",
+  "description": "Calculadora orientativa de leche diaria y tomas según edad, peso y tipo de alimentación.",
+  "lang": "es-ES",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f8fafc",
+  "theme_color": "#2563eb",
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icons/app-icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "maskable" }
+  ]
+}
