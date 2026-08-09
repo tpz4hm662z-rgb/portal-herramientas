@@ -1,9 +1,3 @@
-const CONFIG = {
-    herramienta: {
-        url: "https://imoancy.com/herramientas/calculadora-finiquito/"
-    }
-};
-
 function calcularFiniquito() {
 
     let salario = Number(document.getElementById("salario").value);

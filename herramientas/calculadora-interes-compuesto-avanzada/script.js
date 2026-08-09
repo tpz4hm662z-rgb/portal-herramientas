@@ -1,9 +1,3 @@
-const CONFIG = Object.freeze({
-    herramienta: Object.freeze({
-        url: "https://imoancy.com/herramientas/calculadora-interes-compuesto-avanzada/"
-    })
-});
-
 let graficoInteres = null;
 
 function calcularInteresCompuesto() {

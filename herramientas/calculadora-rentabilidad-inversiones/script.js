@@ -1,9 +1,3 @@
-const CONFIG = {
-    herramienta: {
-        url: "https://imoancy.com/herramientas/calculadora-rentabilidad-inversiones/"
-    }
-};
-
 function calcularRentabilidad() {
     let capitalInicial = Number(document.getElementById("capitalInicial").value);
     let aportacionMensual = Number(document.getElementById("aportacionMensual").value);

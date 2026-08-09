@@ -1,9 +1,3 @@
-const CONFIG = {
-    herramienta: {
-        url: "https://imoancy.com/herramientas/calculadora-sueldo-neto/"
-    }
-};
-
 function calcularSueldo() {
 
     let salarioBruto = Number(document.getElementById("salarioBruto").value);

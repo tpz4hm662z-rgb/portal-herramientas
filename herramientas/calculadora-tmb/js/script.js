@@ -54,12 +54,6 @@ const errorActividad = document.getElementById("errorActividad");
    CONFIGURACIÓN
 ===================================================== */
 
-const CONFIG = {
-    herramienta: {
-        url: "https://imoancy.com/herramientas/calculadora-tmb/"
-    }
-};
-
 const LIMITES = {
     edad: {
         minimo: 14,

@@ -1,9 +1,3 @@
-const CONFIG = {
-    herramienta: {
-        url: "https://imoancy.com/herramientas/calculadora-fire/"
-    }
-};
-
 function calcularFire() {
     let patrimonioActual = Number(document.getElementById("patrimonioActual").value);
     let ahorroMensual = Number(document.getElementById("ahorroMensual").value);

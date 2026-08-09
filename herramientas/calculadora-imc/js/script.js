@@ -1,9 +1,3 @@
-const CONFIG = Object.freeze({
-    herramienta: Object.freeze({
-        url: "https://imoancy.com/herramientas/calculadora-imc/"
-    })
-});
-
 document.getElementById("calculadoraForm").addEventListener("submit", function (e) {
 
     e.preventDefault();
