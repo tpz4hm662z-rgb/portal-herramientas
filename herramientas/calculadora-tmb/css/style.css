@@ -1,5 +1,5 @@
 /* =====================================================
-   Herramientas360
+   Imoancy
    Calculadora TMB
    Versión 1.0
    © 2026 José Carlos Núñez Florido

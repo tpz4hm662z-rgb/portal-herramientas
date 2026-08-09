@@ -1,5 +1,5 @@
 /* =====================================================
-   HERRAMIENTAS360 CORE
+   IMOANCY CORE
    core.js
    Versión 3.0 Stable
    © 2026 José Carlos Núñez Florido
@@ -1364,7 +1364,7 @@ function registrarEvento(
 
                 event_category:
                     CONFIG?.analitica?.categoria ||
-                    "Herramientas360",
+                    "Imoancy",
 
                 herramienta:
                     CONFIG?.analitica?.herramienta ||
@@ -1590,7 +1590,7 @@ function ejecutarSeguro(
     } catch (error) {
 
         console.error(
-            "Error en Herramientas360:",
+            "Error en Imoancy:",
             error
         );
 
@@ -1705,7 +1705,7 @@ function alCargarDocumento(funcion) {
 
 const H360_CORE = Object.freeze({
 
-    nombre: "Herramientas360 Core",
+    nombre: "Imoancy Core",
 
     version: "3.0 Stable",
 

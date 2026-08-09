@@ -1,5 +1,5 @@
 /* =====================================================
-   HERRAMIENTAS360 TEMPLATE · LÓGICA PROPIA
+   IMOANCY TEMPLATE · LÓGICA PROPIA
    Asistente de Recuperación Posparto PRO
    Coordinador del motor interno y del informe personalizado.
 ===================================================== */

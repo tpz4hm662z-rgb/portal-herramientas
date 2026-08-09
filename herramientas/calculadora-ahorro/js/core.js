@@ -1,3 +1,3 @@
 "use strict";
 
-/* Capa reservada para compatibilidad con la arquitectura Herramientas360. */
+/* Capa reservada para compatibilidad con la arquitectura Imoancy. */

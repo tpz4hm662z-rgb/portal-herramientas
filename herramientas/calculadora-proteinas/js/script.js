@@ -2,7 +2,7 @@
    CALCULADORA DE PROTEÍNAS DIARIAS
    script.js
    Versión 1.0
-   Herramientas360 Template v3.0
+   Imoancy Template v3.0
    © 2026 José Carlos Núñez Florido
 
    Lógica específica de la herramienta.
@@ -34,7 +34,7 @@ function iniciarHerramienta() {
     if (!formulario) {
 
         console.error(
-            "[Herramientas360] No se encontró el formulario."
+            "[Imoancy] No se encontró el formulario."
         );
 
         return;
@@ -117,7 +117,7 @@ function procesarFormulario(evento) {
     } catch (error) {
 
         console.error(
-            "[Herramientas360] No se ha podido calcular la proteína diaria.",
+            "[Imoancy] No se ha podido calcular la proteína diaria.",
             error
         );
 

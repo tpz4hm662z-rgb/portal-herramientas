@@ -1,5 +1,5 @@
 /* =====================================================
-   HERRAMIENTAS360 TEMPLATE
+   IMOANCY TEMPLATE
    script.js
    Versión 3.0 Stable
    © 2026 José Carlos Núñez Florido

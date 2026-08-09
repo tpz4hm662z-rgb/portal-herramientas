@@ -1,5 +1,5 @@
 /* =====================================================
-   HERRAMIENTAS360
+   IMOANCY
    Calculadora de Peso Ideal PRO
    script.js
    Versión 1.0

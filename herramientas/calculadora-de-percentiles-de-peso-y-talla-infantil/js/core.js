@@ -1,4 +1,4 @@
-/* Utilidades compartidas · Herramientas360 v3.0 */
+/* Utilidades compartidas · Imoancy v3.0 */
 "use strict";
 
 function $(selector, contexto = document) {

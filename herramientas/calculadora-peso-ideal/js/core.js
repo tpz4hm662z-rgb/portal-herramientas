@@ -1,5 +1,5 @@
 /* =====================================================
-   HERRAMIENTAS360 CORE
+   IMOANCY CORE
    core.js
    Versión 3.0 Stable
    © 2026 José Carlos Núñez Florido
@@ -1315,7 +1315,7 @@ function debugLog(...datos) {
     if (!CONFIG?.desarrollo?.debug) return;
 
     console.log(
-        "[Herramientas360]",
+        "[Imoancy]",
         ...datos
     );
 
@@ -1327,7 +1327,7 @@ function debugAdvertencia(...datos) {
     if (!CONFIG?.desarrollo?.debug) return;
 
     console.warn(
-        "[Herramientas360]",
+        "[Imoancy]",
         ...datos
     );
 
@@ -1339,7 +1339,7 @@ function debugError(...datos) {
     if (!CONFIG?.desarrollo?.debug) return;
 
     console.error(
-        "[Herramientas360]",
+        "[Imoancy]",
         ...datos
     );
 

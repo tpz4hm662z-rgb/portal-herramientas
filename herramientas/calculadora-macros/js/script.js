@@ -1,6 +1,6 @@
 
 /* ==========================================================
-   HERRAMIENTAS360
+   IMOANCY
    Calculadora de Macronutrientes
    SCRIPT.JS
    Versión 1.0
@@ -53,7 +53,7 @@ function inicializarHerramienta() {
     if (!formulario) {
  
         console.error(
-            "Herramientas360: no se encontró el formulario #formularioHerramienta."
+            "Imoancy: no se encontró el formulario #formularioHerramienta."
         );
  
         return;

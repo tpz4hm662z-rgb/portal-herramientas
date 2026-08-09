@@ -1,4 +1,4 @@
-/* Herramientas360 Template v3.1 Stable · Lógica específica */
+/* Imoancy Template v3.1 Stable · Lógica específica */
 "use strict";
 
 const MS_DIA = 86400000;

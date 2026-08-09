@@ -1,5 +1,5 @@
 /* =====================================================
-   HERRAMIENTAS360 TEMPLATE
+   IMOANCY TEMPLATE
    config.js
    Versión 3.0
    © 2026 José Carlos Núñez Florido

@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024">
+<defs><linearGradient id="g" x1="0" x2="1"><stop stop-color="#2563EB"/><stop offset="1" stop-color="#06B6D4"/></linearGradient></defs>
+<path fill="url(#g)" fill-rule="evenodd" d="M225 185 Q225 150 260 150 H764 Q799 150 799 185 V270 Q799 305 764 305 H614 V719 H764 Q799 719 799 754 V839 Q799 874 764 874 H260 Q225 874 225 839 V754 Q225 719 260 719 H410 V305 H260 Q225 305 225 270 Z
+M266 696 L706 310 L742 352 L302 738 Z"/>
+</svg>

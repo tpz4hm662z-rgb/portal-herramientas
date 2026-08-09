@@ -1,5 +1,5 @@
 /* =====================================================
-   HERRAMIENTAS360 CORE
+   IMOANCY CORE
    core.js
    Versión 3.0 Stable
    © 2026 José Carlos Núñez Florido

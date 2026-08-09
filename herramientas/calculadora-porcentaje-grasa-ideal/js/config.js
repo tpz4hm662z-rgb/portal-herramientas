@@ -1,5 +1,5 @@
 /* =====================================================
-   HERRAMIENTAS360 TEMPLATE
+   IMOANCY TEMPLATE
    config.js
    Versión 3.0 Stable
    © 2026 José Carlos Núñez Florido
@@ -94,7 +94,7 @@ const CONFIG = {
             "https://imoancy.com/herramientas/calculadora-porcentaje-grasa-ideal/",
 
         imagenSocial:
-            "https://avatars.githubusercontent.com/tpz4hm662z-rgb",
+            "https://imoancy.com/assets/brand/og-image-1200x630.png",
 
         idioma:
             "es",

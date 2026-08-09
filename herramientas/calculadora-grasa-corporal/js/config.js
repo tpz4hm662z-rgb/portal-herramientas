@@ -1,5 +1,5 @@
 /* =====================================================
-   HERRAMIENTAS360
+   IMOANCY
    Calculadora de Grasa Corporal PRO
    config.js
    Versión 1.0

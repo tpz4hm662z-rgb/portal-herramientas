@@ -1,5 +1,5 @@
 /* ==========================================================
-   Herramientas360
+   Imoancy
    RESULTS.JS
    Motor de renderizado
    Versión 1.0

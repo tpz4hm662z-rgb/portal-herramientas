@@ -1,5 +1,5 @@
 /* ==========================================================
-   Herramientas360
+   Imoancy
    CORE.JS
    Funciones reutilizables
    Versión 3.0

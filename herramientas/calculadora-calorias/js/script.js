@@ -1,5 +1,5 @@
 /* ==========================================================
-   HERRAMIENTAS360
+   IMOANCY
    Calculadora de Calorías
    SCRIPT.JS
    Motor principal de cálculo
@@ -54,7 +54,7 @@ function iniciarAplicacion() {
     if (!formulario) {
 
         console.error(
-            "Herramientas360: no se ha encontrado el formulario con id='form-calorias'."
+            "Imoancy: no se ha encontrado el formulario con id='form-calorias'."
         );
 
         return;
@@ -118,7 +118,7 @@ async function gestionarCalculo(evento) {
     } catch (error) {
 
         console.error(
-            "Herramientas360: se ha producido un error durante el cálculo.",
+            "Imoancy: se ha producido un error durante el cálculo.",
             error
         );
 

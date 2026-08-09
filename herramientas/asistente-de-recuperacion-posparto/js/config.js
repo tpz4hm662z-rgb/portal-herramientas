@@ -1,5 +1,5 @@
 /* =====================================================
-   HERRAMIENTAS360 TEMPLATE · CONFIGURACIÓN
+   IMOANCY TEMPLATE · CONFIGURACIÓN
    Asistente de Recuperación Posparto PRO
 ===================================================== */
 
