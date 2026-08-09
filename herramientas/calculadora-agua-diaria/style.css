@@ -292,3 +292,31 @@ transition:.3s;
 background:#1976D2;
 
 }
+
+/* ESTÁNDAR VISUAL IMOANCY v1 · FAMILIA 5 */
+:root{--imoancy-blue:#2563eb;--imoancy-cyan:#06b6d4;--imoancy-navy:#0f172a;--imoancy-light:#e2e8f0}
+body{background:#f8fafc;color:#0f172a}
+.cabecera-principal{padding:0;background:#0f172a;color:#fff}
+.cabecera-contenido{min-height:68px;padding:8px max(16px,calc((100% - 1200px)/2));display:flex;align-items:center;justify-content:space-between;gap:12px;border-bottom:1px solid rgba(255,255,255,.1)}
+.marca-logo{display:block;width:min(222px,48vw);height:auto}
+.cabecera-contenido a{padding:9px 15px;border:1px solid rgba(255,255,255,.28);border-radius:999px;background:rgba(255,255,255,.07);font-size:.875rem;white-space:nowrap}
+.cabecera-contenido a:hover{border-color:var(--imoancy-cyan);background:rgba(6,182,212,.14)}
+.hero-contenido{padding:54px 20px 58px;background:linear-gradient(145deg,#eff6ff 0%,#fff 58%,#ecfeff 100%);color:#0f172a}
+.hero-contenido h1{margin:0 auto 18px;font-size:clamp(2rem,4.4vw,3.35rem);letter-spacing:-.035em}
+.hero-contenido p{color:#64748b;font-size:clamp(1.05rem,1.6vw,1.2rem)}
+.calculadora,.informacion,.faq,.relacionadas{border:1px solid var(--imoancy-light);border-radius:18px;box-shadow:0 3px 12px rgba(15,23,42,.06)}
+input,select{min-height:50px;padding:13px 16px;border-color:#cbd5e1;border-radius:12px;background:#fff}
+input:focus,select:focus{outline:none;border-color:var(--imoancy-cyan);box-shadow:0 0 0 4px rgba(6,182,212,.16)}
+button{min-height:50px;padding:14px 26px;border-radius:12px}
+button:focus-visible,a:focus-visible{outline:3px solid var(--imoancy-cyan);outline-offset:3px}
+button:first-of-type{background:var(--imoancy-blue);box-shadow:0 8px 20px rgba(37,99,235,.2)}
+button:first-of-type:hover{background:#1d4ed8}
+button:last-of-type{border:1px solid #bfdbfe;background:#fff;color:var(--imoancy-blue)}
+#resultado{border-left-color:var(--imoancy-cyan);background:#eff6ff}
+.litros,.informacion h2,.faq h2,.relacionadas h2{color:var(--imoancy-blue)}
+.barra-progreso{background:linear-gradient(90deg,var(--imoancy-blue),var(--imoancy-cyan))}
+.relacionadas a{background:var(--imoancy-blue)}
+footer{margin-top:64px;padding:36px 20px 18px;background:var(--imoancy-navy)}
+footer .marca-logo{width:min(190px,52vw);margin:0 auto 18px}
+@media(max-width:768px){.cabecera-contenido{min-height:62px;padding-block:7px}.marca-logo{width:min(188px,52vw)}.cabecera-contenido a{padding:8px 11px;font-size:.78rem}.hero-contenido{padding:44px 20px 48px}.calculadora,.informacion,.faq,.relacionadas{margin:24px 16px;padding:24px}}
+@media(max-width:480px){.marca-logo{width:min(150px,45vw)}.cabecera-contenido a{max-width:170px;padding:7px 9px;font-size:.74rem}.hero-contenido h1{font-size:clamp(1.85rem,9vw,2.25rem)}footer .marca-logo{width:min(178px,58vw)}}
