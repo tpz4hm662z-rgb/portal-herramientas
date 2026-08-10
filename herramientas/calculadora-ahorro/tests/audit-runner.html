@@ -1,0 +1,31 @@
+<!doctype html><meta charset="utf-8"><title>Auditoría matemática independiente</title><pre id="salida">Ejecutando…</pre>
+<script src="../js/config.js"></script><script src="../js/core.js"></script><script>
+"use strict";
+const r=[];const probar=(n,f)=>{try{f();r.push({nombre:n,ok:true})}catch(e){r.push({nombre:n,ok:false,error:e.message})}};const ok=(v,m)=>{if(!v)throw new Error(m||"Afirmación fallida")};const cerca=(a,b,t=1e-7)=>ok(Math.abs(a-b)<=t*Math.max(1,Math.abs(b)),`${a} != ${b}`);
+const simular=(c,a,n,anual)=>{const m=Math.pow(1+anual,1/12)-1;for(let i=0;i<n;i++)c=c*(1+m)+a;return c};
+[
+ {c:0,a:100,n:1,r:0},{c:1000,a:0,n:360,r:.05},{c:2500,a:300,n:240,r:.05},{c:10000,a:250,n:120,r:-.2},{c:.01,a:.01,n:1200,r:.01},{c:1e9,a:1e6,n:600,r:.08}
+].forEach((d,i)=>probar(`capital futuro independiente ${i+1}`,()=>cerca(AhorroEngine.proyectarCapital({capitalInicial:d.c,aportacionPeriodica:d.a,periodos:d.n,rentabilidadAnual:d.r}).capitalFinal,simular(d.c,d.a,d.n,d.r),1e-6)));
+[
+ {o:20000,c:3000,n:48,r:0},{o:100000,c:10000,n:240,r:.05},{o:5000,c:500,n:36,r:-.1},{o:.1,c:0,n:3,r:0},{o:1e8,c:1e6,n:600,r:.03}
+].forEach((d,i)=>probar(`aportación reconstruye objetivo ${i+1}`,()=>{const a=AhorroEngine.aportacionNecesaria({objetivo:d.o,capitalInicial:d.c,periodos:d.n,rentabilidadAnual:d.r});ok(a.estado==='ok');cerca(simular(d.c,a.aportacionPeriodica,d.n,d.r),d.o,1e-6)}));
+[
+ {o:12000,c:0,a:1000,r:0},{o:25000,c:1000,a:300,r:.04},{o:110,c:100,a:0,r:.1},{o:1000,c:100,a:25,r:-.05}
+].forEach((d,i)=>probar(`plazo es el primer mes que alcanza ${i+1}`,()=>{const x=AhorroEngine.periodosNecesarios({objetivo:d.o,capitalInicial:d.c,aportacionPeriodica:d.a,rentabilidadAnual:d.r});ok(x.estado==='ok');ok(simular(d.c,d.a,x.periodos,d.r)>=d.o);ok(x.periodos===0||simular(d.c,d.a,x.periodos-1,d.r)<d.o)}));
+probar("tasa mensual recompone tasa anual",()=>{for(const a of [-.9,-.2,0,.05,1]){const m=AhorroEngine.tasaMensualDesdeAnual(a);cerca(Math.pow(1+m,12)-1,a)}});
+probar("inflación cero",()=>cerca(AhorroEngine.ajustarInflacion(12345,0,100).objetivoNominal,12345));
+probar("inflación positiva independiente",()=>cerca(AhorroEngine.ajustarInflacion(20000,.025,30).objetivoNominal,20000*Math.pow(1.025,30)));
+probar("inflación negativa válida",()=>cerca(AhorroEngine.ajustarInflacion(20000,-.02,30).objetivoNominal,20000*Math.pow(.98,30)));
+probar("capacidad y porcentajes independientes",()=>{const x=AhorroEngine.capacidadAhorro({ingresosNetos:2000,gastosFijos:1000,gastosVariables:400,otrosGastos:100});cerca(x.gastosTotales,1500);cerca(x.ahorroMensual,500);cerca(x.porcentajeGastos,.75);cerca(x.tasaAhorro,.25);cerca(x.ahorroAnual,6000)});
+probar("déficit independiente",()=>{const x=AhorroEngine.capacidadAhorro({ingresosNetos:100,gastosFijos:150,gastosVariables:0,otrosGastos:0});ok(x.estado==='deficit');cerca(x.ahorroMensual,-50);cerca(x.tasaAhorro,-.5)});
+probar("ingresos cero no crea infinitos",()=>{const x=AhorroEngine.capacidadAhorro({ingresosNetos:0,gastosFijos:0,gastosVariables:0});ok(x.tasaAhorro===null&&x.porcentajeGastos===null)});
+probar("equivalencias 12 52 365",()=>{const x=AhorroEngine.metricasDerivadas({objetivo:100,capitalInicial:10,ahorroMensual:123.45});cerca(x.ahorroAnual,123.45*12);cerca(x.equivalenteSemanal,123.45*12/52);cerca(x.equivalenteDiario,123.45*12/365)});
+probar("escenarios centralizados",()=>{const x=AhorroEngine.generarEscenarios(250,CONFIG.escenarios).escenarios;cerca(x[0].aportacionPeriodica,200);cerca(x[1].aportacionPeriodica,250);cerca(x[2].aportacionPeriodica,300)});
+probar("rendimiento acumulado concilia",()=>{const d={capitalInicial:5000,aportacionPeriodica:250,periodos:180,rentabilidadAnual:.06};const x=AhorroEngine.proyectarCapital(d);cerca(x.capitalFinal,d.capitalInicial+x.aportacionesTotales+x.rendimientoAcumulado)});
+probar("serie concilia todos sus periodos",()=>{const d={capitalInicial:50,aportacionPeriodica:7,periodos:120,rentabilidadAnual:-.1};const x=AhorroEngine.generarProyeccion(d);ok(x.serie.every((f,i)=>f.mes===i+1&&Number.isFinite(f.capitalFinal)));cerca(x.capitalFinal,simular(d.capitalInicial,d.aportacionPeriodica,d.periodos,d.rentabilidadAnual))});
+probar("fecha estimada válida",()=>{const x=AhorroEngine.fechaObjetivo(new Date(2026,11,15),14);ok(x.estado==='ok'&&!Number.isNaN(x.fecha.getTime())&&x.fecha.getFullYear()===2028&&x.fecha.getMonth()===1)});
+probar("estados de objetivo exactos",()=>{ok(AhorroEngine.aportacionNecesaria({objetivo:0,capitalInicial:0,periodos:0}).estado==='objetivo_alcanzado');ok(AhorroEngine.aportacionNecesaria({objetivo:10,capitalInicial:11,periodos:1}).estado==='objetivo_superado')});
+probar("inalcanzable nunca devuelve Infinity",()=>{const x=AhorroEngine.periodosNecesarios({objetivo:1,capitalInicial:0,aportacionPeriodica:0,rentabilidadAnual:0});ok(x.estado==='inalcanzable'&&!JSON.stringify(x).includes('Infinity'))});
+probar("desbordamiento devuelve estado semántico",()=>{const x=AhorroEngine.proyectarCapital({capitalInicial:1e308,aportacionPeriodica:1e308,periodos:1200,rentabilidadAnual:1});ok(x.estado==='inalcanzable'&&!('capitalFinal'in x))});
+const fallos=r.filter(x=>!x.ok);document.getElementById('salida').textContent=JSON.stringify({total:r.length,superados:r.length-fallos.length,fallidos:fallos},null,2);document.body.dataset.estado=fallos.length?'fallo':'ok';
+</script>

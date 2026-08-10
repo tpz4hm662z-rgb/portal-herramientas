@@ -1,0 +1,49 @@
+<!doctype html><meta charset="utf-8"><title>Pruebas UI Ahorro PRO</title>
+<pre id="salida">Ejecutando…</pre><iframe id="app" src="../index.html" style="position:absolute;left:-10000px;width:375px;height:900px"></iframe>
+<script>
+"use strict";
+const resultados=[]; const prueba=(nombre,fn)=>{try{fn();resultados.push({nombre,ok:true})}catch(e){resultados.push({nombre,ok:false,error:e.message})}};
+const afirmar=(condicion,mensaje)=>{if(!condicion)throw new Error(mensaje||"Afirmación fallida")};
+const iframe=document.getElementById("app");
+iframe.addEventListener("load",()=>setTimeout(()=>{
+ const d=iframe.contentDocument,w=iframe.contentWindow,$=s=>d.querySelector(s), valor=(id,v)=>{d.getElementById(id).value=v};
+ const enviar=id=>d.getElementById(id).dispatchEvent(new Event("submit",{bubbles:true,cancelable:true}));
+ prueba("hay tres modos semánticos",()=>afirmar(d.querySelectorAll('[role="tab"]').length===3));
+ prueba("modo objetivo visible inicialmente",()=>afirmar(!$("#panel-objetivo").hidden&&$("#panel-plazo").hidden));
+ $("#tab-objetivo").dispatchEvent(new KeyboardEvent("keydown",{key:"ArrowRight",bubbles:true}));prueba("teclado cambia al siguiente modo",()=>afirmar(!$("#panel-plazo").hidden&&d.activeElement===$("#tab-plazo")));
+ $("#tab-plazo").dispatchEvent(new KeyboardEvent("keydown",{key:"End",bubbles:true}));prueba("tecla Fin activa último modo",()=>afirmar(!$("#panel-capacidad").hidden));$("#tab-capacidad").dispatchEvent(new KeyboardEvent("keydown",{key:"Home",bubbles:true}));prueba("tecla Inicio activa primer modo",()=>afirmar(!$("#panel-objetivo").hidden));
+ prueba("todos los inputs tienen etiqueta",()=>afirmar(Array.from(d.querySelectorAll("input")).every(i=>i.closest("label")||d.querySelector(`label[for="${i.id}"]`))));
+ prueba("botones tienen nombre accesible",()=>afirmar(Array.from(d.querySelectorAll("button")).every(b=>b.textContent.trim()||b.getAttribute("aria-label"))));
+ w.AhorroUI.activarModo("objetivo",false);
+ w.AhorroUI.activarModo("plazo",false); prueba("cambio a modo plazo",()=>afirmar(!$("#panel-plazo").hidden&&$("#panel-objetivo").hidden));
+ w.AhorroUI.activarModo("capacidad",false); prueba("cambio a modo capacidad",()=>afirmar(!$("#panel-capacidad").hidden));
+ prueba("campos correctos en capacidad",()=>afirmar($("#capacidad-ingresos")&&$("#capacidad-fijos")&&$("#capacidad-variables")&&$("#capacidad-otros")));
+ w.AhorroUI.activarModo("objetivo",false); valor("objetivo-importe",12000);valor("objetivo-capital",0);valor("objetivo-anos",1);valor("objetivo-meses",0);enviar("form-objetivo");
+ prueba("modo 1 calcula 1.000 euros",()=>afirmar($("#resultado-principal").textContent.includes("1000,00")||$("#resultado-principal").textContent.includes("1.000,00"),$("#resultado-principal").textContent));
+ prueba("modo 1 crea escenarios",()=>afirmar(d.querySelectorAll(".escenario").length===3));
+ prueba("modo 1 actualiza gráfico",()=>afirmar(!$("#evolucion").hidden&&$("#graficoAhorro")));
+ const pdfObjetivo={textos:[],guardado:false,setFontSize(){},text(t){this.textos.push(t)},line(){},splitTextToSize(t){return [String(t)]},addPage(){},save(){this.guardado=true}};w.jspdf={jsPDF:function(){return pdfObjetivo}};$("#btnPDF").click();prueba("PDF del modo 1 corresponde al objetivo",()=>afirmar(pdfObjetivo.guardado&&pdfObjetivo.textos.flat().some(t=>String(t).includes("Plan para alcanzar"))));
+ const graficoInicial=w.Chart.getChart($("#graficoAhorro"));valor("objetivo-importe",13000);enviar("form-objetivo");const graficoNuevo=w.Chart.getChart($("#graficoAhorro"));prueba("recalcular reemplaza la instancia del gráfico",()=>afirmar(graficoInicial!==graficoNuevo));valor("objetivo-importe",12000);
+ valor("objetivo-rentabilidad",5);enviar("form-objetivo");prueba("rentabilidad modifica la simulación",()=>afirmar(!$("#resultado-principal").textContent.includes("1000,00")));valor("objetivo-rentabilidad",0);
+ prueba("formato EUR",()=>afirmar(/1[.\s]?234,56/.test(w.AhorroUI.dinero(1234.56)),w.AhorroUI.dinero(1234.56)));
+ prueba("formato porcentual",()=>afirmar(w.AhorroUI.pct(.25).includes("25")));
+ valor("objetivo-capital",12000);enviar("form-objetivo");prueba("objetivo alcanzado",()=>afirmar($("#resultado-principal").textContent.includes("alcanzado")));
+ valor("objetivo-capital",13000);enviar("form-objetivo");prueba("objetivo superado",()=>afirmar($("#resultado-principal").textContent.includes("supera")));
+ const chk=$("#objetivo-ajustar-inflacion");chk.checked=true;chk.dispatchEvent(new Event("change",{bubbles:true}));prueba("activar inflación muestra campo",()=>afirmar(!$("#objetivo-inflacion-grupo").hidden));valor("objetivo-capital",0);valor("objetivo-inflacion",2);enviar("form-objetivo");prueba("inflación etiqueta ambos objetivos",()=>afirmar($("#metricas").textContent.includes("euros de hoy")&&$("#metricas").textContent.includes("nominal ajustado")));chk.checked=false;chk.dispatchEvent(new Event("change",{bubbles:true}));prueba("desactivar inflación oculta campo",()=>afirmar($("#objetivo-inflacion-grupo").hidden));
+ w.AhorroUI.activarModo("plazo",false);valor("plazo-objetivo",12000);valor("plazo-capital",0);valor("plazo-aportacion",1000);enviar("form-plazo");prueba("modo 2 calcula 12 meses",()=>afirmar($("#resultado-principal").textContent.includes("1 año")));
+ const pdfPlazo={textos:[],guardado:false,setFontSize(){},text(t){this.textos.push(t)},line(){},splitTextToSize(t){return [String(t)]},addPage(){},save(){this.guardado=true}};w.jspdf={jsPDF:function(){return pdfPlazo}};$("#btnPDF").click();prueba("PDF recalculado corresponde al modo 2",()=>afirmar(pdfPlazo.guardado&&pdfPlazo.textos.flat().some(t=>String(t).includes("Plazo estimado"))));
+ $("#plazo-ajustar-inflacion").checked=true;$("#plazo-ajustar-inflacion").dispatchEvent(new Event("change",{bubbles:true}));valor("plazo-inflacion",-100);enviar("form-plazo");prueba("inflación inválida muestra error asociado",()=>afirmar($("#error-plazo-inflacion").textContent.length>0&&$("#resultados").hidden));$("#plazo-ajustar-inflacion").checked=false;$("#plazo-ajustar-inflacion").dispatchEvent(new Event("change",{bubbles:true}));valor("plazo-inflacion",2);
+ valor("plazo-aportacion",0);enviar("form-plazo");prueba("modo 2 muestra inalcanzable",()=>afirmar($("#resultado-principal").textContent.includes("no es posible")));
+ w.AhorroUI.activarModo("capacidad",false);valor("capacidad-ingresos",2000);valor("capacidad-fijos",1000);valor("capacidad-variables",400);valor("capacidad-otros","");enviar("form-capacidad");prueba("otros gastos vacío se acepta como opcional",()=>afirmar($("#resultado-principal").textContent.includes("600,00")&&!$("#resultados").hidden));valor("capacidad-otros",100);enviar("form-capacidad");prueba("modo 3 calcula 500 euros",()=>afirmar($("#resultado-principal").textContent.includes("500,00")));
+ $("#transferir-ahorro").click();prueba("transferencia capacidad a plazo",()=>afirmar(!$("#panel-plazo").hidden&&Number($("#plazo-aportacion").value)===500));
+ w.AhorroUI.activarModo("capacidad",false);valor("capacidad-ingresos",2000);valor("capacidad-fijos",1200);valor("capacidad-variables",1000);valor("capacidad-otros",0);enviar("form-capacidad");prueba("déficit visible",()=>afirmar($("#resultado-principal").textContent.includes("superan")));
+ const pdf={textos:[],guardado:false,setFontSize(){},text(t){this.textos.push(t)},line(){},splitTextToSize(t){return [String(t)]},addPage(){},save(){this.guardado=true}};w.jspdf={jsPDF:function(){return pdf}};$("#btnPDF").click();prueba("PDF usa el último resultado válido",()=>afirmar(pdf.guardado&&pdf.textos.flat().some(t=>String(t).includes("Capacidad mensual"))));
+ w.AhorroUI.activarModo("objetivo",false);valor("objetivo-importe","");enviar("form-objetivo");prueba("entrada inválida junto al campo",()=>afirmar($("#error-objetivo-importe").textContent.length>0));prueba("entrada inválida oculta resultado anterior",()=>afirmar($("#resultados").hidden));
+ valor("objetivo-importe",1e308);valor("objetivo-capital",0);valor("objetivo-anos",100);valor("objetivo-rentabilidad",1e308);enviar("form-objetivo");prueba("desbordamiento muestra estado seguro",()=>afirmar($("#resultado-principal").textContent.includes("No es posible")&&!/Infinity|NaN|undefined|null/.test(d.body.innerText)));
+ valor("objetivo-rentabilidad",0);$("#objetivo-ajustar-inflacion").checked=true;$("#objetivo-ajustar-inflacion").dispatchEvent(new Event("change",{bubbles:true}));valor("objetivo-inflacion",1e308);enviar("form-objetivo");prueba("desbordamiento de inflación no conserva métricas anteriores",()=>afirmar($("#metricas").children.length===0&&$("#progreso-contenedor").children.length===0&&!/Infinity|NaN|undefined|null/.test(d.body.innerText)));
+ prueba("DOM no contiene Infinity ni NaN",()=>afirmar(!/Infinity|NaN/.test(d.body.innerText)));
+ prueba("controles tienen foco visible definido",()=>afirmar(Array.from(d.styleSheets).some(s=>{try{return Array.from(s.cssRules).some(r=>String(r.selectorText).includes("focus-visible"))}catch(e){return false}})));
+ [320,375,390,430,768,1024,1440].forEach(ancho=>{iframe.style.width=`${ancho}px`;prueba(`sin overflow a ${ancho}px`,()=>afirmar(d.documentElement.scrollWidth<=d.documentElement.clientWidth,`${d.documentElement.scrollWidth}>${d.documentElement.clientWidth}`))});
+ d.getElementById("form-objetivo").reset();setTimeout(()=>{prueba("limpiar oculta resultados",()=>afirmar($("#resultados").hidden));const fallos=resultados.filter(r=>!r.ok);document.getElementById("salida").textContent=JSON.stringify({total:resultados.length,superados:resultados.length-fallos.length,fallidos:fallos},null,2);document.body.dataset.estado=fallos.length?"fallo":"ok"},100);
+},800));
+</script>

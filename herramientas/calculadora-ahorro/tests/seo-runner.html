@@ -1,0 +1,28 @@
+<!doctype html><meta charset="utf-8"><title>Pruebas SEO Ahorro PRO</title>
+<pre id="salida">Ejecutando…</pre><iframe id="app" src="../index.html" style="position:absolute;left:-10000px;width:375px;height:900px"></iframe>
+<script>
+"use strict";
+const resultados=[];const probar=(nombre,fn)=>{try{fn();resultados.push({nombre,ok:true})}catch(e){resultados.push({nombre,ok:false,error:e.message})}};const afirmar=(v,m)=>{if(!v)throw new Error(m||"Afirmación fallida")};
+document.getElementById("app").addEventListener("load",()=>setTimeout(()=>{const d=document.getElementById("app").contentDocument,$=s=>d.querySelector(s),$$=s=>Array.from(d.querySelectorAll(s));
+probar("exactamente un H1",()=>afirmar($$("h1").length===1));
+probar("H1 PRO",()=>afirmar($("h1").textContent.trim()==="Calculadora de Ahorro PRO"));
+probar("title actualizado",()=>afirmar(d.title==="Calculadora de Ahorro PRO: cuánto ahorrar al mes | Imoancy"));
+probar("description actualizada",()=>afirmar($("meta[name=description]").content.includes("capacidad de ahorro")));
+probar("canonical correcto",()=>afirmar($("link[rel=canonical]").href==="https://imoancy.com/herramientas/calculadora-ahorro/"));
+probar("favicon y apple-touch-icon presentes",()=>afirmar($("link[rel=icon]")&&$("link[rel=apple-touch-icon]")));
+probar("Open Graph y Twitter PRO",()=>afirmar($("meta[property='og:title']").content.includes("PRO")&&$("meta[name='twitter:title']").content.includes("PRO")));
+const jsonLd=$$("script[type='application/ld+json']").map(n=>JSON.parse(n.textContent));const faq=jsonLd.find(x=>x["@type"]==="FAQPage");
+probar("JSON-LD válido",()=>afirmar(jsonLd.length===2));
+probar("WebApplication actualizado",()=>afirmar(jsonLd.some(x=>x["@type"]==="WebApplication"&&x.name.includes("PRO"))));
+probar("16 FAQ visibles",()=>afirmar($$("#preguntas-frecuentes details").length===16));
+probar("16 FAQ en Schema",()=>afirmar(faq&&faq.mainEntity.length===16));
+probar("FAQ visible coincide con Schema",()=>{const visibles=$$("#preguntas-frecuentes summary").map(x=>x.textContent.trim());afirmar(faq.mainEntity.every((x,i)=>x.name===visibles[i]))});
+probar("jerarquía sin saltos",()=>{const niveles=$$("h1,h2,h3").map(x=>Number(x.tagName[1]));afirmar(niveles.every((n,i)=>i===0||n<=niveles[i-1]+1))});
+probar("ejemplo objetivo correcto",()=>{const t=$(".ejemplos-editoriales").textContent;afirmar(["354,17","81,73","11,64","15%"].every(x=>t.includes(x)))});
+probar("ejemplo capacidad correcto",()=>{const t=$(".ejemplos-editoriales").textContent;afirmar(["500 €/mes","25%","6.000 €"].every(x=>t.includes(x)))});
+probar("tres relacionadas intactas",()=>afirmar($$("#herramientas-relacionadas .imoancy-related__card").length===3));
+probar("sin Infinity ni NaN",()=>afirmar(!/Infinity|NaN/.test(d.body.innerText)));
+[320,375,768].forEach(ancho=>{document.getElementById("app").style.width=`${ancho}px`;probar(`contenido sin overflow a ${ancho}px`,()=>afirmar(d.documentElement.scrollWidth<=d.documentElement.clientWidth))});
+const fallos=resultados.filter(r=>!r.ok);document.getElementById("salida").textContent=JSON.stringify({total:resultados.length,superados:resultados.length-fallos.length,fallidos:fallos},null,2);document.body.dataset.estado=fallos.length?"fallo":"ok";
+},800));
+</script>
