@@ -1,0 +1,44 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Tests UI</title><style>iframe{width:100%;height:900px;border:0}</style></head><body><pre id="salida">Ejecutando…</pre><iframe id="app" src="../index.html"></iframe><script>
+const pruebas=[];const test=(n,f)=>pruebas.push([n,f]);const ok=(v,m)=>{if(!v)throw Error(m||"condición falsa")};const igual=(a,b)=>ok(a===b,`${a} !== ${b}`);
+document.getElementById("app").addEventListener("load",()=>setTimeout(()=>{
+ const frame=document.getElementById("app"),w=frame.contentWindow,d=frame.contentDocument,$=id=>d.getElementById(id),set=(id,v)=>{$(id).value=v},calcular=()=>$("formulario-calculadora").dispatchEvent(new Event("submit",{bubbles:true,cancelable:true}));
+ test("cuatro campos principales visibles",()=>igual(d.querySelectorAll(".campos-principales .campo").length,4));
+ test("valores iniciales razonables",()=>{igual($("capitalInicial").value,"10000");igual($("aportacionMensual").value,"300");igual($("anos").value,"20");igual($("rentabilidadAnual").value,"5")});
+ test("opciones avanzadas cerradas",()=>ok(!$("opciones-avanzadas").open));
+ test("frecuencia mensual predeterminada",()=>igual($("frecuenciaAportacion").value,"mensual"));
+ test("momento final predeterminado",()=>igual($("momentoAportacion").value,"final"));
+ test("inflación y costes ocultos inicialmente",()=>ok($("campo-inflacion").hidden&&$("campo-costes").hidden));
+ test("cálculo principal renderiza capital",()=>{calcular();ok(!$("resultado").hidden);ok(/Capital final estimado/.test($("resultado").textContent))});
+ test("desglose principal completo",()=>["Capital inicial","Aportaciones","Total aportado","Rendimiento estimado"].forEach(x=>ok($("resultado").textContent.includes(x))));
+ test("porcentaje de rendimiento visible cuando válido",()=>ok(/del capital final corresponde/.test($("resultado").textContent)));
+ test("gráfico tiene dos series",()=>igual(w.Chart.getChart($("grafico")).config.data.datasets.length,2));
+ test("gráfico usa puntos anuales",()=>igual(w.Chart.getChart($("grafico")).config.data.labels.length,20));
+ test("alternativa textual del gráfico",()=>ok($("resumen-grafico").textContent.includes("Durante el periodo simulado")));
+ test("simple vs compuesto visible",()=>ok(!!$("comparacion-titulo")));
+ test("hitos no exceden horizonte",()=>{set("anos","10");calcular();ok(!$("resultado").textContent.includes("Año 20"))});
+ test("hito de rendimiento es condicional",()=>{set("capitalInicial","100000");set("aportacionMensual","10");set("anos","2");calcular();ok(!!d.querySelector(".hito-rendimiento"))});
+ test("duplicación aparece con capital y tasa positivos",()=>ok(!!$("duplicacion-titulo")));
+ test("capital cero oculta duplicación",()=>{set("capitalInicial","0");calcular();ok(!$("duplicacion-titulo"))});
+ test("aportación cero es válida",()=>{set("capitalInicial","10000");set("aportacionMensual","0");calcular();ok(!$("resultado").hidden)});
+ test("rentabilidad cero es válida y explica coincidencia",()=>{set("rentabilidadAnual","0");calcular();ok($("resultado").textContent.includes("ambos métodos coinciden"))});
+ test("rentabilidad negativa es válida",()=>{set("rentabilidadAnual","-10");calcular();ok(!$("resultado").hidden);ok(/variación estimada/i.test($("resultado").textContent))});
+ test("cambio de frecuencia adapta etiqueta",()=>{$("frecuenciaAportacion").value="trimestral";$("frecuenciaAportacion").dispatchEvent(new Event("change"));igual($("etiqueta-aportacion").textContent,"Aportación trimestral")});
+ test("momento principio llega al motor",()=>{$("momentoAportacion").value="principio";set("rentabilidadAnual","5");calcular();ok(!$("resultado").hidden)});
+ test("activar inflación muestra campo y resultado",()=>{$("activarInflacion").checked=true;$("activarInflacion").dispatchEvent(new Event("change"));ok(!$("campo-inflacion").hidden);calcular();ok(!!$("inflacion-titulo"))});
+ test("desactivar inflación elimina resultado previo",()=>{$("activarInflacion").checked=false;$("activarInflacion").dispatchEvent(new Event("change"));calcular();ok(!$("inflacion-titulo"))});
+ test("activar costes muestra campo y resultado",()=>{$("activarCostes").checked=true;$("activarCostes").dispatchEvent(new Event("change"));ok(!$("campo-costes").hidden);calcular();ok(!!$("costes-titulo"))});
+ test("desactivar costes elimina resultado previo",()=>{$("activarCostes").checked=false;$("activarCostes").dispatchEvent(new Event("change"));calcular();ok(!$("costes-titulo"))});
+ test("tabla anual coincide con plazo",()=>{set("anos","7");calcular();igual(d.querySelectorAll(".tabla-anual tbody tr").length,7)});
+ test("formato monetario no expone precisión interna",()=>ok(!/\.\d{5,}/.test($("resultado").textContent)));
+ test("resultado no contiene NaN o Infinity",()=>ok(!/NaN|Infinity/.test($("resultado").textContent)));
+ test("inválido después de válido oculta todo resultado",()=>{set("anos","0");calcular();ok($("resultado").hidden);ok(!$("error-general").hidden)});
+ test("mensaje inválido es humano",()=>ok($("error-plazo").textContent.includes("Introduce un plazo")));
+ test("error asociado con aria-invalid",()=>igual($("anos").getAttribute("aria-invalid"),"true"));
+ test("limpiar restaura interfaz completa",()=>{$("boton-limpiar").click();igual($("anos").value,"20");ok($("resultado").hidden);ok(!$("opciones-avanzadas").open);ok($("campo-inflacion").hidden&&$("campo-costes").hidden);ok(!$("grafico"))});
+ test("labels reales para controles",()=>d.querySelectorAll("input,select").forEach(n=>ok(d.querySelector(`label[for='${n.id}']`)||n.type==="checkbox")));
+ test("resultado usa aria-live",()=>igual($("resultado").getAttribute("aria-live"),"polite"));
+ test("gráfico tiene descripción accesible",()=>{calcular();igual($("grafico").getAttribute("aria-describedby"),"resumen-grafico")});
+ [320,375,390,430,768,1024,1440].forEach(ancho=>test(`sin overflow documental a ${ancho}px`,()=>{frame.style.width=`${ancho}px`;void frame.offsetWidth;const anchos=[...d.querySelectorAll("body *")].filter(n=>n.getBoundingClientRect().right>d.documentElement.clientWidth+1).slice(0,4).map(n=>`${n.tagName}.${n.className}`);ok(d.documentElement.scrollWidth<=d.documentElement.clientWidth+1,`${d.documentElement.scrollWidth}/${d.documentElement.clientWidth}: ${anchos.join(",")}`)}));
+ let pass=0;const fallos=[];pruebas.forEach(([n,f])=>{try{f();pass++}catch(e){fallos.push(`${n}: ${e.message}`)}});$("capitalInicial").blur();document.getElementById("salida").textContent=`TOTAL: ${pruebas.length}\nSUPERADOS: ${pass}\nFALLIDOS: ${fallos.length}${fallos.length?`\n\n${fallos.join("\n")}`:""}`;
+},1200));
+</script></body></html>

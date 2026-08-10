@@ -1,0 +1,3 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Revisión visual</title><style>html,body{margin:0}iframe{display:block;width:100%;height:15000px;border:0}</style></head><body><iframe id="app" src="../index.html"></iframe><script>
+const app=document.getElementById("app");if(location.search.includes("mobile")){app.style.width="390px";app.style.margin="0 auto"}app.addEventListener("load",()=>setTimeout(()=>{if(!location.search.includes("before")){const d=app.contentDocument;d.getElementById("formulario-calculadora").dispatchEvent(new Event("submit",{bubbles:true,cancelable:true}));}},500));
+</script></body></html>

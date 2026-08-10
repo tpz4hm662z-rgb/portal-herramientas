@@ -1,0 +1,10 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Auditoría numérica</title></head><body><pre id="salida"></pre>
+<script src="../js/config.js"></script><script src="../js/core.js"></script><script>
+const e=InteresCompuestoEngine;
+const b=(x={})=>Object.assign({capitalInicial:10000,aportacionPeriodica:0,plazoAnos:10,rentabilidadAnual:0,frecuenciaAportacion:"mensual",frecuenciaCapitalizacion:"mensual",momentoAportacion:"final"},x);
+const casos={A:b(),B:b({rentabilidadAnual:.05}),C:b({capitalInicial:0,aportacionPeriodica:100}),D:b({aportacionPeriodica:100}),E:b({rentabilidadAnual:-.1,plazoAnos:1}),F:b({rentabilidadAnual:1,plazoAnos:1})};
+const referencia=b({aportacionPeriodica:300,rentabilidadAnual:.05,plazoAnos:20});
+const visual=e.simular(referencia);const avanzado=e.simular({...referencia,inflacionAnual:.02,costesAnuales:.01});const comparacion=e.compararIntereses(referencia);
+const salida={casos:Object.fromEntries(Object.entries(casos).map(([k,v])=>[k,e.simular(v).capitalFinal])),equivalencia:Object.fromEntries(Object.keys(e.FRECUENCIAS).map(f=>[f,e.simular(b({plazoAnos:1,rentabilidadAnual:.05,frecuenciaCapitalizacion:f})).capitalFinal])),visual:{capitalFinal:visual.capitalFinal,capitalInicial:visual.capitalInicial,aportaciones:visual.aportacionesAcumuladas,totalAportado:visual.dineroTotalAportado,rendimiento:visual.rendimientoAcumulado,hitos:visual.hitos,duplicacion:visual.tiempoDuplicacion},avanzado:{capitalNominal:avanzado.capitalFinal,capitalReal:avanzado.capitalReal,impactoInflacion:avanzado.impactoInflacion,capitalSinCostes:avanzado.capitalSinCostes,impactoCostes:avanzado.impactoCostes,totalAportado:avanzado.dineroTotalAportado,rendimiento:avanzado.rendimientoAcumulado,comparacion,hitos:avanzado.hitos,duplicacion:avanzado.tiempoDuplicacion}};
+document.getElementById("salida").textContent=JSON.stringify(salida,null,2);
+</script></body></html>
