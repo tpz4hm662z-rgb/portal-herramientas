@@ -40,9 +40,9 @@ const RenderizadorSeoConfianza = (() => {
     ]);
 
     const RELACIONADAS = Object.freeze([
-        { nombre: "Calculadora de Cantidad de Leche y Tomas del Bebé PRO", url: "https://imoancy.com/herramientas/calculadora-de-cantidad-de-leche-y-tomas-del-bebe/", descripcion: "Estima la cantidad diaria orientativa de leche y su distribución en tomas.", utilidad: "Útil para organizar la alimentación con leche según la edad y el peso del bebé." },
-        { nombre: "Calculadora de Alimentación para Bebés Prematuros PRO", url: "https://imoancy.com/herramientas/calculadora-de-alimentacion-para-bebes-prematuros/", descripcion: "Ofrece una referencia orientativa de alimentación adaptada al contexto de prematuridad.", utilidad: "Útil para comprender las necesidades estimadas según el peso y la edad del bebé." },
-        { nombre: "Calculadora de Introducción de Alimentos (BLW y Alimentación Complementaria) PRO", url: "https://imoancy.com/herramientas/calculadora-introduccion-de-alimentos-para-bebes-blw-y-alimentacion-complementaria/", descripcion: "Orienta la introducción progresiva de alimentos mediante BLW o alimentación complementaria.", utilidad: "Útil para planificar alimentos, texturas y frecuencia según la etapa del bebé." }
+        { nombre: "Calculadora de cantidad de leche y tomas del bebé", url: "https://imoancy.com/herramientas/calculadora-de-cantidad-de-leche-y-tomas-del-bebe/", descripcion: "Estima la cantidad diaria orientativa de leche y su distribución en tomas.", utilidad: "Útil para organizar la alimentación con leche según la edad y el peso del bebé." },
+        { nombre: "Calculadora de percentiles de crecimiento del bebé", url: "https://imoancy.com/herramientas/calculadora-de-percentiles-de-crecimiento-del-bebe/", descripcion: "Consulta percentiles de crecimiento infantil con referencias visuales.", utilidad: "Útil para seguir la evolución del crecimiento del bebé." },
+        { nombre: "Calculadora de alimentación para bebés prematuros", url: "https://imoancy.com/herramientas/calculadora-de-alimentacion-para-bebes-prematuros/", descripcion: "Ofrece una referencia orientativa de alimentación adaptada al contexto de prematuridad.", utilidad: "Útil para comprender las necesidades estimadas según el peso y la edad del bebé." }
     ]);
 
     function renderTodo() { renderFAQ(); renderFuentes(); renderRelacionadas(); renderConfianza(); }
@@ -75,6 +75,7 @@ const RenderizadorSeoConfianza = (() => {
 
     function renderRelacionadas() {
         const contenedor = document.querySelector("#herramientasRelacionadasPosparto");
+        if (contenedor.children.length) return;
         contenedor.replaceChildren(...RELACIONADAS.map(item => { const tarjeta = crear("a", "relacionada-posparto"); tarjeta.href = item.url; tarjeta.append(crear("h3", "", item.nombre), crear("p", "", item.descripcion), crear("small", "", item.utilidad)); return tarjeta; }));
     }
 

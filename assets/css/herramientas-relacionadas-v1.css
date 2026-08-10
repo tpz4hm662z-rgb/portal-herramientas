@@ -1,0 +1,25 @@
+/* Herramientas relacionadas — Imoancy v1.0 */
+.imoancy-related {
+  box-sizing: border-box;
+  width: 100%;
+  padding: clamp(3rem, 7vw, 5.5rem) max(1rem, calc((100% - 1180px) / 2));
+  background: #f8fafc;
+  color: #172033;
+}
+
+.imoancy-related *, .imoancy-related *::before, .imoancy-related *::after { box-sizing: inherit; }
+.imoancy-related__header { max-width: 760px; margin: 0 auto 1.75rem; text-align: center; }
+.imoancy-related__eyebrow { margin: 0 0 .45rem; color: #087f8c; font-size: .82rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+.imoancy-related__title { margin: 0; color: #172033; font-size: clamp(1.65rem, 4vw, 2.35rem); line-height: 1.15; }
+.imoancy-related__intro { margin: .75rem 0 0; color: #526174; font-size: 1rem; line-height: 1.65; }
+.imoancy-related__grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; width: 100%; }
+.imoancy-related__card { display: flex; min-width: 0; min-height: 190px; flex-direction: column; padding: 1.35rem; overflow-wrap: anywhere; color: #172033; text-decoration: none; background: #fff; border: 1px solid #dce4eb; border-radius: 18px; box-shadow: 0 5px 18px rgba(15, 35, 52, .07); transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease; }
+.imoancy-related__card:hover { transform: translateY(-4px); border-color: #21a6b3; box-shadow: 0 10px 26px rgba(15, 35, 52, .12); }
+.imoancy-related__card:focus-visible { outline: 3px solid #087f8c; outline-offset: 4px; }
+.imoancy-related__icon { display: block; margin-bottom: .8rem; font-size: 1.7rem; line-height: 1; }
+.imoancy-related__name { margin: 0; color: #172033; font-size: 1.08rem; line-height: 1.35; }
+.imoancy-related__description { margin: .55rem 0 1rem; color: #526174; font-size: .94rem; line-height: 1.55; }
+.imoancy-related__arrow { margin-top: auto; color: #087f8c; font-size: 1.25rem; font-weight: 800; align-self: flex-end; }
+
+@media (max-width: 820px) { .imoancy-related__grid { grid-template-columns: 1fr; } .imoancy-related__card { min-height: 0; } }
+@media (prefers-reduced-motion: reduce) { .imoancy-related__card { transition: none; } }

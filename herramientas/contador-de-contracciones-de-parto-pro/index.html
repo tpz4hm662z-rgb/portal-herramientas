@@ -66,6 +66,7 @@
     ]
   }
   </script>
+    <link rel="stylesheet" href="../../assets/css/herramientas-relacionadas-v1.css">
 </head>
 <body>
   <a class="salto-contenido" href="#contador">Ir al contador</a>
@@ -217,8 +218,36 @@
       <details><summary>¿Dónde se guardan mis datos?</summary><p>Los registros se almacenan localmente en tu navegador. No necesitas una cuenta y la aplicación no envía las horas, duraciones o notas a un servidor.</p></details>
     </div></div></section>
 
-    <section class="seccion relacionadas" aria-labelledby="titulo-relacionadas"><div class="contenedor"><div class="seccion-cabecera"><p class="eyebrow">Embarazo y bebés</p><h2 id="titulo-relacionadas">Herramientas relacionadas</h2></div><div class="relacionadas-grid"><a href="https://imoancy.com/herramientas/calculadora-fecha-de-parto/"><span aria-hidden="true">📅</span><strong>Calculadora de Fecha de Parto PRO</strong></a><a href="https://imoancy.com/herramientas/calculadora-de-edad-gestacional/"><span aria-hidden="true">🤰</span><strong>Calculadora de Edad Gestacional PRO</strong></a><a href="https://imoancy.com/herramientas/calculadora-de-edad-corregida-para-bebes-prematuros/"><span aria-hidden="true">👶</span><strong>Calculadora de Edad Corregida para Bebés Prematuros PRO</strong></a><a href="https://imoancy.com/herramientas/calculadora-de-percentiles-de-perimetro-cefalico-del-bebe/"><span aria-hidden="true">📏</span><strong>Calculadora de Percentiles de Perímetro Cefálico del Bebé PRO</strong></a><a href="https://imoancy.com/herramientas/calculadora-introduccion-de-alimentos-para-bebes-blw-y-alimentacion-complementaria/"><span aria-hidden="true">🥣</span><strong>Calculadora de Introducción de Alimentos para Bebés PRO</strong></a></div><p><a href="https://imoancy.com/">Consultar todas las herramientas disponibles en el portal Imoancy</a>.</p></div></section>
-  </main>
+
+
+  <section id="herramientas-relacionadas" class="imoancy-related" aria-labelledby="herramientas-relacionadas-titulo">
+    <header class="imoancy-related__header">
+      <p class="imoancy-related__eyebrow">Sigue explorando</p>
+      <h2 id="herramientas-relacionadas-titulo" class="imoancy-related__title">Herramientas relacionadas</h2>
+      <p class="imoancy-related__intro">Continúa con otras herramientas útiles para acompañar cada etapa del embarazo y el crecimiento del bebé.</p>
+    </header>
+    <div class="imoancy-related__grid">
+<a class="imoancy-related__card" href="https://imoancy.com/herramientas/contador-de-movimientos-fetales/">
+  <span class="imoancy-related__icon" aria-hidden="true">👣</span>
+  <h3 class="imoancy-related__name">Contador de movimientos fetales</h3>
+  <p class="imoancy-related__description">Registra los movimientos del bebé y revisa su patrón.</p>
+  <span class="imoancy-related__arrow" aria-hidden="true">→</span>
+</a>
+<a class="imoancy-related__card" href="https://imoancy.com/herramientas/calculadora-fecha-de-parto/">
+  <span class="imoancy-related__icon" aria-hidden="true">📅</span>
+  <h3 class="imoancy-related__name">Calculadora de fecha de parto</h3>
+  <p class="imoancy-related__description">Estima la fecha probable de parto y las etapas del embarazo.</p>
+  <span class="imoancy-related__arrow" aria-hidden="true">→</span>
+</a>
+<a class="imoancy-related__card" href="https://imoancy.com/herramientas/asistente-de-recuperacion-posparto/">
+  <span class="imoancy-related__icon" aria-hidden="true">💛</span>
+  <h3 class="imoancy-related__name">Asistente de recuperación posparto</h3>
+  <p class="imoancy-related__description">Obtén orientación educativa para acompañar la recuperación posparto.</p>
+  <span class="imoancy-related__arrow" aria-hidden="true">→</span>
+</a>
+    </div>
+  </section>
+</main>
 
   <dialog id="dialogoEditar" aria-labelledby="tituloEditar"><form id="formEditar"><div class="dialogo-cabecera"><h2 id="tituloEditar">Editar contracción</h2><button id="cerrarDialogo" class="cerrar" type="button" aria-label="Cerrar">×</button></div><input id="editarId" type="hidden"><label for="editarInicio">Fecha y hora de inicio</label><input id="editarInicio" type="datetime-local" step="1" required><label for="editarDuracion">Duración en segundos</label><input id="editarDuracion" type="number" min="1" step="1" inputmode="numeric" required><div id="grupoEditarIntervalo"><label for="editarIntervalo">Intervalo desde la anterior, en segundos</label><input id="editarIntervalo" type="number" min="1" step="1" inputmode="numeric"><small>Al cambiarlo, se ajustará automáticamente la hora de inicio.</small></div><p id="errorEdicion" class="mensaje-error" role="alert"></p><div class="dialogo-acciones"><button class="boton boton-secundario" id="cancelarEdicion" type="button">Cancelar</button><button class="boton boton-principal" type="submit">Guardar cambios</button></div></form></dialog>
 

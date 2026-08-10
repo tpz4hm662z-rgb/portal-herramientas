@@ -1,5 +1,5 @@
 export const RELATED_CONTENT = Object.freeze([
-  { titulo:"Percentiles de perímetro cefálico", descripcion:"Consulta la evolución orientativa del perímetro cefálico según referencias de crecimiento.", icono:"📈", url:"https://imoancy.com/herramientas/calculadora-de-percentiles-de-perimetro-cefalico-del-bebe/" },
-  { titulo:"Calculadora de peso fetal estimado", descripcion:"Estima el peso fetal a partir de medidas ecográficas y consulta su percentil orientativo.", icono:"⚖️", url:"https://imoancy.com/herramientas/calculadora-de-peso-fetal-estimado/" },
-  { titulo:"Contador de movimientos fetales", descripcion:"Registra y controla los movimientos del bebé durante el embarazo.", icono:"👣", url:"https://imoancy.com/herramientas/contador-de-movimientos-fetales/" }
+  { titulo:"Calculadora de percentiles de crecimiento del bebé", descripcion:"Consulta percentiles de crecimiento infantil con referencias visuales.", icono:"📈", url:"https://imoancy.com/herramientas/calculadora-de-percentiles-de-crecimiento-del-bebe/" },
+  { titulo:"Calculadora de percentiles de peso y talla infantil", descripcion:"Compara peso y talla con referencias infantiles por edad y sexo.", icono:"📐", url:"https://imoancy.com/herramientas/calculadora-de-percentiles-de-peso-y-talla-infantil/" },
+  { titulo:"Calculadora de introducción de alimentos / BLW y alimentación complementaria", descripcion:"Planifica alimentos y texturas adecuados para cada etapa.", icono:"🥕", url:"https://imoancy.com/herramientas/calculadora-introduccion-de-alimentos-para-bebes-blw-y-alimentacion-complementaria/" }
 ].map(Object.freeze));
