@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="es">
+<meta charset="utf-8">
+<title>Auditoría adversarial Hipoteca PRO</title>
+<style>iframe{position:absolute;left:-10000px;top:0;border:0;height:1200px}body{font-family:monospace;white-space:pre-wrap}</style>
+<pre id="resultado">Ejecutando…</pre>
+<iframe id="app" src="../index.html" width="1440"></iframe>
+<script>
+"use strict";
+const outcomes=[];
+function test(name,fn){try{fn();outcomes.push({name,ok:true});}catch(error){outcomes.push({name,ok:false,error:error.message});}}
+function ok(value,message){if(!value)throw new Error(message||"Expected truthy value");}
+function equal(actual,expected){if(actual!==expected)throw new Error(`${actual} !== ${expected}`);}
+function near(actual,expected,tolerance=1e-8){if(Math.abs(actual-expected)>tolerance)throw new Error(`${actual} != ${expected}`);}
+function finiteObject(value){if(typeof value==="number")return Number.isFinite(value);if(Array.isArray(value))return value.every(finiteObject);if(value&&typeof value==="object")return Object.values(value).every(finiteObject);return true;}
+document.getElementById("app").addEventListener("load",()=>{
+  const w=document.getElementById("app").contentWindow,d=w.document,e=w.HipotecaEngine,$=id=>d.getElementById(id);
+  const set=(id,value)=>{$(id).value=String(value);$(id).dispatchEvent(new w.Event("input",{bubbles:true}));};
+  const calc=()=>w.HipotecaUI.calculate({focus:false});
+  const reference=(capital,tin,months)=>tin===0?capital/months:capital*((tin/12)*Math.pow(1+tin/12,months))/(Math.pow(1+tin/12,months)-1);
+
+  test("caso base independiente: cuota",()=>near(e.resumirPrestamo({capital:200000,tinAnual:.03,cuotas:360}).cuotaMatematica,reference(200000,.03,360),1e-9));
+  test("caso base independiente: total",()=>near(e.resumirPrestamo({capital:200000,tinAnual:.03,cuotas:360}).totalMatematicoCuotas,303554.90428520826,1e-6));
+  test("caso base independiente: intereses",()=>near(e.resumirPrestamo({capital:200000,tinAnual:.03,cuotas:360}).interesesTotales,103554.90428520826,1e-6));
+  test("TIN cero exacto",()=>{const r=e.resumirPrestamo({capital:200000,tinAnual:0,cuotas:360});near(r.cuotaMatematica,200000/360);near(r.totalMatematicoCuotas,200000);near(r.interesesTotales,0);});
+  [12,60,240,300,360,600].forEach(months=>test(`plazo ${months}: sin off-by-one`,()=>{const s=e.cuadroAmortizacion({capital:200000,tinAnual:.03,cuotas:months});equal(s.filas.length,months);near(s.saldoFinal,0);near(s.cuotaMatematica,reference(200000,.03,months),1e-8);}));
+
+  [[250000,50000,true],[250000,0,true],[250000,.01,true],[250000,249999.99,true],[250000,250000,false],[250000,250000.01,false]].forEach(([price,entry,valid])=>test(`compra ${price}/${entry}`,()=>{const r=e.calcularCapitalCompra({precioVivienda:price,entrada:entry});equal(r.status===e.STATUS.VALID,valid);if(valid){near(r.entrada+r.capitalHipotecario,r.precioVivienda);near(r.porcentajeEntrada+r.porcentajeFinanciado,1);}}));
+  [0,.0001,.01,.03,.1,1].forEach(tin=>test(`TIN ${tin}: mensual nominal`,()=>{const r=e.calcularCuotaFrancesa({capital:100000,tinAnual:tin,cuotas:360});equal(r.status,e.STATUS.VALID);near(r.tinMensual,tin/12);}));
+  test("TIN superior al máximo bloqueado",()=>equal(e.calcularCuotaFrancesa({capital:100000,tinAnual:1.000001,cuotas:360}).status,e.STATUS.INVALID));
+
+  test("filas seleccionadas satisfacen invariantes",()=>{const s=e.cuadroAmortizacion({capital:200000,tinAnual:.03,cuotas:360});[0,1,179,358,359].forEach(index=>{const r=s.filas[index];near(r.cuota,r.intereses+r.capitalAmortizado,1e-8);near(r.saldoFinal,r.saldoInicial-r.capitalAmortizado,1e-8);near(r.intereses,r.saldoInicial*s.tinMensual,1e-8);ok(r.intereses>=0);ok(r.saldoFinal>=0);});equal(new Set(s.filas.map(x=>x.numeroCuota)).size,360);});
+  test("cuadro TIN cero: todo interés cero",()=>{const s=e.cuadroAmortizacion({capital:200000,tinAnual:0,cuotas:360});ok(s.filas.every(r=>r.intereses===0));near(s.saldoFinal,0);});
+  test("serie anual coincide con cuadro",()=>{const s=e.cuadroAmortizacion({capital:200000,tinAnual:.03,cuotas:360});const a=e.serieAnual({capital:200000,tinAnual:.03,cuotas:360});a.serie.forEach(point=>near(point.saldoPendiente,s.filas[point.cuotasTranscurridas-1].saldoFinal,1e-8));equal(a.serie.length,30);near(a.serie.at(-1).saldoPendiente,0);});
+  test("serie conserva año parcial",()=>{const a=e.serieAnual({capital:1000,tinAnual:.03,cuotas:13});equal(a.serie.length,2);equal(a.serie.at(-1).periodoParcial,true);equal(a.serie.at(-1).cuotasTranscurridas,13);});
+  test("serie corta y larga son finitas",()=>{[12,600].forEach(cuotas=>ok(finiteObject(e.serieAnual({capital:1e9,tinAnual:.1,cuotas}))));});
+
+  test("comparador estándar no duplica y conserva datos",()=>{const r=e.compararPlazos({capital:200000,tinAnual:.03,plazosMeses:[360,240,300,360],plazoBaseMeses:360});equal(r.escenarios.length,3);r.escenarios.forEach(x=>ok(x.cuotas===240||x.cuotas===300||x.cuotas===360));});
+  test("comparador: cuota baja e intereses suben",()=>{const x=e.compararPlazos({capital:200000,tinAnual:.03,plazosMeses:[240,300,360] }).escenarios.sort((a,b)=>a.cuotas-b.cuotas);ok(x[0].cuota>x[1].cuota&&x[1].cuota>x[2].cuota);ok(x[0].interesesTotales<x[1].interesesTotales&&x[1].interesesTotales<x[2].interesesTotales);});
+
+  test("estado coincide tras 0,1,12,60,120 y 359 cuotas",()=>{const s=e.cuadroAmortizacion({capital:200000,tinAnual:.03,cuotas:360});[0,1,12,60,120,359].forEach(k=>{const state=e.estadoTrasCuotas({capital:200000,tinAnual:.03,cuotas:360,cuotasTranscurridas:k});near(state.saldoPendiente,k===0?200000:s.filas[k-1].saldoFinal,1e-8);equal(state.cuotasRestantes,360-k);});});
+  test("reducir cuota: amortización pequeña",()=>{const r=e.amortizarReduciendoCuota({saldoPendiente:180000,tinAnual:.03,cuotasRestantes:300,importeAmortizacion:.01,comision:0});near(r.saldoNuevo,179999.99);equal(r.cuotasRestantes,300);ok(r.cuotaNueva<r.cuotaAnterior);near(r.ahorroNeto,r.ahorroBrutoIntereses);});
+  test("reducir cuota: 10.000 y comisión",()=>{const r=e.amortizarReduciendoCuota({saldoPendiente:180000,tinAnual:.03,cuotasRestantes:300,importeAmortizacion:10000,comision:500});near(r.saldoNuevo,170000);near(r.ahorroNeto,r.ahorroBrutoIntereses-500);ok(r.interesesFuturosDespues<r.interesesFuturosAntes);});
+  test("reducir cuota: casi todo el saldo",()=>{const r=e.amortizarReduciendoCuota({saldoPendiente:1000,tinAnual:.03,cuotasRestantes:12,importeAmortizacion:999.99});near(r.saldoNuevo,.01,1e-10);ok(r.cuotaNueva>0);});
+  test("reducir cuota: saldo completo extingue",()=>equal(e.amortizarReduciendoCuota({saldoPendiente:1000,tinAnual:.03,cuotasRestantes:12,importeAmortizacion:1000}).status,e.STATUS.PAID_OFF));
+  test("reducir cuota: exceso bloqueado",()=>equal(e.amortizarReduciendoCuota({saldoPendiente:1000,tinAnual:.03,cuotasRestantes:12,importeAmortizacion:1000.01}).status,e.STATUS.INVALID));
+  test("reducir cuota TIN cero",()=>{const r=e.amortizarReduciendoCuota({saldoPendiente:12000,tinAnual:0,cuotasRestantes:12,importeAmortizacion:1200});near(r.cuotaNueva,900);equal(r.ahorroBrutoIntereses,0);});
+  test("reducir plazo: cuota referencia y última cuota",()=>{const r=e.amortizarReduciendoPlazo({saldoPendiente:180000,tinAnual:.03,cuotasRestantes:300,importeAmortizacion:10000,comision:250});ok(r.nuevasCuotas<300);ok(r.ultimaCuota<=r.cuotaReferencia);equal(r.cuotasAhorradas,300-r.nuevasCuotas);near(r.ahorroNeto,r.ahorroBrutoIntereses-250);});
+  test("reducir plazo TIN cero sin cuota fantasma",()=>{const r=e.amortizarReduciendoPlazo({saldoPendiente:12000,tinAnual:0,cuotasRestantes:12,importeAmortizacion:1500});equal(r.nuevasCuotas,11);near(r.ultimaCuota,500);});
+  test("comparador amortización comparte estado",()=>{const r=e.compararAmortizacion({saldoPendiente:180000,tinAnual:.03,cuotasRestantes:300,importeAmortizacion:10000,comision:100});[r.reducirCuota,r.reducirPlazo].forEach(x=>{equal(x.saldoAnterior,180000);equal(x.importeAmortizado,10000);equal(x.comision,100);});ok(!("recomendacion" in r));});
+
+  test("costes se suman una sola vez por ámbito",()=>{const r=e.agregarCostesExternos([{id:"tax",categoria:"tax",ambito:"purchase",importe:5000},{id:"buy",categoria:"buy",ambito:"purchase",importe:1000},{id:"appraisal",categoria:"loan",ambito:"loan",importe:500},{id:"opening",categoria:"loan",ambito:"loan",importe:250},{id:"other",categoria:"loan",ambito:"loan",importe:100}]);equal(r.costesCompraventa,6000);equal(r.costesPrestamo,850);equal(r.total,6850);});
+  test("ahorros superior, exacto, -0,01 y cero",()=>{const base={entrada:50000,costesCompraventa:6000,costesPrestamo:850};const enough=e.evaluarAhorros({...base,ahorrosDisponibles:60000});equal(enough.status,e.STATUS.SUFFICIENT);near(enough.superavit,3150);const exact=e.evaluarAhorros({...base,ahorrosDisponibles:56850});equal(exact.status,e.STATUS.EXACT);const short=e.evaluarAhorros({...base,ahorrosDisponibles:56849.99});equal(short.status,e.STATUS.INSUFFICIENT);near(short.deficit,.01,1e-8);equal(e.evaluarAhorros({...base,ahorrosDisponibles:0}).deficit,56850);});
+
+  test("UI sin impuestos dice no calculados y total incluido",()=>{ok(calc());ok($("resumen-dinero").textContent.includes("No calculados"));ok(!$("resumen-dinero").textContent.includes("Impuestos incluidos"));ok($("resumen-dinero").textContent.includes("Total de conceptos incluidos"));});
+  test("tipo de vivienda no cambia el préstamo",()=>{const before=w.HipotecaUI.state.summary.cuotaMatematica;$("tipo-vivienda").value="new";calc();near(w.HipotecaUI.state.summary.cuotaMatematica,before);});
+  test("inputs fiscales empiezan en cero",()=>["impuestos-manuales","tasacion","comision-apertura","otros-compra","otros-prestamo"].forEach(id=>equal(Number($(id).value),0)));
+  test("notación científica finita funciona",()=>{set("precio-vivienda","2.5e5");set("entrada","5e4");ok(calc());equal(w.HipotecaUI.state.purchase.capitalHipotecario,200000);});
+  test("año decimal bloqueado",()=>{set("plazo-anos",1.5);ok(!calc());equal($("plazo-anos").getAttribute("aria-invalid"),"true");});
+  test("negativo bloqueado",()=>{set("plazo-anos",30);set("entrada",-1);ok(!calc());equal($("entrada").getAttribute("aria-invalid"),"true");});
+  test("precio extremo sobre límite bloqueado",()=>{set("entrada",0);set("precio-vivienda",1e13);ok(!calc());equal($("precio-vivienda").getAttribute("aria-invalid"),"true");});
+  test("UI nunca muestra no finitos tras errores",()=>ok(!/NaN|Infinity|undefined/.test(d.body.textContent)));
+  test("singular de un año correcto",()=>{set("precio-vivienda",100000);set("entrada",0);set("plazo-anos",1);ok(calc());ok($("metricas-principales").textContent.includes("1 año"));ok(!$("metricas-principales").textContent.includes("1 años"));});
+  test("cuota principal y primera fila coinciden",()=>{const shown=$("cuota-principal").textContent.match(/[\d.,]+/)[0];const first=$("cuerpo-amortizacion").querySelector("tr td:nth-of-type(4)").textContent.match(/[\d.,]+/)[0];equal(shown,first);});
+  test("gráfico reemplaza SVG en segundo cálculo",()=>{equal($("grafico-saldo").querySelectorAll("svg").length,1);set("plazo-anos",30);calc();equal($("grafico-saldo").querySelectorAll("svg").length,1);ok($("grafico-descripcion").textContent.includes("30 años"));});
+  test("reset complejo elimina estado residual",()=>{$("detalle-amortizacion").open=true;$("detalle-anticipada").open=true;set("cantidad-amortizar",10000);w.HipotecaUI.renderPrepayment();w.HipotecaUI.reset();equal($("resultados").hidden,true);equal($("cuerpo-amortizacion").children.length,0);equal($("grafico-saldo").querySelectorAll("svg").length,0);equal($("resultado-amortizacion").children.length,0);equal($("detalle-amortizacion").open,false);equal($("detalle-anticipada").open,false);equal(w.HipotecaUI.state.input,null);});
+  test("recalcular tras reset funciona limpio",()=>{set("precio-vivienda",250000);set("entrada",50000);set("tin-anual",3);set("plazo-anos",30);set("ahorros",70000);["impuestos-manuales","tasacion","comision-apertura","otros-compra","otros-prestamo"].forEach(id=>set(id,0));ok(calc());equal($("cuerpo-amortizacion").children.length,360);});
+  test("ARIA y foco programable presentes",()=>{ok($("resultados").hasAttribute("aria-live"));ok($("error-formulario").getAttribute("role")==="alert");ok($("grafico-saldo").getAttribute("role")==="img");ok(d.querySelector("table caption"));d.querySelectorAll(".formulario label").forEach(label=>ok(label.htmlFor&&d.getElementById(label.htmlFor)));});
+  test("responsive adversarial siete viewports",()=>{[320,375,390,430,768,1024,1440].forEach(width=>{document.getElementById("app").width=width;void d.documentElement.offsetWidth;ok(d.documentElement.scrollWidth<=d.documentElement.clientWidth+1,`${width}: overflow ${d.documentElement.scrollWidth}/${d.documentElement.clientWidth}`);});});
+  test("script controlador sin fórmula financiera duplicada",()=>{const scripts=[...d.scripts].filter(x=>x.src.endsWith("/script.js"));equal(scripts.length,1);});
+  test("sin configuración heredada muerta",()=>equal([...d.scripts].filter(x=>x.src.endsWith("/js/config.js")).length,0));
+
+  const failed=outcomes.filter(x=>!x.ok);
+  document.getElementById("resultado").textContent=JSON.stringify({TOTAL:outcomes.length,PASS:outcomes.length-failed.length,FAIL:failed.length,fallidos:failed},null,2);
+  document.body.dataset.estado=failed.length?"fail":"pass";
+});
+</script>
+</html>

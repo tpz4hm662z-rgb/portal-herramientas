@@ -1,0 +1,23 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Inspección visual Hipoteca PRO</title>
+<style>*{box-sizing:border-box}html,body{margin:0;background:#dbe4ee}iframe{display:block;margin:0 auto;border:0;background:#fff}</style>
+<iframe id="app" src="../index.html"></iframe>
+<script>
+"use strict";
+const params=new URLSearchParams(location.search);
+const width=Number(params.get("width"))||390;
+const section=params.get("section")||"results";
+const frame=document.getElementById("app");
+frame.width=width;
+frame.height=1100;
+frame.addEventListener("load",()=>{
+  const d=frame.contentDocument;
+  if(section==="results"){
+    frame.contentWindow.HipotecaUI.calculate({focus:false});
+    d.getElementById("resultados").scrollIntoView();
+  }else{
+    d.getElementById(section).scrollIntoView();
+  }
+});
+</script>

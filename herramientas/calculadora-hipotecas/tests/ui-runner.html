@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="es">
+<meta charset="utf-8">
+<title>Tests UI Hipoteca PRO Fase 2</title>
+<style>iframe{position:absolute;left:-10000px;top:0;border:0;height:1000px}body{font-family:monospace;white-space:pre-wrap}</style>
+<pre id="resultado">Ejecutando…</pre>
+<iframe id="app" src="../index.html" width="1440"></iframe>
+<script>
+"use strict";
+const tests=[];
+function test(name,fn){tests.push({name,fn});}
+function ok(value,message){if(!value)throw new Error(message||"Expected truthy value");}
+function equal(actual,expected){if(actual!==expected)throw new Error(`${actual} !== ${expected}`);}
+function includes(value,part){if(!String(value).includes(part))throw new Error(`${value} does not include ${part}`);}
+const iframe=document.getElementById("app");
+iframe.addEventListener("load",async()=>{
+  const w=iframe.contentWindow,d=w.document,$=id=>d.getElementById(id);
+  const set=(id,value)=>{$(id).value=String(value);$(id).dispatchEvent(new w.Event("input",{bubbles:true}));};
+  const calculate=()=>w.HipotecaUI.calculate({focus:false});
+  test("motor y controlador están cargados",()=>{ok(w.HipotecaEngine);ok(w.HipotecaUI);});
+  test("valores iniciales explorables",()=>{equal($("precio-vivienda").value,"250000");equal($("entrada").value,"50000");equal($("tin-anual").value,"3");equal($("plazo-anos").value,"30");equal($("ahorros").value,"70000");});
+  test("formulario semántico y envío integrado",()=>{equal($("formulario-hipoteca").tagName,"FORM");ok(calculate());ok(!$("resultados").hidden);});
+  test("labels están asociados",()=>{d.querySelectorAll(".formulario label").forEach(label=>ok(label.htmlFor&&d.getElementById(label.htmlFor)));});
+  test("ayudas y errores están descritos",()=>{["precio-vivienda","entrada","tin-anual","plazo-anos","ahorros"].forEach(id=>ok($(id).getAttribute("aria-describedby")));});
+  test("resultado principal muestra cuota",()=>includes($("cuota-principal").textContent,"843,21"));
+  test("última métrica cierra la fila sin huecos",()=>equal(w.getComputedStyle($("metricas-principales").lastElementChild).gridColumnEnd,"-1"));
+  test("precio y entrada producen capital correcto",()=>equal(w.HipotecaUI.state.purchase.capitalHipotecario,200000));
+  test("financiación se muestra",()=>includes($("metricas-principales").textContent,"80"));
+  test("comparación evita duplicar 30 años",()=>{equal($("comparacion-plazos").children.length,3);equal($("comparacion-plazos").querySelectorAll(".seleccionado").length,1);});
+  test("tabla usa las 360 filas del core",()=>equal($("cuerpo-amortizacion").children.length,360));
+  test("gráfico SVG y descripción equivalente",()=>{ok($("grafico-saldo").querySelector("svg"));includes($("grafico-descripcion").textContent,"200.000");});
+  test("impuestos permanecen no calculados",()=>includes($("resumen-dinero").textContent,"No calculados"));
+  test("ahorros suficientes",()=>{set("ahorros",70000);calculate();equal($("estado-ahorros").classList.contains("sufficient"),true);});
+  test("ahorros exactos",()=>{set("ahorros",50000);calculate();equal($("estado-ahorros").classList.contains("exact"),true);});
+  test("ahorros insuficientes",()=>{set("ahorros",40000);calculate();equal($("estado-ahorros").classList.contains("insufficient"),true);includes($("estado-ahorros").textContent,"faltarían");});
+  test("costes manuales se agregan y separan",()=>{set("ahorros",70000);set("impuestos-manuales",5000);set("otros-compra",1000);set("tasacion",500);set("comision-apertura",250);calculate();includes($("resumen-dinero").textContent,"56.750");includes($("resumen-dinero").textContent,"750");});
+  test("TIN 0 funciona sin valor no finito",()=>{set("tin-anual",0);set("impuestos-manuales",0);set("otros-compra",0);set("tasacion",0);set("comision-apertura",0);ok(calculate());includes($("cuota-principal").textContent,"555,56");ok(!/NaN|Infinity|undefined/.test($("resultados").textContent));});
+  test("plazo singular se presenta como 1 año",()=>{set("plazo-anos",1);ok(calculate());includes($("metricas-principales").textContent,"1 año");ok(!$("metricas-principales").textContent.includes("1 años"));set("plazo-anos",30);calculate();});
+  test("amortización reduce cuota",()=>{set("tin-anual",3);calculate();set("cantidad-amortizar",10000);set("momento-amortizacion",5);set("comision-amortizacion",0);ok(w.HipotecaUI.renderPrepayment());includes($("resultado-amortizacion").textContent,"Reducir cuota");});
+  test("amortización reduce plazo",()=>includes($("resultado-amortizacion").textContent,"Reducir plazo"));
+  test("comisión cero se muestra",()=>includes($("resultado-amortizacion").textContent,"0,00"));
+  test("comisión explícita se integra",()=>{set("comision-amortizacion",500);ok(w.HipotecaUI.renderPrepayment());includes($("resultado-amortizacion").textContent,"500,00");});
+  test("error por campo e incoherencia",()=>{set("entrada",250000);ok(!calculate());equal($("entrada").getAttribute("aria-invalid"),"true");ok($("error-entrada").textContent.length>0);});
+  test("vacío no produce NaN ni Infinity",()=>{set("entrada",50000);set("precio-vivienda","");ok(!calculate());ok(!/NaN|Infinity|undefined/.test($("error-formulario").textContent));});
+  test("Enter se apoya en submit del formulario",()=>{set("precio-vivienda",250000);let prevented=false;const event=new w.Event("submit",{bubbles:true,cancelable:true});$("formulario-hipoteca").dispatchEvent(event);prevented=event.defaultPrevented;ok(prevented);ok(!$("resultados").hidden);});
+  test("accesibilidad de resultados, SVG y tabla",()=>{equal($("resultados").getAttribute("aria-live"),"polite");equal($("grafico-saldo").getAttribute("role"),"img");ok(d.querySelector("table caption"));ok(d.querySelector("th[scope=col]"));});
+  test("no hay eventos onclick inline",()=>equal(d.querySelectorAll("[onclick]").length,0));
+  test("responsive sin overflow global",()=>{[320,375,390,768,1024,1440].forEach(width=>{iframe.width=width;void d.documentElement.offsetWidth;ok(d.documentElement.scrollWidth<=d.documentElement.clientWidth+1,`${width}: ${d.documentElement.scrollWidth}>${d.documentElement.clientWidth}`);});});
+  test("reset limpia estado y resultados",()=>{w.HipotecaUI.reset();equal($("precio-vivienda").value,"");equal($("resultado-amortizacion").children.length,0);equal($("cuerpo-amortizacion").children.length,0);equal($("resultados").hidden,true);equal($("entrada").hasAttribute("aria-invalid"),false);});
+
+  let source="";
+  try{source=await fetch("../script.js").then(r=>r.text());}catch(error){}
+  test("script no duplica fórmula hipotecaria",()=>{ok(source.length>0,"No se pudo leer script.js");ok(!/Math\.(pow|expm1|log1p)/.test(source));ok(!/intereses\s*=\s*saldo/i.test(source));});
+
+  const outcomes=[];
+  for(const entry of tests){try{await entry.fn();outcomes.push({name:entry.name,ok:true});}catch(error){outcomes.push({name:entry.name,ok:false,error:error.message});}}
+  const failed=outcomes.filter(x=>!x.ok);
+  document.getElementById("resultado").textContent=JSON.stringify({TOTAL:outcomes.length,PASS:outcomes.length-failed.length,FAIL:failed.length,fallidos:failed},null,2);
+  document.body.dataset.estado=failed.length?"fail":"pass";
+});
+</script>
+</html>

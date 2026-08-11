@@ -1,0 +1,36 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Tests del motor Hipoteca PRO</title>
+<pre id="resultado">Ejecutando…</pre>
+<script src="../js/core.js"></script>
+<script>
+    "use strict";
+    const resultados = [];
+    const assertBrowser = {
+        ok(valor, mensaje) { if (!valor) throw new Error(mensaje || "Se esperaba un valor verdadero"); },
+        equal(actual, esperado) { if (actual !== esperado) throw new Error(`${actual} !== ${esperado}`); },
+        deepEqual(actual, esperado) {
+            if (JSON.stringify(actual) !== JSON.stringify(esperado)) throw new Error(`${JSON.stringify(actual)} !== ${JSON.stringify(esperado)}`);
+        }
+    };
+    window.require = nombre => {
+        if (nombre === "node:test") return (descripcion, prueba) => {
+            try { prueba(); resultados.push({ descripcion, ok: true }); }
+            catch (error) { resultados.push({ descripcion, ok: false, error: error.message }); }
+        };
+        if (nombre === "node:assert/strict") return assertBrowser;
+        if (nombre === "../js/core.js") return HipotecaEngine;
+        throw new Error(`Módulo no disponible: ${nombre}`);
+    };
+</script>
+<script src="core.test.js"></script>
+<script>
+    const fallidos = resultados.filter(resultado => !resultado.ok);
+    document.getElementById("resultado").textContent = JSON.stringify({
+        TOTAL: resultados.length,
+        PASS: resultados.length - fallidos.length,
+        FAIL: fallidos.length,
+        fallidos
+    }, null, 2);
+    document.body.dataset.estado = fallidos.length ? "fail" : "pass";
+</script>

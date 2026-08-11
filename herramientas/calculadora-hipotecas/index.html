@@ -1,152 +1,306 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calculadora de Hipotecas España</title>
-    <meta name="description" content="Calcula la cuota mensual, el capital financiado y los intereses aproximados de tu hipoteca.">
-    <link rel="canonical" href="https://imoancy.com/herramientas/calculadora-hipotecas/">
-
-    <meta property="og:type" content="website">
-    <meta property="og:locale" content="es_ES">
-    <meta property="og:site_name" content="Imoancy">
-    <meta property="og:title" content="Calculadora de Hipotecas España">
-    <meta property="og:description" content="Calcula la cuota mensual, el capital financiado y los intereses aproximados de tu hipoteca.">
-    <meta property="og:url" content="https://imoancy.com/herramientas/calculadora-hipotecas/">
-    <meta property="og:image" content="https://imoancy.com/assets/brand/og-image-1200x630.png">
-    <meta property="og:image:alt" content="Calculadora de Hipotecas España">
-
-    <link rel="icon" type="image/svg+xml" href="icons/favicon.svg">
-
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Calculadora de Hipotecas España">
-    <meta name="twitter:description" content="Calcula la cuota mensual, el capital financiado y los intereses aproximados de tu hipoteca.">
-    <meta name="twitter:url" content="https://imoancy.com/herramientas/calculadora-hipotecas/">
-    <meta name="twitter:image" content="https://imoancy.com/assets/brand/og-image-1200x630.png">
-
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@graph": [
-            {
-                "@type": "WebPage",
-                "@id": "https://imoancy.com/herramientas/calculadora-hipotecas/",
-                "url": "https://imoancy.com/herramientas/calculadora-hipotecas/",
-                "name": "Calculadora de Hipotecas España",
-                "description": "Calcula la cuota mensual, el capital financiado y los intereses aproximados de tu hipoteca."
-            },
-            {
-                "@type": "SoftwareApplication",
-                "@id": "https://imoancy.com/herramientas/calculadora-hipotecas/",
-                "url": "https://imoancy.com/herramientas/calculadora-hipotecas/",
-                "name": "Calculadora de Hipotecas España",
-                "applicationCategory": "FinanceApplication",
-                "operatingSystem": "Web",
-                "isAccessibleForFree": true,
-                "mainEntityOfPage": "https://imoancy.com/herramientas/calculadora-hipotecas/"
-            },
-            {
-                "@type": "BreadcrumbList",
-                "@id": "https://imoancy.com/herramientas/calculadora-hipotecas/",
-                "url": "https://imoancy.com/herramientas/calculadora-hipotecas/",
-                "itemListElement": [
-                    {
-                        "@type": "ListItem",
-                        "position": 1,
-                        "name": "Calculadora de Hipotecas",
-                        "item": "https://imoancy.com/herramientas/calculadora-hipotecas/"
-                    }
-                ]
-            }
-        ]
-    }
-    </script>
-
-    <script>
-        const CONFIG = {
-            herramienta: {
-                url: "https://imoancy.com/herramientas/calculadora-hipotecas/"
-            }
-        };
-    </script>
-
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-QH8MJ6LVHN"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag("js",new Date());
-        gtag("config","G-QH8MJ6LVHN");
-    </script>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="../../assets/css/herramientas-relacionadas-v1.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calculadora de Hipoteca PRO: cuota, intereses y ahorro</title>
+  <meta name="description" content="Simula tu hipoteca: calcula cuota, intereses, entrada, plazos, amortización anticipada y el dinero inicial según los costes que incluyas.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://imoancy.com/herramientas/calculadora-hipotecas/">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="es_ES">
+  <meta property="og:site_name" content="Imoancy">
+  <meta property="og:title" content="Calculadora de Hipoteca PRO: cuota, intereses y ahorro">
+  <meta property="og:description" content="Simula la cuota, los intereses y el dinero inicial de tu hipoteca con distintos plazos.">
+  <meta property="og:url" content="https://imoancy.com/herramientas/calculadora-hipotecas/">
+  <meta property="og:image" content="https://imoancy.com/assets/brand/og-image-1200x630.png">
+  <meta property="og:image:alt" content="Calculadora de Hipotecas España">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Calculadora de Hipoteca PRO: cuota, intereses y ahorro">
+  <meta name="twitter:description" content="Simula la cuota, los intereses y el dinero inicial de tu hipoteca con distintos plazos.">
+  <meta name="twitter:url" content="https://imoancy.com/herramientas/calculadora-hipotecas/">
+  <meta name="twitter:image" content="https://imoancy.com/assets/brand/og-image-1200x630.png">
+  <meta name="twitter:image:alt" content="Calculadora de Hipoteca PRO de Imoancy">
+  <link rel="icon" type="image/png" sizes="32x32" href="../../assets/brand/favicon-32.png">
+  <link rel="icon" type="image/svg+xml" href="../../assets/brand/isotipo.svg">
+  <link rel="apple-touch-icon" href="../../assets/brand/apple-touch-icon.png">
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@graph":[
+      {"@type":"Organization","@id":"https://imoancy.com/#organization","name":"Imoancy","url":"https://imoancy.com/","logo":{"@type":"ImageObject","url":"https://imoancy.com/assets/brand/logo-horizontal-dark.png"}},
+      {"@type":"WebPage","@id":"https://imoancy.com/herramientas/calculadora-hipotecas/#webpage","url":"https://imoancy.com/herramientas/calculadora-hipotecas/","name":"Calculadora de Hipoteca PRO: cuota, intereses y ahorro","description":"Simula la cuota, los intereses y el dinero inicial de una hipoteca a TIN constante.","inLanguage":"es-ES","publisher":{"@id":"https://imoancy.com/#organization"},"breadcrumb":{"@id":"https://imoancy.com/herramientas/calculadora-hipotecas/#breadcrumb"},"mainEntity":{"@id":"https://imoancy.com/herramientas/calculadora-hipotecas/#software"},"subjectOf":{"@id":"https://imoancy.com/herramientas/calculadora-hipotecas/#faq"},"dateModified":"2026-08-11"},
+      {"@type":"SoftwareApplication","@id":"https://imoancy.com/herramientas/calculadora-hipotecas/#software","url":"https://imoancy.com/herramientas/calculadora-hipotecas/","name":"Hipoteca PRO v1.0","description":"Calculadora hipotecaria de cuota, intereses, plazos, amortización y dinero inicial incluido.","inLanguage":"es-ES","applicationCategory":"FinanceApplication","applicationSubCategory":"MortgageCalculator","operatingSystem":"Web","browserRequirements":"Requiere un navegador web moderno con JavaScript habilitado","isAccessibleForFree":true,"publisher":{"@id":"https://imoancy.com/#organization"},"mainEntityOfPage":{"@id":"https://imoancy.com/herramientas/calculadora-hipotecas/#webpage"},"offers":{"@type":"Offer","price":"0","priceCurrency":"EUR"}},
+      {"@type":"BreadcrumbList","@id":"https://imoancy.com/herramientas/calculadora-hipotecas/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Inicio","item":"https://imoancy.com/"},{"@type":"ListItem","position":2,"name":"Calculadora de Hipotecas PRO","item":"https://imoancy.com/herramientas/calculadora-hipotecas/"}]},
+      {"@type":"FAQPage","@id":"https://imoancy.com/herramientas/calculadora-hipotecas/#faq","mainEntity":[
+        {"@type":"Question","name":"¿Cómo se calcula la cuota de una hipoteca?","acceptedAnswer":{"@type":"Answer","text":"Hipoteca PRO usa el sistema francés: para un capital, un TIN mensual y un número de cuotas, calcula una cuota constante mientras el tipo no cambie. Con TIN cero divide el capital entre las cuotas."}},
+        {"@type":"Question","name":"¿Qué es el TIN de una hipoteca?","acceptedAnswer":{"@type":"Answer","text":"El TIN es el tipo de interés nominal. La herramienta recibe el TIN anual y lo divide entre doce para obtener el tipo mensual utilizado en la simulación."}},
+        {"@type":"Question","name":"¿Qué diferencia hay entre TIN y TAE?","acceptedAnswer":{"@type":"Answer","text":"El TIN expresa el tipo nominal usado para calcular intereses. La TAE incorpora la frecuencia de pagos y los gastos y comisiones que correspondan según su metodología, por lo que no son equivalentes."}},
+        {"@type":"Question","name":"¿Hipoteca PRO calcula la TAE?","acceptedAnswer":{"@type":"Answer","text":"No. Hipoteca PRO v1.0 no calcula ni aproxima la TAE porque no conoce todos los flujos, gastos y comisiones necesarios."}},
+        {"@type":"Question","name":"¿Qué es el sistema francés de amortización?","acceptedAnswer":{"@type":"Answer","text":"Es un sistema de cuota constante cuando el tipo no cambia. Al principio pesa más el interés y después aumenta la parte de capital amortizado."}},
+        {"@type":"Question","name":"¿Cuánto necesito de entrada para comprar una vivienda?","acceptedAnswer":{"@type":"Answer","text":"La entrada es la parte del precio que no financias. Esta calculadora no fija una entrada obligatoria: muestra el capital solicitado y el porcentaje financiado a partir de tus datos."}},
+        {"@type":"Question","name":"¿Qué significa financiar el 80 %?","acceptedAnswer":{"@type":"Answer","text":"Significa que el préstamo equivale al 80 % del valor usado como referencia. Es una referencia habitual, no un máximo legal universal; la entidad considera tasación, solvencia y su política de concesión."}},
+        {"@type":"Question","name":"¿Necesito dinero además de la entrada?","acceptedAnswer":{"@type":"Answer","text":"Puede ser necesario cubrir impuestos, costes de compraventa y costes asociados al préstamo. La herramienta suma solo los importes que introduces y señala lo pendiente."}},
+        {"@type":"Question","name":"¿Los impuestos están incluidos?","acceptedAnswer":{"@type":"Answer","text":"Solo si introduces un importe fiscal manual. Si aparece «no calculados», el total excluye deliberadamente esos impuestos."}},
+        {"@type":"Question","name":"¿Qué diferencia fiscal general existe entre vivienda nueva y usada?","acceptedAnswer":{"@type":"Answer","text":"Con carácter general, la primera entrega por el promotor está sujeta a IVA y la vivienda usada a ITP. El resultado concreto depende del territorio y de las circunstancias; esta versión no lo calcula automáticamente."}},
+        {"@type":"Question","name":"¿Qué ocurre con una hipoteca al 0 %?","acceptedAnswer":{"@type":"Answer","text":"No se generan intereses: la cuota matemática es el capital dividido entre el número de cuotas."}},
+        {"@type":"Question","name":"¿Qué ocurre si aumento el plazo?","acceptedAnswer":{"@type":"Answer","text":"Manteniendo capital y TIN positivo, normalmente baja la cuota mensual y aumenta la suma total de intereses. La herramienta permite comparar escenarios sin recomendar uno."}},
+        {"@type":"Question","name":"¿Qué muestra el cuadro de amortización?","acceptedAnswer":{"@type":"Answer","text":"Para cada mensualidad muestra saldo inicial, intereses, capital amortizado, pago y saldo pendiente."}},
+        {"@type":"Question","name":"¿Qué es amortizar anticipadamente?","acceptedAnswer":{"@type":"Answer","text":"Es devolver una parte del saldo antes del calendario previsto. La herramienta simula cómo cambiarían cuota o plazo."}},
+        {"@type":"Question","name":"¿Es mejor reducir cuota o plazo?","acceptedAnswer":{"@type":"Answer","text":"No existe una respuesta universal. Reducir cuota mantiene el plazo restante con una mensualidad menor; reducir plazo conserva la cuota como referencia y acorta la duración."}},
+        {"@type":"Question","name":"¿La comisión de amortización está incluida?","acceptedAnswer":{"@type":"Answer","text":"Solo se incluye la cantidad que escribes manualmente. La calculadora no asigna una comisión legal o contractual automática."}},
+        {"@type":"Question","name":"¿La calculadora sirve para hipotecas variables o mixtas?","acceptedAnswer":{"@type":"Answer","text":"No. Hipoteca PRO v1.0 mantiene un TIN constante y no incorpora Euríbor, revisiones ni tramos mixtos."}},
+        {"@type":"Question","name":"¿El resultado es una oferta bancaria?","acceptedAnswer":{"@type":"Answer","text":"No. Es una simulación educativa y no sustituye la FEIN, el contrato, la información de la entidad ni asesoramiento profesional."}}
+      ]}
+    ]
+  }
+  </script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-QH8MJ6LVHN"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag("js",new Date());gtag("config","G-QH8MJ6LVHN");</script>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="../../assets/css/herramientas-relacionadas-v1.css">
 </head>
 <body>
-
-    <header class="cabecera-principal"><div class="cabecera-contenido"><a href="https://imoancy.com/" class="marca" aria-label="Imoancy, ir al portal"><img class="marca-logo" src="../../assets/brand/logo-horizontal-dark.png" alt="Imoancy — Herramientas que impulsan tu mundo" width="2400" height="800"></a><a href="https://imoancy.com/" class="enlace-portal">← Todas las herramientas</a></div></header>
-
-    <div class="contenedor">
-
-        <h1>Calculadora de Hipotecas España</h1>
-
-       <p class="subtitulo">
-    Calcula la cuota mensual, el capital financiado y los intereses aproximados de tu hipoteca.
-</p>
-
-        <label>Importe de la vivienda (€)</label>
-        <input type="number" id="importe" placeholder="Ej: 250000">
-
-        <label>Entrada aportada (€)</label>
-        <input type="number" id="entrada" placeholder="Ej: 50000">
-
-        <label>Interés anual (%)</label>
-        <input type="number" id="interes" placeholder="Ej: 3">
-
-        <label>Plazo (años)</label>
-        <input type="number" id="anos" placeholder="Ej: 30">
-
-        <button onclick="calcularHipoteca()">Calcular Hipoteca</button>
-
-<button class="reiniciar" onclick="reiniciarFormulario()">
-    Reiniciar
-</button>
-
-        <div id="resultado" class="resultado"></div>
-
+  <header class="cabecera-principal">
+    <div class="cabecera-contenido">
+      <a href="https://imoancy.com/" class="marca" aria-label="Imoancy, ir al portal"><img class="marca-logo" src="../../assets/brand/logo-horizontal-dark.png" alt="Imoancy — Herramientas que impulsan tu mundo" width="2400" height="800"></a>
+      <a href="https://imoancy.com/" class="enlace-portal">← Todas las herramientas</a>
     </div>
+  </header>
 
+  <nav class="breadcrumb" aria-label="Migas de pan"><ol><li><a href="https://imoancy.com/">Inicio</a></li><li aria-current="page">Calculadora de Hipotecas PRO</li></ol></nav>
+
+  <main class="pagina">
+    <section class="hero" aria-labelledby="titulo-herramienta">
+      <p class="eyebrow">Hipoteca PRO v1.0</p>
+      <h1 id="titulo-herramienta">Calculadora de Hipoteca PRO: cuota y dinero inicial</h1>
+      <p class="subtitulo">Calcula la cuota, compara plazos y comprueba qué ahorros necesitas según los conceptos que tú incluyas.</p>
+    </section>
+
+    <form id="formulario-hipoteca" class="panel formulario" novalidate>
+      <div class="seccion-cabecera">
+        <div><p class="paso">Paso 1</p><h2>Datos de la compra</h2></div>
+        <p>Los importes son orientativos y no constituyen una oferta bancaria.</p>
+      </div>
+      <div class="campos-grid">
+        <div class="campo">
+          <label for="precio-vivienda">Precio de la vivienda</label>
+          <div class="control-unidad"><input id="precio-vivienda" name="precioVivienda" type="number" min="0" max="1000000000000" step="0.01" value="250000" inputmode="decimal" aria-describedby="ayuda-precio error-precio"><span>€</span></div>
+          <small id="ayuda-precio">Precio acordado o estimado del inmueble.</small><p class="error" id="error-precio" aria-live="polite"></p>
+        </div>
+        <div class="campo">
+          <label for="entrada">Entrada</label>
+          <div class="control-unidad"><input id="entrada" name="entrada" type="number" min="0" max="1000000000000" step="0.01" value="50000" inputmode="decimal" aria-describedby="ayuda-entrada error-entrada"><span>€</span></div>
+          <small id="ayuda-entrada">Dinero que aportarías al precio sin financiar.</small><p class="error" id="error-entrada" aria-live="polite"></p>
+        </div>
+        <div class="campo">
+          <label for="tin-anual">TIN anual</label>
+          <div class="control-unidad"><input id="tin-anual" name="tinAnual" type="number" min="0" max="100" step="0.01" value="3" inputmode="decimal" aria-describedby="ayuda-tin error-tin"><span>%</span></div>
+          <small id="ayuda-tin">Tipo nominal anual usado para calcular intereses y cuota. No es la TAE.</small><p class="error" id="error-tin" aria-live="polite"></p>
+        </div>
+        <div class="campo">
+          <label for="plazo-anos">Plazo</label>
+          <div class="control-unidad"><input id="plazo-anos" name="plazoAnos" type="number" min="1" max="100" step="1" value="30" inputmode="numeric" aria-describedby="ayuda-plazo error-plazo"><span>años</span></div>
+          <small id="ayuda-plazo">Se convierte en mensualidades completas.</small><p class="error" id="error-plazo" aria-live="polite"></p>
+        </div>
+        <div class="campo campo-ancho">
+          <label for="ahorros">Ahorros disponibles</label>
+          <div class="control-unidad"><input id="ahorros" name="ahorros" type="number" min="0" max="1000000000000" step="0.01" value="70000" inputmode="decimal" aria-describedby="ayuda-ahorros error-ahorros"><span>€</span></div>
+          <small id="ayuda-ahorros">Se compararán con la entrada y los costes que incluyas.</small><p class="error" id="error-ahorros" aria-live="polite"></p>
+        </div>
+      </div>
+
+      <details id="opciones-avanzadas" class="desplegable">
+        <summary>Opciones avanzadas y costes conocidos</summary>
+        <div class="desplegable-contenido">
+          <p class="nota">No aplicamos porcentajes fiscales automáticos. Introduce únicamente importes que conozcas para tu operación.</p>
+          <div class="campos-grid">
+            <div class="campo">
+              <label for="tipo-vivienda">Tipo de vivienda</label>
+              <select id="tipo-vivienda" name="tipoVivienda" aria-describedby="ayuda-tipo-vivienda"><option value="used">Vivienda usada</option><option value="new">Vivienda nueva</option></select>
+              <small id="ayuda-tipo-vivienda">Esta selección no aplica todavía reglas fiscales.</small>
+            </div>
+            <div class="campo">
+              <label for="impuestos-manuales">Impuestos conocidos</label>
+              <div class="control-unidad"><input id="impuestos-manuales" name="impuestosManuales" type="number" min="0" max="1000000000000" step="0.01" value="0" inputmode="decimal" aria-describedby="ayuda-impuestos error-impuestos"><span>€</span></div>
+              <small id="ayuda-impuestos">Importe manual. Si es 0 €, los impuestos figurarán como no calculados.</small><p class="error" id="error-impuestos" aria-live="polite"></p>
+            </div>
+            <div class="campo"><label for="tasacion">Tasación</label><div class="control-unidad"><input id="tasacion" name="tasacion" type="number" min="0" max="1000000000000" step="0.01" value="0" inputmode="decimal" aria-describedby="error-tasacion"><span>€</span></div><p class="error" id="error-tasacion" aria-live="polite"></p></div>
+            <div class="campo"><label for="comision-apertura">Comisión de apertura</label><div class="control-unidad"><input id="comision-apertura" name="comisionApertura" type="number" min="0" max="1000000000000" step="0.01" value="0" inputmode="decimal" aria-describedby="error-apertura"><span>€</span></div><p class="error" id="error-apertura" aria-live="polite"></p></div>
+            <div class="campo"><label for="otros-compra">Otros costes de compraventa</label><div class="control-unidad"><input id="otros-compra" name="otrosCompra" type="number" min="0" max="1000000000000" step="0.01" value="0" inputmode="decimal" aria-describedby="error-otros-compra"><span>€</span></div><p class="error" id="error-otros-compra" aria-live="polite"></p></div>
+            <div class="campo"><label for="otros-prestamo">Otros costes del préstamo</label><div class="control-unidad"><input id="otros-prestamo" name="otrosPrestamo" type="number" min="0" max="1000000000000" step="0.01" value="0" inputmode="decimal" aria-describedby="error-otros-prestamo"><span>€</span></div><p class="error" id="error-otros-prestamo" aria-live="polite"></p></div>
+          </div>
+        </div>
+      </details>
+      <div id="error-formulario" class="error-formulario" role="alert" tabindex="-1"></div>
+      <div class="acciones"><button class="boton-primario" type="submit">Calcular mi hipoteca</button><button class="boton-secundario" type="reset">Reiniciar</button></div>
+    </form>
+
+    <section id="resultados" class="resultados" aria-live="polite" aria-atomic="false" tabindex="-1" hidden>
+      <article class="panel resultado-principal">
+        <p class="paso">Resultado estimado</p><h2>Cuota mensual aproximada</h2>
+        <p id="cuota-principal" class="cifra-principal"></p>
+        <p class="resultado-nota">TIN constante y cuota matemática sin redondeo contractual mensual.</p>
+        <div id="metricas-principales" class="metricas"></div>
+        <div id="aviso-financiacion" class="aviso" hidden></div>
+      </article>
+
+      <article class="panel dinero-inicial">
+        <div class="seccion-cabecera"><div><p class="paso">Plan de compra</p><h2>¿Cuánto dinero necesitas para comprar?</h2></div></div>
+        <div id="resumen-dinero" class="resumen-dinero"></div>
+        <div id="estado-ahorros" class="estado-ahorros"></div>
+        <div class="inclusiones"><div><h3>Incluido</h3><ul id="lista-incluido"></ul></div><div><h3>No incluido o pendiente</h3><ul id="lista-pendiente"></ul></div></div>
+      </article>
+
+      <article class="panel">
+        <div class="seccion-cabecera"><div><p class="paso">Escenarios</p><h2>Compara distintos plazos</h2></div><p>Más plazo suele reducir la cuota y aumentar los intereses totales.</p></div>
+        <div id="comparacion-plazos" class="comparacion"></div>
+      </article>
+
+      <article class="panel grafico-panel">
+        <div class="seccion-cabecera"><div><p class="paso">Evolución</p><h2>Saldo pendiente</h2></div></div>
+        <div id="grafico-saldo" class="grafico" role="img" aria-labelledby="grafico-titulo grafico-descripcion"><p id="grafico-titulo" class="sr-only">Evolución del saldo pendiente de la hipoteca</p><p id="grafico-descripcion" class="sr-only"></p></div>
+        <p class="leyenda"><span aria-hidden="true"></span> Capital pendiente al cierre de cada año</p>
+      </article>
+
+      <details id="detalle-amortizacion" class="panel desplegable resultados-desplegable">
+        <summary>Ver cuadro de amortización</summary>
+        <div class="desplegable-contenido"><p>Detalle mensual calculado por el motor, sin redondeo contractual cuota a cuota.</p><div class="tabla-scroll" tabindex="0" aria-label="Cuadro de amortización con desplazamiento horizontal"><table><caption>Cuadro mensual de amortización</caption><thead><tr><th scope="col">Cuota</th><th scope="col">Capital inicial</th><th scope="col">Intereses</th><th scope="col">Capital amortizado</th><th scope="col">Pago</th><th scope="col">Saldo pendiente</th></tr></thead><tbody id="cuerpo-amortizacion"></tbody></table></div></div>
+      </details>
+
+      <details id="detalle-anticipada" class="panel desplegable resultados-desplegable">
+        <summary>¿Qué pasaría si amortizo anticipadamente?</summary>
+        <div class="desplegable-contenido">
+          <p class="nota">La comisión es un dato manual. No aplicamos límites legales automáticamente ni recomendamos una alternativa.</p>
+          <div class="campos-grid simulador-campos">
+            <div class="campo"><label for="cantidad-amortizar">Cantidad a amortizar</label><div class="control-unidad"><input id="cantidad-amortizar" type="number" min="0" max="1000000000000" step="0.01" value="10000" inputmode="decimal"><span>€</span></div></div>
+            <div class="campo"><label for="momento-amortizacion">Después de</label><div class="control-unidad"><input id="momento-amortizacion" type="number" min="0" max="100" step="1" value="5" inputmode="numeric"><span>años</span></div></div>
+            <div class="campo"><label for="comision-amortizacion">Comisión aplicable</label><div class="control-unidad"><input id="comision-amortizacion" type="number" min="0" max="1000000000000" step="0.01" value="0" inputmode="decimal"><span>€</span></div></div>
+          </div>
+          <button id="calcular-amortizacion" class="boton-primario boton-compacto" type="button">Comparar opciones</button>
+          <div id="error-amortizacion" class="error-formulario" role="alert"></div><div id="resultado-amortizacion" class="resultado-amortizacion" aria-live="polite"></div>
+        </div>
+      </details>
+    </section>
+  </main>
+
+  <article class="contenido-educativo">
+    <nav class="indice-contenido" aria-label="Contenido de la guía"><strong>En esta guía</strong><a href="#que-calcula">Qué calcula</a><a href="#calculo-cuota">Cálculo de la cuota</a><a href="#dinero-comprar">Dinero inicial</a><a href="#amortizacion">Amortización</a><a href="#metodologia">Metodología</a><a href="#limitaciones">Limitaciones</a><a href="#faq">Preguntas frecuentes</a></nav>
+
+    <section id="que-calcula">
+      <p class="etiqueta-editorial">Alcance de la herramienta</p>
+      <h2>Qué calcula Hipoteca PRO</h2>
+      <p>Este simulador de hipoteca estima la cuota mensual, el capital solicitado, el porcentaje financiado, los intereses y el total pagado al banco para un TIN constante. También compara plazos, representa la evolución del saldo, genera el cuadro de amortización y simula una amortización anticipada reduciendo cuota o plazo.</p>
+      <p>Además, separa la financiación del dinero que necesitas antes de comprar. Compara la entrada y los costes que hayas incluido con tus ahorros disponibles. Si un impuesto o coste no se conoce, queda señalado como pendiente y no se inventa una cantidad. El resultado es educativo: no constituye una oferta bancaria.</p>
+    </section>
+
+    <section id="calculo-cuota">
+      <p class="etiqueta-editorial">Motor hipotecario</p>
+      <h2>Cómo se calcula la cuota de la hipoteca</h2>
+      <p>Hipoteca PRO utiliza el sistema francés de cuota constante. Para un TIN positivo, el motor aplica:</p>
+      <div class="formula" role="math" aria-label="Cuota igual a capital por tasa mensual por uno más tasa mensual elevado al número de cuotas, dividido entre uno más tasa mensual elevado al número de cuotas menos uno"><span>Cuota francesa</span><strong>C = P × [r(1 + r)<sup>n</sup>] / [(1 + r)<sup>n</sup> − 1]</strong></div>
+      <ul class="definiciones"><li><strong>P</strong>: capital hipotecario, es decir, precio menos entrada.</li><li><strong>r</strong>: TIN mensual, obtenido al dividir el TIN anual decimal entre 12.</li><li><strong>n</strong>: número entero de cuotas mensuales.</li><li><strong>C</strong>: cuota matemática mensual.</li></ul>
+      <p>Con TIN 0 %, el motor no evalúa la fórmula general: calcula expresamente <strong>cuota = capital / número de cuotas</strong>. Mantiene precisión interna completa y deja el formato a céntimos para la presentación.</p>
+
+      <h3>TIN y TAE no son lo mismo</h3>
+      <p>El TIN es el tipo nominal empleado aquí para calcular los intereses periódicos. La TAE incorpora la periodicidad y los gastos y comisiones que correspondan conforme a su metodología. El <a href="https://clientebancario.bde.es/pcb/es/menu-horizontal/podemosayudarte/simuladores/calculo-de-la-tae-de-un-prestamo-hipotecario.html" rel="noopener noreferrer">simulador de TAE hipotecaria del Banco de España</a> requiere importe, plazo, tipo, comisiones y otros gastos, incluidos los periódicos cuando proceden.</p>
+      <p><strong>Hipoteca PRO v1.0 no calcula ni aproxima la TAE.</strong> Mostrar una pseudo-TAE sin todos los flujos necesarios sería engañoso.</p>
+    </section>
+
+    <section id="dinero-comprar">
+      <p class="etiqueta-editorial">Planificación de la compra</p>
+      <h2>Entrada, financiación y dinero necesario para comprar</h2>
+      <p>El capital solicitado se obtiene mediante <strong>precio de la vivienda − entrada</strong>. El porcentaje financiado mostrado es <strong>capital / precio × 100</strong>. La entrada es, por tanto, la parte del precio que aportas sin financiar; no equivale necesariamente a todo el dinero inicial de la operación.</p>
+      <p>La referencia al 80 % es solo informativa. La <a href="https://www.bde.es/f/webbde/Secciones/Publicaciones/Folletos/Fic/Guia_hipotecaria_2013.pdf" rel="noopener noreferrer">Guía de acceso al préstamo hipotecario del Banco de España</a> explica que ese porcentaje se relaciona habitualmente con el valor de tasación y que la cantidad concedida también depende de la solvencia, la política de la entidad, el inmueble y otras garantías. No es un máximo legal universal ni una predicción de aprobación.</p>
+
+      <h3>La entrada no es el coste inicial completo</h3>
+      <p>Antes de comprar puede ser necesario cubrir entrada, impuestos, costes de compraventa y costes asociados al préstamo. Hipoteca PRO distingue esos grupos, suma únicamente los conceptos incluidos y los compara con tus ahorros. El colchón es el superávit después de cubrirlos; el déficit es la cantidad que falta.</p>
+      <p>Cuando ves «Impuestos: no calculados», la exclusión es deliberada: el total se denomina <strong>total de conceptos incluidos</strong> porque no pretende representar un coste de adquisición completo. Si estás reuniendo ese dinero, la <a href="https://imoancy.com/herramientas/calculadora-ahorro/">Calculadora de Ahorro PRO</a> puede ayudarte a convertir la entrada y los costes conocidos en un objetivo mensual. Para relacionar la cuota con el ingreso realmente disponible, puedes estimar primero tu salario en la <a href="https://imoancy.com/herramientas/calculadora-sueldo-neto/">calculadora de sueldo neto</a>; ninguna de las dos herramientas predice la decisión de una entidad.</p>
+
+      <h3>Vivienda nueva y vivienda usada</h3>
+      <p>La <a href="https://sede.agenciatributaria.gob.es/Sede/iva/iva-operaciones-inmobiliarias/compro-vivienda-tengo-que-pagar-itp.html" rel="noopener noreferrer">Agencia Tributaria distingue la primera entrega de vivienda por el promotor, sujeta con carácter general a IVA, de la vivienda usada, cuya transmisión tributa generalmente por ITP</a>. En esta última interviene la Hacienda autonómica del lugar donde se encuentra el inmueble.</p>
+      <p>Esta versión no aplica tipos, bonificaciones, AJD ni tablas autonómicas. El resultado concreto puede depender del territorio, la naturaleza del inmueble y las circunstancias de la operación; por eso la interfaz solo acepta un importe fiscal manual.</p>
+    </section>
+
+    <section id="amortizacion">
+      <p class="etiqueta-editorial">Capital e intereses</p>
+      <h2>Sistema francés, plazo y amortización anticipada</h2>
+      <p>En cada cuota, los intereses se calculan sobre el saldo pendiente y el resto amortiza capital. Al principio suele pesar más el interés; a medida que baja el saldo, aumenta la parte destinada a capital. El cuadro muestra saldo inicial, intereses, capital amortizado, pago y saldo final de cada mensualidad.</p>
+      <p>Manteniendo capital y TIN positivo, un plazo mayor normalmente reduce la cuota y aumenta la suma total de intereses. El comparador hace visible ese intercambio matemático, pero no recomienda un plazo concreto.</p>
+      <h3>Reducir cuota o reducir plazo</h3>
+      <p>La amortización anticipada devuelve capital antes del calendario previsto. «Reducir cuota» conserva las mensualidades restantes y recalcula una cuota menor. «Reducir plazo» mantiene como referencia la cuota anterior y determina cuántas mensualidades necesita el nuevo saldo, incluida una última cuota menor cuando corresponde.</p>
+      <p>El ahorro bruto compara intereses futuros antes y después; el ahorro neto resta la comisión que tú hayas escrito. No se aplica una comisión automática. La <a href="https://www.boe.es/buscar/act.php?id=BOE-A-2019-3814" rel="noopener noreferrer">Ley 5/2019, reguladora de los contratos de crédito inmobiliario</a>, contempla el reembolso anticipado y la información que debe facilitar el prestamista, pero la comisión concreta depende del contrato y de la normativa aplicable al caso.</p>
+    </section>
+
+    <section id="metodologia" class="metodologia-editorial">
+      <p class="etiqueta-editorial">Transparencia</p>
+      <h2>Metodología pública de Hipoteca PRO</h2>
+      <ul class="lista-metodologia">
+        <li>Los importes internos están expresados en euros.</li>
+        <li>El TIN es nominal anual decimal; el TIN mensual es TIN anual ÷ 12.</li>
+        <li>La cuota positiva utiliza el sistema francés y TIN 0 usa capital ÷ cuotas.</li>
+        <li>El plazo se convierte desde años a meses enteros.</li>
+        <li>El motor conserva precisión interna y no redondea anticipadamente a céntimos.</li>
+        <li>El total bancario es capital más intereses; no es el coste total de comprar.</li>
+        <li>La comparación mantiene capital y TIN y cambia una colección de plazos.</li>
+        <li>El cuadro calcula intereses sobre saldo, amortización como cuota menos intereses y el nuevo saldo.</li>
+        <li>La última cuota corrige residuos numéricos sin crear saldos o cuotas fantasma.</li>
+        <li>La amortización anticipada puede partir del estado tras un número de cuotas.</li>
+        <li>Las comisiones de amortización son importes manuales, con valor inicial 0 €.</li>
+        <li>Los costes externos se agregan por separado como compraventa o préstamo.</li>
+        <li>Dinero inicial incluido = entrada + costes de compraventa + costes del préstamo introducidos.</li>
+        <li>El colchón o déficit compara ese total parcial con los ahorros disponibles.</li>
+        <li>El 80 % es un umbral visual configurable, no una regla de aprobación.</li>
+        <li>No se calcula TAE ni se aplican reglas fiscales automáticas.</li>
+      </ul>
+    </section>
+
+    <section id="limitaciones" class="limitaciones">
+      <p class="etiqueta-editorial">Antes de interpretar el resultado</p>
+      <h2>Limitaciones de la simulación</h2>
+      <ul><li>Es una simulación educativa con TIN constante, no una oferta bancaria.</li><li>No modela hipotecas variables, mixtas, Euríbor ni revisiones del tipo.</li><li>No calcula TAE ni conoce automáticamente todas las comisiones.</li><li>No aplica fiscalidad autonómica ni determina todos los costes de adquisición.</li><li>No sustituye la FEIN, el contrato, la información de la entidad o asesoramiento profesional.</li><li>Los resultados pueden diferir por fechas de pago, redondeos contractuales, carencias y otras condiciones no modeladas.</li></ul>
+    </section>
+
+    <aside class="ficha-editorial" aria-labelledby="responsabilidad-editorial"><h2 id="responsabilidad-editorial">Responsabilidad editorial</h2><p><strong>Responsable editorial:</strong> Imoancy<br><strong>Última revisión:</strong> 11 de agosto de 2026</p><p>La metodología es pública y contrastable. Imoancy no afirma prestar asesoramiento financiero ni atribuye la revisión a profesionales o titulaciones inexistentes.</p></aside>
+
+    <section id="fuentes">
+      <p class="etiqueta-editorial">Referencias institucionales</p><h2>Fuentes consultadas</h2>
+      <ul class="lista-fuentes"><li><a href="https://clientebancario.bde.es/pcb/es/menu-horizontal/podemosayudarte/simuladores/calculo-de-la-tae-de-un-prestamo-hipotecario.html" rel="noopener noreferrer">Banco de España: cálculo de la TAE de un préstamo hipotecario</a>.</li><li><a href="https://www.bde.es/f/webbde/Secciones/Publicaciones/Folletos/Fic/Guia_hipotecaria_2013.pdf" rel="noopener noreferrer">Banco de España: Guía de acceso al préstamo hipotecario</a>.</li><li><a href="https://www.boe.es/buscar/act.php?id=BOE-A-2019-3814" rel="noopener noreferrer">BOE: Ley 5/2019, reguladora de los contratos de crédito inmobiliario</a>.</li><li><a href="https://sede.agenciatributaria.gob.es/Sede/iva/iva-operaciones-inmobiliarias/compro-vivienda-tengo-que-pagar-itp.html" rel="noopener noreferrer">Agencia Tributaria: impuesto aplicable a viviendas nuevas y usadas</a>.</li></ul>
+    </section>
+
+    <section id="faq" class="faq" aria-labelledby="faq-titulo">
+      <p class="etiqueta-editorial">Dudas frecuentes</p><h2 id="faq-titulo">Preguntas frecuentes sobre hipotecas</h2>
+      <details><summary>¿Cómo se calcula la cuota de una hipoteca?</summary><p>Hipoteca PRO usa el sistema francés: para un capital, un TIN mensual y un número de cuotas, calcula una cuota constante mientras el tipo no cambie. Con TIN cero divide el capital entre las cuotas.</p></details>
+      <details><summary>¿Qué es el TIN de una hipoteca?</summary><p>El TIN es el tipo de interés nominal. La herramienta recibe el TIN anual y lo divide entre doce para obtener el tipo mensual utilizado en la simulación.</p></details>
+      <details><summary>¿Qué diferencia hay entre TIN y TAE?</summary><p>El TIN expresa el tipo nominal usado para calcular intereses. La TAE incorpora la frecuencia de pagos y los gastos y comisiones que correspondan según su metodología, por lo que no son equivalentes.</p></details>
+      <details><summary>¿Hipoteca PRO calcula la TAE?</summary><p>No. Hipoteca PRO v1.0 no calcula ni aproxima la TAE porque no conoce todos los flujos, gastos y comisiones necesarios.</p></details>
+      <details><summary>¿Qué es el sistema francés de amortización?</summary><p>Es un sistema de cuota constante cuando el tipo no cambia. Al principio pesa más el interés y después aumenta la parte de capital amortizado.</p></details>
+      <details><summary>¿Cuánto necesito de entrada para comprar una vivienda?</summary><p>La entrada es la parte del precio que no financias. Esta calculadora no fija una entrada obligatoria: muestra el capital solicitado y el porcentaje financiado a partir de tus datos.</p></details>
+      <details><summary>¿Qué significa financiar el 80 %?</summary><p>Significa que el préstamo equivale al 80 % del valor usado como referencia. Es una referencia habitual, no un máximo legal universal; la entidad considera tasación, solvencia y su política de concesión.</p></details>
+      <details><summary>¿Necesito dinero además de la entrada?</summary><p>Puede ser necesario cubrir impuestos, costes de compraventa y costes asociados al préstamo. La herramienta suma solo los importes que introduces y señala lo pendiente.</p></details>
+      <details><summary>¿Los impuestos están incluidos?</summary><p>Solo si introduces un importe fiscal manual. Si aparece «no calculados», el total excluye deliberadamente esos impuestos.</p></details>
+      <details><summary>¿Qué diferencia fiscal general existe entre vivienda nueva y usada?</summary><p>Con carácter general, la primera entrega por el promotor está sujeta a IVA y la vivienda usada a ITP. El resultado concreto depende del territorio y de las circunstancias; esta versión no lo calcula automáticamente.</p></details>
+      <details><summary>¿Qué ocurre con una hipoteca al 0 %?</summary><p>No se generan intereses: la cuota matemática es el capital dividido entre el número de cuotas.</p></details>
+      <details><summary>¿Qué ocurre si aumento el plazo?</summary><p>Manteniendo capital y TIN positivo, normalmente baja la cuota mensual y aumenta la suma total de intereses. La herramienta permite comparar escenarios sin recomendar uno.</p></details>
+      <details><summary>¿Qué muestra el cuadro de amortización?</summary><p>Para cada mensualidad muestra saldo inicial, intereses, capital amortizado, pago y saldo pendiente.</p></details>
+      <details><summary>¿Qué es amortizar anticipadamente?</summary><p>Es devolver una parte del saldo antes del calendario previsto. La herramienta simula cómo cambiarían cuota o plazo.</p></details>
+      <details><summary>¿Es mejor reducir cuota o plazo?</summary><p>No existe una respuesta universal. Reducir cuota mantiene el plazo restante con una mensualidad menor; reducir plazo conserva la cuota como referencia y acorta la duración.</p></details>
+      <details><summary>¿La comisión de amortización está incluida?</summary><p>Solo se incluye la cantidad que escribes manualmente. La calculadora no asigna una comisión legal o contractual automática.</p></details>
+      <details><summary>¿La calculadora sirve para hipotecas variables o mixtas?</summary><p>No. Hipoteca PRO v1.0 mantiene un TIN constante y no incorpora Euríbor, revisiones ni tramos mixtos.</p></details>
+      <details><summary>¿El resultado es una oferta bancaria?</summary><p>No. Es una simulación educativa y no sustituye la FEIN, el contrato, la información de la entidad ni asesoramiento profesional.</p></details>
+    </section>
+  </article>
 
   <section id="herramientas-relacionadas" class="imoancy-related" aria-labelledby="herramientas-relacionadas-titulo">
-    <header class="imoancy-related__header">
-      <p class="imoancy-related__eyebrow">Sigue explorando</p>
-      <h2 id="herramientas-relacionadas-titulo" class="imoancy-related__title">Herramientas relacionadas</h2>
-      <p class="imoancy-related__intro">Sigue planificando tus finanzas con estas calculadoras complementarias.</p>
-    </header>
+    <header class="imoancy-related__header"><p class="imoancy-related__eyebrow">Sigue explorando</p><h2 id="herramientas-relacionadas-titulo" class="imoancy-related__title">Herramientas relacionadas</h2><p class="imoancy-related__intro">Sigue planificando tus finanzas con estas calculadoras complementarias.</p></header>
     <div class="imoancy-related__grid">
-<a class="imoancy-related__card" href="https://imoancy.com/herramientas/calculadora-sueldo-neto/">
-  <span class="imoancy-related__icon" aria-hidden="true">💶</span>
-  <h3 class="imoancy-related__name">Calculadora de sueldo neto</h3>
-  <p class="imoancy-related__description">Estima el salario neto a partir de la retribución bruta.</p>
-  <span class="imoancy-related__arrow" aria-hidden="true">→</span>
-</a>
-<a class="imoancy-related__card" href="https://imoancy.com/herramientas/calculadora-ahorro/">
-  <span class="imoancy-related__icon" aria-hidden="true">🐷</span>
-  <h3 class="imoancy-related__name">Calculadora de ahorro</h3>
-  <p class="imoancy-related__description">Proyecta cómo pueden crecer tus aportaciones con el tiempo.</p>
-  <span class="imoancy-related__arrow" aria-hidden="true">→</span>
-</a>
-<a class="imoancy-related__card" href="https://imoancy.com/herramientas/calculadora-inflacion/">
-  <span class="imoancy-related__icon" aria-hidden="true">📉</span>
-  <h3 class="imoancy-related__name">Calculadora de inflación</h3>
-  <p class="imoancy-related__description">Comprueba cómo cambia el poder adquisitivo del dinero.</p>
-  <span class="imoancy-related__arrow" aria-hidden="true">→</span>
-</a>
+      <a class="imoancy-related__card" href="https://imoancy.com/herramientas/calculadora-sueldo-neto/"><span class="imoancy-related__icon" aria-hidden="true">💶</span><h3 class="imoancy-related__name">Calculadora de sueldo neto</h3><p class="imoancy-related__description">Estima el salario neto a partir de la retribución bruta.</p><span class="imoancy-related__arrow" aria-hidden="true">→</span></a>
+      <a class="imoancy-related__card" href="https://imoancy.com/herramientas/calculadora-ahorro/"><span class="imoancy-related__icon" aria-hidden="true">🐷</span><h3 class="imoancy-related__name">Calculadora de Ahorro PRO</h3><p class="imoancy-related__description">Planifica cuánto apartar para reunir la entrada y los costes iniciales que conozcas.</p><span class="imoancy-related__arrow" aria-hidden="true">→</span></a>
+      <a class="imoancy-related__card" href="https://imoancy.com/herramientas/calculadora-inflacion/"><span class="imoancy-related__icon" aria-hidden="true">📉</span><h3 class="imoancy-related__name">Calculadora de inflación</h3><p class="imoancy-related__description">Comprueba cómo cambia el poder adquisitivo del dinero.</p><span class="imoancy-related__arrow" aria-hidden="true">→</span></a>
     </div>
   </section>
-
-    <footer class="pie-pagina"><div class="pie-contenido"><div class="pie-marca"><a href="https://imoancy.com/" aria-label="Imoancy, ir al portal"><img class="marca-logo" src="../../assets/brand/logo-horizontal-dark.png" alt="Imoancy — Herramientas que impulsan tu mundo" width="2400" height="800"></a></div><nav class="pie-navegacion" aria-label="Enlaces legales"><a href="https://imoancy.com/">Portal</a><a href="https://imoancy.com/sobre-nosotros.html">Sobre nosotros</a><a href="https://imoancy.com/politica-privacidad.html">Política de privacidad</a><a href="https://imoancy.com/politica-cookies.html">Política de cookies</a><a href="https://imoancy.com/aviso-legal.html">Aviso legal</a></nav></div><div class="copyright"><p>© 2026 Imoancy · Todos los derechos reservados.</p></div></footer>
-
-    <script src="js/config.js"></script>
-    <script src="script.js"></script>
-
+  <footer class="pie-pagina"><div class="pie-contenido"><div class="pie-marca"><a href="https://imoancy.com/" aria-label="Imoancy, ir al portal"><img class="marca-logo" src="../../assets/brand/logo-horizontal-dark.png" alt="Imoancy — Herramientas que impulsan tu mundo" width="2400" height="800"></a></div><nav class="pie-navegacion" aria-label="Enlaces legales"><a href="https://imoancy.com/">Portal</a><a href="https://imoancy.com/sobre-nosotros.html">Sobre nosotros</a><a href="https://imoancy.com/politica-privacidad.html">Política de privacidad</a><a href="https://imoancy.com/politica-cookies.html">Política de cookies</a><a href="https://imoancy.com/aviso-legal.html">Aviso legal</a></nav></div><div class="copyright"><p>© 2026 Imoancy · Todos los derechos reservados.</p></div></footer>
+  <script src="js/core.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>

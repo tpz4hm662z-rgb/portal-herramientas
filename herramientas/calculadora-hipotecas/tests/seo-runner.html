@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="es">
+<meta charset="utf-8">
+<title>Tests SEO, Schema y malla — Hipoteca PRO</title>
+<style>iframe{position:absolute;left:-10000px;top:0;border:0;height:1200px}body{font-family:monospace;white-space:pre-wrap}</style>
+<pre id="resultado">Ejecutando…</pre>
+<iframe id="app" src="../index.html" width="1440"></iframe>
+<script>
+"use strict";
+const outcomes=[];
+function test(name,fn){try{fn();outcomes.push({name,ok:true});}catch(error){outcomes.push({name,ok:false,error:error.message});}}
+function ok(value,message){if(!value)throw new Error(message||"Expected truthy value");}
+function equal(actual,expected){if(actual!==expected)throw new Error(`${actual} !== ${expected}`);}
+const iframe=document.getElementById("app");
+iframe.addEventListener("load",async()=>{
+  const d=iframe.contentDocument;
+  const canonical="https://imoancy.com/herramientas/calculadora-hipotecas/";
+  const schema=JSON.parse(d.querySelector('script[type="application/ld+json"]').textContent);
+  const graph=schema["@graph"],byType=type=>graph.find(item=>item["@type"]===type);
+  const faq=byType("FAQPage"),webpage=byType("WebPage"),software=byType("SoftwareApplication"),breadcrumb=byType("BreadcrumbList");
+  const visibleFaq=[...d.querySelectorAll("#faq details")].map(item=>({name:item.querySelector("summary").textContent.trim(),text:item.querySelector("p").textContent.trim()}));
+  let ahorro="",robots="",sitemap="";
+  try{[ahorro,robots,sitemap]=await Promise.all([fetch("../../calculadora-ahorro/index.html").then(r=>r.text()),fetch("../../../robots.txt").then(r=>r.text()),fetch("../../../sitemaps/sitemap-herramientas.xml").then(r=>r.text())]);}catch(error){}
+
+  test("JSON-LD parseable con cinco entidades",()=>equal(graph.length,5));
+  test("IDs Schema únicos",()=>{const ids=graph.map(x=>x["@id"]);equal(new Set(ids).size,ids.length);});
+  test("Organization presente y publisher relacionado",()=>{ok(byType("Organization"));equal(webpage.publisher["@id"],"https://imoancy.com/#organization");equal(software.publisher["@id"],"https://imoancy.com/#organization");});
+  test("WebPage apunta a SoftwareApplication",()=>equal(webpage.mainEntity["@id"],software["@id"]));
+  test("WebPage relaciona la FAQ visible",()=>equal(webpage.subjectOf["@id"],faq["@id"]));
+  test("SoftwareApplication apunta a WebPage",()=>equal(software.mainEntityOfPage["@id"],webpage["@id"]));
+  test("aplicación gratuita en EUR",()=>{equal(software.offers.price,"0");equal(software.offers.priceCurrency,"EUR");equal(software.isAccessibleForFree,true);});
+  test("breadcrumb Schema Inicio → herramienta",()=>{equal(breadcrumb.itemListElement.length,2);equal(breadcrumb.itemListElement[0].name,"Inicio");equal(breadcrumb.itemListElement[1].item,canonical);});
+  test("breadcrumb visible coincide",()=>{const items=d.querySelectorAll(".breadcrumb li");equal(items.length,2);equal(items[0].textContent.trim(),"Inicio");ok(items[1].textContent.includes("Hipotecas PRO"));});
+  test("FAQ visible y FAQPage tienen 18 preguntas",()=>{equal(visibleFaq.length,18);equal(faq.mainEntity.length,18);});
+  test("FAQ visible coincide exactamente con Schema",()=>{visibleFaq.forEach((item,index)=>{equal(item.name,faq.mainEntity[index].name);equal(item.text,faq.mainEntity[index].acceptedAnswer.text);});});
+  test("un title y una description",()=>{equal(d.querySelectorAll("title").length,1);equal(d.querySelectorAll('meta[name="description"]').length,1);ok(d.title.includes("Calculadora de Hipoteca PRO"));});
+  test("robots index follow",()=>equal(d.querySelector('meta[name="robots"]').content,"index, follow"));
+  test("canonical intacto",()=>equal(d.querySelector('link[rel="canonical"]').href,canonical));
+  test("Open Graph y Twitter completos",()=>{["og:title","og:description","og:url","og:image","og:image:alt"].forEach(name=>ok(d.querySelector(`meta[property="${name}"]`),name));["twitter:card","twitter:title","twitter:description","twitter:image","twitter:image:alt"].forEach(name=>ok(d.querySelector(`meta[name="${name}"]`),name));});
+  test("favicon y Apple Touch Icon oficiales",()=>{ok(d.querySelector('link[rel="icon"][href*="assets/brand"]'));ok(d.querySelector('link[rel="apple-touch-icon"][href*="assets/brand"]'));});
+  test("H1 único e inequívoco",()=>{equal(d.querySelectorAll("h1").length,1);ok(d.querySelector("h1").textContent.includes("Calculadora de Hipoteca"));});
+  test("IDs HTML únicos",()=>{const ids=[...d.querySelectorAll("[id]")].map(x=>x.id);equal(new Set(ids).size,ids.length);});
+  test("GA4 único configurado",()=>{equal(d.querySelectorAll('script[src*="G-QH8MJ6LVHN"]').length,1);const inline=[...d.scripts].filter(s=>!s.src).map(s=>s.textContent).join(" ");equal((inline.match(/gtag\("config","G-QH8MJ6LVHN"\)/g)||[]).length,1);});
+  test("fuentes institucionales presentes",()=>{["clientebancario.bde.es","www.bde.es","www.boe.es","sede.agenciatributaria.gob.es"].forEach(host=>ok(d.querySelector(`#fuentes a[href*="${host}"]`),host));});
+  test("malla Hipoteca → Ahorro y sueldo",()=>{ok(d.querySelector('#dinero-comprar a[href*="calculadora-ahorro"]'));ok(d.querySelector('#dinero-comprar a[href*="calculadora-sueldo-neto"]'));});
+  test("malla Ahorro → Hipoteca recíproca",()=>ok(ahorro.includes('href="https://imoancy.com/herramientas/calculadora-hipotecas/"')));
+  test("destinos internos locales existen",()=>{ok(ahorro.includes("<!DOCTYPE html>"));ok(d.querySelector('a[href*="calculadora-sueldo-neto"]'));});
+  test("tres tarjetas relacionadas sin cluster artificial",()=>equal(d.querySelectorAll(".imoancy-related__card").length,3));
+  test("anchors hacia Ahorro no son duplicados mecánicos",()=>{const texts=[...d.querySelectorAll('a[href*="calculadora-ahorro"]')].map(a=>a.textContent.trim());equal(texts.length,2);equal(new Set(texts).size,2);});
+  test("robots referencia sitemap",()=>ok(robots.includes("https://imoancy.com/sitemap.xml")));
+  test("sitemap contiene canonical",()=>ok(sitemap.includes(canonical)));
+  test("sin dominios o URLs antiguas",()=>ok(!/github\.io|Herramientas360/i.test(d.documentElement.innerHTML)));
+  test("sin TAE calculada ni fiscalidad automática",()=>{ok(!/TAE aproximada/i.test(d.body.textContent));ok(d.body.textContent.includes("no calcula ni aproxima la TAE"));ok(d.body.textContent.includes("no aplica tipos"));});
+  test("EEAT visible y fechado",()=>{ok(d.querySelector(".ficha-editorial").textContent.includes("Responsable editorial: Imoancy"));ok(d.querySelector(".ficha-editorial").textContent.includes("11 de agosto de 2026"));});
+  test("breadcrumb y contenido sin overflow",()=>{[320,375,390,768,1024,1440].forEach(width=>{iframe.width=width;void d.documentElement.offsetWidth;ok(d.documentElement.scrollWidth<=d.documentElement.clientWidth+1,`${width}: overflow`);ok(d.querySelector(".breadcrumb").scrollWidth<=d.querySelector(".breadcrumb").clientWidth+1,`${width}: breadcrumb`);});});
+
+  const failed=outcomes.filter(x=>!x.ok);
+  document.getElementById("resultado").textContent=JSON.stringify({TOTAL:outcomes.length,PASS:outcomes.length-failed.length,FAIL:failed.length,fallidos:failed},null,2);
+  document.body.dataset.estado=failed.length?"fail":"pass";
+});
+</script>
+</html>
