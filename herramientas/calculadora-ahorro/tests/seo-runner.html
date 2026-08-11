@@ -12,7 +12,8 @@ probar("canonical correcto",()=>afirmar($("link[rel=canonical]").href==="https:/
 probar("favicon y apple-touch-icon presentes",()=>afirmar($("link[rel=icon]")&&$("link[rel=apple-touch-icon]")));
 probar("Open Graph y Twitter PRO",()=>afirmar($("meta[property='og:title']").content.includes("PRO")&&$("meta[name='twitter:title']").content.includes("PRO")));
 const jsonLd=$$("script[type='application/ld+json']").map(n=>JSON.parse(n.textContent));const faq=jsonLd.find(x=>x["@type"]==="FAQPage");
-probar("JSON-LD válido",()=>afirmar(jsonLd.length===2));
+probar("JSON-LD válido",()=>afirmar(jsonLd.length===3));
+probar("breadcrumb estructurado coherente",()=>{const b=jsonLd.find(x=>x["@type"]==="BreadcrumbList");afirmar(b&&b.itemListElement.length===2&&b.itemListElement[0].item==="https://imoancy.com/"&&b.itemListElement[1].item==="https://imoancy.com/herramientas/calculadora-ahorro/")});
 probar("WebApplication actualizado",()=>afirmar(jsonLd.some(x=>x["@type"]==="WebApplication"&&x.name.includes("PRO"))));
 probar("16 FAQ visibles",()=>afirmar($$("#preguntas-frecuentes details").length===16));
 probar("16 FAQ en Schema",()=>afirmar(faq&&faq.mainEntity.length===16));
