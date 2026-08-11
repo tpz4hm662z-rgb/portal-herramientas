@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="es">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Tests UI · Sueldo Neto PRO</title>
+<style>body{margin:0;padding:20px;background:#eef2f7;color:#0f172a;font:15px/1.45 system-ui}main{max-width:1100px;margin:auto}iframe{display:block;width:100%;height:760px;border:1px solid #94a3b8;background:#fff}.pass{color:#047857}.fail{color:#b42318}pre{padding:16px;background:#fff;border-radius:10px;white-space:pre-wrap}</style></head>
+<body><main><h1>Suite UI · Sueldo Neto PRO</h1><p id="summary" aria-live="polite">Cargando…</p><pre id="output"></pre><iframe id="app" title="Calculadora bajo prueba" src="../herramientas/calculadora-sueldo-neto/index.html"></iframe></main>
+<script>
+(function(){"use strict";
+  var frame=document.getElementById("app"),output=document.getElementById("output"),summary=document.getElementById("summary"),results=[];
+  function assert(value,message){if(!value)throw new Error(message||"Aserción fallida")}
+  function test(name,fn){try{fn();results.push({ok:true,name:name})}catch(error){results.push({ok:false,name:name,error:error.message})}}
+  function setValue(doc,id,value){var element=doc.getElementById(id);element.value=String(value);element.dispatchEvent(new Event("change",{bubbles:true}))}
+  function choosePayment(doc,value){doc.querySelector('input[name="numeroPagas"][value="'+value+'"]').checked=true}
+  function submit(doc){doc.getElementById("form-sueldo").dispatchEvent(new Event("submit",{bubbles:true,cancelable:true}))}
+  function visibleText(element){return element.hidden?"":element.textContent}
+  function finish(){var passed=results.filter(function(x){return x.ok}).length,failed=results.length-passed;summary.textContent=passed+" PASS · "+failed+" FAIL";summary.className=failed?"fail":"pass";output.textContent=results.map(function(x){return(x.ok?"PASS ":"FAIL ")+x.name+(x.error?" — "+x.error:"")}).join("\n");window.ImoancyUIReport={passed:passed,failed:failed,results:results}}
+  frame.addEventListener("load",async function(){
+    var win=frame.contentWindow,doc=frame.contentDocument;
+    test("carga normativa 2026",function(){assert(win.ImoancySueldoNormativa2026&&win.ImoancySueldoNormativa2026.ejercicio===2026)});
+    test("carga core",function(){assert(win.ImoancySueldoCore&&typeof win.ImoancySueldoCore.calculate==="function")});
+    test("carga controlador",function(){assert(win.ImoancySueldoUI&&typeof win.ImoancySueldoUI.calculate==="function")});
+    test("valores iniciales explorables",function(){assert(doc.getElementById("salario-anual").value==="30000");assert(doc.querySelector('input[name="numeroPagas"]:checked').value==="12")});
+    test("cálculo válido",function(){submit(doc);assert(!doc.getElementById("resultado").hidden)});
+    test("resultado anual finito",function(){var state=win.ImoancySueldoUI.getState();assert(Number.isFinite(state.annual.resumen.netoAnual))});
+    test("caso AEAT medio vía UI",function(){var r=win.ImoancySueldoUI.getState().annual;assert(r.irpf.tipoRetencion===16.42&&r.irpf.importeAnual===4926)});
+    test("caso AEAT bajo vía UI",function(){setValue(doc,"salario-anual",15000);submit(doc);assert(win.ImoancySueldoUI.getState().annual.irpf.tipoRetencion===0);setValue(doc,"salario-anual",30000)});
+    test("caso AEAT alto vía UI",function(){setValue(doc,"salario-anual",90000);submit(doc);var r=win.ImoancySueldoUI.getState().annual;assert(r.irpf.tipoRetencion===30.69&&r.seguridadSocial.cuotas.solidaridad>0);setValue(doc,"salario-anual",30000);submit(doc)});
+    test("12 pagas",function(){choosePayment(doc,12);submit(doc);assert(doc.getElementById("bloque-paga-extra").hidden)});
+    test("14 pagas",function(){choosePayment(doc,14);submit(doc);assert(!doc.getElementById("bloque-paga-extra").hidden);assert(win.ImoancySueldoUI.getState().annual.pagas.pagasExtra===2);assert(win.ImoancySueldoUI.getState().habitualMonth.entradaNormalizada.prorrataPagasExtraMes>0)});
+    test("grupo y contrato llegan al core",function(){setValue(doc,"grupo-cotizacion",1);setValue(doc,"tipo-contrato","temporal");submit(doc);var input=win.ImoancySueldoUI.getState().annual.entradaNormalizada;assert(input.grupoCotizacion===1&&input.tipoContratoCotizacion==="temporal")});
+    test("descendientes y situación familiar",function(){setValue(doc,"situacion-familiar",1);setValue(doc,"numero-descendientes",1);submit(doc);assert(win.ImoancySueldoUI.getState().annual.entradaNormalizada.descendientes.length===1)});
+    test("segundo cálculo sustituye al anterior",function(){var before=win.ImoancySueldoUI.getState().annual.resumen.netoAnual;setValue(doc,"salario-anual",45000);submit(doc);assert(win.ImoancySueldoUI.getState().annual.resumen.netoAnual!==before)});
+    test("error específico por salario inválido",function(){setValue(doc,"salario-anual",-1);submit(doc);assert(doc.getElementById("salario-anual").getAttribute("aria-invalid")==="true");assert(!doc.getElementById("error-salario").hidden);assert(doc.getElementById("resultado").hidden)});
+    test("entrada vacía no produce resultado parcial",function(){setValue(doc,"salario-anual","");submit(doc);assert(doc.getElementById("resultado").hidden)});
+    test("Infinity no aparece",function(){assert(doc.body.textContent.indexOf("Infinity")===-1)});
+    test("NaN no aparece",function(){assert(doc.body.textContent.indexOf("NaN")===-1)});
+    test("menos cero no aparece",function(){assert(doc.body.textContent.indexOf("-0,00")===-1)});
+    setValue(doc,"salario-anual",60000);setValue(doc,"situacion-familiar",3);setValue(doc,"numero-descendientes",0);setValue(doc,"grupo-cotizacion",7);setValue(doc,"tipo-contrato","indefinido");choosePayment(doc,12);
+    test("modo mensual sin variables permanece oculto",function(){setValue(doc,"complementos-mes",0);setValue(doc,"horas-extra-ordinarias",0);setValue(doc,"horas-extra-fuerza",0);submit(doc);assert(doc.getElementById("resultado-variable").hidden)});
+    test("complemento mensual",function(){setValue(doc,"complementos-mes",250);submit(doc);assert(!doc.getElementById("resultado-variable").hidden);assert(win.ImoancySueldoUI.getState().variableMonth.entradaNormalizada.complementosSalarialesMes===250)});
+    test("horas extra ordinarias",function(){setValue(doc,"complementos-mes",0);setValue(doc,"horas-extra-ordinarias",180);submit(doc);assert(win.ImoancySueldoUI.getState().variableMonth.cuotas.horasExtraOrdinarias>0)});
+    test("horas extra fuerza mayor",function(){setValue(doc,"horas-extra-ordinarias",0);setValue(doc,"horas-extra-fuerza",180);submit(doc);assert(win.ImoancySueldoUI.getState().variableMonth.cuotas.horasExtraFuerzaMayor>0)});
+    test("ambas horas extra simultáneas",function(){setValue(doc,"horas-extra-ordinarias",100);setValue(doc,"horas-extra-fuerza",100);submit(doc);var q=win.ImoancySueldoUI.getState().variableMonth.cuotas;assert(q.horasExtraOrdinarias>0&&q.horasExtraFuerzaMayor>0)});
+    test("comparación habitual y variable",function(){assert(visibleText(doc.getElementById("habitual-bruto")));assert(visibleText(doc.getElementById("variable-bruto")));assert(win.ImoancySueldoUI.getState().variableMonth.comparacion.brutoMes>win.ImoancySueldoUI.getState().habitualMonth.comparacion.brutoMes)});
+    test("solidaridad automática",function(){setValue(doc,"complementos-mes",500);setValue(doc,"horas-extra-ordinarias",0);setValue(doc,"horas-extra-fuerza",0);submit(doc);assert(win.ImoancySueldoUI.getState().variableMonth.cuotas.solidaridad>0);assert(!doc.getElementById("fila-variable-solidaridad").hidden)});
+    test("no presenta neto mensual variable ficticio",function(){assert(doc.getElementById("resultado-variable").textContent.toLowerCase().indexOf("neto")===-1)});
+    test("aviso de limitación IRPF mensual",function(){assert(doc.getElementById("resultado-variable").textContent.indexOf("no reproduce esa regularización")!==-1)});
+    test("Enter usa formulario semántico",function(){assert(doc.getElementById("form-sueldo").tagName==="FORM");assert(doc.querySelector('#form-sueldo button[type="submit"]'))});
+    test("labels asociados",function(){doc.querySelectorAll("input,select").forEach(function(el){if(el.type!=="radio"&&el.type!=="checkbox")assert(el.id&&doc.querySelector('label[for="'+el.id+'"]'),el.id)})});
+    test("ayudas asociadas",function(){["salario-anual","situacion-familiar","grupo-cotizacion","complementos-mes","horas-extra-ordinarias","horas-extra-fuerza"].forEach(function(id){assert(doc.getElementById(id).hasAttribute("aria-describedby"),id)})});
+    test("aria-live presente",function(){assert(doc.querySelectorAll('[aria-live]').length>=3)});
+    test("details y summary nativos",function(){assert(doc.querySelectorAll("details>summary").length>=4)});
+    test("foco pasa al resultado",function(){setValue(doc,"complementos-mes",0);submit(doc);assert(doc.activeElement===doc.getElementById("titulo-resultado"))});
+    win.ImoancySueldoUI.reset();await new Promise(function(resolve){setTimeout(resolve,20)});
+    test("reset restaura valores",function(){assert(doc.getElementById("salario-anual").value==="30000");assert(doc.getElementById("resultado").hidden);assert(doc.getElementById("resultado-variable").hidden);assert(!doc.getElementById("opciones-avanzadas").open&&!doc.getElementById("opciones-variables").open)});
+    test("reset limpia aria-invalid",function(){assert(!doc.querySelector("[aria-invalid=true]"))});
+    test("canonical intacto",function(){assert(doc.querySelector('link[rel="canonical"]').href==="https://imoancy.com/herramientas/calculadora-sueldo-neto/")});
+    test("GA4 único",function(){assert(doc.documentElement.innerHTML.match(/G-QH8MJ6LVHN/g).length>=1);assert(doc.querySelectorAll('script[src*="G-QH8MJ6LVHN"]').length===1)});
+    test("sin onclick inline",function(){assert(!doc.querySelector("[onclick]"))});
+    test("TIN ausente",function(){assert(doc.body.textContent.indexOf("TIN")===-1&&!doc.querySelector('[name="tin"]'))});
+    test("sin overflow en anchos objetivo",function(){[320,375,390,430,768,1024,1440].forEach(function(width){frame.style.width=width+"px";assert(doc.documentElement.scrollWidth<=doc.documentElement.clientWidth+1,width+": "+doc.documentElement.scrollWidth+"/"+doc.documentElement.clientWidth)});frame.style.width="100%"});
+    try{var scriptSource=await fetch("../herramientas/calculadora-sueldo-neto/script.js").then(function(r){return r.text()});test("script sin constantes normativas duplicadas",function(){["0.047","0.0155","0.0015","5101.20","5611.32","7651.80","7302"].forEach(function(token){assert(scriptSource.indexOf(token)===-1,token)})})}catch(error){results.push({ok:false,name:"lectura del controlador",error:error.message})}
+    finish();
+  });
+}());
+</script></body></html>

@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="es">
+<meta charset="utf-8">
+<title>Auditoría adversarial · Sueldo Neto PRO 2026</title>
+<style>iframe{position:absolute;left:-10000px;top:0;border:0;height:1200px}body{font-family:monospace;white-space:pre-wrap}</style>
+<pre id="resultado">Ejecutando…</pre>
+<iframe id="app" src="../herramientas/calculadora-sueldo-neto/index.html" width="1440"></iframe>
+<script src="../herramientas/calculadora-sueldo-neto/js/normativa-2026.js"></script>
+<script src="../herramientas/calculadora-sueldo-neto/js/core.js"></script>
+<script>
+"use strict";
+const outcomes=[],core=window.ImoancySueldoCore,N=window.ImoancySueldoNormativa2026;
+function test(name,fn){try{fn();outcomes.push({name,ok:true});}catch(error){outcomes.push({name,ok:false,error:error.message});}}
+function ok(value,message){if(!value)throw new Error(message||"Expected truthy value");}
+function equal(actual,expected,message){if(actual!==expected)throw new Error((message||"Valores distintos")+`: ${actual} !== ${expected}`);}
+function near(actual,expected,tolerance=1e-8){if(Math.abs(actual-expected)>tolerance)throw new Error(`${actual} != ${expected}`);}
+function finiteObject(value){if(typeof value==="number")return Number.isFinite(value);if(Array.isArray(value))return value.every(finiteObject);if(value&&typeof value==="object")return Object.values(value).every(finiteObject);return true;}
+function annual(overrides={}){return core.calculate(Object.assign({salarioBaseAnual:30000,complementosSalarialesAnuales:0,horasExtraOrdinariasAnuales:0,horasExtraFuerzaMayorAnuales:0,numeroPagas:12,pagExtraProrrateada:true,grupoCotizacion:7,tipoContratoCotizacion:"indefinido",tipoContratoIrpf:"general",anioNacimiento:1990,situacionFamiliar:3,discapacidad:"ninguna",descendientes:[],ascendientes:[],tiempoCompleto:true},overrides));}
+function monthly(overrides={}){return core.calculateMonthlyContribution(Object.assign({remuneracionOrdinariaMes:2500,prorrataPagasExtraMes:0,complementosSalarialesMes:0,horasExtraOrdinariasMes:0,horasExtraFuerzaMayorMes:0,numeroPagas:12,grupoCotizacion:7,tipoContratoCotizacion:"indefinido",tiempoCompleto:true},overrides));}
+
+test("seis casos golden AEAT 2026",()=>{
+  [[{salarioBaseAnual:15000},0,0],[{},16.42,4926],[{salarioBaseAnual:60000},24.44,14664],[{salarioBaseAnual:90000},30.69,27621],[{descendientes:[{anioNacimiento:2022}]},15.66,4698],[{situacionFamiliar:1,descendientes:[{anioNacimiento:2022,computoEntero:true}]},14.90,4470]].forEach(([input,rate,amount])=>{const r=annual(input);equal(r.ok,true);equal(r.irpf.tipoRetencion,rate);equal(r.irpf.importeAnual,amount);});
+});
+test("golden alto conserva cuota SS oficial",()=>near(annual({salarioBaseAnual:90000}).seguridadSocial.cuotas.total,4038.16,.01));
+test("12 y 14 pagas conservan neto anual",()=>near(annual().resumen.netoAnual,annual({numeroPagas:14,pagExtraProrrateada:false}).resumen.netoAnual));
+test("los once mínimos por grupo",()=>Object.entries(N.seguridadSocial.basesMensuales.minimasPorGrupo).forEach(([group,minimum])=>equal(annual({salarioBaseAnual:12000,grupoCotizacion:Number(group)}).seguridadSocial.baseMensual,minimum)));
+test("mínimo exacto no marca suelo",()=>{const r=annual({salarioBaseAnual:1424.40*12});near(r.seguridadSocial.baseMensual,1424.40,1e-10);equal(r.seguridadSocial.baseMinimaAplicada,false);});
+test("máximo ± un céntimo mensual",()=>{[5101.19,5101.20,5101.21].forEach((gross,index)=>{const r=annual({salarioBaseAnual:gross*12});equal(r.seguridadSocial.baseMensual,index===0?5101.19:5101.20);equal(r.seguridadSocial.baseMaximaAplicada,index===2);});});
+test("solidaridad: fronteras de los tres tramos",()=>{[5101.19,5101.20,5101.21,5611.31,5611.32,5611.33,7651.79,7651.80,7651.81].forEach(gross=>{const r=monthly({remuneracionOrdinariaMes:gross});ok(r.ok);ok(r.solidaridad.tramos.every(x=>x.base>=0&&x.cuota>=0));});});
+test("solidaridad nula hasta base máxima",()=>equal(monthly({remuneracionOrdinariaMes:5101.20}).cuotas.solidaridad,0));
+test("solidaridad activa al céntimo siguiente",()=>near(monthly({remuneracionOrdinariaMes:5101.21}).cuotas.solidaridad,.01*.0019,1e-12));
+test("MEI solo usa base común topada",()=>{const r=monthly({remuneracionOrdinariaMes:9000,horasExtraOrdinariasMes:1000});near(r.cuotas.mei,5101.20*.0015);});
+test("horas extra entran en base profesional",()=>{const r=monthly({horasExtraOrdinariasMes:100,horasExtraFuerzaMayorMes:100});equal(r.base.antesDeLimites,2500);equal(r.base.profesionalAplicada,2700);near(r.cuotas.desempleo,2700*.0155);near(r.cuotas.formacionProfesional,2700*.001);});
+test("horas extra no entran en contingencias comunes",()=>{const a=monthly(),b=monthly({horasExtraOrdinariasMes:200});equal(a.cuotas.contingenciasComunes,b.cuotas.contingenciasComunes);equal(a.cuotas.mei,b.cuotas.mei);});
+test("base profesional también respeta máximo",()=>equal(monthly({remuneracionOrdinariaMes:5000,horasExtraOrdinariasMes:1000}).base.profesionalAplicada,5101.20));
+test("cotización adicional de horas extra separada",()=>{const r=monthly({horasExtraOrdinariasMes:100,horasExtraFuerzaMayorMes:100});near(r.cuotas.horasExtraOrdinarias,4.7);near(r.cuotas.horasExtraFuerzaMayor,2);});
+test("temporal solo altera desempleo",()=>{const a=monthly(),b=monthly({tipoContratoCotizacion:"temporal"});["contingenciasComunes","formacionProfesional","mei","solidaridad","horasExtraOrdinarias","horasExtraFuerzaMayor"].forEach(k=>equal(a.cuotas[k],b.cuotas[k],k));ok(b.cuotas.desempleo>a.cuotas.desempleo);});
+test("total SS es suma de componentes",()=>{const r=monthly({remuneracionOrdinariaMes:9000,horasExtraOrdinariasMes:123,horasExtraFuerzaMayorMes:45});near(r.cuotas.total,Object.entries(r.cuotas).filter(([k])=>k!=="total").reduce((s,[,v])=>s+v,0));});
+test("prorrata de 14 pagas solo aumenta base",()=>{const r=monthly({remuneracionOrdinariaMes:2000,numeroPagas:14,prorrataPagasExtraMes:333.33});equal(r.remuneracion.brutoCobradoMes,2000);equal(r.base.antesDeLimites,2333.33);});
+test("concentrar variable puede activar solidaridad",()=>{const one=monthly({remuneracionOrdinariaMes:4500,complementosSalarialesMes:1200}),spread=monthly({remuneracionOrdinariaMes:4500,complementosSalarialesMes:100});ok(one.cuotas.solidaridad>0);equal(spread.cuotas.solidaridad,0);});
+test("invariantes IRPF",()=>[15000,30000,60000,90000,150000].forEach(gross=>{const r=annual({salarioBaseAnual:gross});ok(r.irpf.tipoRetencion>=0&&r.irpf.tipoRetencion<=100);ok(r.irpf.importeAnual>=0&&r.irpf.importeAnual<=gross);near(r.resumen.netoAnual,gross-r.seguridadSocial.cuotas.total-r.irpf.importeAnual);ok(finiteObject(r));}));
+test("continuidad alrededor de fronteras normativas",()=>{[1424.40*12,5101.20*12,5611.32*12,7651.80*12,14852,17673.52,19747.50,35200,60000].forEach(point=>{const a=annual({salarioBaseAnual:point-.01}),b=annual({salarioBaseAnual:point}),c=annual({salarioBaseAnual:point+.01});ok(Math.abs(b.resumen.netoAnual-a.resumen.netoAnual)<25,point+" izquierda");ok(Math.abs(c.resumen.netoAnual-b.resumen.netoAnual)<25,point+" derecha");});});
+test("neto no decrece materialmente al subir un céntimo",()=>{for(let gross=14000;gross<=100000;gross+=137.11){const a=annual({salarioBaseAnual:gross}),b=annual({salarioBaseAnual:gross+.01});ok(b.resumen.netoAnual>=a.resumen.netoAnual-10,gross);}});
+test("descendiente menor de tres aumenta mínimo",()=>{const young=annual({descendientes:[{anioNacimiento:2024}]}),older=annual({descendientes:[{anioNacimiento:2020}]});ok(young.irpf.minimoPersonalFamiliar.descendientes>older.irpf.minimoPersonalFamiliar.descendientes);});
+test("cómputo entero supera al compartido",()=>{const shared=annual({descendientes:[{anioNacimiento:2022}]}),whole=annual({situacionFamiliar:1,descendientes:[{anioNacimiento:2022,computoEntero:true}]});ok(whole.irpf.minimoPersonalFamiliar.descendientes>shared.irpf.minimoPersonalFamiliar.descendientes);});
+test("discapacidad reduce retención",()=>ok(annual({discapacidad:"65omas"}).irpf.importeAnual<annual().irpf.importeAnual));
+test("movilidad geográfica reduce retención",()=>ok(annual({movilidadGeografica:true}).irpf.importeAnual<=annual().irpf.importeAnual));
+test("entradas no soportadas fallan cerradas",()=>[annual({tiempoCompleto:false}),annual({dietas:100}),monthly({tin:3}),monthly({numeroPagas:13})].forEach(r=>{equal(r.ok,false);ok(r.errors.length>0);}));
+test("NaN e Infinity fallan cerrados",()=>[annual({salarioBaseAnual:NaN}),annual({salarioBaseAnual:Infinity}),monthly({complementosSalarialesMes:NaN}),monthly({complementosSalarialesMes:Infinity})].forEach(r=>equal(r.ok,false)));
+test("el motor no muta entradas",()=>{const input={salarioBaseAnual:30000,complementosSalarialesAnuales:0,horasExtraOrdinariasAnuales:0,horasExtraFuerzaMayorAnuales:0,numeroPagas:12,pagExtraProrrateada:true,grupoCotizacion:7,tipoContratoCotizacion:"indefinido",tipoContratoIrpf:"general",anioNacimiento:1990,situacionFamiliar:3,discapacidad:"ninguna",descendientes:[],ascendientes:[],tiempoCompleto:true},before=JSON.stringify(input);core.calculate(input);equal(JSON.stringify(input),before);});
+
+document.getElementById("app").addEventListener("load",async()=>{
+  const frame=document.getElementById("app"),w=frame.contentWindow,d=frame.contentDocument,$=id=>d.getElementById(id);
+  const set=(id,value)=>{$(id).value=String(value);$(id).dispatchEvent(new w.Event("change",{bubbles:true}));};
+  const submit=()=>$("form-sueldo").dispatchEvent(new w.Event("submit",{bubbles:true,cancelable:true}));
+  test("UI integra la base profesional corregida",()=>{set("horas-extra-ordinarias",200);submit();const r=w.ImoancySueldoUI.getState().variableMonth;equal(r.base.profesionalAplicada,r.base.aplicada+200);ok(r.cuotas.desempleo>r.base.aplicada*.0155);});
+  test("segundo cálculo sustituye el estado",()=>{set("salario-anual",30000);submit();const a=w.ImoancySueldoUI.getState().annual.resumen.netoAnual;set("salario-anual",60000);submit();const b=w.ImoancySueldoUI.getState().annual.resumen.netoAnual;ok(b>a);});
+  test("error oculta resultados previos",()=>{set("salario-anual",-1);submit();equal($("resultado").hidden,true);equal($("salario-anual").getAttribute("aria-invalid"),"true");});
+  w.ImoancySueldoUI.reset();
+  await new Promise(resolve=>w.setTimeout(resolve,20));
+  test("reset borra estado y variables",()=>{equal($("salario-anual").value,"30000");equal($("resultado").hidden,true);equal($("resultado-variable").hidden,true);ok(!d.querySelector("[aria-invalid=true]"));});
+  test("sin valores no finitos en UI",()=>ok(!/NaN|Infinity|undefined/.test(d.body.textContent)));
+  test("accesibilidad operativa básica",()=>{ok(d.querySelector('#form-sueldo button[type="submit"]'));ok(d.querySelectorAll('[aria-live]').length>=3);d.querySelectorAll("input,select").forEach(el=>{if(el.type!=="radio"&&el.type!=="checkbox")ok(el.id&&d.querySelector(`label[for="${el.id}"]`),el.id);});});
+  test("responsive en siete anchos",()=>{[320,375,390,430,768,1024,1440].forEach(width=>{frame.width=width;void d.documentElement.offsetWidth;ok(d.documentElement.scrollWidth<=d.documentElement.clientWidth+1,`${width}: ${d.documentElement.scrollWidth}/${d.documentElement.clientWidth}`);});});
+  const failed=outcomes.filter(x=>!x.ok);
+  $("salario-anual");
+  document.getElementById("resultado").textContent=JSON.stringify({TOTAL:outcomes.length,PASS:outcomes.length-failed.length,FAIL:failed.length,fallidos:failed},null,2);
+  document.body.dataset.estado=failed.length?"fail":"pass";
+});
+</script>
+</html>
