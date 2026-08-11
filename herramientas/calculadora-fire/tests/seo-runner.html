@@ -1,0 +1,37 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><title>Tests SEO FIRE PRO</title></head>
+<body><pre id="salida">Ejecutando…</pre><iframe id="pagina" src="../index.html" style="position:absolute;left:-10000px;width:1024px;height:900px"></iframe>
+<script>
+"use strict";
+const resultados=[],test=(nombre,fn)=>{try{fn();resultados.push({nombre,ok:true})}catch(error){resultados.push({nombre,ok:false,error:error.message})}},ok=(valor,mensaje)=>{if(!valor)throw new Error(mensaje||"condición falsa")};
+document.getElementById("pagina").addEventListener("load",()=>setTimeout(()=>{
+ const d=document.getElementById("pagina").contentDocument;
+ const json=JSON.parse(d.querySelector('script[type="application/ld+json"]').textContent),grafo=json["@graph"],tipo=nombre=>grafo.find(x=>x["@type"]===nombre);
+ test("title describe calculadora FIRE e Imoancy",()=>ok(d.title.includes("Calculadora FIRE")&&d.title.includes("Imoancy")&&d.title.length<=70,d.title));
+ test("description cubre número, edad, escenarios y Coast",()=>{const x=d.querySelector('meta[name="description"]').content;ok(/número FIRE/.test(x)&&/edad aproximada/.test(x)&&/escenarios/.test(x)&&/Coast FIRE/.test(x))});
+ test("canonical oficial único",()=>ok(d.querySelectorAll('link[rel="canonical"]').length===1&&d.querySelector('link[rel="canonical"]').href==="https://imoancy.com/herramientas/calculadora-fire/"));
+ test("un único H1 descriptivo",()=>ok(d.querySelectorAll("h1").length===1&&d.querySelector("h1").textContent.includes("independencia financiera")));
+ test("JSON-LD válido con contexto",()=>ok(json["@context"]==="https://schema.org"&&Array.isArray(grafo)));
+ ["Organization","WebPage","SoftwareApplication","BreadcrumbList","FAQPage"].forEach(t=>test(`Schema incluye ${t}`,()=>ok(tipo(t))));
+ test("IDs Schema diferenciados",()=>{const ids=grafo.map(x=>x["@id"]);ok(ids.length===new Set(ids).size)});
+ test("WebPage conecta aplicación",()=>ok(tipo("WebPage").mainEntity["@id"]===tipo("SoftwareApplication")["@id"]));
+ test("aplicación gratuita y publicada por Imoancy",()=>ok(tipo("SoftwareApplication").offers.price==="0"&&tipo("SoftwareApplication").publisher["@id"]===tipo("Organization")["@id"]));
+ test("breadcrumb estructurado coherente",()=>ok(tipo("BreadcrumbList").itemListElement.length===2&&tipo("BreadcrumbList").itemListElement[0].item==="https://imoancy.com/"));
+ test("FAQ visible coincide con FAQPage",()=>{const visibles=Array.from(d.querySelectorAll("#preguntas-frecuentes details>summary")).map(x=>x.textContent.trim());const schema=tipo("FAQPage").mainEntity.map(x=>x.name);ok(visibles.length===17&&JSON.stringify(visibles)===JSON.stringify(schema),`${visibles.length}/${schema.length}`)});
+ test("respuestas FAQ visibles y Schema no están vacías",()=>{const visibles=Array.from(d.querySelectorAll("#preguntas-frecuentes details>p"));ok(visibles.length===17&&visibles.every(x=>x.textContent.trim().length>40)&&tipo("FAQPage").mainEntity.every(x=>x.acceptedAnswer.text.length>40))});
+ test("GA4 único y correcto",()=>ok(d.querySelectorAll('script[src*="googletagmanager.com/gtag/js?id=G-QH8MJ6LVHN"]').length===1));
+ test("favicon oficial",()=>ok(d.querySelector('link[rel="icon"][href*="assets/brand/favicon-32.png"]')));
+ test("apple touch icon oficial",()=>ok(d.querySelector('link[rel="apple-touch-icon"][href*="assets/brand/apple-touch-icon.png"]')));
+ test("malla financiera contextual",()=>ok(d.querySelector('.malla-financiera a[href*="calculadora-ahorro"]')&&d.querySelector('.malla-financiera a[href*="calculadora-interes-compuesto"]')));
+ test("sin URLs o marca antiguas",()=>ok(!/github\.io|herramientas360/i.test(d.documentElement.innerHTML)));
+ test("fuentes verificadas presentes",()=>ok(d.querySelectorAll("#fuentes a").length>=5&&/Banco de España/.test($("#fuentes",d).textContent)&&/CNMV/.test($("#fuentes",d).textContent)&&/Bengen/.test($("#fuentes",d).textContent)));
+ test("Trinity Study enlaza un PDF accesible",()=>ok(d.querySelector('#fuentes a[href="https://everywhereonce.com/wp-content/uploads/2011/10/trinity-study1.pdf"]')));
+ test("metodología pública presente",()=>ok(d.querySelector("#metodologia")&&/capital FIRE = gasto anual/.test(d.querySelector("#metodologia").textContent)));
+ test("limitaciones visibles",()=>ok(d.querySelector("#limitaciones")&&/Monte Carlo/.test(d.querySelector("#limitaciones").textContent)&&/riesgo de secuencia/i.test(d.querySelector("#limitaciones").textContent)));
+ test("responsabilidad editorial sin credenciales inventadas",()=>ok(/Responsable editorial:\s*Imoancy/.test(d.querySelector(".nota-editorial").textContent)&&!/asesor certificado|experto certificado/i.test(d.body.textContent)));
+ test("contenido largo aparece después de la calculadora",()=>ok(d.querySelector(".contenido-fire").compareDocumentPosition(d.querySelector("#form-fire"))&Node.DOCUMENT_POSITION_PRECEDING));
+ test("OG y Twitter conservan imagen social",()=>ok(d.querySelector('meta[property="og:image"]').content.includes("og-image-1200x630.png")&&d.querySelector('meta[name="twitter:image"]').content.includes("og-image-1200x630.png")));
+ test("Twitter declara texto alternativo de imagen",()=>ok(d.querySelector('meta[name="twitter:image:alt"]').content.includes("Calculadora FIRE")));
+ const fallidos=resultados.filter(x=>!x.ok);document.getElementById("salida").textContent=JSON.stringify({total:resultados.length,superados:resultados.length-fallidos.length,fallidos},null,2);document.body.dataset.estado=fallidos.length?"fallo":"ok";
+ function $(selector,raiz){return (raiz||document).querySelector(selector)}
+},800));
+</script></body></html>

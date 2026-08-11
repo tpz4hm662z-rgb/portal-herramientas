@@ -1,0 +1,65 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><title>Auditoría adversarial FIRE PRO</title></head>
+<body><pre id="salida">Ejecutando…</pre><iframe id="app" src="../index.html" style="position:absolute;left:-10000px;width:390px;height:844px"></iframe>
+<script src="../js/core.js"></script><script>
+"use strict";
+const e=FireEngine,S=e.STATUS,pruebas=[],test=(n,f)=>{try{f();pruebas.push({n,ok:true})}catch(error){pruebas.push({n,ok:false,error:error.message})}},ok=(v,m)=>{if(!v)throw new Error(m||"condición falsa")},igual=(a,b)=>{if(!Object.is(a,b))throw new Error(`${a} !== ${b}`)},cerca=(a,b,t=1e-9)=>{if(Math.abs(a-b)>t*Math.max(1,Math.abs(b)))throw new Error(`${a} != ${b}`)};
+const base=(x={})=>Object.assign({patrimonioInicial:0,aportacionMensual:500,gastoMensual:1200,rentabilidadNominalAnual:.07,inflacionAnual:.02,tasaRetirada:.04,horizonteMeses:1200,momentoAportacion:"final",edadActual:35},x);
+[[1000,300000],[1500,450000],[2000,600000]].forEach(([g,o])=>test(`objetivo independiente ${g} al 4%`,()=>{cerca(e.calcularObjetivoFire(g,.04).objetivoFire,g*12/.04);cerca(g*12/.04,o)}));
+[[.03,480000],[.035,14400/.035],[.045,320000]].forEach(([t,o])=>test(`objetivo tasa ${t}`,()=>cerca(e.calcularObjetivoFire(1200,t).objetivoFire,o)));
+[[.07,.02],[0,0],[.05,.05],[0,.02],[.02,.05]].forEach(([n,i])=>test(`Fisher ${n}/${i}`,()=>cerca(e.calcularRentabilidadReal(n,i).rentabilidadRealAnual,(1+n)/(1+i)-1)));
+[0,.01,.07,.20,-.03].forEach(t=>test(`recomposición mensual ${t}`,()=>{const m=e.tasaMensualDesdeAnual(t);cerca((1+m)**12-1,t)}));
+test("real negativa no crea falso FIRE",()=>{const r=e.proyectarFire(base({patrimonioInicial:1000,aportacionMensual:0,rentabilidadNominalAnual:0,inflacionAnual:.02,horizonteMeses:12}));igual(r.estado,S.NOT_REACHED);ok(r.patrimonioFinal<1000)});
+test("aportación final manual un mes",()=>{const anual=1.1**12-1,r=e.proyectarFire(base({patrimonioInicial:1000,aportacionMensual:100,rentabilidadNominalAnual:anual,inflacionAnual:0,horizonteMeses:1}));cerca(r.patrimonioFinal,1200)});
+test("aportación inicio manual un mes",()=>{const anual=1.1**12-1,r=e.proyectarFire(base({patrimonioInicial:1000,aportacionMensual:100,rentabilidadNominalAnual:anual,inflacionAnual:0,horizonteMeses:1,momentoAportacion:"inicio"}));cerca(r.patrimonioFinal,1210)});
+test("patrimonio exactamente objetivo",()=>igual(e.proyectarFire(base({patrimonioInicial:360000})).estado,S.ALREADY_FIRE));
+test("patrimonio objetivo más céntimo",()=>igual(e.proyectarFire(base({patrimonioInicial:360000.01})).estado,S.ALREADY_FIRE));
+test("patrimonio objetivo menos céntimo sin flujo",()=>igual(e.proyectarFire(base({patrimonioInicial:359999.99,aportacionMensual:0,rentabilidadNominalAnual:0,inflacionAnual:0,horizonteMeses:1})).estado,S.NOT_REACHED));
+test("menos céntimo llega solo tras aportar",()=>{const r=e.proyectarFire(base({patrimonioInicial:359999.99,aportacionMensual:.01,rentabilidadNominalAnual:0,inflacionAnual:0,horizonteMeses:1}));igual(r.estado,S.REACHED);igual(r.mesesHastaFire,1)});
+test("horizonte máximo imposible no da éxito",()=>{const r=e.proyectarFire(base({aportacionMensual:0,rentabilidadNominalAnual:0,inflacionAnual:0}));igual(r.estado,S.NOT_REACHED);igual(r.mesesSimulados,1200);ok(r.patrimonioFinal<r.objetivoFire)});
+[11,12,13,23,24,25].forEach(meses=>test(`frontera temporal ${meses} meses`,()=>{const gasto=meses*100*.04/12,r=e.proyectarFire(base({aportacionMensual:100,gastoMensual:gasto,rentabilidadNominalAnual:0,inflacionAnual:0}));igual(r.mesesHastaFire,meses);igual(r.anosCompletos,Math.floor(meses/12));igual(r.mesesRestantes,meses%12);cerca(r.edadFireAproximada,35+meses/12)}));
+test("identidad patrimonial en crecimiento positivo",()=>{const r=e.proyectarFire(base({horizonteMeses:37}));cerca(r.patrimonioInicial+r.aportacionesAcumuladas+r.crecimientoRealAcumulado,r.patrimonioFinal)});
+test("identidad patrimonial con crecimiento negativo",()=>{const r=e.proyectarFire(base({patrimonioInicial:10000,aportacionMensual:0,rentabilidadNominalAnual:0,inflacionAnual:.05,horizonteMeses:12}));ok(r.crecimientoRealAcumulado<0);igual(r.aportacionesAcumuladas,0);cerca(r.patrimonioInicial+r.crecimientoRealAcumulado,r.patrimonioFinal)});
+test("serie parcial termina en principal",()=>{const r=e.proyectarFire(base({horizonteMeses:13})),u=r.serieAnual.at(-1);igual(u.mesAcumulado,13);cerca(u.patrimonioReal,r.patrimonioFinal);cerca(u.aportacionesAcumuladas,r.aportacionesAcumuladas)});
+test("serie año completo no duplica cierre",()=>{const r=e.proyectarFire(base({horizonteMeses:24}));igual(r.serieAnual.length,2);igual(r.serieAnual.at(-1).mesAcumulado,24)});
+test("already FIRE no inventa serie",()=>igual(e.proyectarFire(base({patrimonioInicial:360000})).serieAnual.length,0));
+test("escenarios independientes conservan objetivo",()=>{const entrada=base(),copia=JSON.stringify(entrada),rs=e.ejecutarEscenarios([0,.07,.09].map(t=>Object.assign({},entrada,{rentabilidadNominalAnual:t})));ok(rs.every(r=>r.objetivoFire===360000&&r.gastoMensual===1200&&r.aportacionMensual===500&&r.inflacionAnual===.02));igual(JSON.stringify(entrada),copia)});
+test("sensibilidad aportación signo correcto",()=>{const r=e.compararSensibilidad(base(),[{aportacionMensual:600}]).comparaciones[0];ok(r.diferenciaMeses>=0)});
+test("sensibilidad gasto cambia objetivo pero no aportación",()=>{const r=e.compararSensibilidad(base(),[{gastoMensual:1100}]).comparaciones[0];cerca(r.diferenciaObjetivoFire,-30000);igual(r.resultado.aportacionMensual,500)});
+test("Coast positivo fórmula independiente",()=>{const o=360000,t=.05,n=240,m=(1+t)**(1/12)-1,r=e.calcularCoastFire({objetivoFire:o,rentabilidadRealAnual:t,mesesHastaObjetivo:n,patrimonioActual:0});cerca(r.capitalCoastNecesarioHoy,o/(1+m)**n)});
+test("Coast cero y horizonte cero",()=>{cerca(e.calcularCoastFire({objetivoFire:360000,rentabilidadRealAnual:0,mesesHastaObjetivo:0,patrimonioActual:0}).capitalCoastNecesarioHoy,360000)});
+test("Coast negativo válido",()=>ok(e.calcularCoastFire({objetivoFire:360000,rentabilidadRealAnual:-.02,mesesHastaObjetivo:120,patrimonioActual:0}).capitalCoastNecesarioHoy>360000));
+test("Coast frontera exacta",()=>{const x=e.calcularCoastFire({objetivoFire:360000,rentabilidadRealAnual:.05,mesesHastaObjetivo:120,patrimonioActual:0}).capitalCoastNecesarioHoy,r=e.calcularCoastFire({objetivoFire:360000,rentabilidadRealAnual:.05,mesesHastaObjetivo:120,patrimonioActual:x});igual(r.estado,S.COAST_REACHED);cerca(r.diferencia,0);cerca(r.porcentajeAlcanzado,1)});
+test("NaN e Infinity inválidos",()=>{igual(e.proyectarFire(base({patrimonioInicial:NaN})).estado,S.INVALID);igual(e.proyectarFire(base({aportacionMensual:Infinity})).estado,S.INVALID)});
+test("desbordamiento devuelve invalid",()=>igual(e.proyectarFire(base({gastoMensual:1e308,tasaRetirada:1e-308,rentabilidadNominalAnual:1e308})).estado,S.INVALID));
+
+document.getElementById("app").addEventListener("load",()=>setTimeout(()=>{
+ const f=document.getElementById("app"),d=f.contentDocument,w=f.contentWindow,$=s=>d.querySelector(s),set=(id,v)=>{d.getElementById(id).value=v},send=()=>d.getElementById("form-fire").requestSubmit();
+ test("UI inicio y final usan opción seleccionada",()=>{set("patrimonioActual",1000);set("aportacionMensual",100);set("gastosMensuales",1000);set("rentabilidadAnual",10);set("inflacionAnual",0);set("momentoAportacion","final");send();const final=$("#grafico-descripcion").textContent;set("momentoAportacion","inicio");send();const inicio=$("#grafico-descripcion").textContent;ok(final!==inicio)});
+ test("escenario 0% conserva mínimo 0%",()=>{set("rentabilidadAnual",0);send();ok(Array.from(d.querySelectorAll(".escenario .dato-destacado")).map(x=>x.textContent).join("|").startsWith("0"))});
+ test("escenario 1% no baja de 0%",()=>{set("rentabilidadAnual",1);send();ok(d.querySelector(".escenario .dato-destacado").textContent.trim().startsWith("0"))});
+ test("escenario 2% conservador es 0%",()=>{set("rentabilidadAnual",2);send();ok(d.querySelector(".escenario .dato-destacado").textContent.trim().startsWith("0"))});
+ test("base not reached no inventa años antes",()=>{set("patrimonioActual",0);set("aportacionMensual",0);set("gastosMensuales",1200);set("rentabilidadAnual",0);send();ok(!/antes/.test($("#sensibilidad-grid").textContent))});
+ test("base already FIRE no inventa comparación",()=>{set("patrimonioActual",1e6);send();ok(Array.from(d.querySelectorAll(".sensibilidad-item .dato-destacado")).every(x=>x.textContent.includes("ya está alcanzado")))});
+ test("gasto inferior a 100 adapta reducción",()=>{set("patrimonioActual",0);set("gastosMensuales",50);send();ok(Array.from(d.querySelectorAll(".sensibilidad-item h3")).some(x=>x.textContent.includes("49,99")))});
+ test("gasto exactamente 100 adapta sin llegar a cero",()=>{set("gastosMensuales",100);send();ok(Array.from(d.querySelectorAll(".sensibilidad-item h3")).some(x=>x.textContent.includes("99,99")))});
+ test("gasto superior a 100 resta exactamente 100",()=>{set("gastosMensuales",100.01);send();ok(Array.from(d.querySelectorAll(".sensibilidad-item h3")).some(x=>x.textContent.includes("100,00")))});
+ test("UI normaliza menos cero",()=>{set("patrimonioActual","-0");set("aportacionMensual",500);set("gastosMensuales",1200);set("rentabilidadAnual",7);send();ok(!/-0(?:,00)?\s*€/.test(d.body.innerText))});
+ test("UI rechaza espacios como ausencia",()=>{set("patrimonioActual","   ");send();ok($("#error-patrimonioActual").textContent.includes("Introduce"))});
+ test("UI gestiona coma no admitida por input number",()=>{set("patrimonioActual","1,5");send();ok($("#error-patrimonioActual").textContent.includes("Introduce"))});
+ test("UI admite notación científica finita",()=>{set("patrimonioActual","1e3");send();ok(!d.getElementById("patrimonioActual").hasAttribute("aria-invalid")&&!$("#resultados").hidden)});
+ test("UI rechaza negativos",()=>{set("aportacionMensual",-1);send();ok($("#error-aportacionMensual").textContent.includes("negativo"));set("aportacionMensual",500)});
+ test("duraciones singulares correctas",()=>{igual(w.FireUI.duracion(1),"1 mes");igual(w.FireUI.duracion(13),"1 año y 1 mes")});
+ test("Coast edad igual usa horizonte cero",()=>{set("edadActual",35);send();set("edadObjetivoCoast",35);d.getElementById("form-coast").requestSubmit();ok($("#resultado-coast").textContent.includes("Capital Coast"))});
+ test("Coast edad menor muestra error",()=>{set("edadActual",35);send();set("edadObjetivoCoast",34);d.getElementById("form-coast").requestSubmit();ok($("#error-edadObjetivoCoast").textContent.includes("inferior"))});
+ $("#coast-bloque").open=true;set("edadObjetivoCoast",60);d.getElementById("form-coast").requestSubmit();d.getElementById("form-fire").reset();
+ setTimeout(()=>{
+  test("reset completa el ciclo cálculo Coast y reinicio",()=>ok($("#resultados").hidden));
+  test("reset deja DOM derivado vacío",()=>ok(["#resultado-principal","#metricas","#grafico-fire","#escenarios-grid","#sensibilidad-grid","#tabla-evolucion","#resultado-coast"].every(s=>$(s).innerHTML==="")));
+  test("reset elimina ARIA inválido y estado JS observable",()=>ok(!d.querySelector("[aria-invalid]")&&$("#resultados").hidden));
+  test("configuración de dominio está conectada",()=>ok(/config\.dominio\.horizontePredeterminadoMeses/.test(Array.from(d.scripts).find(x=>x.src.endsWith("script.js")).textContent||"x")||w.CONFIG.dominio.horizontePredeterminadoMeses===1200));
+  [[320,568],[375,667],[390,844],[768,1024],[1024,768],[1440,900]].forEach(([ancho,alto])=>{f.style.width=`${ancho}px`;f.style.height=`${alto}px`;test(`auditoría sin overflow ${ancho}x${alto}`,()=>ok(d.documentElement.scrollWidth<=d.documentElement.clientWidth,`${d.documentElement.scrollWidth}>${d.documentElement.clientWidth}`))});
+  ejecutar();
+ },120);
+},900));
+function ejecutar(){const fallos=pruebas.filter(p=>!p.ok).map(p=>`${p.n}: ${p.error}`),pass=pruebas.length-fallos.length;document.getElementById("salida").textContent=JSON.stringify({total:pruebas.length,superados:pass,fallidos:fallos},null,2);document.body.dataset.estado=fallos.length?"fallo":"ok"}
+</script></body></html>

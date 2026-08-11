@@ -1,0 +1,57 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><title>Tests UI FIRE PRO</title></head>
+<body><pre id="salida">Ejecutando…</pre><iframe id="app" src="../index.html" style="position:absolute;left:-10000px;width:375px;height:1400px"></iframe>
+<script>
+"use strict";
+const resultados=[], prueba=(nombre,fn)=>{try{fn();resultados.push({nombre,ok:true})}catch(error){resultados.push({nombre,ok:false,error:error.message})}}, afirmar=(valor,mensaje)=>{if(!valor)throw new Error(mensaje||"Afirmación fallida")};
+const iframe=document.getElementById("app");
+iframe.addEventListener("load",()=>setTimeout(()=>{
+ const d=iframe.contentDocument,w=iframe.contentWindow,$=s=>d.querySelector(s),poner=(id,v)=>{d.getElementById(id).value=v},enviar=()=>d.getElementById("form-fire").requestSubmit();
+ prueba("controlador disponible",()=>afirmar(w.FireUI));
+ prueba("formulario semántico",()=>afirmar($("#form-fire")&&$("#form-fire button[type=submit]")));
+ prueba("todos los campos tienen label",()=>afirmar(Array.from(d.querySelectorAll("input,select")).every(c=>d.querySelector(`label[for=${c.id}]`))));
+ prueba("ayudas persistentes",()=>afirmar(d.querySelectorAll(".ayuda").length>=9));
+ prueba("opciones avanzadas cerradas",()=>afirmar(!$(".opciones-avanzadas").open));
+ prueba("apple touch icon oficial",()=>afirmar(d.querySelector('link[rel="apple-touch-icon"][href*="assets/brand"]')));
+ prueba("favicon oficial",()=>afirmar(d.querySelector('link[rel="icon"][href*="assets/brand"]')));
+ enviar();
+ prueba("estado reached",()=>afirmar($("#resultado-principal").textContent.includes("Podrías alcanzar"),$("#resultado-principal").textContent));
+ prueba("edad FIRE dominante",()=>afirmar($("#resultado-principal").textContent.includes("años")&&!$("#resultado-principal").textContent.includes("Fecha")));
+ prueba("métricas principales",()=>afirmar($("#metricas").children.length===6));
+ prueba("progreso accesible",()=>afirmar(d.querySelector('[role="progressbar"][aria-valuenow]')));
+ prueba("gráfico SVG único",()=>afirmar(d.querySelectorAll("#grafico-fire svg").length===1));
+ prueba("gráfico tiene descripción",()=>afirmar($("#grafico-descripcion").textContent.length>30));
+ prueba("tres escenarios",()=>afirmar(d.querySelectorAll(".escenario").length===3));
+ prueba("escenarios explican tasas",()=>afirmar(Array.from(d.querySelectorAll(".escenario")).every(x=>x.textContent.includes("nominal anual"))));
+ prueba("tres sensibilidades",()=>afirmar(d.querySelectorAll(".sensibilidad-item").length===3));
+ prueba("tabla anual generada",()=>afirmar(d.querySelectorAll("#tabla-evolucion tr").length>0));
+ prueba("región de resultados viva",()=>afirmar($("#resultados").getAttribute("aria-live")==="polite"));
+ prueba("envío mediante API de formulario equivalente a Enter",()=>afirmar(!$("#resultados").hidden));
+ poner("patrimonioActual",1000000);enviar();
+ prueba("estado already_fire específico",()=>afirmar($("#resultado-principal").textContent.includes("ya has alcanzado")&&!$("#resultado-principal").textContent.includes("0 años")));
+ prueba("already_fire muestra margen",()=>afirmar($("#metricas").textContent.includes("Margen")));
+ poner("patrimonioActual",0);poner("aportacionMensual",0);poner("rentabilidadAnual",0);poner("inflacionAnual",0);poner("gastosMensuales",1200);enviar();
+ prueba("ceros válidos producen not_reached",()=>afirmar($("#resultado-principal").textContent.includes("no se alcanza")));
+ prueba("not_reached no inventa edad FIRE",()=>afirmar(!$("#resultado-principal").textContent.includes("Podrías alcanzar")));
+ prueba("not_reached etiqueta patrimonio final",()=>afirmar($("#metricas").textContent.includes("Patrimonio final")));
+ poner("edadActual",35);poner("patrimonioActual",5000);poner("aportacionMensual",500);poner("gastosMensuales",1200);poner("rentabilidadAnual",7);poner("inflacionAnual",2);enviar();
+ $("#coast-bloque").open=true;poner("edadObjetivoCoast",60);d.getElementById("form-coast").requestSubmit();
+ prueba("Coast FIRE calcula",()=>afirmar($("#resultado-coast").textContent.includes("Capital Coast")));
+ prueba("Coast FIRE muestra estado",()=>afirmar(/alcanzado Coast FIRE|no has alcanzado Coast FIRE/.test($("#resultado-coast").textContent)));
+ poner("edadObjetivoCoast",20);d.getElementById("form-coast").requestSubmit();
+ prueba("Coast valida edad objetivo",()=>afirmar($("#error-edadObjetivoCoast").textContent.length>0));
+ poner("gastosMensuales","");enviar();
+ prueba("vacío no se confunde con cero",()=>afirmar($("#error-gastosMensuales").textContent.includes("Introduce")));
+ prueba("error asociado al campo",()=>afirmar(d.getElementById("gastosMensuales").getAttribute("aria-invalid")==="true"));
+ poner("gastosMensuales",1200);poner("rentabilidadAnual",101);enviar();
+ prueba("máximo UI explícito",()=>afirmar($("#error-rentabilidadAnual").textContent.includes("máximo")));
+ poner("rentabilidadAnual",7);poner("patrimonioActual",1e15);poner("gastosMensuales",.01);enviar();
+ prueba("números grandes no muestran NaN ni Infinity",()=>afirmar(!/NaN|Infinity|undefined/.test(d.body.innerText)));
+ [320,375,768,1024,1440].forEach(ancho=>{iframe.style.width=`${ancho}px`;prueba(`sin overflow de página a ${ancho}px`,()=>{const fuera=Array.from(d.querySelectorAll("*")).filter(x=>x.getBoundingClientRect().right>d.documentElement.clientWidth+1).slice(0,5).map(x=>`${x.tagName}.${x.className}:${Math.round(x.getBoundingClientRect().right)}`).join(",");afirmar(d.documentElement.scrollWidth<=d.documentElement.clientWidth,`${d.documentElement.scrollWidth}>${d.documentElement.clientWidth} ${fuera}`)})});
+ d.getElementById("form-fire").reset();setTimeout(()=>{
+  prueba("reinicio oculta resultados",()=>afirmar($("#resultados").hidden));
+  prueba("reinicio recupera valores iniciales",()=>afirmar(Number(d.getElementById("inflacionAnual").value)===2&&Number(d.getElementById("tasaRetirada").value)===4));
+  prueba("sin NaN ni Infinity visible",()=>afirmar(!/NaN|Infinity/.test(d.body.innerText)));
+  const fallidos=resultados.filter(x=>!x.ok);document.getElementById("salida").textContent=JSON.stringify({total:resultados.length,superados:resultados.length-fallidos.length,fallidos},null,2);document.body.dataset.estado=fallidos.length?"fallo":"ok";
+ },100);
+},1000));
+</script></body></html>
