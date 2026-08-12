@@ -1,0 +1,12 @@
+<!doctype html>
+<html lang="es">
+<head><meta charset="utf-8"><title>Tests — Finiquito PRO Fase 1</title></head>
+<body>
+<h1>Tests del motor Finiquito PRO</h1><pre id="salida">Ejecutando…</pre>
+<script src="../js/normativa-2026.js"></script><script src="../js/core.js"></script><script src="core.test.js"></script>
+<script>
+const r=globalThis.FiniquitoTestResults;
+document.getElementById("salida").textContent=r.resultados.map(x=>(x.ok?"PASS ":"FAIL ")+x.nombre+(x.error?" — "+x.error:"")).join("\n")+`\nTOTAL ${r.total} PASS ${r.pass} FAIL ${r.fail}`;
+document.body.dataset.testsFailed=String(r.fail);
+</script>
+</body></html>
