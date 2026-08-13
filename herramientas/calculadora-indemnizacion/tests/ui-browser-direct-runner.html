@@ -1,0 +1,3 @@
+<!doctype html><html><meta charset="utf-8"><title>Loading</title><script>
+fetch("../index.html").then(r=>r.text()).then(html=>{html=html.replace("<head>","<head><base href=\"../\">").replace("</body>","<pre id=\"output\">RUNNING</pre><script src=\"tests/ui-browser.test.js\"><\/script></body>");document.open();document.write(html);document.close()});
+</script></html>
