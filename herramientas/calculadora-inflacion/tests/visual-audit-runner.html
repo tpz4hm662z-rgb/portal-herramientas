@@ -1,0 +1,15 @@
+<!doctype html><html><meta charset="utf-8"><title>Visual audit</title><style>html,body,iframe{width:100%;height:100%;margin:0;border:0}</style><iframe id="app" src="../index.html"></iframe>
+<script>
+const params=new URLSearchParams(location.search),frame=document.getElementById("app"),state=params.get("state")||"initial",viewport=params.get("vw");if(viewport)frame.style.width=`${viewport}px`;
+frame.addEventListener("load",()=>{const w=frame.contentWindow,d=w.document,ui=w.InflationUI;const set=(id,value)=>{d.getElementById(id).value=value};
+ if(state==="power"){set("power-amount","10000");set("power-rate","3");set("power-period","10");d.getElementById("form-inflacion").dispatchEvent(new w.Event("submit",{bubbles:true,cancelable:true}))}
+ if(state==="real-deflation"){ui.selectMode("real_value",false);set("real-amount","10000");set("real-rate","-2");set("real-period","10");d.getElementById("form-inflacion").dispatchEvent(new w.Event("submit",{bubbles:true,cancelable:true}))}
+ if(state==="compare"){ui.selectMode("compare",false);set("compare-initial","1500");set("compare-final","1750");set("compare-rate","25");set("compare-period","1");d.getElementById("form-inflacion").dispatchEvent(new w.Event("submit",{bubbles:true,cancelable:true}))}
+ if(state==="compare-positive"||state==="compare-neutral"){ui.selectMode("compare",false);set("compare-initial","100");set("compare-final",state==="compare-positive"?"115":"110");set("compare-rate","10");set("compare-period","1");d.getElementById("form-inflacion").dispatchEvent(new w.Event("submit",{bubbles:true,cancelable:true}))}
+ if(state==="errors"){d.getElementById("form-inflacion").dispatchEvent(new w.Event("submit",{bubbles:true,cancelable:true}))}
+ if(state==="editorial")d.getElementById("ipc-inflacion").scrollIntoView();
+ if(state==="method")d.getElementById("metodologia").scrollIntoView();
+ if(state==="faq")d.getElementById("preguntas-frecuentes").scrollIntoView();
+ setTimeout(()=>{document.title=JSON.stringify({inner:w.innerWidth,scroll:d.documentElement.scrollWidth,overflow:Array.from(d.querySelectorAll("body *")).filter(el=>el.getBoundingClientRect().right>w.innerWidth+1).slice(0,8).map(el=>({tag:el.tagName,cls:el.className,right:Math.round(el.getBoundingClientRect().right),width:Math.round(el.getBoundingClientRect().width)}))})},100);
+});
+</script></html>

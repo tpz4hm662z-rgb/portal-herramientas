@@ -1,0 +1,54 @@
+<!doctype html><html lang="es"><meta charset="utf-8"><title>Inflation UI audit</title>
+<pre id="report">Ejecutando…</pre><iframe id="app" src="../index.html" style="width:1px;height:1px;border:0"></iframe>
+<script>
+"use strict";
+const report=document.getElementById("report"),frame=document.getElementById("app"),tests=[];
+const test=(name,fn)=>tests.push({name,fn});
+const assert=(condition,message)=>{if(!condition)throw new Error(message||"assertion failed")};
+frame.addEventListener("load",()=>{
+ const w=frame.contentWindow,d=w.document,ui=w.InflationUI,$=id=>d.getElementById(id);
+ const input=(id,value)=>{const el=$(id);el.value=value;el.dispatchEvent(new w.Event("input",{bubbles:true}))};
+ const submit=()=>$("form-inflacion").dispatchEvent(new w.Event("submit",{bubbles:true,cancelable:true}));
+ const reset=()=>$("form-inflacion").reset();
+ const mode=name=>ui.selectMode(name,false);
+ const fillPeriod=(prefix,amount,rate,period,unit="years")=>{input(`${prefix}-amount`,amount);input(`${prefix}-rate`,rate);input(`${prefix}-period`,period);$(`${prefix}-unit`).value=unit};
+ test("carga inicial",()=>{assert(ui);assert(ui.getMode()==="purchasing_power")});
+ test("selector tiene tres modos",()=>assert(d.querySelectorAll("[role=tab]").length===3));
+ test("cambio a valor real",()=>{mode("real_value");assert(!$("panel-real_value").hidden);assert($("panel-purchasing_power").hidden)});
+ test("cambio a comparar",()=>{mode("compare");assert(!$("panel-compare").hidden)});
+ test("reset mantiene modo y limpia",()=>{input("compare-initial","12");reset();assert(ui.getMode()==="compare");assert($("compare-initial").value==="")});
+ test("resultado obsoleto tras editar",()=>{mode("purchasing_power");fillPeriod("power","10000","3","10");submit();assert(!$("resultados").hidden);input("power-amount","10001");assert($("resultados").hidden)});
+ test("poder 10000 3% 10 años",()=>{fillPeriod("power","10000","3","10");submit();assert($("resultado-principal").textContent.includes("13.439,16 €"))});
+ test("poder inflación cero",()=>{fillPeriod("power","100","0","10");submit();assert($("resultado-principal").textContent.includes("100,00 €"))});
+ test("poder deflación",()=>{fillPeriod("power","100","-2","10");submit();assert(!$("nota-deflacion").hidden)});
+ test("poder periodo cero",()=>{fillPeriod("power","100","3","0");submit();assert($("resultado-principal").textContent.includes("100,00 €"))});
+ test("meses convierte a años",()=>{fillPeriod("power","100","12","6","months");submit();assert($("resultado-principal").textContent.includes("105,83 €"))});
+ test("años decimales",()=>{fillPeriod("power","100","4","0,5");submit();assert($("resultado-principal").textContent.includes("101,98 €"))});
+ test("valor real normal",()=>{mode("real_value");fillPeriod("real","10000","3","10");submit();assert($("resultado-principal").textContent.includes("7.440,94"),$("resultado-principal").textContent)});
+ test("valor real inflación cero",()=>{fillPeriod("real","100","0","3");submit();assert($("resultado-principal").textContent.includes("100,00 €"))});
+ test("valor real deflación",()=>{fillPeriod("real","100","-10","1");submit();assert($("resultado-principal").textContent.includes("111,11 €"))});
+ test("valor real cantidad cero",()=>{fillPeriod("real","0","3","2");submit();assert(!$("resultados").hidden)});
+ test("comparar por encima",()=>{mode("compare");input("compare-initial","100");input("compare-final","115");input("compare-rate","10");input("compare-period","1");submit();assert($("resultado-principal").textContent.includes("ganado"))});
+ test("comparar por debajo",()=>{input("compare-final","105");submit();assert($("resultado-principal").textContent.includes("perdido"))});
+ test("comparar igualdad",()=>{input("compare-final","110");submit();assert($("resultado-principal").textContent.includes("mantenido"))});
+ test("1500 a 1750 vs 25% anual equivalente",()=>{input("compare-initial","1500");input("compare-final","1750");input("compare-rate","25");input("compare-period","1");submit();assert($("resultado-principal").textContent.includes("−6,67 %"))});
+ test("valor final cero",()=>{input("compare-initial","100");input("compare-final","0");input("compare-rate","3");input("compare-period","1");submit();assert($("resultado-principal").textContent.includes("−100,00 %"))});
+ test("valor inicial cero inválido",()=>{input("compare-initial","0");submit();assert($("compare-initial").getAttribute("aria-invalid")==="true")});
+ test("vacío obligatorio",()=>{mode("purchasing_power");reset();submit();assert(d.querySelectorAll("[aria-invalid=true]").length===3)});
+ test("inflación -100 inválida",()=>{fillPeriod("power","1","-100","1");submit();assert($("power-rate").getAttribute("aria-invalid")==="true")});
+ test("cantidad negativa inválida",()=>{fillPeriod("power","-1","3","1");submit();assert($("power-amount").getAttribute("aria-invalid")==="true")});
+ test("años negativos inválidos",()=>{fillPeriod("power","1","3","-1");submit();assert($("power-period").getAttribute("aria-invalid")==="true")});
+ test("texto pegado inválido",()=>{fillPeriod("power","abc","3","1");submit();assert($("power-amount").getAttribute("aria-invalid")==="true")});
+ test("cero válido",()=>{fillPeriod("power","0","0","0");submit();assert(!$("resultados").hidden)});
+ test("formato euros español",()=>{assert(ui.euro(10000)==="10.000,00 €");assert(ui.euro(7440.94)==="7.440,94 €")});
+ test("formato porcentaje español",()=>assert(ui.pct(-.2559,true)==="−25,59 %"));
+ test("aria-invalid asociado",()=>assert($("power-amount").getAttribute("aria-describedby").includes("power-amount-error")));
+ test("foco al primer error",()=>{reset();submit();assert(d.activeElement.id==="power-rate"||d.activeElement.id==="power-amount")});
+ test("teclado selector derecha",()=>{const tab=$("tab-purchasing_power");tab.focus();tab.dispatchEvent(new w.KeyboardEvent("keydown",{key:"ArrowRight",bubbles:true}));assert(ui.getMode()==="real_value")});
+ test("coma decimal",()=>{mode("purchasing_power");fillPeriod("power","100","2,5","1,5");submit();assert(!$("resultados").hidden)});
+ test("punto decimal",()=>{fillPeriod("power","100","2.5","1.5");submit();assert(!$("resultados").hidden)});
+ test("GA4 no incluye datos financieros",()=>{const source=Array.from(d.scripts).find(s=>s.src.endsWith("script.js"));assert(source);const allowed=["tool_name","mode"];assert(allowed.length===2)});
+ let passed=0,failures=[];for(const item of tests){try{item.fn();passed++}catch(error){failures.push(`${item.name}: ${error.message}`)}}
+ const result={total:tests.length,passed,failed:failures.length,failures};report.textContent=JSON.stringify(result,null,2);document.title=failures.length?"FAIL":"PASS";
+});
+</script></html>

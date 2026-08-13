@@ -1,0 +1,47 @@
+<!doctype html><html lang="es"><meta charset="utf-8"><title>Final adversarial audit</title>
+<pre id="report">Ejecutando…</pre><iframe id="app" src="../index.html" style="width:1px;height:1px;border:0"></iframe>
+<script>
+"use strict";
+const frame=document.getElementById("app"),out=document.getElementById("report"),tests=[];
+const test=(name,fn)=>tests.push({name,fn}),assert=(x,m)=>{if(!x)throw new Error(m||"assertion failed")};
+frame.addEventListener("load",()=>{
+ const w=frame.contentWindow,d=w.document,ui=w.InflationUI,$=id=>d.getElementById(id),events=[];w.gtag=(...args)=>events.push(args);
+ const input=(id,value)=>{const el=$(id);el.value=value;el.dispatchEvent(new w.Event("input",{bubbles:true}))};
+ const submit=()=>$("form-inflacion").dispatchEvent(new w.Event("submit",{bubbles:true,cancelable:true}));
+ const setPower=(a,r,p,u="years")=>{ui.selectMode("purchasing_power",false);input("power-amount",a);input("power-rate",r);input("power-period",p);$("power-unit").value=u};
+ const setCompare=(a,b,r,p,u="years")=>{ui.selectMode("compare",false);input("compare-initial",a);input("compare-final",b);input("compare-rate",r);input("compare-period",p);$("compare-unit").value=u};
+ const clean=()=>!d.querySelector("[aria-invalid=true]");
+ test("vacío no es cero",()=>{setPower("",""," ");submit();assert(d.querySelectorAll("[aria-invalid=true]").length===3)});
+ test("espacios no son cero",()=>{setPower("   ","  ","\t");submit();assert(d.querySelectorAll("[aria-invalid=true]").length===3)});
+ for(const value of ["texto","1e3","1e309","1,2,3","1.2.3","+-1","--1",".",","])
+   test(`entrada hostil ${value}`,()=>{setPower(value,"0","0");submit();assert($("power-amount").getAttribute("aria-invalid")==="true")});
+ test("ceros con representaciones válidas",()=>{for(const value of ["0","-0","00","+0"]){setPower(value,value,value);submit();assert(!$("resultados").hidden,value)}});
+ test("coma y punto decimal equivalentes",()=>{setPower("100","2,5","1,5");submit();const a=$("resultado-principal").textContent;setPower("100","2.5","1.5");submit();assert($("resultado-principal").textContent===a)});
+ test("un mes",()=>{setPower("100","12","1","months");submit();assert($("resultado-principal").textContent.includes("100,95"))});
+ test("12 meses equivalen a un año",()=>{setPower("100","12","12","months");submit();const a=d.querySelector(".resultado-valor").textContent;setPower("100","12","1","years");submit();assert(d.querySelector(".resultado-valor").textContent===a)});
+ test("18 meses",()=>{setPower("100","4","18","months");submit();assert($("resultado-principal").textContent.includes("106,06"))});
+ test("periodo cero",()=>{setPower("100","99","0");submit();assert($("resultado-principal").textContent.includes("100,00"))});
+ test("deflación próxima al límite",()=>{setPower("1","-99,999999","1");submit();assert(!$("resultados").hidden);assert(!$("nota-deflacion").hidden)});
+ test("menos cien y menor se rechazan",()=>{for(const r of ["-100","-101"]){setPower("1",r,"1");submit();assert($("power-rate").getAttribute("aria-invalid")==="true")}});
+ test("cantidad enorme controlada",()=>{setPower("1"+"0".repeat(400),"2","1");submit();assert($("resultados").hidden);assert($("power-amount").getAttribute("aria-invalid")==="true")});
+ test("overflow de resultado controlado",()=>{setPower("1"+"0".repeat(300),"100000","100");submit();assert($("resultados").hidden);assert(d.body.textContent.includes("demasiado"))});
+ test("cantidad diminuta válida",()=>{setPower("0,"+"0".repeat(100)+"1","0","0");submit();assert(!$("resultados").hidden)});
+ test("resultado válido luego error",()=>{setPower("100","3","1");submit();assert(!$("resultados").hidden);input("power-rate","");submit();assert($("resultados").hidden);assert($("power-rate").getAttribute("aria-invalid")==="true")});
+ test("recuperación después de error limpia aria",()=>{input("power-rate","3");submit();assert(!$("resultados").hidden);assert(clean())});
+ test("edición invalida resultado",()=>{input("power-amount","101");assert($("resultados").hidden)});
+ test("cálculo repetido determinista",()=>{setPower("10000","3","10");submit();const first=$("resultados").textContent;for(let i=0;i<10;i++)submit();assert($("resultados").textContent===first)});
+ test("cambio repetido de modos coherente",()=>{for(let i=0;i<20;i++){ui.selectMode("real_value",false);ui.selectMode("compare",false);ui.selectMode("purchasing_power",false)}assert(d.querySelectorAll("[role=tabpanel]:not([hidden])").length===1)});
+ test("comparación cero inicial rechazada",()=>{setCompare("0","0","0","0");submit();assert($("compare-initial").getAttribute("aria-invalid")==="true")});
+ test("comparación final cero válida",()=>{setCompare("1","0","0","0");submit();assert($("resultado-principal").textContent.includes("−100,00"))});
+ test("Fisher no resta tasas",()=>{setCompare("100","110","10","1");submit();assert($("resultado-principal").textContent.includes("0,00"));setCompare("1500","1750","25","1");submit();assert($("resultado-principal").textContent.includes("−6,67"))});
+ test("XSS pegado se rechaza sin nodo",()=>{setPower('<img src=x onerror="document.body.dataset.xss=1">',"3","1");submit();assert(!d.body.dataset.xss);assert(!d.querySelector("#resultado-principal img"))});
+ test("salidas nunca filtran valores internos",()=>{setPower("100","3","1");submit();assert(!/NaN|Infinity|undefined|null|INVALID_INPUT|not_finite/.test($("resultados").textContent))});
+ test("teclado flechas Home End",()=>{ui.selectMode("purchasing_power",true);const key=k=>d.activeElement.dispatchEvent(new w.KeyboardEvent("keydown",{key:k,bubbles:true}));key("End");assert(ui.getMode()==="compare");key("Home");assert(ui.getMode()==="purchasing_power");key("ArrowLeft");assert(ui.getMode()==="compare");key("ArrowRight");assert(ui.getMode()==="purchasing_power")});
+ test("estructura tabs accesible",()=>{assert(d.querySelectorAll('[role="tablist"]').length===1);assert(d.querySelectorAll('[role="tab"]').length===3);assert(d.querySelectorAll('[role="tabpanel"]').length===3);assert(d.querySelectorAll('[role="tab"][aria-selected="true"]').length===1)});
+ test("labels y descripciones",()=>{for(const el of d.querySelectorAll("input")){assert(d.querySelector(`label[for="${el.id}"]`));assert(el.getAttribute("aria-describedby"))}});
+ test("aria live y headings",()=>{assert($("resultados").getAttribute("aria-live")==="polite");assert(d.querySelectorAll("h1").length===1);assert(d.querySelectorAll("details summary").length===16)});
+ test("GA4 solo datos funcionales",()=>{setPower("987654","7,89","12,34");submit();const sent=events.at(-1);assert(sent[1]==="inflation_calculated");assert(JSON.stringify(sent[2])===JSON.stringify({tool_name:"inflation",mode:"purchasing_power"}));assert(!JSON.stringify(events).includes("987654"));assert(!JSON.stringify(events).includes("7,89"))});
+ let passed=0,failures=[];for(const item of tests){try{item.fn();passed++}catch(e){failures.push(`${item.name}: ${e.message}`)}}
+ const result={total:tests.length,passed,failed:failures.length,failures};out.textContent=JSON.stringify(result,null,2);document.title=failures.length?"FAIL":"PASS";
+});
+</script></html>
