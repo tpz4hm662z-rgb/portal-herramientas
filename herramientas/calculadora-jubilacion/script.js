@@ -1,86 +1,63 @@
-function calcularJubilacion() {
-
-    let edadActual = Number(document.getElementById("edadActual").value);
-    let edadJubilacion = Number(document.getElementById("edadJubilacion").value);
-    let ahorroActual = Number(document.getElementById("ahorroActual").value);
-    let aportacionMensual = Number(document.getElementById("aportacionMensual").value);
-    let rentabilidadAnual = Number(document.getElementById("rentabilidadAnual").value);
-
-    if (
-        edadActual <= 0 ||
-        edadJubilacion <= edadActual ||
-        ahorroActual < 0 ||
-        aportacionMensual < 0 ||
-        rentabilidadAnual <= 0
-    ) {
-        document.getElementById("resultado").innerHTML =
-            "Por favor, introduce valores válidos.";
-        return;
-    }
-
-    let anosRestantes = edadJubilacion - edadActual;
-    let meses = anosRestantes * 12;
-
-    let interesMensual = (rentabilidadAnual / 100) / 12;
-
-    let capital = ahorroActual;
-
-    for (let i = 0; i < meses; i++) {
-        capital = capital * (1 + interesMensual);
-        capital += aportacionMensual;
-    }
-
-    let totalAportado = ahorroActual + (aportacionMensual * meses);
-    let ganancias = capital - totalAportado;
-    function calcularEscenario(rentabilidad) {
-
-    let interesMensualEscenario = (rentabilidad / 100) / 12;
-    let capitalEscenario = ahorroActual;
-
-    for (let i = 0; i < meses; i++) {
-        capitalEscenario = capitalEscenario * (1 + interesMensualEscenario);
-        capitalEscenario += aportacionMensual;
-    }
-
-    return capitalEscenario;
-}
-
-let escenario3 = calcularEscenario(3);
-let escenario5 = calcularEscenario(5);
-let escenario7 = calcularEscenario(7);
-
-    function formatoEuro(numero) {
-        return numero.toLocaleString("es-ES", {
-            style: "currency",
-            currency: "EUR"
-        });
-    }
-
-    document.getElementById("resultado").innerHTML = `
-        <h3>Estimación de Jubilación</h3>
-
-        <strong>Años restantes:</strong> ${anosRestantes}<br><br>
-
-        <strong>Total aportado:</strong> ${formatoEuro(totalAportado)}<br>
-        <strong>Ganancias estimadas:</strong> ${formatoEuro(ganancias)}<br>
-        <strong>Capital estimado al jubilarte:</strong> ${formatoEuro(capital)}
-
-        <hr>
-
-<h3>Comparativa de rentabilidad</h3>
-
-<p><strong>Escenario 3%:</strong> ${formatoEuro(escenario3)}</p>
-<p><strong>Escenario 5%:</strong> ${formatoEuro(escenario5)}</p>
-<p><strong>Escenario 7%:</strong> ${formatoEuro(escenario7)}</p>
-    `;
-}
-function reiniciarFormulario() {
-
-    document.getElementById("edadActual").value = "";
-    document.getElementById("edadJubilacion").value = "";
-    document.getElementById("ahorroActual").value = "";
-    document.getElementById("aportacionMensual").value = "";
-    document.getElementById("rentabilidadAnual").value = "";
-
-    document.getElementById("resultado").innerHTML = "";
-}
+"use strict";
+(function(){
+ const core=window.ImoancyJubilacionCore;
+ if(!core){throw new Error("No se ha cargado el motor de jubilación");}
+ const state={input:null,calculation:null,ordinary:null,pension:null,earlyScenarios:[]};
+ const byId=function(id){return document.getElementById(id);};
+ const form=byId("retirement-form"),results=byId("results"),status=byId("form-status");
+ const currencyFormatter=new Intl.NumberFormat("es-ES",{style:"currency",currency:"EUR",minimumFractionDigits:2,maximumFractionDigits:2});
+ const money={format:function(value){const formatted=currencyFormatter.format(value);return Math.abs(value)>=1000&&Math.abs(value)<10000?formatted.replace(/^(-?)(\d)(\d{3})(,)/,"$1$2.$3$4"):formatted;}};
+ const percent=new Intl.NumberFormat("es-ES",{minimumFractionDigits:2,maximumFractionDigits:2});
+ function node(tag,className,text){const x=document.createElement(tag);if(className)x.className=className;if(text!==undefined)x.textContent=text;return x;}
+ function clear(x){while(x.firstChild)x.removeChild(x.firstChild);}
+ function append(parent){for(let i=1;i<arguments.length;i+=1){if(arguments[i])parent.appendChild(arguments[i]);}return parent;}
+ function selected(name){const x=document.querySelector('input[name="'+name+'"]:checked');return x?x.value:null;}
+ function todayCivil(){const d=new Date();return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");}
+ function formatDate(value){const p=value.split("-");return p[2]+"/"+p[1]+"/"+p[0];}
+ function duration(months){if(months===null||months<0)return "—";const y=Math.floor(months/12),m=months%12;if(y&&m)return y+" "+(y===1?"año":"años")+" y "+m+" "+(m===1?"mes":"meses");if(y)return y+" "+(y===1?"año":"años");return m+" "+(m===1?"mes":"meses");}
+ function ageText(age){return duration(age.totalMonths);}
+ function signedPercent(rate,positive){return (positive?"+":"−")+percent.format(Math.abs(rate*100))+" %";}
+ function signedMoney(value,positive){return (positive?"+":"−")+money.format(Math.abs(value));}
+ function tri(value){return value==="yes"?true:value==="no"?false:undefined;}
+ function parseMoney(value){const raw=value.trim().replace(/\s/g,"");if(!raw)return null;if(!/^\d+(?:[.,]\d{1,2})?$/.test(raw))return NaN;const n=Number(raw.replace(",","."));return Number.isFinite(n)&&n>0?n:NaN;}
+ function error(id,message){const field=byId(id),out=byId(id+"-error");if(field)field.setAttribute("aria-invalid",message?"true":"false");if(out)out.textContent=message||"";}
+ function radioError(name,message){const out=byId(name+"-error");if(out)out.textContent=message||"";document.querySelectorAll('input[name="'+name+'"]').forEach(function(x){x.setAttribute("aria-invalid",message?"true":"false");});}
+ function stale(){if(!results.hidden){results.hidden=true;status.textContent="Los resultados anteriores se han ocultado porque los datos han cambiado.";}state.pension=null;clear(byId("pension-result"));clear(byId("involuntary-result"));clear(byId("deferred-result"));}
+ function analytics(eventName,scenario){if(typeof window.gtag!=="function")return;const data={tool_name:"retirement"};if(scenario)data.scenario_type=scenario;window.gtag("event",eventName,data);}
+ function commonInput(){const specific=selected("specificCarence");return {regime:core.REGIME.GENERAL_STANDARD,birthDate:byId("birthDate").value,asOfDate:byId("asOfDate").value,contributedMonthsAsOfDate:Number(byId("contributionYears").value)*12+Number(byId("contributionMonths").value),continueContributing:selected("continueContributing")==="yes",specificCarenceMet:tri(specific)};}
+ function validateMain(){let first=null;function fail(id,message){error(id,message);if(!first)first=byId(id);}radioError("generalRegime","");radioError("continueContributing","");["birthDate","asOfDate","contributionYears","contributionMonths"].forEach(function(id){error(id,"");});
+  if(!selected("generalRegime")){radioError("generalRegime","Selecciona una opción.");first=document.querySelector('input[name="generalRegime"]');}else if(selected("generalRegime")!=="yes"){radioError("generalRegime","Esta versión solo calcula casos del Régimen General ordinario.");first=document.querySelector('input[name="generalRegime"]');}
+  if(!core.parseDate(byId("birthDate").value))fail("birthDate","Introduce una fecha de nacimiento válida.");if(!core.parseDate(byId("asOfDate").value))fail("asOfDate","Introduce una fecha de referencia válida.");
+  const years=byId("contributionYears").value,months=byId("contributionMonths").value;if(!/^\d+$/.test(years))fail("contributionYears","Introduce años completos, sin decimales.");if(!/^\d+$/.test(months)||Number(months)>11)fail("contributionMonths","Introduce un número entre 0 y 11.");
+  if(!selected("continueContributing")){radioError("continueContributing","Selecciona Sí o No.");if(!first)first=document.querySelector('input[name="continueContributing"]');}
+  if(first){first.focus();return false;}return true;
+ }
+ function descriptionList(items){const dl=node("dl","lista-datos");items.forEach(function(item){const row=node("div");append(row,node("dt",null,item[0]),node("dd",null,item[1]));dl.appendChild(row);});return dl;}
+ function humanStatus(result){if(!result)return "No se ha podido calcular.";const reason=result.reason;if(result.status===core.STATUS.REQUIRES_SPECIAL_ANALYSIS)return reason==="MIXED_SEMESTER_PENDING_REGULATORY_ADAPTATION"?"Este periodo está sujeto a una transición normativa que requiere un cálculo más específico.":"Este supuesto requiere un cálculo más específico.";if(result.status===core.STATUS.OUT_OF_SCOPE)return "Esta modalidad no está incluida en esta versión.";if(result.status===core.STATUS.NOT_ELIGIBLE||result.status===core.STATUS.MINIMUM_CONTRIBUTION_NOT_MET)return "Con los datos introducidos no se cumplen los requisitos cuantitativos de este escenario.";if(result.status===core.STATUS.INVALID_INPUT)return "Revisa los datos necesarios para este cálculo.";return "Necesitamos un dato más para confirmar este requisito.";}
+ const warningText={PROJECTED_CONTINUED_CONTRIBUTIONS:"El cálculo supone que seguirás cotizando.",BASE_REGULATORY_PROVIDED_BY_USER:"La pensión se estima usando la base reguladora que has introducido.",PENSION_MAXIMUM_NOT_APPLIED:"No se ha aplicado el límite máximo de pensión.",PENSION_MINIMUM_NOT_EVALUATED:"No se ha comprobado el requisito de pensión mínima.",SPECIFIC_CARENCE_NOT_CONFIRMED:"No se ha confirmado la cotización de 2 años dentro de los últimos 15.",INVOLUNTARY_LEGAL_CAUSE_NOT_VERIFIED:"No se ha verificado que la causa de extinción esté legalmente incluida."};
+ function renderWarnings(codes){const unique=[];codes.forEach(function(code){if(warningText[code]&&!unique.includes(code))unique.push(code);});const box=byId("warnings"),list=byId("warnings-list");clear(list);unique.forEach(function(code){list.appendChild(node("li",null,warningText[code]));});box.hidden=!unique.length;}
+ function renderMain(result){const host=byId("main-results");clear(host);const ordinary=result.ordinary.ordinary,age=core.ageOn(state.input.birthDate,ordinary.date),remaining=Math.max(0,core.completeMonthsBetween(state.input.asOfDate,ordinary.date)),items=[["Fecha estimada",formatDate(ordinary.date)],["Tiempo aproximado restante",duration(remaining)],["Cotización estimada entonces",duration(ordinary.contributedMonthsAtRetirement)]];if(result.ordinary.carence.eligibilityStatus!==core.STATUS.OK)items.push(["Estado de carencia",result.ordinary.carence.eligibilityStatus===core.STATUS.MINIMUM_CONTRIBUTION_NOT_MET?"Cotización mínima no alcanzada":"Pendiente de confirmar"]);const wrap=node("div","resultado-principal");const primary=node("article","tarjeta-dominante");append(primary,node("h3",null,"Tu jubilación ordinaria estimada"),node("p","dato-grande",ageText(age)),descriptionList(items));
+  const early=result.voluntaryEarly,secondary=node("article","tarjeta-resultado");secondary.appendChild(node("h3",null,"Lo antes que podrías jubilarte voluntariamente"));if(early&&(early.status===core.STATUS.OK||early.status===core.STATUS.POTENTIALLY_ELIGIBLE)){const earlyAge=core.ageOn(state.input.birthDate,early.proposedRetirementDate);append(secondary,node("p","dato-destacado",formatDate(early.proposedRetirementDate)),descriptionList([["Edad estimada",ageText(earlyAge)],["Anticipación",duration(early.monthsEarly)],["Coeficiente reductor",signedPercent(early.reductionRate,false)]]),node("p","mensaje-cauto","Podrías cumplir los requisitos cuantitativos para jubilarte voluntariamente hasta "+early.monthsEarly+" meses antes. Quedan requisitos que esta calculadora no puede verificar automáticamente."));}else secondary.appendChild(node("p",null,"Con los datos introducidos no aparece una vía voluntaria en el máximo de anticipación analizado."));append(wrap,primary,secondary);host.appendChild(wrap);
+ }
+ function earlyScenario(months){return core.calculateEarlyRetirementScenario(Object.assign({},state.input,{mode:"VOLUNTARY",monthsEarly:months}));}
+ function renderEarlyScenarios(){const host=byId("early-comparison");clear(host);state.earlyScenarios=[];[core.NORMATIVA.voluntaryEarly.maxMonths,18,12,6,0].forEach(function(months){const r=earlyScenario(months);if(r.status!==core.STATUS.OK&&r.status!==core.STATUS.POTENTIALLY_ELIGIBLE)return;state.earlyScenarios.push(r);const date=months===0?state.ordinary.ordinary.date:r.proposedRetirementDate,card=node("article","escenario");append(card,node("h4",null,months?months+" meses antes":"Edad ordinaria"),node("p",null,"Fecha: "+formatDate(date)),node("p",null,"Edad: "+ageText(core.ageOn(state.input.birthDate,date))),node("p",months?"reduccion":null,months?"Reducción: "+signedPercent(r.reductionRate,false):"Sin reducción"));if(state.pension){const p=core.calculateRetirementPension({baseRegulatory:state.pension.baseRegulatory,contributedMonths:months?r.contributedMonthsAtProposedDate:state.ordinary.ordinary.contributedMonthsAtRetirement,eventYear:Number(date.slice(0,4)),reductionRate:months?r.reductionRate:0});if(p.status===core.STATUS.OK)card.appendChild(node("p",null,"Pensión estimada: "+money.format(p.monthlyGross)+"/mes"));}host.appendChild(card);});
+ }
+ function renderCentral(){const host=byId("central-comparison");clear(host);const early=state.calculation.voluntaryEarly,ordinary=state.ordinary.ordinary,delayedDate=core.addMonths(ordinary.date,12),deferred=core.calculateDeferredPercentageBonus({ordinaryRetirementDate:ordinary.date,deferredRetirementDate:delayedDate,effectiveContributionMonthsDuringDeferral:12,ordinaryCarenceMet:state.ordinary.carence.eligibilityStatus===core.STATUS.OK});const cards=[];
+  if(early&&(early.status===core.STATUS.OK||early.status===core.STATUS.POTENTIALLY_ELIGIBLE))cards.push(["Anticipar",ageText(core.ageOn(state.input.birthDate,early.proposedRetirementDate)),signedPercent(early.reductionRate,false),formatDate(early.proposedRetirementDate)]);cards.push(["Ordinaria",ageText(core.ageOn(state.input.birthDate,ordinary.date)),"Sin reducción",formatDate(ordinary.date)]);if(deferred.status===core.STATUS.OK||deferred.status===core.STATUS.POTENTIALLY_ELIGIBLE)cards.push(["Demorar 1 año",ageText(core.ageOn(state.input.birthDate,delayedDate)),signedPercent(deferred.additionalPercentageRate,true),formatDate(delayedDate)]);
+  cards.forEach(function(x){const card=node("article","comparison-card "+(x[0]==="Ordinaria"?"ordinaria":""));append(card,node("span","comparison-label",x[0]),node("strong",null,x[1]),node("div",null,x[2]),node("small",null,x[3]));host.appendChild(card);});
+ }
+ function calculateMain(event){event.preventDefault();if(!validateMain()){stale();status.textContent="Revisa los campos señalados.";return;}const input=commonInput(),result=core.calculateRetirement(input);if(result.status!==core.STATUS.OK){stale();status.textContent=humanStatus(result);alertResult(humanStatus(result));return;}state.input=input;state.calculation=result;state.ordinary=result.ordinary;state.pension=null;renderMain(result);renderCentral();renderEarlyScenarios();renderWarnings(result.warnings.concat(result.voluntaryEarly&&result.voluntaryEarly.warnings||[]));byId("calculation-date").textContent="Cálculo realizado el "+formatDate(todayCivil())+".";results.hidden=false;results.focus();status.textContent="Estimación actualizada.";analytics("retirement_calculated");}
+ function alertResult(message){results.hidden=false;clear(byId("main-results"));byId("main-results").appendChild(node("p","mensaje-cauto",message));clear(byId("central-comparison"));clear(byId("early-comparison"));results.focus();}
+ function calculatePension(){error("baseRegulatory","");const value=parseMoney(byId("baseRegulatory").value);if(value===null||Number.isNaN(value)){error("baseRegulatory","Introduce un importe positivo. Puedes usar coma o punto para los céntimos.");byId("baseRegulatory").focus();clear(byId("pension-result"));return;}const ordinary=state.ordinary.ordinary,p=core.calculateRetirementPension({baseRegulatory:value,contributedMonths:ordinary.contributedMonthsAtRetirement,eventYear:Number(ordinary.date.slice(0,4))});const host=byId("pension-result");clear(host);if(p.status!==core.STATUS.OK){host.appendChild(node("p",null,humanStatus(p)));return;}state.pension=p;append(host,node("h4",null,"Pensión ordinaria estimada"),metrics([["Porcentaje de tu base reguladora",percent.format(p.percentageRate*100)+" %"],["Pensión bruta mensual",money.format(p.monthlyGross)],["Bruto anual",money.format(p.annualGross)],["Pagas",String(p.paymentsPerYear)]]),node("p","ayuda","Este porcentaje depende de los meses cotizados."));renderEarlyScenarios();renderWarnings((state.ordinary.warnings||[]).concat(p.warnings||[]));}
+ function metrics(items){const wrap=node("div","metricas");items.forEach(function(x){const m=node("div","metrica");append(m,node("span",null,x[0]),node("strong",null,x[1]));wrap.appendChild(m);});return wrap;}
+ function calculateInvoluntary(){const cause=tri(selected("qualifyingCause")),registration=tri(selected("employmentRegistration"));const input=Object.assign({},state.input,{mode:"INVOLUNTARY",monthsEarly:core.NORMATIVA.involuntaryEarly.maxMonths,qualifyingTerminationConfirmed:cause,employmentRegistrationRequirementMet:registration,additionalLegalRequirementsConfirmed:undefined});const r=core.calculateEarlyRetirementScenario(input),host=byId("involuntary-result");clear(host);host.classList.toggle("estado-info",r.status!==core.STATUS.OK);if(cause===false||registration===false){append(host,node("h4",null,"No se pueden confirmar los requisitos indicados"),node("p",null,"Alguno de los requisitos declarados no se cumple. No mostramos una cuantía como si esta vía fuera aplicable."));return;}if(r.status!==core.STATUS.OK&&r.status!==core.STATUS.POTENTIALLY_ELIGIBLE){host.appendChild(node("p",null,humanStatus(r)));return;}append(host,node("h4",null,"Podría existir una vía de jubilación anticipada por causa no imputable"),metrics([["Fecha más temprana potencial",formatDate(r.proposedRetirementDate)],["Edad",ageText(core.ageOn(state.input.birthDate,r.proposedRetirementDate))],["Anticipación",duration(r.monthsEarly)],["Coeficiente reductor",signedPercent(r.reductionRate,false)]]),node("p","mensaje-cauto","Necesitas acreditar los requisitos legales indicados."));analytics("retirement_early_scenario_viewed","involuntary");}
+ function deferredMonthsAndDate(){const selectedPeriod=selected("deferredPeriod"),ordinary=state.ordinary.ordinary.date;if(selectedPeriod!=="custom"){const months=Number(selectedPeriod);return {months:months,date:core.addMonths(ordinary,months)};}const date=byId("deferredDate").value,months=core.completeMonthsBetween(ordinary,date);return {months:months,date:date};}
+ function deferredBase(option,period){const carence=state.ordinary.carence.eligibilityStatus;const x={option:option,ordinaryRetirementDate:state.ordinary.ordinary.date,deferredRetirementDate:period.date,effectiveContributionMonthsDuringDeferral:period.months,ordinaryCarenceMet:carence===core.STATUS.OK?true:carence===core.STATUS.NOT_ELIGIBLE?false:undefined};if(state.pension){x.baseRegulatory=state.pension.baseRegulatory;x.ordinaryPercentageRate=state.pension.percentageRate;}return x;}
+ function calculateDeferred(){error("deferredDate","");error("maximumPension","");radioError("effectiveDeferral","");const host=byId("deferred-result");clear(host);if(!selected("effectiveDeferral")){radioError("effectiveDeferral","Selecciona una opción.");document.querySelector('input[name="effectiveDeferral"]').focus();return;}if(selected("effectiveDeferral")!=="yes"){host.classList.add("estado-info");append(host,node("h4",null,"Necesitamos más detalle de cotización"),node("p",null,"El incentivo depende del tiempo efectivamente cotizado después de la edad ordinaria. Este supuesto requiere un cálculo más específico."));return;}const period=deferredMonthsAndDate();if(period.months===null||period.months<0||!core.parseDate(period.date)){error("deferredDate","Introduce una fecha posterior a tu jubilación ordinaria.");byId("deferredDate").focus();return;}const option=selected("deferredOption"),input=deferredBase(option,period);if(option!==core.DEFERRED_OPTION.PERCENTAGE){if(!state.pension){host.classList.add("estado-info");host.appendChild(node("p",null,"Primero necesitamos una estimación de pensión ordinaria para calcular esta modalidad sin inventar importes."));return;}const maximum=parseMoney(byId("maximumPension").value);if(maximum===null||Number.isNaN(maximum)){error("maximumPension","Introduce el límite máximo anual aplicable.");byId("maximumPension").focus();return;}input.initialAnnualPension=state.pension.annualGross;input.pensionMaximumAnnual=maximum;input.contributedMonthsAtOrdinaryDate=state.ordinary.ordinary.contributedMonthsAtRetirement;input.multiplePensionsConfirmed=selected("multiplePensions")==="no"?false:undefined;input.internationalProration=selected("internationalProration")==="no"?false:undefined;}else if(state.pension){const maximum=parseMoney(byId("maximumPension").value);if(maximum)input.pensionMaximumAnnual=maximum;}
+  const r=core.calculateDeferredRetirement(input);host.classList.toggle("estado-info",r.status!==core.STATUS.OK);if(r.status!==core.STATUS.OK&&r.status!==core.STATUS.POTENTIALLY_ELIGIBLE){host.appendChild(node("p",null,humanStatus(r)));return;}const title=option===core.DEFERRED_OPTION.PERCENTAGE?"Porcentaje adicional":option===core.DEFERRED_OPTION.LUMP_SUM?"Pago único estimado":"Modalidad mixta";host.appendChild(node("h4",null,title));if(option===core.DEFERRED_OPTION.PERCENTAGE){append(host,node("p",null,"Retrasar la jubilación "+duration(period.months)+" podría generar un incremento de:"),node("p","dato-destacado",signedPercent(r.additionalPercentageRate,true)));if(r.pension&&r.pension.status===core.STATUS.OK)host.appendChild(metrics([["Pensión ordinaria",money.format(r.pension.monthlyGrossBeforeBonus)],["Pensión demorada",money.format(r.pension.monthlyGrossAfterBonus)],["Diferencia mensual",signedMoney(r.pension.monthlyDifference,true)]]));}else if(option===core.DEFERRED_OPTION.LUMP_SUM){append(host,node("p",null,"Esta es una modalidad distinta del incremento porcentual."),node("p","dato-destacado",money.format(r.lumpSumAmount)));}else{append(host,metrics([["Incremento porcentual",signedPercent(r.additionalPercentageRate,true)],["Parte en pago único",money.format(r.lumpSumAmount)]]),node("p","ayuda","No presentamos ninguna modalidad como mejor que otra."));}analytics("retirement_deferred_scenario_viewed",option.toLowerCase());}
+ function resetAll(){window.setTimeout(function(){byId("asOfDate").value=todayCivil();results.hidden=true;clear(byId("main-results"));clear(byId("central-comparison"));clear(byId("early-comparison"));clear(byId("pension-result"));clear(byId("involuntary-result"));clear(byId("deferred-result"));byId("warnings").hidden=true;byId("custom-deferred-field").hidden=true;byId("lump-fields").hidden=true;["pension-module","involuntary-module","deferred-module","specific-carence-details"].forEach(function(id){byId(id).open=false;});document.querySelector('input[name="specificCarence"][value="unknown"]').checked=true;document.querySelector('input[name="qualifyingCause"][value="unknown"]').checked=true;document.querySelector('input[name="employmentRegistration"][value="unknown"]').checked=true;document.querySelector('input[name="deferredPeriod"][value="12"]').checked=true;document.querySelector('input[name="deferredOption"][value="PERCENTAGE"]').checked=true;state.input=null;state.calculation=null;state.ordinary=null;state.pension=null;status.textContent="Formulario limpio.";analytics("retirement_reset");byId("birthDate").focus();},0);}
+ byId("asOfDate").value=todayCivil();form.addEventListener("submit",calculateMain);form.addEventListener("reset",resetAll);form.addEventListener("input",function(event){if(event.target.id!=="asOfDate"||event.isTrusted)stale();});form.addEventListener("change",stale);
+ byId("baseRegulatory").addEventListener("input",function(){state.pension=null;clear(byId("pension-result"));clear(byId("deferred-result"));renderEarlyScenarios();});["maximumPension","deferredDate"].forEach(function(id){byId(id).addEventListener("input",function(){clear(byId("deferred-result"));});});document.querySelectorAll('#involuntary-module input,#deferred-module input').forEach(function(x){x.addEventListener("change",function(){clear(x.closest("details").querySelector(".subresultado"));});});
+ document.querySelectorAll('input[name="deferredPeriod"]').forEach(function(x){x.addEventListener("change",function(){byId("custom-deferred-field").hidden=selected("deferredPeriod")!=="custom";});});document.querySelectorAll('input[name="deferredOption"]').forEach(function(x){x.addEventListener("change",function(){byId("lump-fields").hidden=selected("deferredOption")===core.DEFERRED_OPTION.PERCENTAGE;});});
+ byId("calculate-pension").addEventListener("click",calculatePension);byId("calculate-involuntary").addEventListener("click",calculateInvoluntary);byId("calculate-deferred").addEventListener("click",calculateDeferred);byId("print-button").addEventListener("click",function(){window.print();});
+}());
