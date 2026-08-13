@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="es"><meta charset="utf-8"><title>Auditoría motor inversiones</title>
+<body><pre id="result">PENDING</pre>
+<script src="../js/config.js"></script><script src="../js/core.js"></script>
+<script>
+"use strict";
+const e = InvestmentReturnEngine, failures = [];
+let total = 0;
+function check(name, condition) { total += 1; if (!condition) failures.push(name); }
+function close(actual, expected, tolerance = 1e-8) { return Math.abs(actual - expected) <= tolerance * Math.max(1, Math.abs(expected)); }
+const basic = e.calculateInvestmentReturn({ initialInvestment: 1000, finalValue: 1100, startDate: "2024-01-01", endDate: "2025-01-01", inflationRate: .02 });
+check("ROI", close(basic.totalReturn, .1));
+check("CAGR Actual/365", close(basic.cagr, Math.pow(1.1, 365 / 366) - 1));
+check("UTC bisiesto", e.calculateInvestmentReturn({ initialInvestment: 1, finalValue: 1, startDate: "2024-02-28", endDate: "2024-03-01" }).durationDays === 2);
+check("XNPV", close(e.xnpv(.1, [{ date: "2021-01-01", amount: -1000 }, { date: "2022-01-01", amount: 1100 }]), 0));
+check("XIRR simple", close(e.calculateXirr([{ date: "2021-01-01", amount: -1000 }, { date: "2022-01-01", amount: 1100 }]).xirr, .1));
+check("XIRR irregular", close(e.calculateXirr([{date:"2008-01-01",amount:-10000},{date:"2008-03-01",amount:2750},{date:"2008-10-30",amount:4250},{date:"2009-02-15",amount:3250},{date:"2009-04-01",amount:2750}]).xirr, .373362535));
+check("MULTIPLE_XIRR", e.calculateXirr([{ date: "2021-01-01", amount: -100 }, { date: "2022-01-01", amount: 221 }, { date: "2023-01-01", amount: -122.1 }]).status === e.XIRR_STATUS.MULTIPLE);
+check("Fisher", close(basic.realAnnualReturn, (1 + basic.cagr) / 1.02 - 1));
+check("NaN", e.calculateInvestmentReturn({ initialInvestment: NaN, finalValue: 1, startDate: "2021-01-01", endDate: "2022-01-01" }).status === e.STATUS.INVALID_INPUT);
+check("Infinity", e.calculateInvestmentReturn({ initialInvestment: 1, finalValue: Infinity, startDate: "2021-01-01", endDate: "2022-01-01" }).status === e.STATUS.INVALID_INPUT);
+document.getElementById("result").textContent = JSON.stringify({ total, passed: total - failures.length, failed: failures.length, failures });
+</script></body></html>

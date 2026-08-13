@@ -1,0 +1,69 @@
+<!doctype html><html lang="es"><meta charset="utf-8"><title>Tests UI Rentabilidad PRO</title>
+<body><pre id="output">PENDING</pre><iframe id="app" src="../index.html" hidden></iframe>
+<script>
+"use strict";
+const tests=[], failures=[]; let passed=0;
+function test(name,fn){tests.push({name,fn});} function ok(value,message){if(!value)throw Error(message||"condición falsa");}
+function equal(actual,expected){if(actual!==expected)throw Error(`${actual} !== ${expected}`);} function close(actual,expected,t=.000001){if(Math.abs(actual-expected)>t*Math.max(1,Math.abs(expected)))throw Error(`${actual} != ${expected}`);}
+const frame=document.getElementById("app");
+frame.addEventListener("load",async()=>{
+ const w=frame.contentWindow,d=frame.contentDocument,$=s=>d.querySelector(s),all=s=>Array.from(d.querySelectorAll(s));
+ function set(id,value){const el=d.getElementById(id);el.value=value;el.dispatchEvent(new Event("input",{bubbles:true}));}
+ function basic(finalValue="1100"){set("initialInvestment","1000");set("finalValue",finalValue);set("startDate","2021-01-01");set("endDate","2022-01-01");}
+ function submit(){d.getElementById("form-rentabilidad").dispatchEvent(new Event("submit",{bubbles:true,cancelable:true}));}
+ function clearMovements(){d.getElementById("movimientos").innerHTML="";}
+ function addMovement(date,type,amount){w.RentabilidadUI.addMovement();const row=all(".movimiento").at(-1);row.querySelector("[data-field=date]").value=date;row.querySelector("[data-field=type]").value=type;row.querySelector("[data-field=amount]").value=amount;}
+
+ test("cálculo básico positivo",()=>{basic();submit();ok($("#resultado-principal").classList.contains("gain"));ok($("#resultado-principal").textContent.includes("Has ganado"));});
+ test("microcopy sin costes no implica costes introducidos",()=>{ok(!$("#resultado-principal").textContent.includes("descontar los costes"));});
+ test("pérdida",()=>{basic("800");submit();ok($("#resultado-principal").classList.contains("loss"));});
+ test("break-even",()=>{basic("1000");submit();ok($("#resultado-principal").classList.contains("neutral"));});
+ test("valor final cero",()=>{basic("0");submit();ok($("#resultado-principal").textContent.includes("Has perdido"),$("#resultado-principal").textContent);});
+ test("fechas Actual/365",()=>{basic();const x=w.RentabilidadUI.buildInput().input,r=w.InvestmentReturnEngine.calculateInvestmentReturn(x);equal(r.durationDays,365);});
+ test("periodo corto muestra warning",()=>{basic();set("endDate","2021-01-02");submit();equal($("#warning-periodo").hidden,false);});
+ test("ingresos muestran bruto",()=>{basic();set("income","50");submit();ok($("#metricas-avanzadas").textContent.includes("Beneficio antes de costes"));});
+ test("costes muestran neto de costes",()=>{basic();set("income","");set("costs","25");submit();ok($("#metricas-avanzadas").textContent.includes("Rentabilidad neta de costes"));});
+ test("microcopy con costes confirma descuento",()=>{ok($("#resultado-principal").textContent.includes("descontar los costes"));});
+ test("inflación muestra nominal y real",()=>{basic();set("costs","");set("inflationRate","2");submit();ok($("#metricas-avanzadas").textContent.includes("Rentabilidad anual real"));});
+ test("beneficio bruto y neto se diferencian",()=>{basic();set("income","50");set("costs","25");submit();ok($("#metricas-avanzadas").textContent.includes("125,00"));});
+ test("aportación se transforma a negativo",()=>{basic();clearMovements();addMovement("2021-06-01","contribution","100");const x=w.RentabilidadUI.buildInput().input;equal(x.cashFlows[1].amount,-100);});
+ test("retirada se transforma a positivo",()=>{clearMovements();addMovement("2021-06-01","withdrawal","100");const x=w.RentabilidadUI.buildInput().input;equal(x.cashFlows[1].amount,100);});
+ test("varios movimientos se conservan",()=>{addMovement("2021-08-01","contribution","25");equal(w.RentabilidadUI.buildInput().input.cashFlows.length,4);});
+ test("orden de UI no se altera",()=>{clearMovements();addMovement("2021-09-01","withdrawal","20");addMovement("2021-03-01","contribution","10");const before=all("[data-field=date]").map(x=>x.value).join();w.RentabilidadUI.buildInput();equal(all("[data-field=date]").map(x=>x.value).join(),before);});
+ test("XIRR_OK",()=>{submit();ok($("#resultado-xirr").textContent.includes("TIR con fechas reales"));});
+ test("MULTIPLE_XIRR no elige tasa",()=>{basic("132");set("initialInvestment","100");set("endDate","2023-01-01");clearMovements();addMovement("2022-01-01","withdrawal","230");addMovement("2023-01-01","contribution","264");submit();const text=$("#resultado-xirr").textContent;ok(text.includes("más de una"),text);ok(all("#resultado-xirr .soluciones li").length===2,text);});
+ test("XIRR_NOT_FOUND explicado",()=>{set("initialInvestment","1");set("finalValue","4000000");set("startDate","2021-01-01");set("endDate","2022-01-01");clearMovements();addMovement("2021-01-01","contribution","1");submit();ok($("#resultado-xirr").textContent.includes("No se puede obtener"));});
+ test("XIRR_NOT_APPLICABLE usa CAGR",()=>{basic();clearMovements();submit();ok($("#metricas-esenciales").textContent.includes("CAGR"));equal($("#resultado-xirr").hidden,true);});
+ test("errores de campos",()=>{set("initialInvestment","");submit();ok($("#error-initialInvestment").textContent.length>0);});
+ test("aria-invalid",()=>{equal($("#initialInvestment").getAttribute("aria-invalid"),"true");});
+ test("corregir limpia errores",()=>{basic();submit();equal($("#initialInvestment").hasAttribute("aria-invalid"),false);});
+ test("reset",async()=>{d.getElementById("form-rentabilidad").reset();await new Promise(r=>setTimeout(r,5));equal($("#initialInvestment").value,"");equal(all(".movimiento").length,0);equal($("#resultados").hidden,true);});
+ test("ausencia distinta de cero",()=>{basic();set("income","0");const a=w.RentabilidadUI.buildInput().input;equal(a.income,0);set("income","");const b=w.RentabilidadUI.buildInput().input;equal(Object.hasOwn(b,"income"),false);});
+ test("formato EUR español",()=>{equal(w.RentabilidadUI.euro(12450.25,false),"12.450,25 €");});
+ test("formato EUR agrupa cuatro cifras",()=>{equal(w.RentabilidadUI.euro(2500,false),"2.500,00 €");});
+ test("formato porcentaje español",()=>{equal(w.RentabilidadUI.pct(.0742,true),"+7,42 %");});
+ test("sin overflow horizontal",()=>{ok(d.documentElement.scrollWidth<=d.documentElement.clientWidth,`${d.documentElement.scrollWidth} > ${d.documentElement.clientWidth}`);});
+ test("controles nativos accesibles por teclado",()=>{ok(all("button,input,select,summary").every(el=>!el.hasAttribute("tabindex")||Number(el.tabIndex)>=0));});
+ test("opciones avanzadas cerradas inicialmente tras reset",()=>{equal($("#opciones-avanzadas").open,false);equal($("#opciones-avanzadas summary").getAttribute("aria-expanded"),"false");});
+ test("eliminación de movimiento",()=>{basic();addMovement("2021-06-01","contribution","1");all(".eliminar-movimiento").at(-1).click();equal(all(".movimiento").length,0);});
+ test("doble cálculo es idempotente",()=>{basic();submit();const once=$("#metricas-esenciales").textContent;submit();equal($("#metricas-esenciales").textContent,once);});
+ test("editar dato oculta resultado obsoleto",()=>{set("finalValue","1200");equal($("#resultados").hidden,true);});
+ test("GA4 funcional no contiene datos financieros",()=>{const source=w.RentabilidadUI.calculate.toString();ok(!source.includes("initialInvestment:")&&!source.includes("finalValue:"));});
+ test("coma decimal pegada no se interpreta silenciosamente",()=>{basic();set("initialInvestment","1,5");submit();equal($("#initialInvestment").getAttribute("aria-invalid"),"true");});
+ test("cantidad enorme no produce Infinity visible",()=>{basic();set("finalValue","1e309");submit();equal($("#finalValue").getAttribute("aria-invalid"),"true");ok(!d.body.textContent.includes("Infinity"));});
+ test("cantidad diminuta finita se acepta",()=>{set("initialInvestment","0.000001");set("finalValue","0.000002");submit();equal($("#resultados").hidden,false);});
+ test("fecha igual se rechaza",()=>{basic();set("endDate","2021-01-01");submit();equal($("#endDate").getAttribute("aria-invalid"),"true");});
+ test("costes pueden convertir ganancia bruta en pérdida neta",()=>{basic("1100");set("income","10");set("costs","200");submit();ok($("#resultado-principal").classList.contains("loss"));ok($("#metricas-avanzadas").textContent.includes("Rentabilidad bruta"));ok($("#metricas-avanzadas").textContent.includes("Rentabilidad neta de costes"));});
+ test("inflación cero explícita produce rentabilidad real",()=>{basic();set("income","");set("costs","");set("inflationRate","0");submit();ok($("#metricas-avanzadas").textContent.includes("Rentabilidad anual real"));});
+ test("inflación negativa válida produce resultado finito",()=>{set("inflationRate","-2");submit();ok(!$("#metricas-avanzadas").textContent.includes("NaN"));ok(!$("#metricas-avanzadas").textContent.includes("Infinity"));});
+ test("movimiento cero se rechaza",()=>{basic();set("inflationRate","");clearMovements();addMovement("2021-06-01","contribution","0");submit();equal(all("[data-field=amount]")[0].getAttribute("aria-invalid"),"true");});
+ test("movimiento negativo se rechaza",()=>{all("[data-field=amount]")[0].value="-1";submit();equal(all("[data-field=amount]")[0].getAttribute("aria-invalid"),"true");});
+ test("movimiento incompleto se rechaza",()=>{clearMovements();w.RentabilidadUI.addMovement();submit();ok(all(".movimiento [aria-invalid=true]").length===2);});
+ test("eliminar fila intermedia conserva las restantes",()=>{clearMovements();addMovement("2021-03-01","contribution","10");addMovement("2021-05-01","withdrawal","5");addMovement("2021-08-01","contribution","10");all(".eliminar-movimiento")[1].click();equal(all(".movimiento").length,2);equal(all("[data-field=date]")[1].value,"2021-08-01");});
+ test("varios movimientos el mismo día llegan al motor",()=>{clearMovements();addMovement("2021-06-01","contribution","10");addMovement("2021-06-01","withdrawal","5");const input=w.RentabilidadUI.buildInput().input;equal(input.cashFlows[1].date,input.cashFlows[2].date);equal(input.cashFlows[1].amount,-10);equal(input.cashFlows[2].amount,5);});
+ test("FAQ visible y operable con control nativo",()=>{const faq=$("#preguntas-frecuentes details");equal(all("#preguntas-frecuentes details").length,15);faq.querySelector("summary").click();equal(faq.open,true);});
+
+ for(const t of tests){try{await t.fn();passed++;}catch(error){failures.push(`${t.name}: ${error.message}`);}}
+ document.getElementById("output").textContent=JSON.stringify({total:tests.length,passed,failed:failures.length,failures});
+});
+</script></body></html>
