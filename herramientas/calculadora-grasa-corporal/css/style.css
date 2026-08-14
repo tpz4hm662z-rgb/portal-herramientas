@@ -2234,6 +2234,33 @@ textarea:disabled{
 
 }
 
+.enlace-contextual{
+
+    color:var(--color-primary);
+    text-decoration:underline;
+    text-decoration-thickness:1px;
+    text-underline-offset:3px;
+    text-decoration-skip-ink:auto;
+    transition:color var(--transition-fast),text-decoration-thickness var(--transition-fast);
+
+}
+
+.enlace-contextual:hover{
+
+    color:var(--color-primary-dark);
+    text-decoration-thickness:2px;
+
+}
+
+.enlace-contextual:focus-visible{
+
+    color:var(--color-primary-dark);
+    outline:3px solid var(--color-primary-dark);
+    outline-offset:3px;
+    border-radius:2px;
+
+}
+
 .revision-editorial{
 
     border-left:5px solid var(--color-primary);
