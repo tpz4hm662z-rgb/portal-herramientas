@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="es">
+<meta charset="utf-8">
+<title>Grasa Corporal PRO UI test</title>
+<body>
+<p id="status">RUNNING</p>
+<iframe id="app" src="../index.html" title="Aplicación bajo prueba" width="320" height="844"></iframe>
+<script>
+"use strict";
+const statusNode = document.getElementById("status");
+let passed = 0;
+function ok(condition, message) { if (!condition) throw new Error(message); passed += 1; }
+function value(doc, id, next) { const node = doc.getElementById(id); node.value = next; return node; }
+function submit(doc, id) { doc.getElementById(id).dispatchEvent(new Event("submit", { bubbles: true, cancelable: true })); }
+function wait(ms) { return new Promise(resolve => setTimeout(resolve, ms)); }
+async function run() {
+    localStorage.removeItem("imoancy.body-fat-pro.history.v1");
+    const frame = document.getElementById("app");
+    await new Promise(resolve => frame.addEventListener("load", resolve, { once: true }));
+    const doc = frame.contentDocument;
+    ok(doc.documentElement.scrollWidth <= doc.documentElement.clientWidth, `sin scroll horizontal (${doc.documentElement.scrollWidth}/${doc.documentElement.clientWidth})`);
+    value(doc, "sexo", "hombre"); value(doc, "edad", "35"); value(doc, "altura", "180"); value(doc, "peso", "80");
+    submit(doc, "formularioHerramienta");
+    ok(!doc.getElementById("resultados").classList.contains("oculto"), "muestra resultado rápido");
+    ok(Number(doc.getElementById("resultadoPrincipal").textContent) > 0, "CUN-BAE visible");
+    doc.getElementById("botonMostrarCintura").click();
+    value(doc, "cinturaUno", "100"); value(doc, "cinturaDos", "100.4");
+    doc.getElementById("cinturaDos").dispatchEvent(new Event("input", { bubbles: true }));
+    ok(doc.getElementById("diferenciaLecturas").textContent.includes("0,4"), "muestra diferencia entre lecturas");
+    submit(doc, "formularioCintura");
+    ok(!doc.getElementById("resultadoRfm").classList.contains("oculto"), "RFM separado visible");
+    doc.getElementById("botonGuardar").click(); doc.getElementById("cancelarGuardar").click();
+    ok(localStorage.getItem("imoancy.body-fat-pro.history.v1") === null, "cancelar no guarda");
+    doc.getElementById("botonGuardar").click(); doc.getElementById("confirmarGuardar").click();
+    ok(JSON.parse(localStorage.getItem("imoancy.body-fat-pro.history.v1")).records.length === 2, "primer grupo guarda dos métodos");
+    await wait(20);
+    doc.getElementById("botonReiniciar").click();
+    value(doc, "sexo", "hombre"); value(doc, "edad", "35"); value(doc, "altura", "180"); value(doc, "peso", "90"); submit(doc, "formularioHerramienta");
+    doc.getElementById("botonMostrarCintura").click(); value(doc, "cinturaUno", "90"); submit(doc, "formularioCintura");
+    doc.getElementById("botonGuardar").click(); doc.getElementById("confirmarGuardar").click();
+    ok(doc.querySelectorAll(".medicion-historial").length === 2, "dos mediciones agrupadas");
+    ok(doc.getElementById("explicacionCambio").textContent.includes("direcciones diferentes"), "explica direcciones opuestas");
+    ok(doc.getElementById("explicacionCambio").textContent.includes("NO podemos concluir"), "expone límites");
+    frame.src = "../index.html?reload=1";
+    await new Promise(resolve => frame.addEventListener("load", resolve, { once: true }));
+    const reloaded = frame.contentDocument;
+    ok(!reloaded.getElementById("avisoHistorial").classList.contains("oculto"), "regreso muestra señal discreta");
+    ok(reloaded.getElementById("evolucion").classList.contains("oculto"), "regreso no abre dashboard");
+    localStorage.setItem("imoancy.body-fat-pro.history.v1", "{");
+    frame.src = "../index.html?corrupt=1";
+    await new Promise(resolve => frame.addEventListener("load", resolve, { once: true }));
+    const corrupt = frame.contentDocument;
+    ok(corrupt.getElementById("contadorMediciones").textContent.includes("no está disponible"), "corrupción se comunica");
+    value(corrupt, "sexo", "mujer"); value(corrupt, "edad", "40"); value(corrupt, "altura", "165"); value(corrupt, "peso", "65"); submit(corrupt, "formularioHerramienta");
+    ok(!corrupt.getElementById("resultados").classList.contains("oculto"), "corrupción no impide calcular");
+    localStorage.removeItem("imoancy.body-fat-pro.history.v1");
+    statusNode.textContent = `PASS ${passed}`;
+}
+run().catch(error => { statusNode.textContent = `FAIL ${error.message}`; document.body.dataset.failure = error.stack; });
+</script>
+</body>
+</html>

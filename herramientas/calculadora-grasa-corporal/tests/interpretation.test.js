@@ -1,0 +1,15 @@
+"use strict";
+(function(root){
+ const t=root.ImoancyBodyFatTracking,I=root.ImoancyBodyFatChangeInterpreter;let passed=0,failures=[];
+ function test(n,f){try{f();passed++}catch(e){failures.push("interpretation · "+n+": "+e.message)}}function ok(x){if(!x)throw Error("assertion failed")}function eq(a,b){if(a!==b)throw Error(a+" !== "+b)}
+ function group(prefix,date,weight,waist,withRfm){const o={sex:"male",ageYears:35,heightCm:180,weightKg:weight,waistCm:waist},a=[t.createMeasurement({id:prefix+"_cun",measuredAt:date,methodId:"cun-bae",observed:o})];if(withRfm)a.push(t.createMeasurement({id:prefix+"_rfm",measuredAt:date,methodId:"rfm",observed:o}));return{measuredAt:new Date(date).toISOString(),measurements:a}}
+ test("misma dirección descendente",()=>{const r=I.interpretChange(group("int01","2026-01-01T00:00:00Z",80,100,true),group("int02","2026-02-01T00:00:00Z",75,90,true));eq(r.estimates.cunBae.direction,"down");eq(r.estimates.rfm.direction,"down");eq(r.oppositeDirections,false)});
+ test("direcciones opuestas específico",()=>{const r=I.interpretChange(group("int03","2026-01-01T00:00:00Z",80,100,true),group("int04","2026-02-01T00:00:00Z",90,90,true));eq(r.estimates.cunBae.direction,"up");eq(r.estimates.rfm.direction,"down");ok(r.oppositeDirections);ok(r.headline.indexOf("direcciones diferentes")>=0)});
+ test("peso y cintura iguales",()=>{const r=I.interpretChange(group("int05","2026-01-01T00:00:00Z",80,90,true),group("int06","2026-02-01T00:00:00Z",80,90,true));eq(r.observed.weightDirection,"same");eq(r.observed.waistDirection,"same")});
+ test("sin cintura seguida de cintura",()=>{const r=I.interpretChange(group("int07","2026-01-01T00:00:00Z",80,undefined,false),group("int08","2026-02-01T00:00:00Z",79,90,true));eq(r.estimates.rfm.available,false);eq(r.observed.waistCm,null)});
+ test("cambio mínimo no se convierte en realidad corporal",()=>{const r=I.interpretChange(group("int09","2026-01-01T00:00:00Z",80,90,true),group("int10","2026-02-01T00:00:00Z",79.99,89.99,true));ok(r.cannotSay.indexOf("no demuestran")>=0)});
+ test("versión distinta se explica",()=>{const a=group("int11","2026-01-01T00:00:00Z",80,90,true),b=group("int12","2026-02-01T00:00:00Z",79,89,true);b.measurements[0]=JSON.parse(JSON.stringify(b.measurements[0]));b.measurements[0].method.version="future";const r=I.interpretChange(a,b);eq(r.structurallyComparable,false);ok(r.headline.indexOf("no se comparan")>=0)});
+ test("orden inverso se rechaza",()=>{try{I.interpretChange(group("int13","2026-02-01T00:00:00Z",80,90,true),group("int14","2026-01-01T00:00:00Z",79,89,true))}catch(e){return}throw Error("aceptado")});
+ test("nunca atribuye músculo",()=>{const r=I.interpretChange(group("int15","2026-01-01T00:00:00Z",80,90,true),group("int16","2026-02-01T00:00:00Z",79,89,true));ok(r.canSay.indexOf("músculo")<0);ok(r.cannotSay.indexOf("músculo")>=0)});
+ (root.ImoancyBodyFatPhase2Suites||(root.ImoancyBodyFatPhase2Suites=[])).push({passed:passed,failed:failures.length,failures:failures});
+})(globalThis);

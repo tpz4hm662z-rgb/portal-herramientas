@@ -2095,6 +2095,746 @@ textarea:disabled{
 
 }
 
+@media (prefers-reduced-motion:reduce){
+
+    html{
+
+        scroll-behavior:auto;
+
+    }
+
+    *,
+    *::before,
+    *::after{
+
+        animation-duration:.01ms !important;
+        animation-iteration-count:1 !important;
+        transition-duration:.01ms !important;
+
+    }
+
+}
+
+
+/* ==========================================================
+   FASE 3 · SEO, METODOLOGÍA Y SALIDA IMPRESA
+========================================================== */
+
+.migas-pan{
+
+    background:#fff;
+    border-bottom:1px solid var(--color-border);
+
+}
+
+.migas-pan ol{
+
+    display:flex;
+    align-items:center;
+    gap:10px;
+    min-height:44px;
+    color:var(--color-text-light);
+    font-size:.875rem;
+
+}
+
+.migas-pan li + li::before{
+
+    content:"/";
+    margin-right:10px;
+    color:#94a3b8;
+
+}
+
+.migas-pan a{
+
+    color:var(--color-primary-dark);
+    text-decoration:underline;
+    text-underline-offset:3px;
+
+}
+
+.metodologia-grid{
+
+    display:grid;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:24px;
+    margin:32px 0;
+
+}
+
+.metodo-tarjeta,
+.revision-editorial{
+
+    padding:28px;
+    border:1px solid var(--color-border);
+    border-radius:var(--radius-lg);
+    background:#fff;
+    box-shadow:var(--shadow-sm);
+
+}
+
+.metodo-tarjeta h3,
+.revision-editorial h3{
+
+    margin-bottom:14px;
+
+}
+
+.lista-metodo{
+
+    display:grid;
+    gap:10px;
+    margin:18px 0 22px;
+    padding-left:22px;
+    list-style:disc;
+
+}
+
+.lista-metodo li,
+.fuentes-lista li{
+
+    padding-left:4px;
+
+}
+
+.metodo-tarjeta .formula{
+
+    margin:18px 0 8px;
+    overflow-wrap:anywhere;
+    font-size:.9rem;
+    line-height:1.65;
+
+}
+
+.aclaracion-formula{
+
+    color:var(--color-text-light);
+    font-size:.875rem;
+
+}
+
+.fuentes-lista{
+
+    display:grid;
+    gap:18px;
+    margin:26px 0 32px;
+    padding-left:24px;
+    list-style:decimal;
+
+}
+
+.fuentes-lista a,
+.revision-editorial a,
+.faq a{
+
+    color:var(--color-primary-dark);
+    text-decoration:underline;
+    text-underline-offset:3px;
+
+}
+
+.revision-editorial{
+
+    border-left:5px solid var(--color-primary);
+    background:#eff6ff;
+
+}
+
+@media (max-width:768px){
+
+    .metodologia-grid{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .metodo-tarjeta,
+    .revision-editorial{
+
+        padding:22px;
+
+    }
+
+}
+
+@media print{
+
+    @page{
+
+        margin:16mm;
+
+    }
+
+    *,
+    *::before,
+    *::after{
+
+        box-shadow:none !important;
+        text-shadow:none !important;
+
+    }
+
+    body{
+
+        background:#fff;
+        color:#111827;
+        font-family:Arial,sans-serif;
+        font-size:10.5pt;
+
+    }
+
+    .cabecera-principal,
+    .migas-pan,
+    .hero-caracteristicas,
+    .indice-secciones,
+    #calculadora,
+    .acciones-resultado,
+    #panelCintura,
+    #panelGuardar,
+    #evolucion,
+    #herramientas-relacionadas,
+    .pie-pagina,
+    button,
+    form{
+
+        display:none !important;
+
+    }
+
+    .hero{
+
+        padding:0 0 18pt;
+        background:#fff;
+
+    }
+
+    .hero-icono,
+    .hero-categoria{
+
+        display:none;
+
+    }
+
+    .hero h1{
+
+        font-size:24pt;
+
+    }
+
+    .ultima-actualizacion{
+
+        margin-top:10pt;
+
+    }
+
+    .seccion-informativa,
+    .seccion-alternativa,
+    .seccion-resultados{
+
+        padding:18pt 0;
+        background:#fff;
+
+    }
+
+    .metodologia-grid{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .metodo-tarjeta,
+    .consejo-tarjeta,
+    .paso-tarjeta,
+    .revision-editorial,
+    .nota-informativa,
+    .faq details,
+    .resultado-principal,
+    .resultado-tarjeta{
+
+        break-inside:avoid;
+
+    }
+
+    a{
+
+        color:#111827;
+        text-decoration:underline;
+
+    }
+
+}
+
+/* La cabecera debe seguir siendo operable con viewport estrecho y texto ampliado. */
+@media (max-width:380px){
+    .cabecera-contenido .marca{
+        width:min(110px,35vw);
+        min-width:0;
+    }
+
+    .cabecera-contenido .navegacion-principal{
+        flex:0 1 140px;
+        max-width:140px;
+        min-width:0;
+    }
+
+    .cabecera-contenido .enlace-portal{
+        width:100%;
+        max-width:140px;
+        padding:7px;
+        white-space:normal;
+        overflow-wrap:anywhere;
+        text-align:center;
+        font-size:.66rem;
+        line-height:1.25;
+    }
+}
+
+/* ==========================================================
+   FASE 2 · EXPERIENCIA PRO Y SEGUIMIENTO LOCAL
+========================================================== */
+
+.aviso-historial{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:1rem;
+    margin:0 0 1.5rem;
+    padding:1rem 1.25rem;
+    border:1px solid rgba(47,111,235,.22);
+    border-radius:var(--radio-medio,16px);
+    background:rgba(47,111,235,.06);
+}
+
+.aviso-historial p,
+.gestion-historial p{
+    margin:0;
+}
+
+.acciones-compactas,
+.acciones-resultado,
+.comparador-cabecera{
+    display:flex;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:.75rem;
+}
+
+.boton-enlace{
+    min-height:44px;
+    padding:.55rem .75rem;
+    border:0;
+    border-radius:10px;
+    color:var(--color-primario,#235ac7);
+    background:transparent;
+    font:inherit;
+    font-weight:700;
+    text-decoration:underline;
+    text-underline-offset:3px;
+    cursor:pointer;
+}
+
+.mensaje-estado{
+    min-height:1.5em;
+    margin:.75rem 0 0;
+    color:var(--color-texto-secundario,#52606d);
+}
+
+.resultados-grid-pro{
+    grid-template-columns:repeat(3,minmax(0,1fr));
+}
+
+.resultados-grid-pro .resultado-principal{
+    grid-column:1/-1;
+}
+
+.acciones-resultado{
+    justify-content:center;
+    margin:1.5rem 0;
+}
+
+.panel-cintura,
+.panel-guardar,
+.comparador{
+    margin-top:1.5rem;
+}
+
+.panel-cintura header h3,
+.panel-guardar h3,
+.comparador h3{
+    margin:.5rem 0 1rem;
+}
+
+.protocolo-medicion{
+    display:grid;
+    grid-template-columns:auto 1fr;
+    gap:1rem;
+    align-items:center;
+    margin:1rem 0 1.25rem;
+    padding:1rem;
+    border-left:4px solid var(--color-primario,#2f6feb);
+    background:rgba(47,111,235,.05);
+}
+
+.protocolo-ilustracion{
+    font-size:2rem;
+}
+
+.protocolo-medicion p{
+    margin:0;
+}
+
+.lecturas-grid{
+    display:grid;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:1rem;
+}
+
+.aviso-metodo{
+    max-width:760px;
+    margin:0 auto 1rem;
+    padding:.85rem 1rem;
+    border-left:4px solid #a15c00;
+    border-radius:10px;
+    background:#fff8e6;
+    overflow-wrap:anywhere;
+}
+
+.seleccion-lectura{
+    display:flex;
+    flex-wrap:wrap;
+    gap:.75rem 1.25rem;
+    margin:1rem 0;
+    padding:1rem;
+    border:1px solid var(--color-borde,#dfe3e8);
+    border-radius:12px;
+    min-width:0;
+}
+
+.seleccion-lectura legend{
+    padding:0 .35rem;
+    font-weight:700;
+}
+
+.seleccion-lectura label{
+    display:inline-flex;
+    align-items:center;
+    gap:.55rem;
+    min-height:44px;
+    overflow-wrap:anywhere;
+}
+
+.seleccion-lectura input[type="radio"]{
+    width:1.25rem;
+    min-width:1.25rem;
+    min-height:1.25rem;
+    margin:0;
+    padding:0;
+}
+
+.panel-cintura,
+.panel-guardar,
+.comparador,
+.medicion-historial,
+.explicacion-bloques section{
+    min-width:0;
+    overflow-wrap:anywhere;
+}
+
+.calculadora-grid,
+.calculadora-grid > *,
+.formulario-tarjeta form,
+.campo,
+.campo-unidad,
+.resultado-cabecera,
+.seccion-encabezado{
+    min-width:0;
+}
+
+.campo input,
+.campo select,
+.campo textarea{
+    min-width:0;
+    max-width:100%;
+}
+
+main,
+main section,
+main .contenedor,
+main .tarjeta,
+main article,
+main aside,
+main header{
+    min-width:0;
+    max-width:100%;
+}
+
+main h1,
+main h2,
+main h3,
+main h4,
+main p,
+main li,
+main strong,
+main span,
+main button,
+main label{
+    overflow-wrap:anywhere;
+}
+
+.contraste-resultado{
+    display:grid;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:1rem;
+    margin-top:1.25rem;
+    padding-top:1.25rem;
+    border-top:1px solid var(--color-borde,#dfe3e8);
+}
+
+.contraste-resultado div{
+    padding:1rem;
+    border-radius:12px;
+    background:var(--color-superficie-suave,#f6f8fa);
+}
+
+.contraste-resultado span,
+.contraste-resultado strong{
+    display:block;
+}
+
+.contraste-resultado strong{
+    margin-top:.35rem;
+    font-size:1.5rem;
+}
+
+.contraste-resultado p{
+    grid-column:1/-1;
+    margin:0;
+}
+
+.nota-privacidad{
+    padding:1rem;
+    border-radius:12px;
+    background:rgba(26,127,55,.07);
+}
+
+.seccion-evolucion{
+    padding:clamp(3rem,6vw,5rem) 0;
+    background:var(--color-fondo-alternativo,#f7f9fc);
+}
+
+.comparador-cabecera{
+    justify-content:space-between;
+    align-items:flex-end;
+}
+
+.campo-comparacion label,
+.campo-comparacion select{
+    display:block;
+}
+
+.campo-comparacion select{
+    min-height:44px;
+    margin-top:.25rem;
+}
+
+.explicacion-bloques{
+    display:grid;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:1rem;
+    margin-top:1rem;
+}
+
+.explicacion-bloques section{
+    padding:1rem;
+    border:1px solid var(--color-borde,#dfe3e8);
+    border-radius:12px;
+}
+
+.explicacion-bloques h4{
+    margin:0 0 .6rem;
+}
+
+.explicacion-bloques p,
+.explicacion-bloques ul{
+    margin:.35rem 0 0;
+}
+
+.explicacion-alerta{
+    grid-column:1/-1;
+    border-left:4px solid #a15c00 !important;
+    background:#fff8e6;
+}
+
+.lista-historial{
+    display:grid;
+    gap:1rem;
+    margin-top:1.5rem;
+}
+
+.medicion-historial{
+    display:grid;
+    grid-template-columns:minmax(150px,.8fr) repeat(4,minmax(110px,1fr)) auto;
+    gap:.75rem;
+    align-items:center;
+    padding:1rem 1.25rem;
+}
+
+.medicion-fecha time,
+.medicion-dato strong,
+.medicion-dato span{
+    display:block;
+}
+
+.medicion-dato span{
+    color:var(--color-texto-secundario,#667085);
+    font-size:.82rem;
+}
+
+.medicion-dato strong{
+    margin-top:.2rem;
+}
+
+.boton-eliminar{
+    min-width:44px;
+    min-height:44px;
+    border:1px solid #b42318;
+    border-radius:10px;
+    color:#b42318;
+    background:#fff;
+    cursor:pointer;
+}
+
+.gestion-historial{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:1rem;
+    margin-top:1.5rem;
+}
+
+.boton-peligro{
+    border-color:#b42318;
+    color:#b42318;
+    background:#fff;
+}
+
+@media (max-width:900px){
+    .resultados-grid-pro,
+    .medicion-historial{
+        grid-template-columns:repeat(2,minmax(0,1fr));
+    }
+
+    .medicion-fecha,
+    .medicion-acciones{
+        grid-column:1/-1;
+    }
+}
+
+@media (max-width:600px){
+    .hero{
+        padding:32px 0 36px;
+    }
+
+    .hero-icono{
+        width:64px;
+        height:64px;
+        margin-bottom:12px;
+        font-size:2rem;
+    }
+
+    .hero h1{
+        max-width:100%;
+        overflow-wrap:anywhere;
+    }
+
+    .calculadora-grid{
+        grid-template-columns:minmax(0,1fr);
+    }
+
+    .cabecera-contenido > *,
+    .navegacion-principal{
+        min-width:0;
+    }
+
+    .enlace-portal{
+        white-space:normal;
+        overflow-wrap:anywhere;
+        text-align:center;
+        line-height:1.25;
+    }
+
+    .indice-secciones .indice-contenido{
+        flex-wrap:wrap;
+        overflow-x:visible;
+    }
+
+    .indice-secciones .indice-contenido a{
+        min-width:0;
+        white-space:normal;
+        overflow-wrap:anywhere;
+    }
+
+    .etiqueta{
+        max-width:100%;
+        overflow-wrap:anywhere;
+    }
+
+    .hero-caracteristicas{
+        display:grid;
+        grid-template-columns:repeat(2,minmax(0,1fr));
+        gap:10px;
+    }
+
+    .caracteristica{
+        min-width:0;
+        padding:12px 8px;
+    }
+
+    .aviso-historial,
+    .gestion-historial{
+        align-items:stretch;
+        flex-direction:column;
+    }
+
+    .resultados-grid-pro,
+    .lecturas-grid,
+    .contraste-resultado,
+    .explicacion-bloques,
+    .medicion-historial{
+        grid-template-columns:1fr;
+    }
+
+    .resultados-grid-pro .resultado-principal,
+    .contraste-resultado p,
+    .explicacion-alerta,
+    .medicion-fecha,
+    .medicion-acciones{
+        grid-column:1;
+    }
+
+    .acciones-resultado .boton,
+    .acciones-compactas .boton{
+        width:100%;
+    }
+
+    .seleccion-lectura{
+        flex-direction:column;
+    }
+}
+
+@media (max-width:380px){
+    .marca{
+        width:min(122px,37vw);
+    }
+
+    .enlace-portal{
+        max-width:138px;
+        padding:7px;
+        font-size:.66rem;
+    }
+}
+
 
 /* ==========================================================
    FIN DEL H360 DESIGN SYSTEM

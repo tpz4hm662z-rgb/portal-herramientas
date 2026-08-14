@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="es">
+<meta charset="utf-8">
+<title>Grasa Corporal PRO · navegador adversarial</title>
+<body>
+<p id="status">RUNNING</p>
+<iframe id="app" title="Aplicación bajo prueba" width="390" height="844"></iframe>
+<script>
+"use strict";
+const statusNode = document.getElementById("status");
+const frame = document.getElementById("app");
+const storageKey = "imoancy.body-fat-pro.history.v1";
+let passed = 0;
+function ok(condition, message) { if (!condition) throw new Error(message); passed += 1; }
+function value(doc, id, next) { const node = doc.getElementById(id); node.value = next; node.dispatchEvent(new Event("input", { bubbles: true })); return node; }
+function submit(doc, id) { doc.getElementById(id).dispatchEvent(new Event("submit", { bubbles: true, cancelable: true })); }
+function wait(ms) { return new Promise(resolve => setTimeout(resolve, ms)); }
+async function load(tag, width, height) {
+    frame.style.width = (width || 390) + "px"; frame.style.height = (height || 844) + "px";
+    frame.src = "../index.html?audit=" + encodeURIComponent(tag);
+    await new Promise(resolve => frame.addEventListener("load", resolve, { once: true }));
+    await wait(10);
+    return frame.contentDocument;
+}
+function quick(doc, age, weight) {
+    value(doc, "sexo", "hombre"); value(doc, "edad", String(age)); value(doc, "altura", "180"); value(doc, "peso", String(weight || 83.7));
+    submit(doc, "formularioHerramienta");
+}
+function noHorizontalOverflow(doc, label) {
+    const width = doc.documentElement.clientWidth;
+    const offenders = Array.from(doc.querySelectorAll("body *")).filter(node => {
+        const rect = node.getBoundingClientRect();
+        return rect.width > 0 && (rect.right > width + 1 || rect.left < -1);
+    }).slice(0, 8).map(node => { const rect = node.getBoundingClientRect(); return node.tagName.toLowerCase() + (node.id ? "#" + node.id : node.className ? "." + String(node.className).trim().replace(/\s+/g, ".") : "") + "[" + Math.round(rect.left) + "," + Math.round(rect.right) + "]"; });
+    const internals = Array.from(doc.querySelectorAll("body *")).filter(node => node.clientWidth > 0 && node.scrollWidth > node.clientWidth + 1).slice(0, 24).map(node => node.tagName.toLowerCase() + (node.id ? "#" + node.id : node.className ? "." + String(node.className).trim().replace(/\s+/g, ".") : "") + "{" + node.scrollWidth + "/" + node.clientWidth + "}");
+    ok(doc.documentElement.scrollWidth <= width, label + " sin overflow horizontal (" + doc.documentElement.scrollWidth + "/" + width + "; " + offenders.join(",") + "; internos " + internals.join(",") + ")");
+}
+async function run() {
+    localStorage.removeItem(storageKey);
+    let doc = await load("first", 390, 844);
+    ok(doc.querySelectorAll("h1").length === 1, "Fase 3 conserva un único H1");
+    ok(["informacion", "metodologia", "medir-cintura", "interpretacion", "limitaciones", "fuentes", "preguntas-frecuentes"].every(id => doc.getElementById(id)), "arquitectura educativa completa tras la calculadora");
+    ok(doc.querySelectorAll("#preguntas-frecuentes details").length === 12, "FAQ visible y útil contiene doce preguntas");
+    ok(doc.querySelectorAll("#fuentes a").length === 4, "fuentes primarias y autoría son navegables");
+    ok(doc.getElementById("protocoloCintura").textContent.trim() === doc.getElementById("protocoloCinturaEducativo").textContent.trim(), "protocolo de cintura idéntico en cálculo y guía");
+    const structured = JSON.parse(doc.querySelector('script[type="application/ld+json"]').textContent);
+    ok(structured["@graph"].length === 4 && new Set(structured["@graph"].map(item => item["@id"])).size === 4, "JSON-LD tiene entidades enlazadas sin colisiones");
+    ok(!doc.documentElement.innerHTML.includes('"@type": "FAQPage"'), "FAQPage sin elegibilidad se ha retirado");
+    ok(doc.querySelectorAll(".migas-pan li").length === 2 && doc.querySelector(".migas-pan [aria-current=page]"), "migas visibles coinciden con su jerarquía");
+    ok(!Array.from(doc.scripts).some(node => /\/js\/(config|core)\.js$/.test(new URL(node.src || location.href).pathname)), "legado Navy no se carga");
+    ok(doc.querySelector('a[href*="calculadora-porcentaje-grasa-ideal"] .imoancy-related__description').textContent.includes("no estima tu porcentaje corporal actual"), "Grasa Ideal se diferencia de la estimación actual");
+    ok(Array.from(doc.scripts).filter(node => (node.src || "").includes("googletagmanager.com/gtag/js")).length === 1, "GA institucional no se duplica");
+    ok(doc.getElementById("resultados").classList.contains("oculto"), "primera visita mantiene resultados ocultos");
+    quick(doc, 35);
+    ok(!doc.getElementById("resultados").classList.contains("oculto"), "primera visita calcula con cuatro datos");
+    ok(doc.activeElement.id === "titulo-resultados", "foco llega al título del resultado");
+    ok(doc.querySelector(".resultado-numero").textContent.includes("≈"), "porcentaje aproximado es inmediato");
+    ok(doc.querySelector(".resultado-cabecera p").textContent.includes("no mide directamente"), "resultado se identifica como estimación");
+
+    doc = await load("age18", 390, 844); quick(doc, 18);
+    ok(!doc.getElementById("resultados").classList.contains("oculto"), "CUN-BAE funciona a los 18");
+    ok(doc.getElementById("botonMostrarCintura").classList.contains("oculto"), "RFM no aparece a los 18");
+    ok(!doc.getElementById("avisoRfmEdad").classList.contains("oculto") && doc.getElementById("avisoRfmEdad").textContent.includes("desde los 20"), "se explica el límite RFM a los 18");
+    doc = await load("age19", 390, 844); quick(doc, 19);
+    ok(doc.getElementById("botonMostrarCintura").classList.contains("oculto"), "RFM no aparece a los 19");
+    ok(!doc.getElementById("avisoRfmEdad").classList.contains("oculto"), "se explica el límite RFM a los 19");
+    doc = await load("age20", 390, 844); quick(doc, 20);
+    ok(!doc.getElementById("botonMostrarCintura").classList.contains("oculto"), "RFM aparece desde los 20");
+
+    doc = await load("waist", 390, 844); quick(doc, 35);
+    doc.getElementById("botonMostrarCintura").click();
+    ok(doc.activeElement.id === "titulo-cintura", "abrir cintura enfoca su título");
+    doc.getElementById("cerrarCintura").click();
+    ok(doc.activeElement.id === "botonMostrarCintura" && doc.getElementById("panelCintura").classList.contains("oculto"), "cerrar cintura devuelve el foco");
+    doc.getElementById("botonMostrarCintura").click();
+    value(doc, "cinturaUno", "100"); value(doc, "cinturaDos", "101.4");
+    ok(doc.getElementById("diferenciaLecturas").textContent.includes("1,4") && doc.getElementById("diferenciaLecturas").textContent.includes("no las promediamos"), "segunda lectura solo muestra diferencia");
+    submit(doc, "formularioCintura");
+    const expectedFirst = frame.contentWindow.ImoancyBodyFatScience.calculateRfm({ sex: "male", ageYears: 35, heightCm: 180, weightKg: 83.7, waistCm: 100 }).displayBodyFatPercent;
+    ok(Number(doc.getElementById("rfmComparado").textContent) === expectedFirst, "por defecto RFM usa la primera lectura");
+    doc.getElementById("usarCinturaDos").click(); submit(doc, "formularioCintura");
+    const expectedSecond = frame.contentWindow.ImoancyBodyFatScience.calculateRfm({ sex: "male", ageYears: 35, heightCm: 180, weightKg: 83.7, waistCm: 101.4 }).displayBodyFatPercent;
+    ok(Number(doc.getElementById("rfmComparado").textContent) === expectedSecond, "selección explícita usa la segunda lectura");
+    ok(doc.activeElement.id === "resultadoRfm", "resultado RFM recibe foco");
+    doc.getElementById("botonGuardar").click();
+    ok(doc.activeElement.id === "titulo-guardar", "confirmación de guardado empieza por su título");
+    doc.getElementById("confirmarGuardar").click();
+    const saved = JSON.parse(localStorage.getItem(storageKey));
+    ok(saved.records.length === 2 && saved.records.every(record => record.observed.waistCm === 101.4), "solo persiste la cintura elegida, nunca el promedio");
+    ok(doc.activeElement.id === "titulo-evolucion", "guardar lleva foco al historial actualizado");
+    ok(!frame.contentWindow.location.href.includes("83.7") && !frame.contentWindow.location.href.includes("101.4"), "datos no terminan en URL");
+    ok(!JSON.stringify(frame.contentWindow.dataLayer || []).includes("101.4"), "datos no terminan en dataLayer");
+    ok(doc.getElementById("cinturaUno").getAttribute("value") === null, "valor sensible no se copia a atributo persistente");
+
+    doc = await load("errors", 390, 844);
+    submit(doc, "formularioHerramienta");
+    ok(doc.activeElement.id === "sexo" && doc.getElementById("sexo").getAttribute("aria-invalid") === "true", "error rápido enfoca primer campo inválido");
+    quick(doc, 35); doc.getElementById("botonMostrarCintura").click();
+    value(doc, "cinturaUno", "100"); value(doc, "cinturaDos", "250"); doc.getElementById("usarCinturaDos").click(); submit(doc, "formularioCintura");
+    ok(doc.activeElement.id === "cinturaDos", "error de segunda lectura enfoca el campo correcto");
+
+    const win = frame.contentWindow, tracking = win.ImoancyBodyFatTracking, store = win.ImoancyBodyFatHistoryStore.createStore(win.localStorage);
+    const records = [], now = Date.now();
+    for (let index = 0; index < 1000; index += 1) {
+        records.push(tracking.createMeasurement({
+            id: "browser_" + String(index).padStart(4, "0"),
+            measuredAt: new Date(now - (1000 - index) * 86400000).toISOString(),
+            methodId: "cun-bae",
+            observed: { sex: "male", ageYears: 35, heightCm: 180, weightKg: 70 + (index % 20) }
+        }));
+    }
+    ok(store.write(records).status === "OK", "prepara muchos registros válidos");
+    doc = await load("many", 390, 844);
+    ok(!doc.getElementById("avisoHistorial").classList.contains("oculto") && doc.getElementById("evolucion").classList.contains("oculto"), "regreso avisa sin abrir dashboard");
+    doc.getElementById("botonVerEvolucion").click();
+    ok(doc.activeElement.id === "titulo-evolucion", "abrir historial enfoca su título");
+    ok(doc.querySelectorAll(".medicion-historial").length === 1000, "mil registros siguen accesibles");
+    ok(doc.getElementById("explicacionCambio").textContent.includes("Qué NO podemos concluir"), "explicación completa está disponible");
+
+    const viewports = [[320,568],[360,800],[390,844],[768,1024],[1024,768],[1440,900]];
+    for (const viewport of viewports) {
+        frame.style.width = viewport[0] + "px"; frame.style.height = viewport[1] + "px"; await wait(20);
+        noHorizontalOverflow(doc, viewport[0] + "x" + viewport[1]);
+    }
+    frame.style.width = "320px"; frame.style.height = "568px"; doc.documentElement.style.fontSize = "200%"; await wait(30);
+    noHorizontalOverflow(doc, "320x568 con texto al 200 %");
+    doc.getElementById("estadoHistorial").textContent = "TextoSinEspacios".repeat(80); await wait(20);
+    noHorizontalOverflow(doc, "texto largo adversarial");
+    doc.documentElement.style.fontSize = "";
+
+    frame.contentWindow.confirm = () => true;
+    doc.querySelector(".boton-eliminar").click();
+    ok(doc.activeElement.classList.contains("boton-eliminar") || doc.activeElement.id === "titulo-evolucion", "eliminar conserva foco útil");
+    doc.getElementById("borrarHistorial").click();
+    ok(doc.activeElement.id === "titulo-evolucion" && doc.querySelectorAll(".medicion-historial").length === 0, "borrar todo devuelve foco y vacía la lista");
+
+    localStorage.setItem(storageKey, "{");
+    doc = await load("corrupt", 320, 568);
+    ok(!doc.getElementById("borrarHistorial").disabled, "un historial corrupto conserva una vía de borrado");
+    frame.contentWindow.confirm = () => true; doc.getElementById("borrarHistorial").click();
+    ok(localStorage.getItem(storageKey) === null && doc.getElementById("avisoHistorial").classList.contains("oculto"), "borrar corrupción recupera el estado vacío");
+    localStorage.setItem(storageKey, "{"); quick(doc, 35);
+    ok(!doc.getElementById("resultados").classList.contains("oculto"), "historial corrupto no bloquea el cálculo");
+
+    const hostileCurrent = tracking.createMeasurement({
+        id: "hostile_current_01",
+        measuredAt: "2026-06-01T10:00:00.000Z",
+        methodId: "cun-bae",
+        observed: { sex: "male", ageYears: 35, heightCm: 180, weightKg: 83.7 },
+        conditionsNote: '<img src=x onerror="document.documentElement.dataset.historyXss=1">'
+    });
+    const hostileLegacy = JSON.parse(JSON.stringify(tracking.createMeasurement({
+        id: "hostile_legacy_01",
+        measuredAt: "2026-07-01T10:00:00.000Z",
+        methodId: "cun-bae",
+        observed: { sex: "male", ageYears: 35, heightCm: 180, weightKg: 82.7 }
+    })));
+    hostileLegacy.method.version = '<svg onload="document.documentElement.dataset.historyXss=2">' + "x".repeat(200000);
+    const hostileRaw = JSON.stringify({ schemaVersion: 1, records: [hostileCurrent, hostileLegacy] })
+        .replace('{"schemaVersion":1,', '{"__proto__":{"polluted":"yes"},"schemaVersion":1,');
+    localStorage.setItem(storageKey, hostileRaw);
+    doc = await load("hostile", 390, 844);
+    doc.getElementById("botonVerEvolucion").click();
+    ok(doc.querySelectorAll(".medicion-historial").length === 2, "entrada hostil válida no bloquea el historial");
+    ok(!doc.documentElement.dataset.historyXss && !doc.querySelector(".medicion-historial img, .medicion-historial svg"), "cadenas hostiles no se convierten en DOM ejecutable");
+    ok(!doc.getElementById("listaHistorial").innerHTML.includes("onerror") && !doc.getElementById("listaHistorial").innerHTML.includes("onload"), "atributos hostiles no llegan al HTML renderizado");
+    ok(frame.contentWindow.Object.prototype.polluted === undefined, "JSON hostil no contamina Object.prototype");
+    quick(doc, 35);
+    ok(!doc.getElementById("resultados").classList.contains("oculto"), "cadena hostil grande no bloquea el cálculo");
+    localStorage.removeItem(storageKey);
+    statusNode.textContent = "PASS " + passed;
+}
+run().catch(error => { statusNode.textContent = "FAIL " + error.message; document.body.dataset.failure = error.stack; });
+</script>
+</body>
+</html>
