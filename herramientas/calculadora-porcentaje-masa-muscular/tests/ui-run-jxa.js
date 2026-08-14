@@ -54,6 +54,7 @@ function run(argv){
  test("neutral scale colors",()=>ok(!css.match(/\.mm-scale[^}]*var\(--color-(success|warning|danger)/s)));
  test("responsive breakpoints",()=>ok(css.includes("max-width:767px")&&css.includes("max-width:374px")));
  test("sex choices stay in one row on mobile",()=>ok(css.includes("@media(max-width:767px){.mm-choice-row{flex-direction:row}")));
+ test("sex radios are contained instead of masked",()=>{ok(css.includes(".mm-choice-row label{position:relative"));ok(css.includes(".mm-choice-row input{position:absolute;inset:0;width:100%;height:100%;min-height:0"));ok(!css.includes(".mm-app{padding:48px 0 72px;background:linear-gradient(180deg,#eff6ff 0,#f8fafc 360px);overflow-x"))});
  test("sex contextual help is keyboard operable",()=>ok(app.includes('id="mm-sex-help-button"')&&app.includes('aria-expanded="false"')&&app.includes('aria-controls="mm-help-sex"')));
  test("sex contextual help starts hidden",()=>ok(app.includes('id="mm-help-sex" class="mm-context-help" hidden')&&css.includes(".mm-app [hidden]{display:none!important}")));
  test("sex error belongs to the whole fieldset",()=>{ok(app.includes('<fieldset id="mm-sex-field"'));ok(app.includes('aria-describedby="mm-help-sex mm-error-sex"'));ok(script.includes('key === "sex" ? byId("mm-sex-field")'));ok(!script.includes('key === "sex" ? form.querySelector("input[name=sex]") :'))});
