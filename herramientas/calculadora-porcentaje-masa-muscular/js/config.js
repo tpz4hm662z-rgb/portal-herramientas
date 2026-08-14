@@ -20,9 +20,9 @@ const CONFIG = {
 
     herramienta: {
 
-        nombre: "Calculadora de Porcentaje de Masa Muscular Pro",
+        nombre: "Calculadora de Masa Muscular Esquelética PRO",
 
-        nombreCorto: "Masa Muscular Pro",
+        nombreCorto: "Masa Muscular Esquelética PRO",
 
         proyecto: "calculadora-porcentaje-masa-muscular",
 

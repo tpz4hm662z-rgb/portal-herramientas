@@ -1,0 +1,66 @@
+ObjC.import("Foundation");
+function read(path){return ObjC.unwrap($.NSString.stringWithContentsOfFileEncodingError(path,$.NSUTF8StringEncoding,null));}
+function run(argv){
+ const b=argv[0], source=["scientific-config.js","reference-data.js","scientific-core.js","script.js"].map(n=>read(b+"/js/"+n)).join("\n");
+ eval(source+"\n;globalThis.uiEngine=estimateSkeletalMuscle;");
+ let passed=0,failures=[];
+ function test(n,f){try{f();passed++}catch(e){failures.push(n+": "+e.message)}}
+ function eq(a,b){if(a!==b)throw Error(String(a)+" !== "+String(b))} function ok(v){if(!v)throw Error("assertion failed")} function close(a,b){if(Math.abs(a-b)>1e-12)throw Error(a+" != "+b)}
+ const U=MuscleMassUI, valid={sex:"male",age:"40",heightCm:"172",weightKg:"75",populationGroup:""};
+ test("172 cm converts exactly",()=>eq(U.normalizeFormValues(valid).heightM,1.72));
+ [["72,5",72.5],["72.5",72.5],[" 72.5 ",72.5]].forEach(x=>test("strict parser "+x[0],()=>eq(U.parseStrictNumber(x[0]),x[1])));
+ [""," ","1,2,3","12kg","1e2",null,undefined,[],{},NaN,Infinity].forEach((x,i)=>test("parser hostile "+i,()=>eq(U.parseStrictNumber(x),null)));
+ [[19,false],[20,true],[81,true],[82,false]].forEach(x=>test("age boundary "+x[0],()=>eq(Object.keys(U.validateNormalized(U.normalizeFormValues(Object.assign({},valid,{age:String(x[0])})))).length===0,x[1])));
+ test("fractional age blocked",()=>ok(U.validateNormalized(U.normalizeFormValues(Object.assign({},valid,{age:"40.5"}))).age));
+ test("empty sex blocked",()=>ok(U.validateNormalized(U.normalizeFormValues(Object.assign({},valid,{sex:""}))).sex));
+ test("empty fields blocked",()=>{let e=U.validateNormalized(U.normalizeFormValues({sex:"",age:"",heightCm:"",weightKg:""}));ok(e.sex&&e.age&&e.height&&e.weight)});
+ [["0.0172",true],["1.72",true],["49",true],["50",false],["172",false],["300",false],["301",true],["17200",true],["170m",true]].forEach(x=>test("height unit guard "+x[0],()=>eq(Boolean(U.validateNormalized(U.normalizeFormValues(Object.assign({},valid,{heightCm:x[0]}))).height),x[1])));
+ [["0",true],["1",true],["9.99",true],["10",false],["72.5",false],["500",false],["500.01",true],["10000",true],["Infinity",true],["1e2",true],["hola",true]].forEach(x=>test("weight magnitude guard "+x[0],()=>eq(Boolean(U.validateNormalized(U.normalizeFormValues(Object.assign({},valid,{weightKg:x[0]}))).weight),x[1])));
+ [[" 1.72 ",true],["+1.72",true],["49,99",true],["5e1",true],["１７２",true],[" 172 ",false],["+172",false],["172,0",false]].forEach(x=>test("height bypass attempt "+x[0],()=>eq(Boolean(U.validateNormalized(U.normalizeFormValues(Object.assign({},valid,{heightCm:x[0]}))).height),x[1])));
+ [[" 9.99 ",true],["+9.99",true],["9,99",true],["1e2",true],["１００",true],[" 72.5 ",false],["+72.5",false],["72,5",false]].forEach(x=>test("weight bypass attempt "+x[0],()=>eq(Boolean(U.validateNormalized(U.normalizeFormValues(Object.assign({},valid,{weightKg:x[0]}))).weight),x[1])));
+ test("1.72 cm is blocked before muscleKg exists",()=>{let v=U.normalizeFormValues(Object.assign({},valid,{heightCm:"1.72"})),e=U.validateNormalized(v),r;if(!Object.keys(e).length)r=uiEngine(v);ok(e.height);eq(r,undefined)});
+ test("10000 kg is blocked before muscleKg exists",()=>{let v=U.normalizeFormValues(Object.assign({},valid,{weightKg:"10000"})),e=U.validateNormalized(v),r;if(!Object.keys(e).length)r=uiEngine(v);ok(e.weight);eq(r,undefined)});
+ test("DOM attribute editing cannot bypass JavaScript guards",()=>{let low=U.normalizeFormValues(Object.assign({},valid,{heightCm:"1.72"})),heavy=U.normalizeFormValues(Object.assign({},valid,{weightKg:"10000"}));ok(U.validateNormalized(low).height);ok(U.validateNormalized(heavy).weight)});
+ test("male calculation and one-decimal display",()=>{let v=U.normalizeFormValues(valid),r=uiEngine(v);eq(U.formatOneDecimal(r.muscleKg),"31,1");eq(U.formatOneDecimal(r.musclePercent),"41,5")});
+ test("female calculation",()=>{let v=U.normalizeFormValues(Object.assign({},valid,{sex:"female"})),r=uiEngine(v);ok(r.muscleKg>0);eq(r.referenceMeanPercent,29.2)});
+ test("primary has no extended status",()=>eq(uiEngine(U.normalizeFormValues(valid)).validationStatus,"primary"));
+ test("extended BMI status",()=>eq(uiEngine(U.normalizeFormValues(Object.assign({},valid,{heightCm:"160",weightKg:"80"}))).validationStatus,"extended_bmi"));
+ [["",false,0],["white_hispanic",true,0],["asian",true,-1.2],["african_american",true,1.4],["other",false,0],["mixed",false,0],["unknown",false,0]].forEach(x=>test("population "+x[0],()=>{let r=uiEngine(U.normalizeFormValues(Object.assign({},valid,{populationGroup:x[0]})));eq(r.populationAdjustmentApplied,x[1]);eq(r.populationAdjustmentKg,x[2])}));
+ [[20,"18-29",42.3],[29,"18-29",42.3],[30,"30-39",39.1],[39,"30-39",39.1],[40,"40-49",37.1],[49,"40-49",37.1],[50,"50-59",35.1],[59,"50-59",35.1],[60,"60-69",33.8],[69,"60-69",33.8],[70,"70+",36],[81,"70+",36]].forEach(x=>test("reference "+x[0],()=>{let r=uiEngine(U.normalizeFormValues(Object.assign({},valid,{age:String(x[0])})));eq(r.referenceGroup,x[1]);eq(r.referenceMeanPercent,x[2])}));
+ test("limited evidence at 81",()=>eq(uiEngine(U.normalizeFormValues(Object.assign({},valid,{age:"81"}))).referenceEvidence,"limited"));
+ test("reference visual mean centers",()=>eq(U.referencePosition(40,40,5),50));
+ test("reference visual clamps low",()=>eq(U.referencePosition(1,40,5),0));
+ test("reference visual clamps high",()=>eq(U.referencePosition(90,40,5),100));
+ test("reference visual invalid SD",()=>eq(U.referencePosition(40,40,0),null));
+ test("markers remain separate when positions are separated",()=>{let x=U.referenceMarkerLayout(75);eq(x.combined,false);eq(x.meanBelow,false)});
+ test("near markers use separate label lanes",()=>{let x=U.referenceMarkerLayout(58);eq(x.combined,false);eq(x.meanBelow,true)});
+ test("practically equal markers combine legibly",()=>{let x=U.referenceMarkerLayout(50.5);eq(x.combined,true);close(x.combinedPosition,50.25)});
+ test("exactly equal markers combine",()=>{let x=U.referenceMarkerLayout(50);eq(x.combined,true);eq(x.combinedPosition,50)});
+ test("clipped low marker remains visually valid",()=>{eq(U.referencePosition(1,40,5),0);eq(U.referenceMarkerLayout(0).combined,false)});
+ test("clipped high marker remains visually valid",()=>{eq(U.referencePosition(90,40,5),100);eq(U.referenceMarkerLayout(100).combined,false)});
+ test("reference values do not alter result",()=>{let a=uiEngine(U.normalizeFormValues(valid)),b=uiEngine(U.normalizeFormValues(valid));close(a.muscleKg,b.muscleKg);close(a.musclePercent,b.musclePercent)});
+ ["invalid_input","not_applicable_age","physiologically_invalid"].forEach(s=>test("human status "+s,()=>ok(U.humanResultError(s).indexOf(s)===-1)));
+ test("reference labels preserve published group",()=>eq(U.referenceGroupText("male","18-29"),"Referencia poblacional · hombres de 18-29 años"));
+ test("no clinical fields",()=>{let r=uiEngine(U.normalizeFormValues(valid));eq(r.clinicalInterpretation,null);ok(!("percentile" in r)&&!("classification" in r)&&!("lowerBound" in r))});
+ const html=read(b+"/index.html"),css=read(b+"/css/style.css"),script=read(b+"/js/script.js"),app=html.slice(html.indexOf('<section class="mm-app"'),html.indexOf('<section id="herramientas-relacionadas"'));
+ test("four primary input concepts",()=>{["sex","age","heightCm","weightKg"].forEach(n=>ok(app.includes('name="'+n+'"')));ok(!app.includes("nivelActividad"))});
+ test("advanced population disclosure",()=>ok(app.includes("<details")&&app.includes('name="populationGroup"')));
+ test("real labels and error associations",()=>{["mm-age","mm-height","mm-weight"].forEach(id=>ok(app.includes('for="'+id+'"')));ok(app.includes('aria-live="polite"'))});
+ test("no inline click handlers",()=>ok(!app.match(/onclick\s*=/i)));
+ test("protected scripts loaded before controller",()=>ok(html.indexOf("scientific-core.js")<html.indexOf("js/script.js")));
+ test("controller has no Lee coefficients",()=>["0.244","7.80","6.6","0.098","-3.3"].forEach(v=>ok(!script.includes(v))));
+ test("controller has no MRI table duplication",()=>ok(!script.includes("42.3")&&!script.includes("34.1")));
+ test("no individual SEE interval",()=>ok(!app.includes("± 2,8")&&!script.includes("lowerBound")&&!script.includes("upperBound")));
+ test("neutral scale colors",()=>ok(!css.match(/\.mm-scale[^}]*var\(--color-(success|warning|danger)/s)));
+ test("responsive breakpoints",()=>ok(css.includes("max-width:767px")&&css.includes("max-width:374px")));
+ test("sex choices stay in one row on mobile",()=>ok(css.includes("@media(max-width:767px){.mm-choice-row{flex-direction:row}")));
+ test("sex contextual help is keyboard operable",()=>ok(app.includes('id="mm-sex-help-button"')&&app.includes('aria-expanded="false"')&&app.includes('aria-controls="mm-help-sex"')));
+ test("sex contextual help starts hidden",()=>ok(app.includes('id="mm-help-sex" class="mm-context-help" hidden')&&css.includes(".mm-app [hidden]{display:none!important}")));
+ test("sex error belongs to the whole fieldset",()=>{ok(app.includes('<fieldset id="mm-sex-field"'));ok(app.includes('aria-describedby="mm-help-sex mm-error-sex"'));ok(script.includes('key === "sex" ? byId("mm-sex-field")'));ok(!script.includes('key === "sex" ? form.querySelector("input[name=sex]") :'))});
+ test("HTML input bounds match authoritative UI guards",()=>{ok(app.includes('name="heightCm" type="number" min="50" max="300"'));ok(app.includes('name="weightKg" type="number" min="10" max="500"'))});
+ test("reference shows both numeric values",()=>ok(app.includes('id="mm-reference-mean"')&&app.includes('id="mm-reference-user"')));
+ test("dynamic human interpretation values",()=>ok(app.includes('id="mm-meaning-kg"')&&app.includes('id="mm-meaning-percent"')));
+ test("SEE moved into methodology",()=>{let method=app.slice(app.indexOf('<details class="tarjeta mm-method"'));ok(method.includes("2,8 kg"));let interpretation=app.slice(app.indexOf('<article class="tarjeta mm-uncertainty"'),app.indexOf('</article>',app.indexOf('<article class="tarjeta mm-uncertainty"')));ok(!interpretation.includes("2,8 kg"))});
+ test("no app horizontal overflow declaration",()=>ok(!css.match(/\.mm-app[^}]*overflow-x\s*:\s*(scroll|auto)/)));
+ failures.forEach(x=>console.log("FAIL "+x));console.log("Fase 2 tests: "+passed+" PASS, "+failures.length+" FAIL");return failures.length?1:0;
+}
