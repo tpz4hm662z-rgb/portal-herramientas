@@ -61,6 +61,11 @@ function run(argv){
  test("HTML input bounds match authoritative UI guards",()=>{ok(app.includes('name="heightCm" type="number" min="50" max="300"'));ok(app.includes('name="weightKg" type="number" min="10" max="500"'))});
  test("reference shows both numeric values",()=>ok(app.includes('id="mm-reference-mean"')&&app.includes('id="mm-reference-user"')));
  test("dynamic human interpretation values",()=>ok(app.includes('id="mm-meaning-kg"')&&app.includes('id="mm-meaning-percent"')));
+ test("one contextual body-fat CTA",()=>eq((app.match(/id="mm-contextual-cta"/g)||[]).length,1));
+ test("contextual CTA is a real local link",()=>ok(app.includes('<a href="/herramientas/calculadora-grasa-corporal/">Calcular mi grasa corporal')));
+ test("contextual CTA follows result interpretation",()=>{let interpretation=app.indexOf('class="tarjeta mm-uncertainty"'),cta=app.indexOf('id="mm-contextual-cta"'),learning=app.indexOf('class="mm-learning"');ok(interpretation<cta&&cta<learning)});
+ test("contextual CTA is keyboard and touch ready",()=>{ok(css.includes(".mm-next-step a{display:inline-flex;min-height:48px"));ok(css.includes(".mm-next-step a:focus-visible"));ok(!app.slice(app.indexOf('id="mm-contextual-cta"'),app.indexOf('</article>',app.indexOf('id="mm-contextual-cta"'))).match(/onclick\s*=/i))});
+ test("related grid remains three distinct cards",()=>{let related=html.slice(html.indexOf('<section id="herramientas-relacionadas"'),html.indexOf('</section>',html.indexOf('<section id="herramientas-relacionadas"')));eq((related.match(/class="imoancy-related__card"/g)||[]).length,3);ok(!related.includes('/herramientas/calculadora-porcentaje-masa-muscular/'))});
  test("SEE moved into methodology",()=>{let method=app.slice(app.indexOf('<details class="tarjeta mm-method"'));ok(method.includes("2,8 kg"));let interpretation=app.slice(app.indexOf('<article class="tarjeta mm-uncertainty"'),app.indexOf('</article>',app.indexOf('<article class="tarjeta mm-uncertainty"')));ok(!interpretation.includes("2,8 kg"))});
  test("no app horizontal overflow declaration",()=>ok(!css.match(/\.mm-app[^}]*overflow-x\s*:\s*(scroll|auto)/)));
  failures.forEach(x=>console.log("FAIL "+x));console.log("Fase 2 tests: "+passed+" PASS, "+failures.length+" FAIL");return failures.length?1:0;
