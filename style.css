@@ -419,3 +419,52 @@ h1 {
     }
 
 }
+/* Navegación principal: Herramientas | Guías */
+.nav-principal {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 14px auto 22px;
+}
+
+.nav-principal a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 14px;
+    border: 1px solid rgba(255, 255, 255, 0.28);
+    border-radius: 999px;
+    color: #ffffff;
+    font-size: 0.9rem;
+    font-weight: 700;
+    line-height: 1.2;
+    text-decoration: none;
+}
+
+.nav-principal a:hover {
+    background: rgba(255, 255, 255, 0.12);
+}
+
+.nav-principal .nav-principal-activo {
+    background: rgba(255, 255, 255, 0.16);
+    border-color: rgba(255, 255, 255, 0.42);
+}
+
+.nav-principal a:focus-visible {
+    outline: 3px solid #ffffff;
+    outline-offset: 3px;
+}
+
+@media (max-width: 600px) {
+    .nav-principal {
+        margin: 10px auto 16px;
+        gap: 6px;
+    }
+
+    .nav-principal a {
+        padding: 7px 11px;
+        font-size: 0.82rem;
+    }
+}

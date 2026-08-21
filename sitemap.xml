@@ -6,4 +6,7 @@
     <sitemap>
         <loc>https://imoancy.com/sitemaps/sitemap-herramientas.xml</loc>
     </sitemap>
+    <sitemap>
+        <loc>https://imoancy.com/sitemaps/sitemap-guias.xml</loc>
+    </sitemap>
 </sitemapindex>
