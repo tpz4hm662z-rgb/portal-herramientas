@@ -1,0 +1,102 @@
+:root{--ink:#0f172a;--muted:#526176;--line:#dbe4ef;--surface:#fff;--soft:#f4f8fc;--brand:#1d4ed8;--brand-dark:#173b78;--cyan:#0891b2;--ok:#047857;--warn:#a16207;--bad:#b91c1c;--radius:18px;--shadow:0 16px 44px rgba(15,23,42,.09)}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:#f7f9fc;color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.55}
+button,a{cursor:pointer}button:focus-visible,a:focus-visible,summary:focus-visible{outline:3px solid rgba(8,145,178,.45);outline-offset:3px}
+
+/* Cabecera y pie — idénticos a los reutilizados en el resto de Imoancy */
+.cabecera-principal{background:#0f172a;box-shadow:0 8px 24px rgba(15,23,42,.16)}.cabecera-contenido{width:min(100% - 32px,1240px);min-height:68px;margin:auto;display:flex;align-items:center;justify-content:space-between;gap:16px}.marca{width:min(220px,48vw)}.marca-logo{display:block;width:100%;height:auto}.enlace-portal{color:#fff;text-decoration:none;border:1px solid rgba(255,255,255,.28);border-radius:999px;padding:9px 14px;font-size:.875rem;font-weight:750;white-space:nowrap}
+.pie-pagina{margin-top:64px;background:#0f172a;color:#cbd5e1}.pie-contenido{width:min(100% - 32px,1200px);margin:auto;padding:38px 0 30px;display:grid;grid-template-columns:1fr auto;align-items:center;gap:28px}.pie-marca{width:190px}.pie-navegacion{display:flex;flex-wrap:wrap;justify-content:flex-end;gap:10px 18px}.pie-navegacion a{color:#cbd5e1;text-decoration:none}.copyright{width:min(100% - 32px,1200px);margin:auto;padding:17px 0;border-top:1px solid rgba(255,255,255,.12);text-align:center;color:#94a3b8}.copyright p{margin:0}
+
+/* Página y hero */
+.pagina-guia{width:min(100% - 32px,1240px);margin:0 auto 72px}
+.hero{max-width:780px;padding:52px 0 8px}.eyebrow{margin:0 0 10px;color:var(--brand);font-size:.82rem;font-weight:850;letter-spacing:.1em;text-transform:uppercase}.hero h1{margin:0;font-size:clamp(2.1rem,4.6vw,3.4rem);line-height:1.06;letter-spacing:-.04em}.hero>p{max-width:680px;margin:18px 0 0;color:var(--muted);font-size:clamp(1rem,2vw,1.14rem)}.sello-revision{display:inline-flex;margin:16px 0 0;border-radius:999px;background:#dcfce7;padding:7px 12px;color:#166534;font-size:.8rem;font-weight:800}
+
+/* Caja de respuesta rápida */
+.respuesta-rapida{margin:26px 0 48px;border-left:4px solid var(--cyan);border-radius:0 16px 16px 0;background:#ecfeff;padding:20px 24px;color:#164e63;max-width:820px}
+.respuesta-rapida h2{margin:0 0 8px;font-size:1.05rem;color:#0f172a}
+.respuesta-rapida p{margin:0 0 10px}
+.respuesta-rapida p:last-child{margin-bottom:0}
+
+/* Artículo editorial */
+.contenido-editorial{max-width:800px;margin:0 auto;color:#27364a}
+.contenido-editorial section{scroll-margin-top:24px;margin-top:52px}
+.contenido-editorial h2{margin:0 0 16px;color:var(--ink);font-size:clamp(1.45rem,2.6vw,1.9rem);line-height:1.2;letter-spacing:-.02em}
+.contenido-editorial h3{margin:20px 0 8px;color:var(--ink);font-size:1.02rem}
+.contenido-editorial p{margin:0 0 16px}
+.contenido-editorial a{color:var(--brand);font-weight:700;text-underline-offset:3px}
+.revision-editorial{color:var(--muted);font-size:.84rem;margin-top:6px}
+.indice-editorial{margin-top:26px;border:1px solid var(--line);border-radius:16px;background:#fff;padding:18px 20px}
+.indice-editorial strong{font-size:.9rem}
+.indice-editorial ul{display:flex;flex-wrap:wrap;gap:8px 16px;margin:10px 0 0;padding:0;list-style:none;font-size:.9rem}
+.indice-editorial a{text-decoration:none}
+
+/* Línea temporal de los 15 días hábiles */
+.linea-tiempo{list-style:none;margin:0 0 16px;padding:0;display:grid;gap:14px}
+.linea-tiempo li{display:grid;grid-template-columns:34px 1fr;gap:14px;align-items:start}
+.linea-tiempo .paso-num{display:grid;place-items:center;width:34px;height:34px;border-radius:50%;background:#e7efff;color:var(--brand);font-weight:850;font-size:.9rem}
+.linea-tiempo strong{display:block;color:var(--ink)}
+.linea-tiempo span{color:var(--muted);font-size:.92rem}
+
+/* Caja de ejemplo */
+.caja-ejemplo{border:1px solid var(--line);border-radius:16px;background:var(--soft);padding:20px 22px;margin:8px 0 20px}
+.caja-ejemplo h3{margin-top:0}
+.caja-ejemplo ul{margin:0 0 12px;padding-left:20px}
+.caja-ejemplo li+li{margin-top:4px}
+.caja-ejemplo p:last-child{margin-bottom:0}
+
+/* Checklist */
+.checklist{border:1px solid #fde68a;border-radius:16px;background:#fffbeb;padding:20px 22px}
+.checklist ul{margin:0;padding-left:20px}
+.checklist li+li{margin-top:8px}
+
+/* Comparativa vacaciones vs paro */
+.comparativa-conceptos{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin:8px 0 16px}
+.comparativa-conceptos>div{border:1px solid var(--line);border-radius:15px;background:#fff;padding:18px}
+.comparativa-conceptos h3{margin-top:0}
+
+/* CTA hacia Finiquito PRO */
+.cta-herramienta{border-left:4px solid var(--brand);border-radius:0 16px 16px 0;background:#eef4ff;padding:20px 22px;margin:12px 0 8px}
+.cta-herramienta p{margin:0 0 12px}
+.cta-herramienta p:last-of-type{margin-bottom:0}
+.cta-herramienta .boton-cta{display:inline-flex;border:0;border-radius:12px;background:var(--brand);color:#fff;text-decoration:none;font-weight:800;padding:12px 18px}
+.cta-herramienta .boton-cta:hover{background:#1e40af}
+
+/* FAQ */
+.lista-faq{border-top:1px solid var(--line)}
+.lista-faq details{border-bottom:1px solid var(--line);background:#fff}
+.lista-faq summary{padding:18px 44px 18px 4px;color:var(--ink);font-weight:800;cursor:pointer}
+.lista-faq p{padding:0 28px 18px 4px;color:var(--muted);margin:0}
+
+/* Fuentes y transparencia */
+.fuentes-oficiales ul{margin:0;padding-left:20px}
+.fuentes-oficiales li+li{margin-top:6px}
+.nota-transparencia{margin-top:14px;padding:14px 16px;border-radius:12px;background:var(--soft);color:var(--muted);font-size:.85rem}
+
+@media(max-width:980px){.comparativa-conceptos{grid-template-columns:1fr}}
+@media(max-width:640px){.pagina-guia{width:min(100% - 20px,1240px)}.cabecera-contenido{width:min(100% - 20px,1240px);min-height:62px}.marca{width:min(158px,44vw)}.enlace-portal{font-size:.72rem;padding:7px 9px}.hero{padding:36px 4px 4px}.respuesta-rapida{padding:16px 18px}.pie-contenido{grid-template-columns:1fr}.pie-navegacion{justify-content:flex-start}}
+@media(max-width:360px){.pagina-guia{width:100%;padding:0 8px}.hero h1{font-size:1.8rem}}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
+
+
+/* Guía #4 — adaptación de jornada */
+.selector-decision{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin:12px 0 20px}
+.selector-decision>div{border:1px solid var(--line);border-radius:16px;background:#fff;padding:20px 22px}
+.selector-decision h3{margin-top:0}
+.alerta-plazo{border-left:4px solid #dc2626;border-radius:0 16px 16px 0;background:#fef2f2;padding:20px 22px;margin:18px 0;color:#7f1d1d}
+.alerta-plazo strong{color:#991b1b}
+.modelo-solicitud{border:1px solid var(--line);border-radius:16px;background:#fff;padding:22px;margin:12px 0 20px}
+.modelo-solicitud p{margin:0 0 12px}
+.modelo-solicitud p:last-child{margin-bottom:0}
+.pasos-negociacion{list-style:none;margin:0 0 16px;padding:0;display:grid;gap:14px}
+.pasos-negociacion li{display:grid;grid-template-columns:34px 1fr;gap:14px;align-items:start}
+.pasos-negociacion .paso-num{display:grid;place-items:center;width:34px;height:34px;border-radius:50%;background:#e7efff;color:var(--brand);font-weight:850;font-size:.9rem}
+.pasos-negociacion strong{display:block;color:var(--ink)}
+.pasos-negociacion span{color:var(--muted);font-size:.92rem}
+@media(max-width:760px){.selector-decision{grid-template-columns:1fr}}
+
+/* Guía #9 — percentiles y trayectoria en bebés prematuros */
+.idea-clave{border-left:4px solid var(--cyan);border-radius:0 14px 14px 0;background:#ecfeff;padding:16px 20px;color:#164e63;font-weight:700}
+.tabla-wrap{overflow-x:auto;margin:8px 0 20px;border:1px solid var(--line);border-radius:16px;background:#fff}
+.tabla-wrap table{width:100%;min-width:520px;border-collapse:collapse}
+.tabla-wrap th,.tabla-wrap td{padding:13px 16px;border-bottom:1px solid var(--line);text-align:center}
+.tabla-wrap th{background:var(--soft);color:var(--ink);font-weight:850}
+.tabla-wrap tbody tr:last-child td{border-bottom:0}
