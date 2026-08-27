@@ -261,8 +261,13 @@
         h.equal((block[1].match(/<a /g) || []).length, 2);
     });
 
-    h.test("duplicate bottom related-tools block was removed", function () {
-        h.ok(!includes(html, 'id="herramientas-relacionadas"'));
+    h.test("permanent related-tools block exposes the three pregnancy resources", function () {
+        var block = html.match(/<section id="herramientas-relacionadas"[\s\S]*?<\/section>/);
+        h.ok(block);
+        h.equal((block[0].match(/class="imoancy-related__card"/g) || []).length, 3);
+        h.ok(includes(block[0], "/herramientas/calculadora-de-edad-gestacional/"));
+        h.ok(includes(block[0], "/herramientas/calculadora-fecha-de-parto/"));
+        h.ok(includes(block[0], "/herramientas/contador-de-movimientos-fetales/"));
     });
 
     h.test("all static HTML identifiers are unique", function () {
