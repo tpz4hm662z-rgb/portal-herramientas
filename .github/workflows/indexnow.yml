@@ -1,0 +1,32 @@
+name: Notificar URLs a IndexNow
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "**/*.html"
+      - "scripts/indexnow.py"
+      - ".github/workflows/indexnow.yml"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: indexnow-main
+  cancel-in-progress: false
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Descargar el repositorio y el historial del push
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Detectar y notificar páginas públicas modificadas
+        run: >-
+          python3 scripts/indexnow.py
+          --before "${{ github.event.before }}"
+          --after "${{ github.sha }}"
+          --submit
