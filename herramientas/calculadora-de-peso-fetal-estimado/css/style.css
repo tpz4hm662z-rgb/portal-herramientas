@@ -2714,6 +2714,16 @@ textarea[aria-invalid="true"]:focus{
 
 }
 
+.contenido-estrecho > .aviso-profesional{
+
+    padding:16px 18px;
+
+    border-left-width:4px;
+
+    font-size:var(--font-sm);
+
+}
+
 .formula-tarjeta{
 
     border:1px solid var(--color-border);
@@ -3242,21 +3252,24 @@ input:not([type="radio"]):not([type="checkbox"]):focus,select:focus,textarea:foc
 
 .passport-section{padding:72px 0;background:#fff}
 .passport-heading{display:grid;grid-template-columns:minmax(0,1fr) minmax(280px,.75fr);gap:28px;align-items:start}
-.privacy-card{padding:22px;border:1px solid #0f766e;border-radius:16px;background:#f0fdfa;color:#134e4a}
-.privacy-card ul{margin:10px 0 0 20px}
+.privacy-card{padding:20px;border:1px solid #0f766e;border-radius:16px;background:#f0fdfa;color:#134e4a}
+.privacy-card p{margin:8px 0 0;color:inherit}
 .passport-empty{margin-top:28px;padding:40px 22px;border:2px dashed #94a3b8;border-radius:18px;text-align:center}
 .passport-empty>span{font-size:2rem;color:#475569}
 .first-observation-note,.comparison-section,.history-section{margin-top:26px;padding:clamp(20px,4vw,30px);border:1px solid #cbd5e1;border-radius:18px;background:#f8fafc}
 .first-observation-note{border-color:#1d4ed8;background:#eff6ff;color:#172554}
 .history-heading{display:flex;justify-content:space-between;gap:18px;align-items:center}
 .passport-list{display:grid;gap:16px;margin-top:20px}
-.passport-card{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:18px;padding:20px;border:1px solid #cbd5e1;border-radius:14px;background:#fff;overflow-wrap:anywhere}
-.passport-card h4{overflow-wrap:anywhere}
+.passport-card{display:grid;grid-template-columns:minmax(0,1fr) minmax(180px,auto);gap:18px 24px;padding:20px;border:1px solid #cbd5e1;border-radius:14px;background:#fff;overflow-wrap:break-word;word-break:normal}
+.passport-card__heading{display:flex;grid-column:1/-1;align-items:flex-start;justify-content:space-between;gap:18px;min-width:0}
+.passport-card__heading>div{min-width:0}
+.passport-card__heading>strong{flex:0 0 auto;white-space:nowrap}
+.passport-card h4{overflow-wrap:break-word;word-break:normal}
 .passport-card dl,.comparison-record dl{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px 18px;margin-top:12px}
 .passport-card dl div,.comparison-record dl div{min-width:0}
 .passport-card dt,.comparison-record dt{color:#475569;font-size:.8rem;font-weight:700}
-.passport-card dd,.comparison-record dd{overflow-wrap:anywhere;font-weight:700}
-.passport-card__actions{display:flex;flex-direction:column;gap:10px;justify-content:center}
+.passport-card dd,.comparison-record dd{overflow-wrap:break-word;word-break:normal;font-weight:700}
+.passport-card__actions{display:flex;grid-column:2;grid-row:2;flex-direction:column;gap:10px;justify-content:center;align-self:start}
 .passport-card__actions .boton{width:100%}
 .comparison-section .boton{margin-top:18px}
 .comparison-result{margin-top:22px;padding:20px;border:1px solid #1d4ed8;border-radius:14px;background:#fff;overflow-wrap:anywhere}
@@ -3275,14 +3288,14 @@ input:not([type="radio"]):not([type="checkbox"]):focus,select:focus,textarea:foc
     .product-aside{position:static}
     .form-grid.three-columns{grid-template-columns:1fr}
     .contextual-tools{grid-template-columns:1fr}
+    .passport-card{grid-template-columns:1fr}
+    .passport-card__actions{grid-column:1;grid-row:auto;flex-direction:row;flex-wrap:wrap}
+    .passport-card__actions .boton{flex:1 1 170px}
 }
 
 @media(max-width:650px){
     .product-layers,.choice-grid,.form-grid.two-columns,.result-overview,.contextual-tools-grid,.comparison-pair{grid-template-columns:1fr}
     .save-panel{grid-template-columns:1fr}
-    .passport-card{grid-template-columns:1fr}
-    .passport-card__actions{flex-direction:row;flex-wrap:wrap}
-    .passport-card__actions .boton{flex:1 1 170px}
     .history-heading{align-items:stretch;flex-direction:column}
     .passport-card dl,.comparison-record dl{grid-template-columns:1fr}
 }

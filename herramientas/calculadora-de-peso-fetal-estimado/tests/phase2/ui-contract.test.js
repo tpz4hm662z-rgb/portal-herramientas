@@ -123,7 +123,9 @@
     });
 
     h.test("long stored strings are protected from layout overflow", function () {
-        h.ok(includes(css, ".passport-card dd,.comparison-record dd{overflow-wrap:anywhere"));
+        h.ok(includes(css, ".passport-card dd,.comparison-record dd{overflow-wrap:break-word;word-break:normal"));
+        h.ok(includes(css, ".passport-card__heading{display:flex;grid-column:1/-1"));
+        h.ok(/@media\(max-width:900px\)\{[\s\S]*?\.passport-card\{grid-template-columns:1fr\}/.test(css));
         h.ok(includes(css, ".confirmation-panel"));
         h.ok(includes(css, "overflow:auto"));
     });
@@ -149,13 +151,12 @@
     });
 
     h.test("visible privacy copy explains local browser storage", function () {
-        h.ok(includes(html, "Permanece en el almacenamiento local de este navegador"));
-        h.ok(includes(html, "No requiere cuenta"));
-        h.ok(includes(html, "puede desaparecer si borras los datos del navegador"));
+        h.ok(includes(html, "Tus ecografías se guardan únicamente en este navegador"));
+        h.ok(includes(html, "el contenido del Pasaporte no se envía a ningún servidor"));
     });
 
     h.test("visible privacy copy excludes screening and identity data", function () {
-        h.ok(includes(html, "No guarda respuestas del cribado ni datos identificativos"));
+        h.ok(includes(html, "Imoancy no solicita nombres ni datos identificativos"));
     });
 
     h.test("controller and storage send no custom input analytics", function () {

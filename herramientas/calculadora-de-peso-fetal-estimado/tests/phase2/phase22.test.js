@@ -273,12 +273,11 @@
         h.ok(controller.indexOf("event.stopImmediatePropagation()") !== -1);
     });
 
-    h.test("2.2 privacy copy names local creation and verification metadata", function () {
-        ["identificador local", "fecha y hora local de creación", "versiones técnicas",
-            "versiones técnicas, científicas y de referencia", "almacenamiento local",
-            "datos identificativos"].forEach(function expected(text) {
+    h.test("2.2 privacy copy is concise and states local-only non-identifying storage", function () {
+        ["Tus ecografías se guardan únicamente en este navegador",
+            "no solicita nombres ni datos identificativos",
+            "el contenido del Pasaporte no se envía a ningún servidor"].forEach(function expected(text) {
             h.ok(html.indexOf(text) !== -1, "missing privacy copy: " + text);
         });
-        h.ok(html.indexOf("instrumentación específica de Peso Fetal PRO") !== -1);
     });
 }(globalThis));
