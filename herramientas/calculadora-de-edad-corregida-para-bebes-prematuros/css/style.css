@@ -2108,6 +2108,10 @@ textarea:disabled{
 .migas ol { display:flex; flex-wrap:wrap; gap:8px; align-items:center; }
 .migas a:hover { color:var(--color-primary); text-decoration:underline; }
 
+.enlace-contextual a { color:var(--color-primary-dark); font-weight:700; text-decoration-line:underline; text-decoration-thickness:1px; text-underline-offset:3px; }
+.enlace-contextual a:hover { color:var(--color-primary); text-decoration-thickness:2px; }
+.enlace-contextual a:focus-visible { border-radius:3px; background:var(--color-primary-light); }
+
 .indice-interno { position:sticky; top:0; z-index:100; background:rgba(255,255,255,.96); border-block:1px solid var(--color-border); backdrop-filter:blur(12px); }
 .indice-interno .contenedor { display:flex; justify-content:center; gap:12px; padding-block:12px; overflow-x:auto; }
 .indice-interno a { flex:0 0 auto; padding:8px 16px; border-radius:var(--radius-round); font-size:var(--font-sm); font-weight:700; }
