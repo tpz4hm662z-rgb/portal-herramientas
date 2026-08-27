@@ -1,0 +1,4 @@
+39e940f8c1c1681cfd4b995aabf1fcd72c41468d330e1add8d15a87c469793b1  js/science-config.js
+2af990a23613f6c754a19b4bd71cd7d65e72d6b04884fea8784e0daf4efa47fa  js/science-engine.js
+4c153812e4811101acaed1af8f0bdcc4748c8e8eb8f05222df3c4a38385a96be  js/safety-screening.js
+6adc1ac5e2731f9fdd0d35df11922cc0b04364e3b51e92ee0bef08325f6f2716  js/fetal-records.js
