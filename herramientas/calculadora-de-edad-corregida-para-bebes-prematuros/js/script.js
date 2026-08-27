@@ -11,7 +11,6 @@ function iniciarHerramienta() {
     const hoy = fechaISO(new Date());
 
     $("#fechaNacimiento").max = hoy;
-    $("#fechaReferencia").max = hoy;
     $("#fechaReferencia").value = hoy;
 
     formulario.addEventListener("submit", procesarFormulario);
@@ -59,9 +58,6 @@ function validarDatosClinicos(datos) {
     if (!referencia) {
         mostrarError("#errorFechaReferencia", "Introduce una fecha de referencia válida.");
         valido = false;
-    } else if (referencia > hoy) {
-        mostrarError("#errorFechaReferencia", "La fecha de referencia no puede ser futura.");
-        valido = false;
     } else if (nacimiento && referencia < nacimiento) {
         mostrarError("#errorFechaReferencia", "La fecha de referencia debe ser igual o posterior al nacimiento.");
         valido = false;
@@ -106,28 +102,32 @@ function calcular(datos) {
         principal = "Aún no ha llegado la FPP";
         descripcion = `Faltan ${formatearSemanasDias(Math.abs(corregidaDias))} para la fecha probable de parto.`;
         resumen = `En la fecha elegida, tu bebé tiene ${formatearDuracion(nacimiento, referencia)} de edad cronológica.`;
-        interpretacion = "Todavía no se expresa una edad corregida positiva porque no ha llegado la fecha en la que se completarían 40 semanas. Esto es esperable: durante este periodo resulta más útil hablar de edad gestacional o de cuánto falta para la fecha probable de parto.";
+        interpretacion = "Antes de la fecha probable de parto mostramos cuánto falta para esa fecha, sin convertirlo en una edad corregida negativa.";
         recomendaciones = [
-            "Usa la fecha probable de parto como punto de inicio de la edad corregida.",
-            "Sigue las indicaciones del equipo de neonatología para alimentación, crecimiento y cuidados.",
-            "No compares el ritmo del bebé con el de un recién nacido a término de la misma edad cronológica."
+            `Edad cronológica: ${formatearDuracion(nacimiento, referencia)} desde el nacimiento.`,
+            `Antes de la FPP: faltan ${formatearSemanasDias(Math.abs(corregidaDias))} para la fecha prevista; no se muestra una edad corregida negativa.`,
+            "Vacunas y citas: sigue las pautas sanitarias correspondientes; no deben retrasarse automáticamente usando la edad corregida."
         ];
     } else {
         principal = formatearDuracion(probableParto, referencia);
         descripcion = correccionSuperada
-            ? "La calculamos como referencia, aunque después de los 24 meses suele dejar de ser necesario corregir la edad."
+            ? "La mostramos como dato de referencia, aunque alrededor de los 2 años suele dejar de utilizarse para valorar hitos."
             : "Es la edad que tendría si contamos desde su fecha probable de parto.";
         resumen = `Tu bebé tiene ${formatearDuracion(nacimiento, referencia)} de edad cronológica y ${principal} de edad corregida.`;
         interpretacion = correccionSuperada
-            ? "Tu bebé ya ha superado los 24 meses de edad corregida. A partir de esta etapa suele utilizarse la edad cronológica, porque la diferencia relacionada con la prematuridad pierde relevancia progresivamente. Su profesional sanitario puede mantener otro criterio según la evolución individual."
-            : "Para observar el desarrollo temprano, toma como referencia principal la edad corregida. La diferencia con la edad cronológica no significa un retraso: representa el tiempo de gestación que faltó antes del nacimiento. Los hitos se valoran dentro de intervalos amplios y según la evolución individual.";
+            ? "Alrededor de los 2 años, la corrección deja habitualmente de utilizarse como referencia para los hitos. No es una frontera biológica rígida y el equipo sanitario puede individualizar su uso."
+            : "Durante los primeros 2 años, la edad corregida aporta contexto al hablar de desarrollo e hitos. Esta herramienta solo sitúa la edad: no evalúa el desarrollo.";
         recomendaciones = correccionSuperada
             ? [
-                "Utiliza habitualmente la edad cronológica, salvo indicación distinta de su profesional sanitario.",
-                "Valora la trayectoria de desarrollo completa y no una comparación puntual.",
-                "Mantén los controles recomendados para su historia de prematuridad."
+                `Edad cronológica: ${formatearDuracion(nacimiento, referencia)} desde el nacimiento; se muestra siempre como referencia.`,
+                "Alrededor de los 2 años suele dejar de corregirse la edad para valorar hitos, de forma gradual y no como una frontera rígida.",
+                "Vacunas y citas: sigue las pautas sanitarias correspondientes; no deben retrasarse automáticamente usando la edad corregida."
             ]
-            : CONFIG.recomendaciones;
+            : [
+                `Desarrollo e hitos: durante los primeros 2 años, mira principalmente la edad corregida (${principal}).`,
+                `Edad cronológica: ${formatearDuracion(nacimiento, referencia)} desde el nacimiento; se muestra siempre como referencia.`,
+                "Vacunas y citas: sigue las pautas sanitarias correspondientes; no deben retrasarse automáticamente usando la edad corregida."
+            ];
     }
 
     return {
@@ -149,7 +149,6 @@ function calcular(datos) {
 
 function pintarExperienciaPremium(resultado) {
     pintarComparacionVisual(resultado);
-    pintarGuiaDinamica(resultado.edadCorregidaDias, resultado.antesDeTermino);
 }
 
 function pintarComparacionVisual(resultado) {
@@ -161,66 +160,14 @@ function pintarComparacionVisual(resultado) {
 
     let comparacion;
     if (resultado.antesDeTermino) {
-        comparacion = "Para valorar el desarrollo en este momento suele ser más útil considerar la edad gestacional y cuánto falta para alcanzar la fecha probable de parto.";
+        comparacion = "La edad cronológica sigue contando desde el nacimiento. Antes de la FPP mostramos cuánto falta para la fecha prevista, sin edad corregida negativa.";
     } else if (resultado.correccionSuperada) {
-        comparacion = `La edad corregida sería ${edadCorregida.toLowerCase()}, aunque después de los 24 meses suele resultar más útil utilizar la edad cronológica como referencia.`;
+        comparacion = `La edad corregida es ${edadCorregida.toLowerCase()}. Alrededor de los 2 años suele dejar de utilizarse para valorar hitos, sin que sea una frontera rígida.`;
     } else {
-        comparacion = `Para valorar el desarrollo suele ser más útil compararlo con un bebé nacido a término de aproximadamente ${edadCorregida.toLowerCase()}.`;
+        comparacion = `Durante los primeros 2 años, la edad corregida (${edadCorregida.toLowerCase()}) aporta contexto al hablar de desarrollo e hitos.`;
     }
 
     establecerTexto("#textoComparacion", comparacion);
-}
-
-function pintarGuiaDinamica(edadCorregidaDias, antesDeTermino) {
-    const etapas = CONFIG.guiaDesarrollo || [];
-    if (!etapas.length) return;
-
-    const diasParaEtapa = Math.max(0, edadCorregidaDias);
-    const etapa = etapas.find(item => diasParaEtapa <= item.hastaDias) || etapas.at(-1);
-    const superaGuia = edadCorregidaDias > etapas.at(-1).hastaDias;
-    const contenedor = $("#guiaDesarrolloGrid");
-    if (!contenedor) return;
-
-    establecerTexto("#etapaGuia", antesDeTermino ? "Antes de la fecha probable de parto" : (superaGuia ? "Más de 24 meses corregidos" : etapa.etapa));
-    establecerTexto(
-        "#introduccionGuia",
-        antesDeTermino
-            ? "La fecha probable de parto todavía no ha llegado. Estas ideas anticipan la primera etapa corregida y pueden adaptarse a las indicaciones del equipo neonatal."
-            : (superaGuia ? "La corrección suele dejar de utilizarse después de esta etapa. Conservamos las orientaciones de 18–24 meses como contexto, mientras la edad cronológica y el seguimiento individual ganan protagonismo." : etapa.introduccion)
-    );
-    establecerTexto("#textoProximaEtapa", etapa.despues);
-
-    const iconos = {
-        "Desarrollo motor": "🤸",
-        "Comunicación": "💬",
-        "Juego": "🧸",
-        "Sueño": "🌙",
-        "Alimentación": "🥣",
-        "Interacción social": "🤝",
-        "Consejos útiles": "💡"
-    };
-
-    contenedor.replaceChildren();
-
-    Object.entries(etapa.areas).forEach(([titulo, texto]) => {
-        const tarjeta = document.createElement("article");
-        tarjeta.className = "guia-area-tarjeta";
-
-        const icono = document.createElement("span");
-        icono.className = "guia-area-icono";
-        icono.setAttribute("aria-hidden", "true");
-        icono.textContent = iconos[titulo] || "•";
-
-        const contenido = document.createElement("div");
-        const encabezado = document.createElement("h4");
-        const parrafo = document.createElement("p");
-        encabezado.textContent = titulo;
-        parrafo.textContent = texto;
-
-        contenido.append(encabezado, parrafo);
-        tarjeta.append(icono, contenido);
-        contenedor.appendChild(tarjeta);
-    });
 }
 
 function leerFecha(valor) {
