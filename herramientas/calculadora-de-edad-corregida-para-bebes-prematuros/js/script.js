@@ -2,18 +2,25 @@
 "use strict";
 
 const MS_DIA = 86400000;
+const estadoPruebaCrecimiento = {
+    visualizacionRegistrada: false,
+    respuesta: null,
+    necesidad: null
+};
 
 document.addEventListener("DOMContentLoaded", iniciarHerramienta);
 
 function iniciarHerramienta() {
     const formulario = $(CONFIG.selectores.formulario);
     const botonReiniciar = $(CONFIG.selectores.botonReiniciar);
+    const pruebaCrecimiento = $("#prueba-crecimiento-prematuro");
     const hoy = fechaISO(new Date());
 
     $("#fechaNacimiento").max = hoy;
     $("#fechaReferencia").value = hoy;
 
     formulario.addEventListener("submit", procesarFormulario);
+    if (pruebaCrecimiento) pruebaCrecimiento.addEventListener("click", procesarPruebaCrecimiento);
     botonReiniciar.addEventListener("click", () => {
         reiniciarHerramientaBase();
         $("#fechaReferencia").value = hoy;
@@ -37,6 +44,7 @@ function procesarFormulario(evento) {
     const resultado = calcular(validacion.valores);
     pintarResultados(resultado);
     pintarExperienciaPremium(resultado);
+    mostrarPruebaCrecimiento();
     registrarCalculo();
     establecerEstadoCalculando(false);
 }
@@ -247,5 +255,72 @@ function unirPartes(partes) {
 function registrarCalculo() {
     if (typeof window.gtag === "function") {
         window.gtag("event", "calculo_edad_corregida", { tool_name: "edad_corregida" });
+    }
+}
+
+function mostrarPruebaCrecimiento() {
+    const modulo = $("#prueba-crecimiento-prematuro");
+    if (!modulo) return;
+
+    mostrarElemento(modulo);
+    if (!estadoPruebaCrecimiento.visualizacionRegistrada) {
+        estadoPruebaCrecimiento.visualizacionRegistrada = true;
+        registrarEventoPruebaCrecimiento("prematuro_crecimiento_test_view");
+    }
+}
+
+function procesarPruebaCrecimiento(evento) {
+    const objetivo = evento.target;
+    if (!objetivo || typeof objetivo.closest !== "function") return;
+
+    const botonRespuesta = objetivo.closest("[data-crecimiento-respuesta]");
+    if (botonRespuesta && registrarRespuestaCrecimiento(botonRespuesta.dataset.crecimientoRespuesta)) {
+        fijarSeleccionPrueba("[data-crecimiento-respuesta]", botonRespuesta);
+        if (estadoPruebaCrecimiento.respuesta === "no") {
+            mostrarElemento($("#prueba-crecimiento-gracias"));
+        } else {
+            mostrarElemento($("#prueba-crecimiento-necesidad"));
+        }
+        return;
+    }
+
+    const botonNecesidad = objetivo.closest("[data-crecimiento-necesidad]");
+    if (botonNecesidad && registrarNecesidadCrecimiento(botonNecesidad.dataset.crecimientoNecesidad)) {
+        fijarSeleccionPrueba("[data-crecimiento-necesidad]", botonNecesidad);
+        mostrarElemento($("#prueba-crecimiento-gracias"));
+    }
+}
+
+function fijarSeleccionPrueba(selector, botonSeleccionado) {
+    const modulo = $("#prueba-crecimiento-prematuro");
+    if (!modulo) return;
+
+    modulo.querySelectorAll(selector).forEach((boton) => {
+        boton.disabled = true;
+        boton.setAttribute("aria-pressed", String(boton === botonSeleccionado));
+    });
+}
+
+function registrarRespuestaCrecimiento(respuesta) {
+    const respuestasAdmitidas = ["si", "quizas", "no"];
+    if (estadoPruebaCrecimiento.respuesta !== null || !respuestasAdmitidas.includes(respuesta)) return false;
+
+    estadoPruebaCrecimiento.respuesta = respuesta;
+    registrarEventoPruebaCrecimiento("prematuro_crecimiento_test_response", { response: respuesta });
+    return true;
+}
+
+function registrarNecesidadCrecimiento(necesidad) {
+    const necesidadesAdmitidas = ["evolucion_controles", "medidas_juntas", "edad_control", "cambio_percentiles"];
+    if (estadoPruebaCrecimiento.necesidad !== null || !necesidadesAdmitidas.includes(necesidad)) return false;
+
+    estadoPruebaCrecimiento.necesidad = necesidad;
+    registrarEventoPruebaCrecimiento("prematuro_crecimiento_test_need", { need: necesidad });
+    return true;
+}
+
+function registrarEventoPruebaCrecimiento(nombre, parametros) {
+    if (typeof window.gtag === "function") {
+        window.gtag("event", nombre, parametros || {});
     }
 }

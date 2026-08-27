@@ -44,6 +44,11 @@ function run(argv) {
         "check(formatearDuracion(leerFecha('2024-01-31'),leerFecha('2024-02-29'))==='1 mes','fin de mes bisiesto');",
         "check(d.recomendaciones.join(' ').indexOf('Vacunas y citas')!==-1,'contexto vacunas');",
         "check(a.recomendaciones.join(' ').indexOf('edad corregida')!==-1,'contexto primeros 2 años');",
+        "var eventos=[];window={gtag:function(){eventos.push(Array.prototype.slice.call(arguments));}};",
+        "check(registrarRespuestaCrecimiento('si')===true&&registrarRespuestaCrecimiento('quizas')===false,'respuesta analítica única');",
+        "check(eventos.length===1&&eventos[0][1]==='prematuro_crecimiento_test_response'&&eventos[0][2].response==='si','evento y parámetro de respuesta');",
+        "check(registrarNecesidadCrecimiento('evolucion_controles')===true&&registrarNecesidadCrecimiento('edad_control')===false,'necesidad analítica única');",
+        "check(eventos.length===2&&eventos[1][1]==='prematuro_crecimiento_test_need'&&eventos[1][2].need==='evolucion_controles','evento y parámetro de necesidad');",
         "})();"
     ].join("\n");
 
@@ -63,6 +68,10 @@ function run(argv) {
     check(html.indexOf("Lo que probablemente venga después") === -1, "sin próximos hitos");
     check(html.indexOf("Próximamente") === -1, "sin páginas próximamente");
     check(html.indexOf("¿Qué edad tengo que mirar?") !== -1, "bloque de contexto");
+    check(html.indexOf('id="prueba-crecimiento-prematuro"') !== -1 && html.indexOf('hidden') !== -1, "prueba oculta inicialmente");
+    check(html.indexOf("¿Te sería útil seguir el crecimiento de tu bebé prematuro?") !== -1, "pregunta de interés");
+    check(script.indexOf("mostrarPruebaCrecimiento();") > script.indexOf("pintarResultados(resultado);"), "prueba tras resultado válido");
+    check(script.indexOf("localStorage") === -1 && script.indexOf("document.cookie") === -1, "sin persistencia de la prueba");
 
     if (failures.length) {
         throw new Error(failures.length + " FAIL: " + failures.join(" | "));

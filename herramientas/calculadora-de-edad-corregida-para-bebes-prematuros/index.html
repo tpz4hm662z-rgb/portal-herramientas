@@ -127,6 +127,27 @@
                     </div>
                 </section>
 
+                <section id="prueba-crecimiento-prematuro" class="prueba-crecimiento-prematuro" aria-labelledby="titulo-prueba-crecimiento" hidden>
+                    <p class="prueba-crecimiento-etiqueta">Pregunta opcional</p>
+                    <h3 id="titulo-prueba-crecimiento">¿Te sería útil seguir el crecimiento de tu bebé prematuro?</h3>
+                    <p>Estamos estudiando una función para guardar sus controles y comparar cómo evolucionan peso, talla y perímetro cefálico teniendo en cuenta la edad corregida.</p>
+                    <div class="prueba-crecimiento-opciones" role="group" aria-label="Utilidad del seguimiento del crecimiento">
+                        <button type="button" class="prueba-crecimiento-opcion" data-crecimiento-respuesta="si" aria-pressed="false">Sí, me sería útil</button>
+                        <button type="button" class="prueba-crecimiento-opcion" data-crecimiento-respuesta="quizas" aria-pressed="false">Quizá, quiero saber cómo funcionaría</button>
+                        <button type="button" class="prueba-crecimiento-opcion" data-crecimiento-respuesta="no" aria-pressed="false">No lo necesito</button>
+                    </div>
+                    <div id="prueba-crecimiento-necesidad" class="prueba-crecimiento-segundo-paso" hidden>
+                        <h4>¿Qué te resultaría más útil?</h4>
+                        <div class="prueba-crecimiento-opciones prueba-crecimiento-opciones-necesidad" role="group" aria-label="Aspecto más útil del seguimiento">
+                            <button type="button" class="prueba-crecimiento-opcion" data-crecimiento-necesidad="evolucion_controles" aria-pressed="false">Ver cómo cambia entre controles</button>
+                            <button type="button" class="prueba-crecimiento-opcion" data-crecimiento-necesidad="medidas_juntas" aria-pressed="false">Tener peso, talla y perímetro juntos</button>
+                            <button type="button" class="prueba-crecimiento-opcion" data-crecimiento-necesidad="edad_control" aria-pressed="false">Saber qué edad utilizar en cada control</button>
+                            <button type="button" class="prueba-crecimiento-opcion" data-crecimiento-necesidad="cambio_percentiles" aria-pressed="false">Entender por qué cambian los percentiles</button>
+                        </div>
+                    </div>
+                    <p id="prueba-crecimiento-gracias" class="prueba-crecimiento-gracias" role="status" aria-live="polite" hidden>Gracias. Tu respuesta nos ayuda a decidir qué merece la pena construir.</p>
+                </section>
+
                 <blockquote class="mensaje-final"><span aria-hidden="true">💛</span><p>Cada bebé prematuro sigue su propio ritmo de desarrollo.<br>La edad corregida ayuda a interpretar mejor ese proceso.<br>Ante cualquier duda, el seguimiento realizado por el pediatra o neonatólogo será siempre la mejor referencia.</p></blockquote>
             </div>
         </section>
