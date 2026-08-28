@@ -317,6 +317,26 @@
         </div>
       </section>
 
+      <section id="sensor-laboral-paro" class="sensor-laboral" aria-labelledby="sensor-laboral-titulo">
+        <p class="sensor-laboral-etiqueta">Pregunta opcional</p>
+        <h2 id="sensor-laboral-titulo">¿Te ayudaría comprobar tu caso paso a paso?</h2>
+        <div class="sensor-laboral-opciones sensor-laboral-respuestas" role="group" aria-label="¿Te ayudaría comprobar tu caso paso a paso?">
+          <button type="button" data-laboral-response="yes" aria-pressed="false">Sí</button>
+          <button type="button" data-laboral-response="no" aria-pressed="false">No</button>
+        </div>
+        <div id="sensor-laboral-necesidad" class="sensor-laboral-segundo-paso" hidden>
+          <h3>¿Qué es lo que más dudas te genera?</h3>
+          <div class="sensor-laboral-opciones" role="group" aria-label="Principal duda sobre baja voluntaria, nuevo trabajo y paro">
+            <button type="button" data-laboral-need="work_time" aria-pressed="false">Cuánto tiempo tengo que trabajar</button>
+            <button type="button" data-laboral-need="new_job_end" aria-pressed="false">Cómo debe terminar el nuevo trabajo</button>
+            <button type="button" data-laboral-need="probation" aria-pressed="false">El período de prueba</button>
+            <button type="button" data-laboral-need="unemployment_right" aria-pressed="false">Si tengo derecho a paro</button>
+            <button type="button" data-laboral-need="other" aria-pressed="false">Mi caso es diferente</button>
+          </div>
+        </div>
+        <p id="sensor-laboral-gracias" class="sensor-laboral-gracias" role="status" aria-live="polite" hidden>Gracias. Tu respuesta nos ayuda a decidir qué merece la pena construir.</p>
+      </section>
+
       <section id="faq">
         <h2>Preguntas frecuentes</h2>
         <div class="lista-faq">
@@ -360,5 +380,65 @@
     </div>
     <div class="copyright"><p>© 2026 Imoancy · Todos los derechos reservados.</p></div>
   </footer>
+  <script>
+    (function(){
+      "use strict";
+
+      var sensor=document.getElementById("sensor-laboral-paro");
+      if(!sensor) return;
+
+      var estado={view:false,response:null,need:null};
+      var respuestasPermitidas=["yes","no"];
+      var necesidadesPermitidas=["work_time","new_job_end","probation","unemployment_right","other"];
+      var respuestas=sensor.querySelectorAll("[data-laboral-response]");
+      var necesidades=sensor.querySelectorAll("[data-laboral-need]");
+      var segundoPaso=document.getElementById("sensor-laboral-necesidad");
+      var gracias=document.getElementById("sensor-laboral-gracias");
+
+      function registrar(nombre,parametros){
+        if(typeof window.gtag==="function") window.gtag("event",nombre,parametros||{});
+      }
+
+      function fijarSeleccion(botones,seleccionado){
+        botones.forEach(function(boton){
+          boton.disabled=true;
+          boton.setAttribute("aria-pressed",String(boton===seleccionado));
+        });
+      }
+
+      if("IntersectionObserver" in window){
+        var observador=new IntersectionObserver(function(entradas){
+          if(estado.view||!entradas.some(function(entrada){return entrada.isIntersecting;})) return;
+          estado.view=true;
+          observador.disconnect();
+          registrar("laboral_paro_test_view");
+        });
+        observador.observe(sensor);
+      }
+
+      respuestas.forEach(function(boton){
+        boton.addEventListener("click",function(){
+          var respuesta=boton.getAttribute("data-laboral-response");
+          if(estado.response!==null||!respuestasPermitidas.includes(respuesta)) return;
+          estado.response=respuesta;
+          fijarSeleccion(respuestas,boton);
+          registrar("laboral_paro_test_response",{response:respuesta});
+          if(respuesta==="yes") segundoPaso.hidden=false;
+          else gracias.hidden=false;
+        });
+      });
+
+      necesidades.forEach(function(boton){
+        boton.addEventListener("click",function(){
+          var necesidad=boton.getAttribute("data-laboral-need");
+          if(estado.response!=="yes"||estado.need!==null||!necesidadesPermitidas.includes(necesidad)) return;
+          estado.need=necesidad;
+          fijarSeleccion(necesidades,boton);
+          registrar("laboral_paro_test_need",{need:necesidad});
+          gracias.hidden=false;
+        });
+      });
+    })();
+  </script>
 </body>
 </html>
