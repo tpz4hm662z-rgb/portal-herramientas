@@ -42,6 +42,14 @@
 <li><strong>“Mi indemnización se calcula necesariamente con el salario reducido”.</strong> El ET contiene una regla específica para determinadas reducciones protegidas.</li>
 </ul></div></section>
 
+<section id="sensor-laboral-reduccion" class="sensor-laboral" aria-labelledby="sensor-laboral-titulo">
+<p class="sensor-laboral-etiqueta">Pregunta opcional</p>
+<h2 id="sensor-laboral-titulo">¿Te ayudaría comprobar cómo afectaría la reducción a tu caso?</h2>
+<div class="sensor-laboral-opciones sensor-laboral-respuestas" role="group" aria-label="¿Te ayudaría comprobar cómo afectaría la reducción a tu caso?"><button type="button" data-laboral-response="yes" aria-pressed="false">Sí</button><button type="button" data-laboral-response="no" aria-pressed="false">No</button></div>
+<div id="sensor-laboral-necesidad" class="sensor-laboral-segundo-paso" hidden><h3>¿Qué parte te genera más dudas?</h3><div class="sensor-laboral-opciones" role="group" aria-label="Principal duda sobre reducción de jornada, despido y paro"><button type="button" data-laboral-need="base_paro" aria-pressed="false">Con qué base calcularían mi paro</button><button type="button" data-laboral-need="cuanto_cobro" aria-pressed="false">Cuánto podría cobrar</button><button type="button" data-laboral-need="topes" aria-pressed="false">Qué pasa con los topes</button><button type="button" data-laboral-need="indemnizacion" aria-pressed="false">Cómo afectaría a mi indemnización</button><button type="button" data-laboral-need="caso_diferente" aria-pressed="false">Mi situación es diferente</button></div></div>
+<p id="sensor-laboral-gracias" class="sensor-laboral-gracias" role="status" aria-live="polite" hidden>Gracias. Tu respuesta nos ayuda a entender qué información resulta más útil.</p>
+</section>
+
 <section id="faq"><h2>Preguntas frecuentes</h2><div class="lista-faq"><details><summary>¿El paro se calcula con mi sueldo reducido por guarda legal?</summary><p>En las reducciones protegidas a las que se refiere la normativa de desempleo, las bases correspondientes al periodo de reducción se computan incrementadas hasta el 100 % de lo que habría correspondido sin la reducción. Eso no significa cobrar el 100 % del salario: después se aplican las reglas y límites de la prestación.</p></details>
 <details><summary>Si reduje mi jornada al 50 %, ¿el SEPE me paga el otro 50 % mientras trabajo?</summary><p>No. La reducción por guarda legal con disminución proporcional del salario no convierte automáticamente las horas que dejas de trabajar en desempleo. La regla especial analizada aquí opera cuando posteriormente existe una situación legal de desempleo.</p></details>
 <details><summary>¿Cualquier reducción de jornada tiene esta protección?</summary><p>No. Esta guía se centra en reducciones legalmente protegidas por cuidado, especialmente la guarda legal del artículo 37.6 del Estatuto de los Trabajadores. Un contrato parcial ordinario o una reducción distinta no debe equipararse automáticamente.</p></details>
@@ -58,4 +66,24 @@
 </ul></div><p class="nota-transparencia">Ámbito: España. Guía informativa revisada el 23 de agosto de 2026. El tipo de reducción, la causa de extinción, las bases de cotización y las circunstancias personales pueden modificar el resultado. Imoancy no sustituye la resolución del SEPE ni el asesoramiento jurídico individual.</p></section>
 </article></main>
 <footer class="pie-pagina"><div class="pie-contenido"><div class="pie-marca"><a href="https://imoancy.com/"><img class="marca-logo" src="../../assets/brand/logo-horizontal-dark.png" alt="Imoancy" width="2400" height="800"></a></div><nav class="pie-navegacion"><a href="https://imoancy.com/">Portal</a><a href="https://imoancy.com/sobre-nosotros.html">Sobre nosotros</a><a href="https://imoancy.com/politica-privacidad.html">Privacidad</a><a href="https://imoancy.com/aviso-legal.html">Aviso legal</a></nav></div><div class="copyright"><p>© 2026 Imoancy · Todos los derechos reservados.</p></div></footer>
+<script>
+(function(){
+"use strict";
+var sensor=document.getElementById("sensor-laboral-reduccion");
+if(!sensor) return;
+var topic="reduccion_jornada";
+var estado={view:false,response:null,need:null};
+var respuestasPermitidas=["yes","no"];
+var necesidadesPermitidas=["base_paro","cuanto_cobro","topes","indemnizacion","caso_diferente"];
+var respuestas=sensor.querySelectorAll("[data-laboral-response]");
+var necesidades=sensor.querySelectorAll("[data-laboral-need]");
+var segundoPaso=document.getElementById("sensor-laboral-necesidad");
+var gracias=document.getElementById("sensor-laboral-gracias");
+function registrar(nombre,parametros){if(typeof window.gtag==="function") window.gtag("event",nombre,parametros||{});}
+function fijarSeleccion(botones,seleccionado){botones.forEach(function(boton){boton.disabled=true;boton.setAttribute("aria-pressed",String(boton===seleccionado));});}
+if("IntersectionObserver" in window){var observador=new IntersectionObserver(function(entradas){if(estado.view||!entradas.some(function(entrada){return entrada.isIntersecting;})) return;estado.view=true;observador.disconnect();registrar("laboral_sensor_view",{topic:topic});});observador.observe(sensor);}
+respuestas.forEach(function(boton){boton.addEventListener("click",function(){var respuesta=boton.getAttribute("data-laboral-response");if(estado.response!==null||!respuestasPermitidas.includes(respuesta)) return;estado.response=respuesta;fijarSeleccion(respuestas,boton);registrar("laboral_sensor_response",{topic:topic,response:respuesta});if(respuesta==="yes") segundoPaso.hidden=false;else gracias.hidden=false;});});
+necesidades.forEach(function(boton){boton.addEventListener("click",function(){var necesidad=boton.getAttribute("data-laboral-need");if(estado.response!=="yes"||estado.need!==null||!necesidadesPermitidas.includes(necesidad)) return;estado.need=necesidad;fijarSeleccion(necesidades,boton);registrar("laboral_sensor_need",{topic:topic,need:necesidad});gracias.hidden=false;});});
+})();
+</script>
 </body></html>

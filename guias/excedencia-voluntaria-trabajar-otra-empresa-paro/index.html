@@ -46,6 +46,14 @@
 <li><strong>“No necesito mirar el convenio”.</strong> Conviene revisarlo porque puede contener reglas específicas sobre excedencia y reingreso.</li>
 </ul></div></section>
 
+<section id="sensor-laboral-excedencia" class="sensor-laboral" aria-labelledby="sensor-laboral-titulo">
+<p class="sensor-laboral-etiqueta">Pregunta opcional</p>
+<h2 id="sensor-laboral-titulo">¿Te ayudaría comprobar qué ocurre en tu caso concreto?</h2>
+<div class="sensor-laboral-opciones sensor-laboral-respuestas" role="group" aria-label="¿Te ayudaría comprobar qué ocurre en tu caso concreto?"><button type="button" data-laboral-response="yes" aria-pressed="false">Sí</button><button type="button" data-laboral-response="no" aria-pressed="false">No</button></div>
+<div id="sensor-laboral-necesidad" class="sensor-laboral-segundo-paso" hidden><h3>¿Qué parte te genera más dudas?</h3><div class="sensor-laboral-opciones" role="group" aria-label="Principal duda sobre excedencia voluntaria, otro trabajo y paro"><button type="button" data-laboral-need="paro" aria-pressed="false">Si puedo cobrar el paro</button><button type="button" data-laboral-need="reingreso" aria-pressed="false">Cuándo tengo que pedir el reingreso</button><button type="button" data-laboral-need="sin_vacante" aria-pressed="false">Qué pasa si no hay vacante</button><button type="button" data-laboral-need="fin_segundo_trabajo" aria-pressed="false">Qué final del segundo trabajo cuenta</button><button type="button" data-laboral-need="caso_diferente" aria-pressed="false">Mi situación es diferente</button></div></div>
+<p id="sensor-laboral-gracias" class="sensor-laboral-gracias" role="status" aria-live="polite" hidden>Gracias. Tu respuesta nos ayuda a entender qué información resulta más útil.</p>
+</section>
+
 <section id="faq"><h2>Preguntas frecuentes</h2><div class="lista-faq"><details><summary>¿La excedencia voluntaria da derecho al paro?</summary><p>No por sí sola. El SEPE indica que si solicitas la prestación simplemente al pasar a excedencia voluntaria, se deniega porque no existe situación legal de desempleo.</p></details>
 <details><summary>¿Puedo cobrar el paro si trabajo en otra empresa durante la excedencia y se termina el contrato?</summary><p>Podrías tener derecho si el segundo empleo termina por causas ajenas a tu voluntad y cumples los demás requisitos. El camino cambia según la excedencia original siga vigente o ya haya terminado.</p></details>
 <details><summary>¿Qué pasa si termina mi excedencia mientras estoy cobrando el paro?</summary><p>El SEPE indica que la prestación se suspende al finalizar la excedencia para que solicites la reincorporación a la empresa original y esperes su respuesta.</p></details>
@@ -61,4 +69,24 @@
 </ul></div><p class="nota-transparencia">Ámbito: España. Guía informativa revisada el 23 de agosto de 2026. La causa de finalización del segundo empleo, el convenio colectivo, las condiciones de la excedencia y las circunstancias concretas pueden cambiar el resultado. Imoancy no sustituye el asesoramiento jurídico individual ni la resolución del SEPE.</p></section>
 </article></main>
 <footer class="pie-pagina"><div class="pie-contenido"><div class="pie-marca"><a href="https://imoancy.com/"><img class="marca-logo" src="../../assets/brand/logo-horizontal-dark.png" alt="Imoancy" width="2400" height="800"></a></div><nav class="pie-navegacion" aria-label="Enlaces legales"><a href="https://imoancy.com/">Portal</a><a href="https://imoancy.com/sobre-nosotros.html">Sobre nosotros</a><a href="https://imoancy.com/politica-privacidad.html">Privacidad</a><a href="https://imoancy.com/aviso-legal.html">Aviso legal</a></nav></div><div class="copyright"><p>© 2026 Imoancy · Todos los derechos reservados.</p></div></footer>
+<script>
+(function(){
+"use strict";
+var sensor=document.getElementById("sensor-laboral-excedencia");
+if(!sensor) return;
+var topic="excedencia_voluntaria";
+var estado={view:false,response:null,need:null};
+var respuestasPermitidas=["yes","no"];
+var necesidadesPermitidas=["paro","reingreso","sin_vacante","fin_segundo_trabajo","caso_diferente"];
+var respuestas=sensor.querySelectorAll("[data-laboral-response]");
+var necesidades=sensor.querySelectorAll("[data-laboral-need]");
+var segundoPaso=document.getElementById("sensor-laboral-necesidad");
+var gracias=document.getElementById("sensor-laboral-gracias");
+function registrar(nombre,parametros){if(typeof window.gtag==="function") window.gtag("event",nombre,parametros||{});}
+function fijarSeleccion(botones,seleccionado){botones.forEach(function(boton){boton.disabled=true;boton.setAttribute("aria-pressed",String(boton===seleccionado));});}
+if("IntersectionObserver" in window){var observador=new IntersectionObserver(function(entradas){if(estado.view||!entradas.some(function(entrada){return entrada.isIntersecting;})) return;estado.view=true;observador.disconnect();registrar("laboral_sensor_view",{topic:topic});});observador.observe(sensor);}
+respuestas.forEach(function(boton){boton.addEventListener("click",function(){var respuesta=boton.getAttribute("data-laboral-response");if(estado.response!==null||!respuestasPermitidas.includes(respuesta)) return;estado.response=respuesta;fijarSeleccion(respuestas,boton);registrar("laboral_sensor_response",{topic:topic,response:respuesta});if(respuesta==="yes") segundoPaso.hidden=false;else gracias.hidden=false;});});
+necesidades.forEach(function(boton){boton.addEventListener("click",function(){var necesidad=boton.getAttribute("data-laboral-need");if(estado.response!=="yes"||estado.need!==null||!necesidadesPermitidas.includes(necesidad)) return;estado.need=necesidad;fijarSeleccion(necesidades,boton);registrar("laboral_sensor_need",{topic:topic,need:necesidad});gracias.hidden=false;});});
+})();
+</script>
 </body></html>

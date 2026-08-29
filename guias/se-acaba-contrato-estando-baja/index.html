@@ -124,6 +124,26 @@
         <p>Si existe una controversia sobre si una baja considerada común debería derivar realmente de accidente de trabajo o enfermedad profesional, no conviene decidirlo por cuenta propia: debe atenderse a la calificación administrativa y, en su caso, a los procedimientos existentes para discutirla.</p>
       </section>
 
+      <section id="sensor-laboral-contrato-baja" class="sensor-laboral" aria-labelledby="sensor-laboral-titulo">
+        <p class="sensor-laboral-etiqueta">Pregunta opcional</p>
+        <h2 id="sensor-laboral-titulo">¿Te ayudaría comprobar qué pasa después en tu situación?</h2>
+        <div class="sensor-laboral-opciones sensor-laboral-respuestas" role="group" aria-label="¿Te ayudaría comprobar qué pasa después en tu situación?">
+          <button type="button" data-laboral-response="yes" aria-pressed="false">Sí</button>
+          <button type="button" data-laboral-response="no" aria-pressed="false">No</button>
+        </div>
+        <div id="sensor-laboral-necesidad" class="sensor-laboral-segundo-paso" hidden>
+          <h3>¿Qué parte te genera más dudas?</h3>
+          <div class="sensor-laboral-opciones" role="group" aria-label="Principal duda sobre fin de contrato estando de baja">
+            <button type="button" data-laboral-need="quien_paga" aria-pressed="false">Quién me paga ahora</button>
+            <button type="button" data-laboral-need="cuanto_cobro" aria-pressed="false">Cuánto voy a cobrar</button>
+            <button type="button" data-laboral-need="consume_paro" aria-pressed="false">Si consumo días de paro</button>
+            <button type="button" data-laboral-need="cuando_pedir_paro" aria-pressed="false">Cuándo tengo que pedir el paro</button>
+            <button type="button" data-laboral-need="caso_diferente" aria-pressed="false">Mi situación es diferente</button>
+          </div>
+        </div>
+        <p id="sensor-laboral-gracias" class="sensor-laboral-gracias" role="status" aria-live="polite" hidden>Gracias. Tu respuesta nos ayuda a entender qué información resulta más útil.</p>
+      </section>
+
       <section id="faq"><h2>Preguntas frecuentes</h2>
         <div class="lista-faq">
           <details><summary>¿Me quedo sin cobrar si termina mi contrato mientras estoy de baja?</summary><p>No por el mero hecho de terminar el contrato. Si continúa la incapacidad temporal, continúa la prestación correspondiente conforme a las reglas aplicables.</p></details>
@@ -147,4 +167,24 @@
   </main>
 
   <footer class="pie-pagina"><div class="pie-contenido"><div class="pie-marca"><a href="https://imoancy.com/"><img class="marca-logo" src="../../assets/brand/logo-horizontal-dark.png" alt="Imoancy" width="2400" height="800"></a></div><nav class="pie-navegacion" aria-label="Enlaces legales"><a href="https://imoancy.com/">Portal</a><a href="https://imoancy.com/sobre-nosotros.html">Sobre nosotros</a><a href="https://imoancy.com/politica-privacidad.html">Privacidad</a><a href="https://imoancy.com/aviso-legal.html">Aviso legal</a></nav></div><div class="copyright"><p>© 2026 Imoancy · Todos los derechos reservados.</p></div></footer>
+  <script>
+    (function(){
+      "use strict";
+      var sensor=document.getElementById("sensor-laboral-contrato-baja");
+      if(!sensor) return;
+      var topic="contrato_baja";
+      var estado={view:false,response:null,need:null};
+      var respuestasPermitidas=["yes","no"];
+      var necesidadesPermitidas=["quien_paga","cuanto_cobro","consume_paro","cuando_pedir_paro","caso_diferente"];
+      var respuestas=sensor.querySelectorAll("[data-laboral-response]");
+      var necesidades=sensor.querySelectorAll("[data-laboral-need]");
+      var segundoPaso=document.getElementById("sensor-laboral-necesidad");
+      var gracias=document.getElementById("sensor-laboral-gracias");
+      function registrar(nombre,parametros){if(typeof window.gtag==="function") window.gtag("event",nombre,parametros||{});}
+      function fijarSeleccion(botones,seleccionado){botones.forEach(function(boton){boton.disabled=true;boton.setAttribute("aria-pressed",String(boton===seleccionado));});}
+      if("IntersectionObserver" in window){var observador=new IntersectionObserver(function(entradas){if(estado.view||!entradas.some(function(entrada){return entrada.isIntersecting;})) return;estado.view=true;observador.disconnect();registrar("laboral_sensor_view",{topic:topic});});observador.observe(sensor);}
+      respuestas.forEach(function(boton){boton.addEventListener("click",function(){var respuesta=boton.getAttribute("data-laboral-response");if(estado.response!==null||!respuestasPermitidas.includes(respuesta)) return;estado.response=respuesta;fijarSeleccion(respuestas,boton);registrar("laboral_sensor_response",{topic:topic,response:respuesta});if(respuesta==="yes") segundoPaso.hidden=false;else gracias.hidden=false;});});
+      necesidades.forEach(function(boton){boton.addEventListener("click",function(){var necesidad=boton.getAttribute("data-laboral-need");if(estado.response!=="yes"||estado.need!==null||!necesidadesPermitidas.includes(necesidad)) return;estado.need=necesidad;fijarSeleccion(necesidades,boton);registrar("laboral_sensor_need",{topic:topic,need:necesidad});gracias.hidden=false;});});
+    })();
+  </script>
 </body></html>

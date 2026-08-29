@@ -71,7 +71,24 @@ button,a{cursor:pointer}button:focus-visible,a:focus-visible,summary:focus-visib
 .fuentes-oficiales li+li{margin-top:6px}
 .nota-transparencia{margin-top:14px;padding:14px 16px;border-radius:12px;background:var(--soft);color:var(--muted);font-size:.85rem}
 
+/* Sensor editorial laboral */
+.sensor-laboral{margin-top:52px;padding:22px;border:1px solid var(--line);border-radius:16px;background:#f8fafc}
+.sensor-laboral .sensor-laboral-etiqueta{margin:0 0 8px;color:var(--brand);font-size:.78rem;font-weight:850;letter-spacing:.08em;text-transform:uppercase}
+.sensor-laboral h2{margin-bottom:0}
+.sensor-laboral-opciones{display:grid;gap:10px;margin-top:18px}
+.sensor-laboral-respuestas{grid-template-columns:repeat(2,minmax(0,1fr));max-width:420px}
+.sensor-laboral button{width:100%;min-height:48px;padding:12px 14px;border:1px solid #bfdbfe;border-radius:10px;background:#fff;color:inherit;font:inherit;font-weight:700;text-align:left;cursor:pointer}
+.sensor-laboral button:hover{border-color:var(--brand);background:#eff6ff}
+.sensor-laboral button:focus-visible{outline:3px solid rgba(8,145,178,.45);outline-offset:3px}
+.sensor-laboral button:disabled{cursor:default;opacity:.68}
+.sensor-laboral button[aria-pressed="true"]{border-color:var(--brand);background:#eff6ff;color:var(--brand-dark);opacity:1}
+.sensor-laboral-segundo-paso{margin-top:24px;padding-top:22px;border-top:1px solid var(--line)}
+.sensor-laboral-segundo-paso h3{margin-top:0}
+.sensor-laboral-segundo-paso[hidden],.sensor-laboral-gracias[hidden]{display:none}
+.sensor-laboral-gracias{margin:18px 0 0;color:var(--ok);font-weight:700}
+
 @media(max-width:980px){.comparativa-conceptos{grid-template-columns:1fr}}
+@media(min-width:700px){.sensor-laboral-segundo-paso .sensor-laboral-opciones{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:640px){.pagina-guia{width:min(100% - 20px,1240px)}.cabecera-contenido{width:min(100% - 20px,1240px);min-height:62px}.marca{width:min(158px,44vw)}.enlace-portal{font-size:.72rem;padding:7px 9px}.hero{padding:36px 4px 4px}.respuesta-rapida{padding:16px 18px}.pie-contenido{grid-template-columns:1fr}.pie-navegacion{justify-content:flex-start}}
 @media(max-width:360px){.pagina-guia{width:100%;padding:0 8px}.hero h1{font-size:1.8rem}}
 @media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
