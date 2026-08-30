@@ -1,0 +1,12 @@
+@import url("../adaptacion-jornada-cuidado-hijos/style.css");
+
+.ruta-respuesta{display:grid;gap:12px;margin:16px 0 20px}
+.ruta-respuesta>div{border:1px solid var(--line);border-left:4px solid var(--brand);border-radius:0 15px 15px 0;background:#fff;padding:18px 20px}
+.ruta-respuesta h3{margin:0 0 5px}.ruta-respuesta p{margin:0}
+.sensor-turno{margin-top:52px;padding:22px;border:1px solid var(--line);border-radius:16px;background:#f8fafc}
+.sensor-turno .sensor-etiqueta{margin:0 0 8px;color:var(--brand);font-size:.78rem;font-weight:850;letter-spacing:.08em;text-transform:uppercase}
+.sensor-turno h2{margin-bottom:0}.sensor-opciones{display:grid;gap:10px;margin-top:18px}
+.sensor-opciones button{width:100%;min-height:48px;padding:12px 14px;border:1px solid #bfdbfe;border-radius:10px;background:#fff;color:inherit;font:inherit;font-weight:700;text-align:left}
+.sensor-opciones button:hover{border-color:var(--brand);background:#eff6ff}.sensor-opciones button[aria-pressed="true"]{border-color:var(--brand);background:#eff6ff;color:var(--brand-dark);opacity:1}
+.sensor-opciones button:disabled{cursor:default;opacity:.68}.sensor-gracias{margin:18px 0 0;color:var(--ok);font-weight:700}.sensor-gracias[hidden]{display:none}
+@media(min-width:700px){.sensor-opciones{grid-template-columns:repeat(2,minmax(0,1fr))}}
