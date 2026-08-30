@@ -1,7 +1,18 @@
 "use strict";
 
-const estado = { registros: [], inicioActivo: null, temporizador: null, ultimaPulsacion: 0, wakeLock: null, vibracion: true, registroAtipico: null };
+const estado = { registros: [], inicioActivo: null, temporizador: null, ultimaPulsacion: 0, wakeLock: null, vibracion: true, registroAtipico: null, analitica: { start: false, firstRecord: false, threeRecords: false, fiveRecords: false } };
 const dom = {};
+const EVENTOS_CONTRACCIONES = Object.freeze({ start: "contracciones_start", firstRecord: "contracciones_first_record", threeRecords: "contracciones_3_records", fiveRecords: "contracciones_5_records", export: "contracciones_export" });
+
+function registrarEvento(nombre, parametros) { if (typeof window.gtag !== "function") return; if (parametros === undefined) window.gtag("event", nombre); else window.gtag("event", nombre, parametros); }
+function marcarHito(clave) { if (estado.analitica[clave]) return false; estado.analitica[clave] = true; return true; }
+function prepararHitosDeRegistros() {
+  const hitos = [];
+  if (estado.registros.length >= 1 && marcarHito("firstRecord")) hitos.push(EVENTOS_CONTRACCIONES.firstRecord);
+  if (estado.registros.length >= 3 && marcarHito("threeRecords")) hitos.push(EVENTOS_CONTRACCIONES.threeRecords);
+  if (estado.registros.length >= 5 && marcarHito("fiveRecords")) hitos.push(EVENTOS_CONTRACCIONES.fiveRecords);
+  return hitos;
+}
 
 document.addEventListener("DOMContentLoaded", iniciarHerramienta);
 
@@ -41,11 +52,13 @@ function alternarContraccion() {
 
 function iniciarContraccion(instante) {
   estado.inicioActivo = instante;
+  const registrarInicio = marcarHito("start");
   if (!guardarEstado()) mostrarAviso("La contracción continúa, pero el navegador no permite guardarla.", 5000);
   activarInterfaz(true);
   vibrar(35);
   solicitarWakeLock();
   anunciar("Contracción iniciada. El cronómetro está en marcha.");
+  if (registrarInicio) registrarEvento(EVENTOS_CONTRACCIONES.start);
 }
 
 function finalizarContraccion(instante) {
@@ -54,6 +67,7 @@ function finalizarContraccion(instante) {
   estado.registros.push(registro);
   estado.registros.sort((a,b) => a.inicio - b.inicio);
   if (estado.registros.length > CONFIG.limites.maxRegistros) estado.registros.shift();
+  const hitosDeRegistros = prepararHitosDeRegistros();
   estado.inicioActivo = null;
   detenerBucleReloj();
   liberarWakeLock();
@@ -65,6 +79,7 @@ function finalizarContraccion(instante) {
   anunciar(`Contracción finalizada. Duración ${formatearDuracionHablada(duracion)}. Registro guardado.`);
   mostrarAviso("Contracción registrada", 7000, "DESHACER", () => deshacerRegistro(registro.id));
   if (duracion > CONFIG.limites.duracionAtipicaMs) revisarDuracionAtipica(registro.id);
+  hitosDeRegistros.forEach(nombre => registrarEvento(nombre));
 }
 
 function activarInterfaz(activa, recuperada = false) {
@@ -179,15 +194,15 @@ function cerrarEdicion(){dom.dialogoEditar.close();dom.errorEdicion.textContent=
 function actualizarInicioDesdeIntervalo(){const indice=estado.registros.findIndex(r=>r.id===dom.editarId.value),anterior=estado.registros[indice-1],segundos=Number(dom.editarIntervalo.value);if(anterior&&segundos>0)dom.editarInicio.value=aFechaLocalInput(anterior.inicio+segundos*1000)}
 function guardarEdicion(e){e.preventDefault();const inicio=new Date(dom.editarInicio.value).getTime(),duracion=Number(dom.editarDuracion.value)*1000,fin=inicio+duracion,id=dom.editarId.value;if(!Number.isFinite(inicio)||!Number.isFinite(duracion)||duracion<1000){dom.errorEdicion.textContent="Introduce una hora y una duración válida superior a cero.";dom.editarDuracion.focus();return}const solapa=estado.registros.some(r=>r.id!==id&&inicio<r.fin&&fin>r.inicio);if(solapa){dom.errorEdicion.textContent="Este horario se solapa con otra contracción. Revisa los datos.";return}const r=estado.registros.find(x=>x.id===id);r.inicio=inicio;r.fin=fin;r.editado=true;estado.registros.sort((a,b)=>a.inicio-b.inicio);guardarEstado();cerrarEdicion();renderCompleto();mostrarAviso("Registro actualizado",3000);anunciar("Contracción actualizada y estadísticas recalculadas.")}
 function eliminarRegistro(id){const i=estado.registros.findIndex(r=>r.id===id);if(i<0)return;if(!confirm(`¿Eliminar la contracción ${i+1}? Esta acción no se puede deshacer.`))return;estado.registros.splice(i,1);guardarEstado();renderCompleto();mostrarAviso("Registro eliminado",3000);anunciar("Contracción eliminada y estadísticas recalculadas.")}
-function borrarHistorial(){if(estado.inicioActivo){mostrarAviso("Finaliza la contracción activa antes de iniciar otra sesión.");return}if(confirm("¿Quieres exportar un CSV antes de iniciar la nueva sesión?"))exportarCSV();if(!confirm(`¿Iniciar una nueva sesión y borrar las ${estado.registros.length} contracciones actuales? Esta acción no se puede deshacer.`))return;estado.registros=[];guardarEstado();renderCompleto();mostrarAviso("Nueva sesión preparada",3500);anunciar("Historial borrado. Nueva sesión preparada.")}
+function borrarHistorial(){if(estado.inicioActivo){mostrarAviso("Finaliza la contracción activa antes de iniciar otra sesión.");return}if(confirm("¿Quieres exportar un CSV antes de iniciar la nueva sesión?"))exportarCSV();if(!confirm(`¿Iniciar una nueva sesión y borrar las ${estado.registros.length} contracciones actuales? Esta acción no se puede deshacer.`))return;estado.registros=[];estado.analitica={start:false,firstRecord:false,threeRecords:false,fiveRecords:false};guardarEstado();renderCompleto();mostrarAviso("Nueva sesión preparada",3500);anunciar("Historial borrado. Nueva sesión preparada.")}
 
 function deshacerRegistro(id){const indice=estado.registros.findIndex(r=>r.id===id);if(indice<0)return;estado.registros.splice(indice,1);guardarEstado();renderCompleto();ocultarAviso();mostrarAviso("Registro deshecho",3000);anunciar("Se ha deshecho la última contracción registrada.")}
 function revisarDuracionAtipica(id){estado.registroAtipico=id;dom.dialogoAtipico.showModal();dom.conservarAtipico.focus()}
 function conservarRegistroAtipico(){estado.registroAtipico=null;dom.dialogoAtipico.close();mostrarAviso("Registro conservado",3000)}
 function corregirRegistroAtipico(){const id=estado.registroAtipico;estado.registroAtipico=null;dom.dialogoAtipico.close();abrirEdicion(id)}
 
-function guardarEstado(){try{localStorage.setItem(CONFIG.almacenamiento.clave,JSON.stringify({version:CONFIG.almacenamiento.version,inicioActivo:estado.inicioActivo,registros:estado.registros,vibracion:estado.vibracion,actualizado:Date.now()}));return true}catch(e){return false}}
-function restaurarEstado(){try{const bruto=localStorage.getItem(CONFIG.almacenamiento.clave);if(!bruto)return;const datos=JSON.parse(bruto);if(datos.version!==CONFIG.almacenamiento.version||!Array.isArray(datos.registros))return;estado.registros=datos.registros.filter(esRegistroValido).sort((a,b)=>a.inicio-b.inicio);estado.inicioActivo=Number.isFinite(datos.inicioActivo)&&datos.inicioActivo<=Date.now()?datos.inicioActivo:null;estado.vibracion=datos.vibracion!==false}catch(e){mostrarAviso("No se pudo recuperar el historial guardado.",5000)}}
+function guardarEstado(){try{localStorage.setItem(CONFIG.almacenamiento.clave,JSON.stringify({version:CONFIG.almacenamiento.version,inicioActivo:estado.inicioActivo,registros:estado.registros,vibracion:estado.vibracion,analitica:estado.analitica,actualizado:Date.now()}));return true}catch(e){return false}}
+function restaurarEstado(){try{const bruto=localStorage.getItem(CONFIG.almacenamiento.clave);if(!bruto)return;const datos=JSON.parse(bruto);if(datos.version!==CONFIG.almacenamiento.version||!Array.isArray(datos.registros))return;estado.registros=datos.registros.filter(esRegistroValido).sort((a,b)=>a.inicio-b.inicio);estado.inicioActivo=Number.isFinite(datos.inicioActivo)&&datos.inicioActivo<=Date.now()?datos.inicioActivo:null;estado.vibracion=datos.vibracion!==false;const analitica=datos.analitica&&typeof datos.analitica==="object"?datos.analitica:{};estado.analitica={start:analitica.start===true||Boolean(estado.inicioActivo)||estado.registros.length>0,firstRecord:analitica.firstRecord===true||estado.registros.length>=1,threeRecords:analitica.threeRecords===true||estado.registros.length>=3,fiveRecords:analitica.fiveRecords===true||estado.registros.length>=5}}catch(e){mostrarAviso("No se pudo recuperar el historial guardado.",5000)}}
 function sincronizarPestanas(e){if(e.key!==CONFIG.almacenamiento.clave)return;restaurarEstado();renderCompleto();activarInterfaz(Boolean(estado.inicioActivo));mostrarAviso("Datos sincronizados desde otra pestaña.")}
 function esRegistroValido(r){return r&&typeof r.id==="string"&&Number.isFinite(r.inicio)&&Number.isFinite(r.fin)&&r.fin>r.inicio}
 
@@ -197,11 +212,11 @@ function exportarCSV(){
   const filas=[["Informe de contracciones","Imoancy"],["Fecha de exportacion",new Date().toISOString()],["Numero de contracciones",estado.registros.length],["Duracion media segundos",Math.round(media(duraciones)/1000)],["Duracion minima segundos",Math.round(Math.min(...duraciones)/1000)],["Duracion maxima segundos",Math.round(Math.max(...duraciones)/1000)],["Intervalo medio segundos",intervalos.length?Math.round(media(intervalos)/1000):""],["Intervalo minimo segundos",intervalos.length?Math.round(Math.min(...intervalos)/1000):""],["Intervalo maximo segundos",intervalos.length?Math.round(Math.max(...intervalos)/1000):""],[],["Numero","Inicio","Final","Duracion_segundos","Intervalo_segundos","Editado"]];
   estado.registros.forEach((r,i)=>filas.push([i+1,new Date(r.inicio).toISOString(),new Date(r.fin).toISOString(),Math.round((r.fin-r.inicio)/1000),i?Math.round((r.inicio-estado.registros[i-1].inicio)/1000):"",r.editado?"Sí":"No"]));
   const csv="\ufeff"+filas.map(f=>f.map(escaparCSV).join(";")).join("\r\n"),url=URL.createObjectURL(new Blob([csv],{type:"text/csv;charset=utf-8"})),a=document.createElement("a");
-  a.href=url;a.download=`contracciones-${new Date().toISOString().slice(0,10)}.csv`;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);mostrarAviso("Archivo CSV exportado",3000);anunciar("Archivo CSV exportado.")
+  a.href=url;a.download=`contracciones-${new Date().toISOString().slice(0,10)}.csv`;a.click();registrarEvento(EVENTOS_CONTRACCIONES.export,{format:"csv"});setTimeout(()=>URL.revokeObjectURL(url),1000);mostrarAviso("Archivo CSV exportado",3000);anunciar("Archivo CSV exportado.")
 }
 function escaparCSV(v){return `"${String(v).replaceAll('"','""')}"`}
 function prepararInforme(){dom.fechaInforme.textContent=new Date().toLocaleString("es-ES",{dateStyle:"long",timeStyle:"short"})}
-function imprimirInforme(tipo){if(!estado.registros.length)return;prepararInforme();window.print();mostrarAviso(`Informe preparado para ${tipo}`,3000);anunciar(`Informe preparado para ${tipo}.`) }
+function imprimirInforme(tipo){if(!estado.registros.length)return;prepararInforme();window.print();registrarEvento(EVENTOS_CONTRACCIONES.export,{format:"print_pdf"});mostrarAviso(`Informe preparado para ${tipo}`,3000);anunciar(`Informe preparado para ${tipo}.`) }
 function actualizarExportaciones(){const disabled=!estado.registros.length||Boolean(estado.inicioActivo);[dom.exportarCSV,dom.exportarPDF,dom.imprimir].forEach(b=>b.disabled=disabled)}
 
 function formatearTiempo(ms){if(!Number.isFinite(ms)||ms<0)return"—";const s=Math.round(ms/1000);return s<60?`${s} s`:`${Math.floor(s/60)} min ${String(s%60).padStart(2,"0")} s`}

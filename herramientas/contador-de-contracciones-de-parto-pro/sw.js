@@ -1,5 +1,5 @@
 "use strict";
-const CACHE="h360-contracciones-v6";
+const CACHE="h360-contracciones-v7";
 const RECURSOS=["./","./index.html","./css/style.css","../../assets/css/herramientas-relacionadas-v1.css","./js/config.js","./js/core.js","./js/script.js","./img/preview.svg","./icons/favicon.svg"];
 self.addEventListener("install",evento=>evento.waitUntil(caches.open(CACHE).then(cache=>cache.addAll(RECURSOS)).then(()=>self.skipWaiting())));
 self.addEventListener("activate",evento=>evento.waitUntil(caches.keys().then(claves=>Promise.all(claves.filter(c=>c!==CACHE).map(c=>caches.delete(c)))).then(()=>self.clients.claim())));
