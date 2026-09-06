@@ -1,4 +1,5 @@
-<!doctype html><meta charset="utf-8"><title>Auditoría matemática independiente</title><pre id="salida">Ejecutando…</pre>
+<!doctype html>
+<meta name="robots" content="noindex"><meta charset="utf-8"><title>Auditoría matemática independiente</title><pre id="salida">Ejecutando…</pre>
 <script src="../js/config.js"></script><script src="../js/core.js"></script><script>
 "use strict";
 const r=[];const probar=(n,f)=>{try{f();r.push({nombre:n,ok:true})}catch(e){r.push({nombre:n,ok:false,error:e.message})}};const ok=(v,m)=>{if(!v)throw new Error(m||"Afirmación fallida")};const cerca=(a,b,t=1e-7)=>ok(Math.abs(a-b)<=t*Math.max(1,Math.abs(b)),`${a} != ${b}`);

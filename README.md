@@ -25,3 +25,24 @@ python3 scripts/indexnow.py --before HEAD^ --after HEAD
 ```
 
 Solo el workflow utiliza `--submit` para realizar la petición POST a la API actual de IndexNow.
+
+## Catálogo del buscador
+
+El buscador carga `assets/search-index.js` sin peticiones a un backend. Al añadir,
+retirar o cambiar la metadata de una solución, ejecuta:
+
+```bash
+python3 scripts/build_search_index.py
+python3 scripts/build_search_index.py --check
+python3 -m unittest discover -s tests -p 'test_*.py'
+node --test tests/search.test.js
+```
+
+El generador toma las herramientas y guías indexables, sus títulos, descripciones y
+canonical. El vocabulario adicional se mantiene en `ALIASES` dentro del generador;
+no modifica el contenido SEO. Los tres experimentos existentes se identifican como
+DEPENDE™. La búsqueda ignora acentos y palabras de enlace, puntúa coincidencias y
+muestra hasta seis resultados de forma determinista.
+
+Los HTML bajo `tests/` conservan su funcionamiento local y llevan `noindex`.
+No se bloquean en robots.txt para permitir que los buscadores lean esa directiva.
