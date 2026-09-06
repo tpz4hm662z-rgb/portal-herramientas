@@ -77,7 +77,7 @@ test("no related self-link", canonical not in related_hrefs)
 test("three useful relations", all(fragment in " ".join(related_hrefs) for fragment in ["calculadora-grasa-corporal", "calculadora-porcentaje-grasa-ideal", "calculadora-proteinas"]))
 test("related links map to local directories", all((ROOT / href.replace("https://imoancy.com/", "")).exists() for href in related_hrefs))
 test("portal new name", f'<h3>{new_name} PRO</h3>' in portal and canonical in portal)
-test("portal inventory remains 34", '"numberOfItems": 34' in portal and len(re.findall(r'"@type":"ListItem","position":\d+', portal)) == 34)
+test("portal inventory remains 37", '"numberOfItems": 37' in portal and len(re.findall(r'"@type":"ListItem","position":\d+', portal)) == 37)
 for incoming in [ROOT / "herramientas/calculadora-grasa-corporal/index.html", ROOT / "herramientas/calculadora-porcentaje-grasa-ideal/index.html"]:
     text = incoming.read_text(encoding="utf-8")
     test(f"incoming anchor updated: {incoming.parent.name}", "Calculadora de masa muscular esquelética" in text and canonical in text)
