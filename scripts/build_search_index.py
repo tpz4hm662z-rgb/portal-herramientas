@@ -34,6 +34,7 @@ ALIASES = {
     "calculadora-ahorro": "ahorrar ahorro dinero mes objetivo",
     "calculadora-interes-compuesto-avanzada": "invertir inversion interes compuesto aportaciones",
     "calculadora-inflacion": "inflacion poder adquisitivo dinero precios ipc",
+    "calculadora-tela-cortinas": "cuanta tela cortinas visillos fruncido frunce 140 280 300 onda perfecta ollaos tablas metros costura",
     "montaje-dorada-surfcasting": "pescar pesca dorada surfcasting montaje aparejo mar playa cebo depende",
     "configurar-maquina-coser-vaqueros": "coser vaqueros jeans denim maquina aguja hilo puntada depende",
     "por-que-vuelvo-pinchar-bicicleta": "bici bicicleta pincho pinchar pinchazo pinchazos rueda camara depende",

@@ -351,6 +351,13 @@ window.ImoancySearchIndex = [
     "terms": "salario sueldo bruto neto nomina cobro cobrar"
   },
   {
+    "url": "/herramientas/calculadora-tela-cortinas/",
+    "title": "Calculadora de tela para cortinas: metros y cortes",
+    "description": "Calcula cuántos metros de tela necesitas para cortinas: ancho de 140, 280 o 300 cm, fruncido, dobladillos y rapport. Obtén cortes y coste, sin registro.",
+    "type": "Herramienta",
+    "terms": "cuanta tela cortinas visillos fruncido frunce 140 280 300 onda perfecta ollaos tablas metros costura"
+  },
+  {
     "url": "/herramientas/calculadora-tmb/",
     "title": "Calculadora TMB Gratis | Metabolismo Basal y Calorías",
     "description": "Calcula gratis tu Tasa Metabólica Basal (TMB), tus calorías de mantenimiento y una estimación para perder grasa o ganar masa muscular.",
