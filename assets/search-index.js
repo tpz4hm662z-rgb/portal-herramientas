@@ -365,6 +365,13 @@ window.ImoancySearchIndex = [
     "terms": ""
   },
   {
+    "url": "/herramientas/comprobador-permisos-laborales-familiares/",
+    "title": "Permisos laborales por familiar: comprueba tus días",
+    "description": "Comprueba el permiso por hospitalización, operación, enfermedad grave o fallecimiento de un familiar. Días, parentesco y límites del mínimo legal en España.",
+    "type": "Herramienta",
+    "terms": "permiso permisos dias hospitalizacion hospital ingresado ingreso operacion operar reposo enfermedad grave fallecimiento muerte madre padre hermano hermana suegra suegro cunado abuelo nieto sobrino conviviente familiar cuidados"
+  },
+  {
     "url": "/herramientas/configurar-maquina-coser-vaqueros/",
     "title": "Configurar máquina de coser para vaqueros",
     "description": "Indica el grosor del denim, las capas y el trabajo que quieres hacer para obtener una configuración orientativa de aguja, hilo, puntada y técnica.",

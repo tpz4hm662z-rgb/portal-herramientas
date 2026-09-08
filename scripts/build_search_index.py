@@ -9,6 +9,7 @@ ROOT = Path(__file__).resolve().parents[1]
 OUTPUT = ROOT / "assets/search-index.js"
 # Vocabulario de recuperación, no contenido ni metadata SEO.
 ALIASES = {
+    "comprobador-permisos-laborales-familiares": "permiso permisos dias hospitalizacion hospital ingresado ingreso operacion operar reposo enfermedad grave fallecimiento muerte madre padre hermano hermana suegra suegro cunado abuelo nieto sobrino conviviente familiar cuidados",
     "baja-voluntaria-nuevo-trabajo-paro": "dejar deje renunciar renuncie trabajo empleo cobrar paro dimision periodo prueba",
     "excedencia-voluntaria-trabajar-otra-empresa-paro": "excedencia trabajar empresa empleo cobrar paro",
     "reduccion-jornada-cuidado-hijo-despido-paro": "reducida reduccion jornada despiden despido hijo hija hijos paro",
