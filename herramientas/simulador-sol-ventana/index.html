@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Simulador de sol en tu ventana: compara orientaciones | Imoancy</title>
+  <meta name="description" content="Mira cómo entraría el sol por una ventana, compara dos orientaciones y explora el año. Simulación visual para ciudades de España, sin registro ni dirección.">
+  <meta name="robots" content="index, follow">
+  <meta name="theme-color" content="#173b45">
+  <link rel="canonical" href="https://imoancy.com/herramientas/simulador-sol-ventana/">
+  <link rel="icon" href="../../assets/brand/favicon-32.png" type="image/png">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Atlas de sol · Mira tu ventana en otra estación">
+  <meta property="og:description" content="Una ventana. Dos orientaciones. Doce meses de sol para explorar.">
+  <meta property="og:url" content="https://imoancy.com/herramientas/simulador-sol-ventana/">
+  <meta property="og:image" content="https://imoancy.com/herramientas/simulador-sol-ventana/portada.png">
+  <link rel="stylesheet" href="style.css">
+  <noscript><style>#load-state{display:none}</style></noscript>
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@graph":[{"@type":"WebPage","@id":"https://imoancy.com/herramientas/simulador-sol-ventana/#page","url":"https://imoancy.com/herramientas/simulador-sol-ventana/","name":"Simulador de sol en tu ventana: compara orientaciones | Imoancy","description":"Mira cómo entraría el sol por una ventana, compara dos orientaciones y explora el año. Simulación visual para ciudades de España, sin registro ni dirección.","inLanguage":"es","dateModified":"2026-09-08","breadcrumb":{"@id":"https://imoancy.com/herramientas/simulador-sol-ventana/#breadcrumb"}},{"@type":"BreadcrumbList","@id":"https://imoancy.com/herramientas/simulador-sol-ventana/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Inicio","item":"https://imoancy.com/"},{"@type":"ListItem","position":2,"name":"Vivienda","item":"https://imoancy.com/#vivienda"},{"@type":"ListItem","position":3,"name":"Atlas de sol","item":"https://imoancy.com/herramientas/simulador-sol-ventana/"}]}]}
+  </script>
+  <script defer src="js/core.js"></script>
+  <script defer src="script.js"></script>
+</head>
+<body>
+<a class="skip" href="#explorar">Saltar al simulador</a>
+<header class="masthead">
+  <a class="brand" href="https://imoancy.com/" aria-label="Imoancy, inicio"><img src="../../assets/brand/isotipo.svg" width="32" height="32" alt="">IMOANCY</a>
+  <span class="masthead-label">Pequeños atlas de la vida cotidiana</span>
+  <a href="#metodo">Cómo lo calculamos <span aria-hidden="true">↗</span></a>
+</header>
+<main>
+  <div class="breadcrumbs"><a href="https://imoancy.com/">Inicio</a><span aria-hidden="true">/</span><a href="https://imoancy.com/#vivienda">Vivienda</a><span aria-hidden="true">/</span><span>Atlas de sol</span></div>
+  <section class="hero" aria-labelledby="titulo">
+    <div><p class="eyebrow"><span class="sun-mark" aria-hidden="true">☼</span> ATLAS DE SOL · Nº 01</p><h1 id="titulo">Mira cómo cambia<br>el sol en tu <em>ventana.</em></h1></div>
+    <div class="hero-aside"><p>La misma habitación puede vivir dos vidas distintas en invierno y en verano.</p><p class="muted">Mueve el tiempo. Compara orientaciones. Descubre dónde podría caer el sol.</p><a class="text-link" href="#explorar">Entra y mira <span aria-hidden="true">↓</span></a></div>
+  </section>
+
+  <section class="explorer" id="explorar" aria-labelledby="explorer-title">
+    <div class="section-kicker"><h2 id="explorer-title">Tu pequeño observatorio</h2><span>Sin registro · Sin dirección personal</span></div>
+    <p id="load-state" class="load-state" role="status">Cargando el modelo solar… La guía y las fuentes están disponibles más abajo.</p>
+    <div id="studio" hidden>
+      <div class="configuration">
+        <div class="field city-field"><label for="city"><span class="field-number">01</span> Una ciudad cercana</label><select id="city"></select><span class="field-help" id="city-note">Coordenadas aproximadas de ciudad.</span></div>
+        <div class="field"><label for="bearingA"><span class="badge badge-a">A</span> Tu primera orientación</label><select id="bearingA"></select><span class="field-help">Dirección al mirar hacia fuera.</span></div>
+        <div class="field"><label for="bearingB"><span class="badge badge-b">B</span> Compárala con…</label><select id="bearingB"></select><span class="field-help">Misma habitación, distinto rumbo.</span></div>
+      </div>
+      <details class="fine-tune" id="geometry-panel"><summary>Ajustar medidas, grados y obstáculos <span aria-hidden="true">+</span></summary>
+        <p>Una ventana centrada en una pared vertical. Ambas escenas comparten estas medidas. Si las cambias, la mancha de sol se recalcula a escala.</p>
+        <div class="measurements">
+          <div class="field"><label for="roomWidth">Ancho de habitación (m)</label><input id="roomWidth" type="number" min="2" max="8" step="0.1" value="4" inputmode="decimal"></div>
+          <div class="field"><label for="roomDepth">Fondo de habitación (m)</label><input id="roomDepth" type="number" min="2" max="8" step="0.1" value="4" inputmode="decimal"></div>
+          <div class="field"><label for="windowWidth">Ancho de ventana (m)</label><input id="windowWidth" type="number" min="0.5" max="4" step="0.1" value="1.5" inputmode="decimal"></div>
+          <div class="field"><label for="sill">Del suelo al alféizar (m)</label><input id="sill" type="number" min="0" max="1.5" step="0.1" value="0.9" inputmode="decimal"></div>
+          <div class="field"><label for="windowHeight">Alto de ventana (m)</label><input id="windowHeight" type="number" min="0.4" max="2.5" step="0.1" value="1.3" inputmode="decimal"></div>
+          <div class="field"><label for="angleA">Rumbo exacto A (°)</label><input id="angleA" type="number" min="0" max="359" step="1" value="180" inputmode="numeric"></div>
+          <div class="field"><label for="angleB">Rumbo exacto B (°)</label><input id="angleB" type="number" min="0" max="359" step="1" value="270" inputmode="numeric"></div>
+        </div>
+        <div class="obstruction-control"><label for="obstruction">Cielo tapado por debajo de <output id="obstruction-value" for="obstruction">0°</output></label><input id="obstruction" type="range" min="0" max="60" step="5" value="0"><p class="field-help">0° = horizonte libre. Es una barrera angular uniforme de ejemplo, no un edificio medido. No representa toldos, balcones ni árboles individuales.</p></div>
+        <p id="input-error" class="error" role="alert" hidden></p>
+      </details>
+
+      <div class="theatre">
+        <div class="theatre-top"><div><span class="eyebrow">UN DÍA PARA EXPLORAR</span><p id="date-label">21 de junio de 2026</p></div><div class="season-controls" aria-label="Cambiar estación"><button type="button" data-month="12">Invierno</button><button type="button" data-month="3">Marzo</button><button type="button" data-month="6" aria-pressed="true">Verano</button><label class="sr-only" for="month">Mes</label><select id="month" aria-label="Elegir cualquiera de los doce meses"></select></div></div>
+        <div class="rooms" id="rooms">
+          <figure class="room-figure"><figcaption><span class="badge badge-a">A</span><span id="heading-a">Sur</span><span class="room-bearing" id="degrees-a">180°</span></figcaption><div id="scene-a" class="scene"></div><p class="scene-status" id="status-a"></p></figure>
+          <figure class="room-figure"><figcaption><span class="badge badge-b">B</span><span id="heading-b">Oeste</span><span class="room-bearing" id="degrees-b">270°</span></figcaption><div id="scene-b" class="scene"></div><p class="scene-status" id="status-b"></p></figure>
+        </div>
+        <div class="time-controls"><button id="play" type="button" aria-label="Recorrer el día" aria-pressed="false"><span aria-hidden="true">▶</span></button><div class="time-track"><div class="time-caption"><label for="minute">Mueve la hora</label><output id="clock" for="minute">14:00</output></div><input id="minute" type="range" min="0" max="1425" step="15" value="840" aria-describedby="timezone-note"><div class="time-ticks" aria-hidden="true"><span>00 h</span><span>06 h</span><span>12 h</span><span>18 h</span><span>24 h</span></div></div></div>
+        <div class="theatre-foot"><span id="timezone-note">Hora local de la ciudad, incluido horario de verano.</span><span><i class="sun-key" aria-hidden="true"></i> Sol directo en el suelo · dibujo a escala</span></div>
+      </div>
+
+      <div class="reading" id="reading" aria-labelledby="reading-title">
+        <div class="reading-heading"><p class="eyebrow">LO QUE CAMBIA AL GIRAR LA VENTANA</p><h2 id="reading-title">Una misma fecha.<br>Dos maneras de recibir el sol.</h2><p id="comparison-note"></p></div>
+        <div class="comparison-table-wrap"><table class="comparison-table"><caption class="sr-only">Comparación del día seleccionado</caption><thead><tr><th scope="col">En este modelo</th><th scope="col" id="table-a">A · Sur</th><th scope="col" id="table-b">B · Oeste</th></tr></thead><tbody><tr class="main-metric"><th scope="row">Sol posible en la ventana<small>No es luz real medida</small></th><td id="hours-a"></td><td id="hours-b"></td></tr><tr><th scope="row">Alguna mancha en el suelo</th><td id="floor-a"></td><td id="floor-b"></td></tr><tr><th scope="row">Tramos de sol en la ventana</th><td id="intervals-a"></td><td id="intervals-b"></td></tr></tbody></table></div>
+      </div>
+      <p class="model-note"><strong>Cielo despejado hipotético.</strong> La mancha representa solo rayos directos. No calcula luminosidad ambiental, nubes, temperatura ni ahorro. Los intervalos se estiman en pasos de 15 minutos. <a href="#metodo">Ver límites del modelo</a>.</p>
+
+      <section class="year-section" aria-labelledby="year-title"><div class="year-heading"><div><p class="eyebrow">EL AÑO, DE UN VISTAZO</p><h2 id="year-title">La orientación no cambia.<br>El sol, sí.</h2></div><p>Cada fila muestra el día 21 de un mes de 2026. Toca un mes para llevarlo al observatorio. <span class="muted">Son días de referencia, no medias mensuales.</span></p></div>
+        <div class="atlas-legend"><span><i class="legend-a" aria-hidden="true"></i> A · sol en la ventana</span><span><i class="legend-b" aria-hidden="true"></i> B · sol en la ventana</span><span>Hora local · 00–24 h</span></div>
+        <div id="annual-chart" class="annual-chart"></div>
+        <details class="data-detail"><summary>Ver los datos del atlas en una tabla</summary><div class="data-scroll" tabindex="0" role="region" aria-label="Datos mensuales de sol"><table><caption>Sol posible en la ventana y en el suelo; día 21 de cada mes</caption><thead><tr><th scope="col">Mes</th><th scope="col">Ventana A</th><th scope="col">Suelo A</th><th scope="col">Ventana B</th><th scope="col">Suelo B</th></tr></thead><tbody id="annual-data"></tbody></table></div></details>
+      </section>
+
+      <section class="takeaway" aria-labelledby="takeaway-title"><div><p class="eyebrow">PARA SEGUIR LA CONVERSACIÓN</p><h2 id="takeaway-title">Dos ventanas.<br>Una lámina para comparar.</h2><p>Guarda las dos escenas con sus horas y supuestos. Útil para hablar de un piso, explicar una orientación o volver a mirar con otra estación.</p></div><div class="takeaway-actions"><button type="button" id="save-image" class="button-primary">Guardar comparación <span aria-hidden="true">↓</span></button><button type="button" id="copy-link" class="button-outline">Copiar enlace a este ejemplo <span aria-hidden="true">↗</span></button><p class="field-help">El enlace incluye ciudad aproximada, orientaciones y medidas. Revísalo antes de compartir. Nadie recibe una dirección.</p><p id="share-status" role="status"></p><input id="link-fallback" type="text" readonly aria-label="Enlace para copiar manualmente" hidden><button type="button" id="reset" class="text-button">Volver al ejemplo inicial</button></div></section>
+      <p class="sr-only" id="announcement" role="status" aria-live="polite" aria-atomic="true"></p>
+    </div>
+    <noscript><p class="model-note">La simulación necesita JavaScript. Puedes consultar a continuación cómo interpretar la orientación, el sol directo y las limitaciones de una simulación.</p></noscript>
+  </section>
+
+  <article class="editorial" id="metodo">
+    <div class="editorial-heading"><span class="eyebrow">LEER LA LUZ</span><h2>Lo que una orientación<br>te cuenta. Y lo que no.</h2></div>
+    <div class="editorial-grid">
+      <section><span class="chapter">01</span><h3>¿Hacia dónde mira mi ventana?</h3><p>Imagina que estás dentro y miras perpendicularmente hacia fuera. Esa dirección es la orientación de la ventana. Utiliza un plano con el norte arriba o una brújula ajustada al norte geográfico, lejos de metal y equipos eléctricos.</p><p>Norte es 0°, este 90°, sur 180° y oeste 270°. Si no conoces el rumbo, compara primero las orientaciones; no interpretes el ejemplo inicial como tu vivienda.</p></section>
+      <section><span class="chapter">02</span><h3>El sur de invierno no es el de verano</h3><p>En España, el Sol alcanza más altura al mediodía en verano. Con la misma ventana, sus rayos suelen caer más cerca de la pared. En invierno llega más bajo y puede avanzar más hacia el interior, si nada lo bloquea.</p><p>Este y oeste reparten el sol principalmente entre mañana y tarde. Una ventana norte puede recibir sol directo en algunos tramos del verano. Explorar la hora y la estación explica más que una etiqueta de «buena» o «mala» orientación.</p></section>
+      <section><span class="chapter">03</span><h3>Sin mancha de sol no significa a oscuras</h3><p>El cielo también aporta radiación difusa. Esta simulación dibuja solo rayos directos: la luz que se dispersa en la atmósfera o rebota en otras superficies no aparece en la mancha dorada.</p><p>El sol puede estar frente a la ventana y alcanzar una pared sin tocar el suelo. Por eso se separan las horas de exposición de la ventana y las horas con mancha en el suelo. Ninguna cifra es una medición de luminosidad.</p></section>
+      <section><span class="chapter">04</span><h3>Una visita vale más que un dato aislado</h3><p>Al visitar una vivienda, mira los edificios, balcones, toldos y árboles que rodean la ventana. Comprueba el rumbo y, si puedes, observa el lugar en distintos momentos. Su planta, por sí sola, no permite calcular esos obstáculos.</p><p>No deduzcas calor o consumo de estas horas. Aislamiento, ventilación, vidrio, protecciones y clima también importan. El atlas sirve para entender geometría, no para decidir por sí solo una compra o una reforma.</p></section>
+    </div>
+    <details class="method-detail"><summary>Metodología, supuestos y precisión</summary><div>
+      <p>Calculamos la posición geométrica del centro del Sol con las ecuaciones aproximadas de año fraccional publicadas por NOAA. Usamos coordenadas de ciudad redondeadas a dos decimales y la hora civil de su zona, con el cambio de horario de 2026. No solicitamos ubicación del dispositivo ni consultamos servicios de mapas.</p>
+      <p>La ventana es rectangular, está centrada en una pared vertical de una estancia rectangular y proyecta sobre un suelo horizontal. Cada esquina se prolonga siguiendo la dirección de los rayos solares y el polígono se recorta a la habitación. No se modelan muebles, marcos, espesor del muro, reflexiones ni transmisión del vidrio.</p>
+      <p>El ajuste de cielo tapado es una barrera angular uniforme: bloquea el Sol cuando está por debajo de ese ángulo en cualquier rumbo. Es un supuesto simplificado; no reconstruye obstáculos reales. Con 0° se utiliza un horizonte geométrico libre.</p>
+      <p>Los resúmenes usan muestras cada 15 minutos; los límites de un tramo pueden variar aproximadamente un intervalo, además del error de posición y orientación. No mostramos segundos ni aplicamos al modelo propio las precisiones del algoritmo SPA de NREL. Tampoco modelamos la refracción cerca del horizonte: las horas oficiales de amanecer y ocaso no son directamente equivalentes.</p>
+      <p>El atlas contiene el día 21 de cada mes de <strong>2026</strong>, no una media de todos los días ni una previsión meteorológica. No todos esos días coinciden con el instante astronómico de un solsticio o equinoccio. Los intervalos separados se suman sin contar el hueco entre ellos.</p>
+    </div></details>
+    <section class="sources" aria-labelledby="sources-title"><h3 id="sources-title">Fuentes, sin cajas negras</h3><p class="muted">Investigación y revisión del modelo: <time datetime="2026-09-08">8 de septiembre de 2026</time>.</p><ol>
+      <li><a href="https://gml.noaa.gov/grad/solcalc/solareqns.PDF">NOAA · General Solar Position Calculations</a><span>Ecuaciones aproximadas de declinación, ecuación del tiempo, altura y acimut.</span></li>
+      <li><a href="https://gml.noaa.gov/grad/solcalc/calcdetails.html">NOAA · Detalles y límites del cálculo</a><span>Diferencia entre valores calculados y observados. Su calculadora ya no recibe mantenimiento.</span></li>
+      <li><a href="https://astronomia.ign.es/hora-salidas-y-puestas-de-sol">Instituto Geográfico Nacional · Salidas y puestas del Sol</a><span>Hora oficial y supuestos de horizonte; referencia astronómica, no estimación de sol en una habitación.</span></li>
+      <li><a href="https://www.aemet.es/es/eltiempo/observacion/radiacion/ayuda">AEMET · Interpretación de la radiación solar</a><span>Radiación directa, difusa y efectos de la atmósfera.</span></li>
+      <li><a href="https://docs.nlr.gov/docs/fy08osti/34302.pdf">NREL · Solar Position Algorithm, informe de referencia</a><span>Caso numérico independiente para contrastar posición solar; no se utiliza su código.</span></li>
+    </ol></section>
+    <nav class="related" aria-label="Más herramientas de vivienda"><p class="eyebrow">OTRAS PIEZAS PARA TU CASA</p><a href="https://imoancy.com/herramientas/calculadora-tela-cortinas/" data-related="cortinas"><span>Cuando pases de la luz a la tela</span><strong>Calcula la tela de tus cortinas <span aria-hidden="true">↗</span></strong></a><a href="https://imoancy.com/guias/actas-comunidad-antes-comprar-piso/" data-related="actas"><span>Antes de decidirte por una vivienda</span><strong>Qué mirar en las actas de la comunidad <span aria-hidden="true">↗</span></strong></a></nav>
+  </article>
+  <section class="analytics" aria-labelledby="analytics-title"><div><h2 id="analytics-title">¿Nos ayudas a saber si este atlas resulta útil?</h2><p>Solo con tu permiso medimos acciones generales como explorar o guardar. No enviamos la ciudad, medidas, rumbos ni resultados. La simulación funciona igual con la medición desactivada.</p></div><div><button type="button" id="analytics-allow" aria-pressed="false">Permitir medición</button><button type="button" id="analytics-deny" aria-pressed="true">Mantener desactivada</button><p id="analytics-status" role="status">Medición desactivada.</p></div></section>
+</main>
+<footer><a class="brand" href="https://imoancy.com/"><img src="../../assets/brand/isotipo.svg" width="28" height="28" alt="">IMOANCY</a><p>Entender lo cotidiano, un poco mejor.</p><nav aria-label="Enlaces legales"><a href="https://imoancy.com/politica-privacidad.html">Privacidad</a><a href="https://imoancy.com/aviso-legal.html">Aviso legal</a><a href="https://imoancy.com/sobre-nosotros.html">Sobre Imoancy</a></nav></footer>
+</body>
+</html>

@@ -405,5 +405,12 @@ window.ImoancySearchIndex = [
     "description": "Indica dónde y cómo aparece el daño de la cámara para saber qué causas encajan mejor y qué revisar antes de montar otra.",
     "type": "DEPENDE™",
     "terms": "bici bicicleta pincho pinchar pinchazo pinchazos rueda camara depende"
+  },
+  {
+    "url": "/herramientas/simulador-sol-ventana/",
+    "title": "Simulador de sol en tu ventana: compara orientaciones",
+    "description": "Mira cómo entraría el sol por una ventana, compara dos orientaciones y explora el año. Simulación visual para ciudades de España, sin registro ni dirección.",
+    "type": "Herramienta",
+    "terms": "sol ventana ventanas orientacion norte sur este oeste vivienda casa piso habitacion luz solar mañana tarde invierno verano sombra sombras trayectoria"
   }
 ];
