@@ -44,5 +44,7 @@ no modifica el contenido SEO. Los tres experimentos existentes se identifican co
 DEPENDE™. La búsqueda ignora acentos y palabras de enlace, puntúa coincidencias y
 muestra hasta seis resultados de forma determinista.
 
-Los HTML bajo `tests/` conservan su funcionamiento local y llevan `noindex`.
-No se bloquean en robots.txt para permitir que los buscadores lean esa directiva.
+GitHub Pages utiliza su compilación Jekyll habitual. `_config.yml` excluye `tests/**`
+y `herramientas/*/tests/**` del sitio publicado, sin eliminar archivos del repositorio
+ni afectar al servidor HTTP local o a GitHub Actions. Los HTML de pruebas mantienen
+`noindex` como respaldo para otros servidores. No se bloquean en `robots.txt`.

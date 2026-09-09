@@ -1,0 +1,5 @@
+# GitHub Pages already builds this branch with Jekyll.
+# Keep development tests in the repository and local server, out of the published site.
+exclude:
+  - "tests/**"
+  - "herramientas/*/tests/**"

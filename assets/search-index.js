@@ -318,7 +318,7 @@ window.ImoancySearchIndex = [
   {
     "url": "/herramientas/calculadora-porcentaje-grasa-ideal/",
     "title": "Calculadora de Porcentaje de Grasa Ideal PRO Gratis",
-    "description": "Calcula gratis tu porcentaje de grasa corporal ideal según sexo, edad y objetivo. Compara tu nivel actual y obtén un rango saludable, masa grasa, masa magra y recomendaciones personalizadas.",
+    "description": "Calcula tu porcentaje de grasa ideal según sexo, edad y objetivo. Obtén un rango orientativo y compáralo con tu nivel actual.",
     "type": "Herramienta",
     "terms": ""
   },
