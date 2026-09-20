@@ -106,6 +106,13 @@ window.ImoancySearchIndex = [
     "terms": "termina termina contrato acaba baja medica enfermedad quien paga"
   },
   {
+    "url": "/guias/solicitar-pago-directo-baja-fin-contrato/",
+    "title": "Pago directo de la baja al terminar el contrato | IMOANCY",
+    "description": "Cómo solicitar el pago directo de la baja tras finalizar tu contrato: INSS o mutua, documentos, formulario, presentación y seguimiento del expediente.",
+    "type": "Guía",
+    "terms": ""
+  },
+  {
     "url": "/guias/transferencia-cuenta-equivocada-recuperar-dinero/",
     "title": "Transferencia a cuenta equivocada: cómo intentar recuperar el dinero",
     "description": "Si hiciste una transferencia al IBAN o destinatario equivocado, descubre qué hacer, cuándo puede recuperarse el dinero y qué cambia si el error fue del banco.",
